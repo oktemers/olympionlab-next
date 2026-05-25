@@ -1,27 +1,162 @@
 import { resetPassword, signIn, signInWithGoogle, signUp } from "@/app/auth/actions";
 
-export default function LoginPage({ searchParams }: { searchParams: { error?: string; message?: string } }) {
+export default function LoginPage({
+  searchParams,
+}: {
+  searchParams: { error?: string; message?: string };
+}) {
   return (
     <div className="login-page premium-login-page next-page-shell">
       <div className="noise"></div>
+      <div id="cursorFormulaLayer" className="cursor-formula-layer" aria-hidden="true"></div>
+
       <main className="auth-layout-v2">
-        <a href="/" className="brand auth-brand"><div className="brand-badge">O</div><div>Olympion Lab<small>Akademik çalışma alanı</small></div></a>
-        <section className="auth-copy-panel"><div className="badge cyan">Öğrenci girişi</div><h1>Çalışma rotana kaldığın yerden devam et.</h1><p>Videolarını, PDF notlarını, günlük problemini ve Labs deneylerini tek panelden yönet.</p><div className="auth-highlights"><span>Rota takibi</span><span>Plus içerikler</span><span>AI Koç</span></div></section>
-        <section className="auth-card premium-auth-card">
-          <div className="auth-tabs"><span className="auth-tab active">Giriş Yap</span><span className="auth-tab">Üye Ol</span></div>
-          {searchParams?.error && <p className="next-status-error">{searchParams.error}</p>}
-          {searchParams?.message && <p className="next-status-ok">{searchParams.message}</p>}
-          <form action={signInWithGoogle}><button className="google-btn" type="submit">Google ile bağlan</button></form>
-          <div className="auth-separator"><span>veya e-posta ile devam et</span></div>
-          <div className="grid-2" style={{display:"grid",gap:18}}>
-            <form className="next-form-stack" action={signIn}>
-              <h3>Giriş Yap</h3><label>E-posta<input name="email" type="email" required /></label><label>Şifre<input name="password" type="password" required /></label><button className="btn btn-primary" type="submit">Giriş Yap</button>
-            </form>
-            <form className="next-form-stack" action={signUp}>
-              <h3>Üye Ol</h3><label>Ad Soyad<input name="full_name" required /></label><label>E-posta<input name="email" type="email" required /></label><label>Şifre<input name="password" type="password" minLength={8} required /></label><button className="btn btn-secondary" type="submit">Hesap Oluştur</button>
-            </form>
+        <a href="/" className="brand auth-brand">
+          <div className="brand-badge">O</div>
+          <div>
+            Olympion
+            <small>Akademik çalışma alanı</small>
           </div>
-          <details style={{marginTop:18}}><summary className="forgot-link">Şifremi unuttum</summary><form className="next-form-stack" action={resetPassword} style={{marginTop:12}}><label>E-posta<input name="email" type="email" required /></label><button className="btn btn-secondary" type="submit">Sıfırlama bağlantısı gönder</button></form></details>
+        </a>
+
+        <section className="auth-copy-panel">
+          <div className="badge cyan">Öğrenci girişi</div>
+          <h1>Çalışma rotana kaldığın yerden devam et.</h1>
+          <p>
+            Videolarını, PDF notlarını, günlük problemini ve Labs deneylerini tek panelden yönet.
+          </p>
+          <div className="auth-highlights">
+            <span>Rota takibi</span>
+            <span>Plus içerikler</span>
+            <span>Koç</span>
+          </div>
+        </section>
+
+        <section className="auth-card premium-auth-card">
+          <div className="auth-tabs">
+            <a className="auth-tab active" href="#login-form">
+              Giriş Yap
+            </a>
+            <a className="auth-tab" href="#register-form">
+              Üye Ol
+            </a>
+          </div>
+
+          {searchParams?.error && (
+            <p className="next-status-error">{searchParams.error}</p>
+          )}
+
+          {searchParams?.message && (
+            <p className="next-status-ok">{searchParams.message}</p>
+          )}
+
+          <form action={signInWithGoogle}>
+            <button className="google-btn" type="submit" aria-label="Google ile bağlan">
+              <svg viewBox="0 0 48 48" aria-hidden="true">
+                <path
+                  fill="#FFC107"
+                  d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"
+                />
+                <path
+                  fill="#FF3D00"
+                  d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.1 6.1 29.3 4 24 4 16.3 4 9.6 8.3 6.3 14.7z"
+                />
+                <path
+                  fill="#4CAF50"
+                  d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-7.9l-6.5 5C9.5 39.5 16.2 44 24 44z"
+                />
+                <path
+                  fill="#1976D2"
+                  d="M43.6 20.5H42V20H24v8h11.3c-.8 2.4-2.3 4.3-4.1 5.6l6.2 5.2C36.9 39.3 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"
+                />
+              </svg>
+              Google ile bağlan
+            </button>
+          </form>
+
+          <div className="auth-separator">
+            <span>veya e-posta ile devam et</span>
+          </div>
+
+          <form id="login-form" className="next-form-stack" action={signIn}>
+            <label>
+              E-posta
+              <input name="email" type="email" required placeholder="ornek@mail.com" />
+            </label>
+
+            <label>
+              Şifre
+              <input name="password" type="password" required placeholder="••••••••" />
+            </label>
+
+            <div className="auth-row">
+              <label className="remember-row">
+                <input type="checkbox" /> Beni hatırla
+              </label>
+
+              <a href="#reset-password-form" className="forgot-link">
+                Şifremi unuttum
+              </a>
+            </div>
+
+            <button className="btn btn-primary" type="submit">
+              Giriş Yap
+            </button>
+          </form>
+
+          <form id="register-form" className="next-form-stack" action={signUp}>
+            <label>
+              Ad Soyad
+              <input name="full_name" type="text" required placeholder="Adın ve soyadın" />
+            </label>
+
+            <label>
+              E-posta
+              <input name="email" type="email" required placeholder="ornek@mail.com" />
+            </label>
+
+            <label>
+              Şifre
+              <input
+                name="password"
+                type="password"
+                minLength={8}
+                required
+                placeholder="••••••••"
+              />
+            </label>
+
+            <label>
+              Hedef branş
+              <select name="branch" defaultValue="Fizik Olimpiyatı">
+                <option>Fizik Olimpiyatı</option>
+                <option>Kimya Olimpiyatı</option>
+                <option>Matematik Olimpiyatı</option>
+                <option>Biyoloji Olimpiyatı</option>
+                <option>TÜBİTAK Proje</option>
+              </select>
+            </label>
+
+            <button className="btn btn-primary" type="submit">
+              Hesap Oluştur
+            </button>
+          </form>
+
+          <form id="reset-password-form" className="next-form-stack" action={resetPassword}>
+            <label>
+              Şifre sıfırlama e-postası
+              <input name="email" type="email" required placeholder="ornek@mail.com" />
+            </label>
+
+            <button className="btn btn-secondary" type="submit">
+              Sıfırlama bağlantısı gönder
+            </button>
+          </form>
+
+          <p className="auth-note">
+            Hesabın Olympion Lab profilinle eşleşir. Giriş yaptıktan sonra çalışma paneline
+            yönlendirilirsin.
+          </p>
         </section>
       </main>
     </div>

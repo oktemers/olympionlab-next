@@ -1,0 +1,38 @@
+[
+  {
+    "id": "vectors",
+    "title": "Vektör Laboratuvarı",
+    "branch": "fizik",
+    "status": "open"
+  },
+  {
+    "id": "electric-field",
+    "title": "Elektrik Alan Çizgileri",
+    "branch": "fizik",
+    "status": "open"
+  },
+  {
+    "id": "harmonic-motion",
+    "title": "Harmonik Hareket",
+    "branch": "fizik",
+    "status": "open"
+  },
+  {
+    "id": "orbit",
+    "title": "Yörünge ve Merkezcil Etki",
+    "branch": "fizik",
+    "status": "open"
+  },
+  {
+    "id": "equilibrium",
+    "title": "Kimyasal Denge",
+    "branch": "kimya",
+    "status": "open"
+  },
+  {
+    "id": "formula-universe",
+    "title": "Formül Evreni",
+    "branch": "matematik",
+    "status": "locked"
+  }
+]

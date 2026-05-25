@@ -1,0 +1,7 @@
+-- İlk admin yapmak için:
+-- 1) Supabase Auth üzerinden kendi hesabınla kayıt ol.
+-- 2) Aşağıdaki e-postayı kendi e-postanla değiştirip SQL Editor'da çalıştır.
+--
+-- update public.profiles
+-- set role = 'admin', plan = 'pro'
+-- where email = 'oktemerozannnn@gmail.com';

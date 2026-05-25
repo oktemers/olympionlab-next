@@ -1,0 +1,39 @@
+[
+  {
+    "id": "physics-mechanics",
+    "title": "Fizik • Mekanik Başlangıç Rotası",
+    "branch": "fizik",
+    "description": "Newton yasaları, model kurma, kuvvet diyagramı ve TÜBİTAK tipi soru çözümü.",
+    "videoFilter": {
+      "branch": "fizik"
+    },
+    "pdfs": [
+      "mekanik-formul-haritasi",
+      "vektorler-cep-notu"
+    ]
+  },
+  {
+    "id": "chem-equilibrium",
+    "title": "Kimya • Fizikokimya Rotası",
+    "branch": "kimya",
+    "description": "Denge, tepkime yönü, ICE tabloları ve kavramsal analiz.",
+    "videoFilter": {
+      "branch": "kimya"
+    },
+    "pdfs": [
+      "kimyasal-denge-seti"
+    ]
+  },
+  {
+    "id": "math-strategy",
+    "title": "Matematik • Problem Stratejisi",
+    "branch": "matematik",
+    "description": "İspat sezgisi, sınır durumları ve çözümü parçalara ayırma.",
+    "videoFilter": {
+      "level": "olympiad"
+    },
+    "pdfs": [
+      "ispat-sezgisi"
+    ]
+  }
+]

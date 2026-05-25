@@ -3,12 +3,20 @@ import { resetPassword, signIn, signInWithGoogle, signUp } from "@/app/auth/acti
 export default function LoginPage({
   searchParams,
 }: {
-  searchParams: { error?: string; message?: string };
+  searchParams: { error?: string; message?: string; mode?: string };
 }) {
+  const mode = searchParams?.mode === "register" ? "register" : "login";
+
   return (
-    <div className="login-page premium-login-page next-page-shell">
+    <div className="login-page premium-login-page">
       <div className="noise"></div>
-      <div id="cursorFormulaLayer" className="cursor-formula-layer" aria-hidden="true"></div>
+
+      <div id="cursorFormulaLayer" className="cursor-formula-layer" aria-hidden="true">
+        <span>v·E = ρ/ε₀</span>
+        <span>a² + b² = c²</span>
+        <span>ATP → ADP + Pi</span>
+        <span>E = mc²</span>
+      </div>
 
       <main className="auth-layout-v2">
         <a href="/" className="brand auth-brand">
@@ -34,10 +42,10 @@ export default function LoginPage({
 
         <section className="auth-card premium-auth-card">
           <div className="auth-tabs">
-            <a className="auth-tab active" href="#login-form">
+            <a className={`auth-tab ${mode === "login" ? "active" : ""}`} href="/login">
               Giriş Yap
             </a>
-            <a className="auth-tab" href="#register-form">
+            <a className={`auth-tab ${mode === "register" ? "active" : ""}`} href="/login?mode=register">
               Üye Ol
             </a>
           </div>
@@ -78,85 +86,79 @@ export default function LoginPage({
             <span>veya e-posta ile devam et</span>
           </div>
 
-          <form id="login-form" className="next-form-stack" action={signIn}>
-            <label>
-              E-posta
-              <input name="email" type="email" required placeholder="ornek@mail.com" />
-            </label>
-
-            <label>
-              Şifre
-              <input name="password" type="password" required placeholder="••••••••" />
-            </label>
-
-            <div className="auth-row">
-              <label className="remember-row">
-                <input type="checkbox" /> Beni hatırla
+          {mode === "login" ? (
+            <form id="authForm" action={signIn}>
+              <label>
+                E-posta
+                <input name="email" type="email" required placeholder="ornek@mail.com" />
               </label>
 
-              <a href="#reset-password-form" className="forgot-link">
-                Şifremi unuttum
-              </a>
-            </div>
+              <label>
+                Şifre
+                <input name="password" type="password" required placeholder="••••••••" />
+              </label>
 
-            <button className="btn btn-primary" type="submit">
-              Giriş Yap
-            </button>
-          </form>
+              <div className="auth-row">
+                <label className="remember-row">
+                  <input type="checkbox" /> Beni hatırla
+                </label>
+                <a href="/login?mode=reset" className="forgot-link">
+                  Şifremi unuttum
+                </a>
+              </div>
 
-          <form id="register-form" className="next-form-stack" action={signUp}>
-            <label>
-              Ad Soyad
-              <input name="full_name" type="text" required placeholder="Adın ve soyadın" />
-            </label>
+              <button id="authMainBtn" className="btn btn-primary" type="submit">
+                Giriş Yap
+              </button>
 
-            <label>
-              E-posta
-              <input name="email" type="email" required placeholder="ornek@mail.com" />
-            </label>
+              <p className="auth-note">
+                Hesabın Olympion Lab profilinle eşleşir. Giriş yaptıktan sonra çalışma paneline
+                yönlendirilirsin.
+              </p>
+            </form>
+          ) : (
+            <form id="authForm" action={signUp}>
+              <label>
+                Ad Soyad
+                <input name="full_name" type="text" required placeholder="Adın ve soyadın" />
+              </label>
 
-            <label>
-              Şifre
-              <input
-                name="password"
-                type="password"
-                minLength={8}
-                required
-                placeholder="••••••••"
-              />
-            </label>
+              <label>
+                E-posta
+                <input name="email" type="email" required placeholder="ornek@mail.com" />
+              </label>
 
-            <label>
-              Hedef branş
-              <select name="branch" defaultValue="Fizik Olimpiyatı">
-                <option>Fizik Olimpiyatı</option>
-                <option>Kimya Olimpiyatı</option>
-                <option>Matematik Olimpiyatı</option>
-                <option>Biyoloji Olimpiyatı</option>
-                <option>TÜBİTAK Proje</option>
-              </select>
-            </label>
+              <label>
+                Şifre
+                <input
+                  name="password"
+                  type="password"
+                  minLength={8}
+                  required
+                  placeholder="••••••••"
+                />
+              </label>
 
-            <button className="btn btn-primary" type="submit">
-              Hesap Oluştur
-            </button>
-          </form>
+              <label>
+                Hedef branş
+                <select name="branch" defaultValue="Fizik Olimpiyatı">
+                  <option>Fizik Olimpiyatı</option>
+                  <option>Kimya Olimpiyatı</option>
+                  <option>Matematik Olimpiyatı</option>
+                  <option>Biyoloji Olimpiyatı</option>
+                  <option>TÜBİTAK Proje</option>
+                </select>
+              </label>
 
-          <form id="reset-password-form" className="next-form-stack" action={resetPassword}>
-            <label>
-              Şifre sıfırlama e-postası
-              <input name="email" type="email" required placeholder="ornek@mail.com" />
-            </label>
+              <button id="authMainBtn" className="btn btn-primary" type="submit">
+                Hesap Oluştur
+              </button>
 
-            <button className="btn btn-secondary" type="submit">
-              Sıfırlama bağlantısı gönder
-            </button>
-          </form>
-
-          <p className="auth-note">
-            Hesabın Olympion Lab profilinle eşleşir. Giriş yaptıktan sonra çalışma paneline
-            yönlendirilirsin.
-          </p>
+              <p className="auth-note">
+                Bu hesap Supabase Auth’a kaydedilir ve otomatik öğrenci profili oluşturur.
+              </p>
+            </form>
+          )}
         </section>
       </main>
     </div>

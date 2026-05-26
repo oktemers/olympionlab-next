@@ -114,14 +114,11 @@ export default async function DashboardPage() {
   const fullName = profile?.full_name || email.split("@")[0] || "Öğrenci";
   const firstName = fullName.split(" ")[0] || "Öğrenci";
 
-  const branchKey = profile?.branch as string | null;
-
-  if (!branchKey) {
-    redirect("/settings?setup=route");
-  }
+  const branchKey = (profile?.branch as string | null) || "physics";
+  const levelKey = (profile?.level as string | null) || "beginner";
 
   const branch = branchLabels[branchKey] || branchKey;
-  const level = levelLabels[profile?.level || ""] || profile?.level || "Başlangıç";
+  const level = levelLabels[levelKey] || levelKey || "Başlangıç";
   const goal = profile?.goal || "Bilim olimpiyatlarına düzenli hazırlanmak";
 
   const { data: modulesData } = await supabase
@@ -149,8 +146,8 @@ export default async function DashboardPage() {
       .insert({
         user_id: user.id,
         branch: branchKey,
-        level: profile?.level || null,
-        goal: profile?.goal || null,
+        level: levelKey,
+        goal,
         current_module_id: firstModule?.id || null,
       })
       .select("*")
@@ -166,8 +163,8 @@ export default async function DashboardPage() {
       .from("user_route_state")
       .update({
         branch: branchKey,
-        level: profile?.level || null,
-        goal: profile?.goal || null,
+        level: levelKey,
+        goal,
         current_module_id: firstModule?.id || null,
         updated_at: new Date().toISOString(),
       })
@@ -184,7 +181,6 @@ export default async function DashboardPage() {
     .eq("user_id", user.id);
 
   const progressRows = (progressData || []) as ModuleProgress[];
-
   const progressMap = new Map(progressRows.map((row) => [row.module_id, row]));
 
   const completedModules = modules.filter((module) => {
@@ -193,7 +189,6 @@ export default async function DashboardPage() {
   });
 
   const totalModules = modules.length;
-
   const routePercent =
     totalModules > 0 ? Math.round((completedModules.length / totalModules) * 100) : 0;
 
@@ -268,13 +263,14 @@ export default async function DashboardPage() {
       ? `${Math.floor(totalStudyMinutes / 60)}s ${totalStudyMinutes % 60}dk`
       : `${totalStudyMinutes}dk`;
 
-  const recommendedModules = [
-    ...modules.filter((module) => {
-      const progress = progressMap.get(module.id);
-      return !progress || progress.status !== "completed";
-    }),
-    ...modules,
-  ].slice(0, 4);
+  const unfinishedModules = modules.filter((module) => {
+    const progress = progressMap.get(module.id);
+    return !progress || progress.status !== "completed";
+  });
+
+  const recommendedModules = [...unfinishedModules, ...modules]
+    .filter((module, index, array) => array.findIndex((item) => item.id === module.id) === index)
+    .slice(0, 4);
 
   const pdfPreviewModules = pdfModules.slice(0, 2);
 
@@ -424,7 +420,7 @@ export default async function DashboardPage() {
                 {branch} • {level} • {goal}
               </strong>
               <p>
-                Bu rota Supabase profilindeki branş, seviye ve hedef bilgilerine göre oluşturuldu.
+                Branş seçilmemişse varsayılan olarak Fizik başlangıç rotası açılır.
               </p>
             </div>
 

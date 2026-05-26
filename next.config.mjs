@@ -4,6 +4,7 @@ const nextConfig = {
     return {
       beforeFiles: [
         { source: "/", destination: "/index.html" },
+        { source: "/settings.html", destination: "/settings" },
 
         { source: "/videos", destination: "/videos.html" },
         { source: "/branches", destination: "/branches.html" },

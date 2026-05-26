@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "@/app/auth/actions";
-import DashboardOnboardingModal from "./DashboardOnboardingModal";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -28,25 +27,16 @@ export default async function DashboardPage() {
   const email = profile?.email || user.email || "";
   const fullName = profile?.full_name || email.split("@")[0] || "Öğrenci";
   const firstName = fullName.split(" ")[0] || "Öğrenci";
-  const plan = profile?.plan || "free";
   const branch = profile?.branch || "Fizik";
   const level = profile?.level || "Başlangıç";
   const goal = profile?.goal || "TÜBİTAK 1. Aşama";
   const completedCount = count || 0;
 
-  const greetings = JSON.stringify([
-    `Hoş geldin, ${firstName}.`,
-    `Welcome back, ${firstName}.`,
-    `Willkommen zurück, ${firstName}.`,
-    `Bienvenue, ${firstName}.`,
-    `Tekrar merhaba, ${firstName}.`,
-  ]);
-
   return (
     <>
       <link rel="stylesheet" href="/style.css" />
 
-      <body className="app-page">
+      <div className="app-page">
         <a href="/" className="app-mobile-home">
           ← Ana Sayfa
         </a>
@@ -136,15 +126,7 @@ export default async function DashboardPage() {
             <div className="app-top">
               <div>
                 <span className="eyebrow">Genel</span>
-                <h1>
-                  <span
-                    id="welcomeRotator"
-                    className="welcome-rotator"
-                    data-greetings={greetings}
-                  >
-                    Hoş geldin, {firstName}.
-                  </span>
-                </h1>
+                <h1>Hoş geldin, {firstName}.</h1>
                 <p>Bugünkü hedef: 1 ders, 3 problem, 1 PDF notu.</p>
               </div>
 
@@ -214,8 +196,7 @@ export default async function DashboardPage() {
                   <div>
                     <h2>Haftalık çalışma ritmi</h2>
                     <p className="panel-sub">
-                      Renkler günlük çalışma yoğunluğunu gösterir. Hedef: haftada en az 5
-                      aktif gün.
+                      Renkler günlük çalışma yoğunluğunu gösterir. Hedef: haftada en az 5 aktif gün.
                     </p>
                   </div>
                   <a href="/roadmap.html">Rotayı aç</a>
@@ -382,52 +363,60 @@ export default async function DashboardPage() {
           </main>
         </div>
 
-        <DashboardOnboardingModal />
+        <div id="olympionOnboardingModal" className="onboarding-modal" aria-hidden="true">
+          <div className="onboarding-card">
+            <button
+              id="onboardingClose"
+              className="modal-close"
+              aria-label="Kapat"
+              type="button"
+            >
+              ×
+            </button>
 
-<style>{`
-  .dashboard-logout-form {
-    margin: 0;
-  }
+            <div className="badge cyan">İlk kurulum</div>
+            <h2>Rotanı birlikte oluşturalım.</h2>
+            <p>Dashboard’u sana göre şekillendirmek için birkaç hızlı seçim yap.</p>
 
-  .dashboard-logout-form .app-link {
-    width: 100%;
-    border: 0;
-    text-align: left;
-    cursor: pointer;
-  }
-`}</style>
-       
+            <div className="onboarding-step">
+              <strong>Hangi branşla başlamak istiyorsun?</strong>
+              <div className="choice-grid" data-choice-group="branch">
+                <button type="button" data-value="Fizik">Fizik</button>
+                <button type="button" data-value="Kimya">Kimya</button>
+                <button type="button" data-value="Matematik">Matematik</button>
+                <button type="button" data-value="Biyoloji">Biyoloji</button>
+              </div>
+            </div>
+
             <div className="onboarding-step">
               <strong>Seviyen?</strong>
               <div className="choice-grid" data-choice-group="level">
-                <button data-value="Başlangıç">Başlangıç</button>
-                <button data-value="Orta">Orta</button>
-                <button data-value="İleri">İleri</button>
+                <button type="button" data-value="Başlangıç">Başlangıç</button>
+                <button type="button" data-value="Orta">Orta</button>
+                <button type="button" data-value="İleri">İleri</button>
               </div>
             </div>
 
             <div className="onboarding-step">
               <strong>Hedefin?</strong>
               <div className="choice-grid goal-choice-grid" data-choice-group="goal">
-                <button data-value="TÜBİTAK 1. Aşama">TÜBİTAK 1. Aşama</button>
-                <button data-value="TÜBİTAK 2. Aşama">TÜBİTAK 2. Aşama</button>
-                <button data-value="Uluslararası">Uluslararası</button>
-                <button data-value="Kavram öğrenmek ve kendimi geliştirmek">
-                  Kavram öğrenmek
-                </button>
+                <button type="button" data-value="TÜBİTAK 1. Aşama">TÜBİTAK 1. Aşama</button>
+                <button type="button" data-value="TÜBİTAK 2. Aşama">TÜBİTAK 2. Aşama</button>
+                <button type="button" data-value="Uluslararası">Uluslararası</button>
+                <button type="button" data-value="Kavram öğrenmek">Kavram öğrenmek</button>
               </div>
             </div>
 
             <div className="onboarding-step">
               <strong>Haftalık çalışma ritmin?</strong>
               <div className="choice-grid" data-choice-group="days">
-                <button data-value="2 gün">2 gün</button>
-                <button data-value="3-4 gün">3-4 gün</button>
-                <button data-value="5+ gün">5+ gün</button>
+                <button type="button" data-value="2 gün">2 gün</button>
+                <button type="button" data-value="3-4 gün">3-4 gün</button>
+                <button type="button" data-value="5+ gün">5+ gün</button>
               </div>
             </div>
 
-            <button id="createRoadmapBtn" className="btn btn-primary">
+            <button id="createRoadmapBtn" className="btn btn-primary" type="button">
               Rotamı Oluştur
             </button>
           </div>
@@ -444,8 +433,102 @@ export default async function DashboardPage() {
             text-align: left;
             cursor: pointer;
           }
+
+          .onboarding-modal.open {
+            display: grid;
+            opacity: 1;
+            pointer-events: auto;
+          }
+
+          .choice-grid button.active {
+            border-color: rgba(124, 242, 255, 0.65);
+            background: rgba(124, 242, 255, 0.16);
+            color: #eaffff;
+          }
         `}</style>
-      </body>
+
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                var modal = document.getElementById('olympionOnboardingModal');
+                if (!modal) return;
+
+                var storageKey = 'olympion_onboarding_seen_v1';
+                var choices = {
+                  branch: 'Fizik',
+                  level: 'Başlangıç',
+                  goal: 'TÜBİTAK 1. Aşama',
+                  days: '3-4 gün'
+                };
+
+                function openModal() {
+                  modal.classList.add('open');
+                  modal.setAttribute('aria-hidden', 'false');
+                }
+
+                function closeModal() {
+                  localStorage.setItem(storageKey, 'true');
+                  modal.classList.remove('open');
+                  modal.setAttribute('aria-hidden', 'true');
+                }
+
+                function updateActive(groupName, value) {
+                  var group = modal.querySelector('[data-choice-group="' + groupName + '"]');
+                  if (!group) return;
+
+                  group.querySelectorAll('button').forEach(function (button) {
+                    button.classList.toggle('active', button.getAttribute('data-value') === value);
+                  });
+                }
+
+                Object.keys(choices).forEach(function (key) {
+                  updateActive(key, choices[key]);
+                });
+
+                modal.querySelectorAll('[data-choice-group] button').forEach(function (button) {
+                  button.addEventListener('click', function () {
+                    var group = button.parentElement && button.parentElement.getAttribute('data-choice-group');
+                    var value = button.getAttribute('data-value') || '';
+                    if (!group) return;
+
+                    choices[group] = value;
+                    updateActive(group, value);
+                  });
+                });
+
+                var closeButton = document.getElementById('onboardingClose');
+                if (closeButton) {
+                  closeButton.addEventListener('click', closeModal);
+                }
+
+                var createButton = document.getElementById('createRoadmapBtn');
+                if (createButton) {
+                  createButton.addEventListener('click', function () {
+                    localStorage.setItem('olympion_onboarding_choices_v1', JSON.stringify(choices));
+
+                    var summary = document.getElementById('personalRouteSummary');
+                    if (summary) {
+                      var strong = summary.querySelector('strong');
+                      var p = summary.querySelector('p');
+                      if (strong) strong.textContent = choices.branch + ' • ' + choices.level + ' • ' + choices.goal;
+                      if (p) p.textContent = 'Haftalık ritim: ' + choices.days + '. Rotan bu tercihlere göre şekillenecek.';
+                    }
+
+                    closeModal();
+                  });
+                }
+
+                setTimeout(function () {
+                  if (!localStorage.getItem(storageKey)) {
+                    openModal();
+                  }
+                }, 700);
+              })();
+            `,
+          }}
+        />
+      </div>
     </>
   );
 }

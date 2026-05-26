@@ -1,0 +1,26 @@
+[
+  {
+    "id": "mekanik-formul-haritasi",
+    "title": "Mekanik I: Formül Haritası",
+    "type": "Formül Haritası",
+    "plan": "free"
+  },
+  {
+    "id": "vektorler-cep-notu",
+    "title": "Vektörler Cep Notu",
+    "type": "Hızlı Tekrar",
+    "plan": "free"
+  },
+  {
+    "id": "kimyasal-denge-seti",
+    "title": "Kimyasal Denge Soru Seti",
+    "type": "Soru Seti",
+    "plan": "plus"
+  },
+  {
+    "id": "ispat-sezgisi",
+    "title": "İspat Sezgisi: Sınır Durumları",
+    "type": "Konu Özeti",
+    "plan": "pro"
+  }
+]

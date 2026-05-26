@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Olympion | Yapay Zeka Koçu</title>
+  <meta name="description" content="Olympion öğrenci paneli." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="app-page ">
+  <a href="index.html" class="app-mobile-home">← Ana Sayfa</a>
+  <div class="noise"></div>
+  <div id="cursorFormulaLayer" class="cursor-formula-layer" aria-hidden="true"></div>
+  <div class="app-bg-formulas" aria-hidden="true"><span>F = ma</span><span>ΔG = ΔH − TΔS</span><span>∇·E = ρ/ε₀</span><span>sin²x + cos²x = 1</span></div>
+  <div class="app-shell">
+    <aside class="app-sidebar">
+  <a href="dashboard.html" class="app-brand"><div class="brand-badge">O</div><div>Olympion<small>Öğrenci Paneli</small></div></a>
+  <nav class="app-nav" aria-label="Panel menüsü"><a href="dashboard.html" class="app-link "><span>⌘</span>Genel</a><a href="courses.html" class="app-link "><span>▶</span>Dersler</a><a href="roadmap.html" class="app-link "><span>🧭</span>Rota</a><a href="notes.html" class="app-link "><span>📚</span>PDF</a><a href="daily-problem.html" class="app-link "><span>🔥</span>Problem</a><a href="ai-coach.html" class="app-link active"><span>✦</span>Koç</a><a href="student-labs.html" class="app-link "><span>🧪</span>Labs</a><a href="settings.html" class="app-link "><span>⚙</span>Ayarlar</a><button id="sidebarLogoutBtn" class="app-link logout-sidebar" type="button"><span>⏻</span>Çıkış</button></nav>
+  <div class="sidebar-upgrade"><span>Pro</span><strong>Rotanı kilitsiz kullan.</strong><p>Premium dersler, PDF notları ve deney arşivi.</p><a href="pricing.html">Planı yükselt →</a></div>
+  <a href="index.html" class="back-site">← Ana siteye dön</a>
+</aside>
+    <main class="app-main">
+<div class="app-top">
+  <div><span class="eyebrow">Yapay Zeka Koçu</span><h1>Çözümü ezberletmez, düşünme yolunu açar.</h1><p>Hazır soruya tıkla veya kendi sorunu yaz. Bu prototip hazır akışlarla cevap verir; Next.js sürümünde gerçek OpenAI API rotasına bağlanır.</p></div>
+  <a class="btn btn-secondary compact-btn" href="dashboard.html">Panele dön</a>
+</div>
+<div class="coach-layout coach-layout-v19">
+  <section class="app-panel coach-panel">
+    <div class="panel-head"><h2>Koç oturumu</h2><span id="coachStatus" class="eyebrow">Hazır</span></div>
+    <div id="coachChat" class="coach-chat ai-live-chat">
+      <div class="chat-bubble bot"><strong>Olympion Koçu</strong><p>Bir konu seç. Sana direkt cevap vermek yerine çözüm yolunu, hangi fikri kullanacağını ve sonraki soruları göstereceğim.</p></div>
+    </div>
+    <form id="coachForm" class="coach-input">
+      <input id="coachQuestion" type="text" placeholder="Örn. Enerji mi momentum mu kullanmalıyım?" />
+      <button class="btn btn-primary compact-btn" type="submit">Gönder</button>
+    </form>
+  </section>
+  <aside class="app-panel coach-prompt-panel">
+    <h2>Hazır sorular</h2>
+    <div id="coachPromptList" class="coach-prompt-list">
+      <button data-prompt="Enerji mi momentum mu kullanmalıyım?">Enerji mi momentum mu kullanmalıyım?</button>
+      <button data-prompt="Kimyasal dengede Le Chatelier mantığını nasıl kurarım?">Kimyasal dengeyi nasıl düşünmeliyim?</button>
+      <button data-prompt="TÜBİTAK 1. aşama için nasıl çalışmalıyım?">1. aşama için nasıl çalışmalıyım?</button>
+      <button data-prompt="Problem çözerken takılınca ne yapmalıyım?">Takılınca ne yapmalıyım?</button>
+      <button data-prompt="Fizikte kuvvet diyagramını nasıl hızlı çizerim?">Kuvvet diyagramı nasıl çizilir?</button>
+    </div>
+    <div id="coachFollowups" class="coach-followups"></div>
+  </aside>
+</div>
+</main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

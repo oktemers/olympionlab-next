@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Olympion | Panel Labs</title>
+  <meta name="description" content="Olympion öğrenci paneli." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="app-page ">
+  <a href="index.html" class="app-mobile-home">← Ana Sayfa</a>
+  <div class="noise"></div>
+  <div id="cursorFormulaLayer" class="cursor-formula-layer" aria-hidden="true"></div>
+  <div class="app-bg-formulas" aria-hidden="true"><span>F = ma</span><span>ΔG = ΔH − TΔS</span><span>∇·E = ρ/ε₀</span><span>sin²x + cos²x = 1</span></div>
+  <div class="app-shell">
+    <aside class="app-sidebar">
+  <a href="dashboard.html" class="app-brand"><div class="brand-badge">O</div><div>Olympion<small>Öğrenci Paneli</small></div></a>
+  <nav class="app-nav" aria-label="Panel menüsü"><a href="dashboard.html" class="app-link "><span>⌘</span>Genel</a><a href="courses.html" class="app-link "><span>▶</span>Dersler</a><a href="roadmap.html" class="app-link "><span>🧭</span>Rota</a><a href="notes.html" class="app-link "><span>📚</span>PDF</a><a href="daily-problem.html" class="app-link "><span>🔥</span>Problem</a><a href="ai-coach.html" class="app-link "><span>✦</span>Koç</a><a href="student-labs.html" class="app-link active"><span>🧪</span>Labs</a><a href="settings.html" class="app-link "><span>⚙</span>Ayarlar</a><button id="sidebarLogoutBtn" class="app-link logout-sidebar" type="button"><span>⏻</span>Çıkış</button></nav>
+  <div class="sidebar-upgrade">
+    <span>Pro</span>
+    <strong>Rotanı kilitsiz kullan.</strong>
+    <p>Premium dersler, PDF notları ve deney arşivi.</p>
+    <a href="pricing.html">Planı yükselt →</a>
+  </div>
+  <a href="index.html" class="back-site">← Ana siteye dön</a>
+</aside>
+    <main class="app-main">
+<div class="app-top">
+  <div><span class="eyebrow">Olympion Labs</span><h1>Deney düzenekleri.</h1><p>Fizik, matematik, kimya ve biyoloji deneylerini kategoriye göre keşfet. Plus/Pro ile kilitli deney arşivi açılır.</p></div>
+  <a class="btn btn-secondary compact-btn" href="dashboard.html">Panele dön</a>
+</div>
+<div class="lab-category-tabs lab-filter-tabs" role="tablist" aria-label="Labs kategorileri">
+  <button class="lab-filter active" data-lab-filter="all" type="button">Tümü</button>
+  <button class="lab-filter" data-lab-filter="fizik" type="button">⚙️ Fizik</button>
+  <button class="lab-filter" data-lab-filter="matematik" type="button">∑ Matematik</button>
+  <button class="lab-filter" data-lab-filter="kimya" type="button">⚗️ Kimya</button>
+  <button class="lab-filter" data-lab-filter="biyoloji" type="button">🧬 Biyoloji</button>
+</div>
+<div class="labs-grid enhanced-labs app-labs-grid"><article class="lab-card reveal" data-lab-category="fizik"><span class="lab-category-badge">Fizik</span><h3>Vektör Laboratuvarı</h3><p>Büyüklük ve açı değiştikçe vektörün bileşenlerini gör.</p><canvas id="vectorCanvas" class="lab-canvas"></canvas><div class="lab-controls"><label>Büyüklük <input id="vectorMag" type="range" min="30" max="160" value="92"></label><label>Açı <input id="vectorAngle" type="range" min="0" max="180" value="38"></label></div></article><article class="lab-card reveal" data-lab-category="fizik"><span class="lab-category-badge">Fizik</span><h3>Elektrik Alan Çizgileri</h3><p>Yüklerin işaretini değiştir, alan yönlerinin nasıl evrildiğini izle.</p><canvas id="fieldCanvas" class="lab-canvas"></canvas><button id="flipChargeBtn" class="btn btn-secondary compact-btn">Yükleri Ters Çevir</button></article><article class="lab-card reveal" data-lab-category="fizik"><span class="lab-category-badge">Fizik</span><h3>Harmonik Hareket</h3><p>Yay-kütle sisteminin periyodik davranışını görsel olarak takip et.</p><canvas id="motionCanvas" class="lab-canvas"></canvas></article><article class="lab-card reveal" data-lab-category="fizik"><span class="lab-category-badge">Fizik</span><h3>Yörünge ve Merkezcil Etki</h3><p>Hız yönü değişirken merkezcil etkinin nasıl çalıştığını izle.</p><canvas id="orbitCanvas" class="lab-canvas"></canvas><div class="lab-controls"><label>Hız <input id="orbitSpeed" type="range" min="0.4" max="2.4" value="1.1" step="0.1"></label></div></article><article class="lab-card reveal" data-lab-category="kimya"><span class="lab-category-badge">Kimya</span><h3>Kimyasal Denge</h3><p>Ürün/reaktif dengesini değiştirerek sistemin yönelimini sez.</p><div class="chem-balance"><div id="reactBar" class="bar react"></div><div id="prodBar" class="bar prod"></div></div><input id="eqRange" type="range" min="5" max="95" value="55"><p class="muted-small">Denge sağa kaydıkça ürün oranı artar.</p></article><article class="lab-card calculator-card reveal" data-lab-category="matematik"><span class="lab-category-badge">Matematik</span><h3>Bilimsel Hesap Makinesi</h3><p>Olimpiyat problemi çözerken hızlı trigonometrik ve logaritmik hesap için.</p><div class="calc-shell"><div id="calcDisplay" class="calc-display">0</div><div class="calc-keypad"><button data-calc="7">7</button><button data-calc="8">8</button><button data-calc="9">9</button><button data-calc="/">÷</button><button data-calc="4">4</button><button data-calc="5">5</button><button data-calc="6">6</button><button data-calc="*">×</button><button data-calc="1">1</button><button data-calc="2">2</button><button data-calc="3">3</button><button data-calc="-">−</button><button data-calc="0">0</button><button data-calc=".">.</button><button data-calc="sqrt(">√</button><button data-calc="+">+</button><button data-calc="sin(">sin</button><button data-calc="cos(">cos</button><button data-calc="log(">log</button><button data-calc=")">)</button><button data-calc="C" class="calc-clear">C</button><button data-calc="=" class="calc-equals">=</button></div></div><div id="calcResult" class="calc-result">Sonuç burada görünecek.</div></article><article class="lab-card locked-lab reveal" data-lab-category="matematik"><div class="lock-overlay"><span class="lab-category-badge">Matematik</span><h3>Formül Evreni</h3><p>Formüller arası bağlantıları interaktif harita olarak keşfet.</p><button class="btn btn-primary compact-btn premium-trigger">Kilidi Aç</button></div></article><article class="lab-card locked-lab reveal" data-lab-category="fizik"><div class="lock-overlay"><span class="lab-category-badge">Fizik</span><h3>Optik Işın İzleyici</h3><p>Ayna ve mercek sistemlerinde ışın yollarını incele.</p><button class="btn btn-primary compact-btn premium-trigger">Kilidi Aç</button></div></article><article class="lab-card locked-lab reveal" data-lab-category="kimya"><div class="lock-overlay"><span class="lab-category-badge">Kimya</span><h3>Gaz Yasaları Simülatörü</h3><p>Basınç, hacim ve sıcaklık ilişkisini canlı grafikle gör.</p><button class="btn btn-primary compact-btn premium-trigger">Kilidi Aç</button></div></article><article class="lab-card locked-lab reveal" data-lab-category="biyoloji"><div class="lock-overlay"><span class="lab-category-badge">Biyoloji</span><h3>Genetik Olasılık</h3><p>Çaprazlama olasılıklarını görsel tabloyla analiz et.</p><button class="btn btn-primary compact-btn premium-trigger">Kilidi Aç</button></div></article><article class="lab-card locked-lab reveal" data-lab-category="fizik"><div class="lock-overlay"><span class="lab-category-badge">Fizik</span><h3>Momentum Çarpışmaları</h3><p>Elastik ve inelastik çarpışmaları gör.</p><button class="btn btn-primary compact-btn premium-trigger">Kilidi Aç</button></div></article><article class="lab-card locked-lab reveal" data-lab-category="matematik"><div class="lock-overlay"><span class="lab-category-badge">Matematik</span><h3>Limit Görselleştirici</h3><p>Fonksiyon davranışını yaklaşım ile incele.</p><button class="btn btn-primary compact-btn premium-trigger">Kilidi Aç</button></div></article><article class="lab-card locked-lab reveal" data-lab-category="kimya"><div class="lock-overlay"><span class="lab-category-badge">Kimya</span><h3>Titrasyon Eğrisi</h3><p>Asit-baz dengesini eğri üzerinden gör.</p><button class="btn btn-primary compact-btn premium-trigger">Kilidi Aç</button></div></article><article class="lab-card locked-lab reveal" data-lab-category="biyoloji"><div class="lock-overlay"><span class="lab-category-badge">Biyoloji</span><h3>Popülasyon Dinamiği</h3><p>Büyüme modellerini grafikle karşılaştır.</p><button class="btn btn-primary compact-btn premium-trigger">Kilidi Aç</button></div></article></div>
+<div class="more-labs-strip"><strong>15+ deney düzeni hazırlanıyor.</strong><p>Optik, elektromanyetizma, limit, titrasyon ve genetik simülasyonlarını açmak için Olympion Plus/Pro topluluğuna katıl.</p><button class="btn btn-primary more-labs-trigger">Daha fazlasını görüntüle</button></div>
+</main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

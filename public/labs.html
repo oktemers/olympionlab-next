@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Olympion | Labs</title>
+  <meta name="description" content="Olympion Labs deneyleri." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="public-page">
+  <div class="noise"></div>
+  <div id="bootLoader" class="boot-loader" aria-hidden="true"><div class="boot-mark">O</div><div class="boot-copy">Olympion yükleniyor</div><div class="boot-line"></div></div>
+  <div id="cursorFormulaLayer" class="cursor-formula-layer" aria-hidden="true"></div>
+  <div class="formula-layer" aria-hidden="true"><div class="formula drift-right" style="top:7%; left:4%; font-size:28px; animation-duration:25s;">F = ma</div><div class="formula drift-left" style="top:12%; left:78%; font-size:24px; animation-duration:30s;">∫ f(x) dx</div><div class="formula drift-diagonal" style="top:18%; left:42%; font-size:22px; animation-duration:27s;">E = mc²</div><div class="formula drift-up" style="top:28%; left:72%; font-size:21px; animation-duration:12s;">PV = nRT</div><div class="formula drift-left" style="top:38%; left:8%; font-size:22px; animation-duration:28s;">ΔG = ΔH − TΔS</div><div class="formula drift-right" style="top:47%; left:72%; font-size:21px; animation-duration:22s;">∇·E = ρ/ε₀</div><div class="formula drift-up" style="top:60%; left:18%; font-size:23px; animation-duration:11s;">DNA → RNA → Protein</div><div class="formula drift-left" style="top:72%; left:56%; font-size:20px; animation-duration:27s;">sin²x + cos²x = 1</div><div class="formula drift-up" style="top:82%; left:12%; font-size:22px; animation-duration:13s;">λ = h/p</div><div class="formula drift-diagonal" style="top:84%; left:76%; font-size:20px; animation-duration:23s;">pH = −log[H⁺]</div></div>
+  <header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="brand" aria-label="Olympion ana sayfa">
+      <div class="brand-badge">O</div>
+      <div>Olympion<small>Olimpiyat Öğrenme Platformu</small></div>
+    </a>
+    <nav class="nav-links" aria-label="Ana menü"><a href="index.html" class="">Ana Sayfa</a><a href="videos.html" class="">Video Kütüphanesi</a><a href="branches.html" class="">Branşlar</a><a href="labs.html" class="active">Olympion Labs</a><a href="pricing.html" class="">Fiyatlandırma</a><a href="faq.html" class="">SSS</a><a href="hakkimizda.html" class="">Hakkımızda</a></nav>
+    <div class="nav-right"><a href="login.html" class="login-bubble">Giriş Yap <span>→</span></a></div>
+    <button class="menu-btn" id="menuBtn" aria-label="Menüyü aç/kapat">☰</button>
+  </div>
+  <div class="container mobile-menu" id="mobileMenu"><a href="index.html">Ana Sayfa</a><a href="videos.html">Video Kütüphanesi</a><a href="branches.html">Branşlar</a><a href="labs.html">Olympion Labs</a><a href="pricing.html">Fiyatlandırma</a><a href="faq.html">SSS</a><a href="hakkimizda.html">Hakkımızda</a><a href="login.html" class="login-bubble mobile-login">Giriş Yap →</a></div>
+</header>
+  <main class="site-main">
+
+<section class="page-hero compact">
+  <div class="container two-col-head"><div class="reveal"><div class="badge cyan">Olympion Labs</div><h1>Bilimi oynanabilir deneylere dönüştür.</h1><p>Vektör, elektrik alan, harmonik hareket, kimyasal denge ve bilimsel hesap araçlarıyla kavramı ekranda gör.</p></div><div class="pro-tags reveal centered-tags"><span>🧪 Etkileşimli deney</span><span>📐 Bilimsel hesap</span><span>🔒 Plus deneyler</span><span>⚡ Premium sezgi</span></div></div>
+</section>
+<section class="labs-section"><div class="container labs-grid enhanced-labs">
+    <article class="lab-card reveal"><h3>Vektör Laboratuvarı</h3><p>Büyüklük ve açı değiştikçe vektörün bileşenlerini gör.</p><canvas id="vectorCanvas" class="lab-canvas"></canvas><div class="lab-controls"><label>Büyüklük <input id="vectorMag" type="range" min="30" max="160" value="92"></label><label>Açı <input id="vectorAngle" type="range" min="0" max="180" value="38"></label></div></article>
+    <article class="lab-card reveal"><h3>Elektrik Alan Çizgileri</h3><p>Yüklerin işaretini değiştir, alan yönlerinin nasıl evrildiğini izle.</p><canvas id="fieldCanvas" class="lab-canvas"></canvas><button id="flipChargeBtn" class="btn btn-secondary compact-btn">Yükleri Ters Çevir</button></article>
+    <article class="lab-card reveal"><h3>Harmonik Hareket</h3><p>Yay-kütle sisteminin periyodik davranışını görsel olarak takip et.</p><canvas id="motionCanvas" class="lab-canvas"></canvas></article>
+    <article class="lab-card reveal"><h3>Kimyasal Denge</h3><p>Ürün/reaktif dengesini değiştirerek sistemin yönelimini sez.</p><div class="chem-balance"><div id="reactBar" class="bar react"></div><div id="prodBar" class="bar prod"></div></div><input id="eqRange" type="range" min="5" max="95" value="55"><p class="muted-small">Denge sağa kaydıkça ürün oranı artar.</p></article>
+    <article class="lab-card calculator-card reveal"><h3>Bilimsel Hesap Makinesi</h3><p>Olimpiyat problemi çözerken hızlı trigonometrik ve logaritmik hesap için.</p><div class="calc-shell"><div id="calcDisplay" class="calc-display">0</div><div class="calc-keypad"><button data-calc="7">7</button><button data-calc="8">8</button><button data-calc="9">9</button><button data-calc="/">÷</button><button data-calc="4">4</button><button data-calc="5">5</button><button data-calc="6">6</button><button data-calc="*">×</button><button data-calc="1">1</button><button data-calc="2">2</button><button data-calc="3">3</button><button data-calc="-">−</button><button data-calc="0">0</button><button data-calc=".">.</button><button data-calc="sqrt(">√</button><button data-calc="+">+</button><button data-calc="sin(">sin</button><button data-calc="cos(">cos</button><button data-calc="log(">log</button><button data-calc=")">)</button><button data-calc="C" class="calc-clear">C</button><button data-calc="=" class="calc-equals">=</button></div></div><div id="calcResult" class="calc-result">Sonuç burada görünecek.</div></article>
+    <article class="lab-card locked-lab reveal"><div class="lock-overlay"><h3>Formül Evreni</h3><p>Formüller arası bağlantıları interaktif harita olarak keşfet.</p><button class="btn btn-primary compact-btn premium-trigger">Kilidi Aç</button></div></article>
+    <article class="lab-card locked-lab reveal"><div class="lock-overlay"><h3>Optik Işın İzleyici</h3><p>Ayna ve mercek sistemlerinde ışın yollarını incele.</p><button class="btn btn-primary compact-btn premium-trigger">Kilidi Aç</button></div></article>
+    <article class="lab-card locked-lab reveal"><div class="lock-overlay"><h3>Gaz Yasaları Simülatörü</h3><p>Basınç, hacim ve sıcaklık ilişkisini canlı grafikle gör.</p><button class="btn btn-primary compact-btn premium-trigger">Kilidi Aç</button></div></article>
+    <article class="lab-card locked-lab reveal"><div class="lock-overlay"><h3>Genetik Olasılık</h3><p>Çaprazlama olasılıklarını görsel tabloyla analiz et.</p><button class="btn btn-primary compact-btn premium-trigger">Kilidi Aç</button></div></article>
+</div><div class="container center-actions reveal"><button class="btn btn-secondary premium-trigger">Daha fazla deneyi görüntüle →</button></div></section>
+
+  </main>
+  <footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <a href="index.html" class="brand footer-brand"><div class="brand-badge">O</div><div>Olympion<small>Görsel sezgiyle olimpiyat hazırlığı</small></div></a>
+      <p>Olympion; olimpiyat öğrencileri için video, çalışma rotası, PDF notları, günlük problem ve deneysel öğrenme araçlarını tek çatı altında birleştiren premium öğrenme platformudur.</p>
+      <div class="payment-logos" aria-label="Ödeme yöntemleri">
+  <span class="pay-logo visa"><svg viewBox="0 0 96 32" role="img" aria-label="Visa"><text x="48" y="18" text-anchor="middle">VISA</text></svg></span>
+  <span class="pay-logo mc"><svg viewBox="0 0 96 32" role="img" aria-label="Mastercard"><circle cx="40" cy="16" r="10"></circle><circle cx="56" cy="16" r="10"></circle></svg></span>
+  <span class="pay-logo troy"><svg viewBox="0 0 96 32" role="img" aria-label="TROY"><text x="48" y="18" text-anchor="middle">TROY</text></svg></span>
+  <span class="pay-logo iyzico"><svg viewBox="0 0 110 32" role="img" aria-label="iyzico"><text x="55" y="18" text-anchor="middle">iyzico</text></svg></span>
+</div>
+    </div>
+    <div><h4>Platform</h4><a href="videos.html">Video Kütüphanesi</a><a href="labs.html">Olympion Labs</a><a href="pricing.html">Fiyatlandırma</a><a href="problem.html">Günün Problemi</a></div>
+    <div><h4>Kurumsal</h4><a href="hakkimizda.html">Hakkımızda</a><a href="faq.html">SSS</a><a href="mailto:oktemerozannnn@gmail.com">İletişim</a><a href="mentorship-application.html">Mentörlük Başvurusu</a></div>
+    <div><h4>Yasal</h4><a href="privacy.html">Gizlilik Politikası</a><a href="terms.html">Kullanım Şartları</a><a href="kvkk.html">KVKK Aydınlatma Metni</a></div>
+  </div>
+  <div class="container footer-bottom"><span>© Olympion 2026. Tüm hakları saklıdır.</span><span>Premium olimpiyat öğrenme deneyimi</span></div>
+</footer>
+  <script src="script.js"></script>
+</body>
+</html>

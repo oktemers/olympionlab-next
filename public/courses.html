@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Olympion | Dersler</title>
+  <meta name="description" content="Olympion öğrenci paneli." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="app-page"><a href="index.html" class="app-mobile-home">← Ana Sayfa</a>
+  <div class="noise"></div>
+  <div id="cursorFormulaLayer" class="cursor-formula-layer" aria-hidden="true"></div>
+  <div class="app-bg-formulas" aria-hidden="true"><span>F = ma</span><span>ΔG = ΔH − TΔS</span><span>∇·E = ρ/ε₀</span><span>sin²x + cos²x = 1</span></div>
+  <div class="app-shell">
+<aside class="app-sidebar">
+  <a href="dashboard.html" class="app-brand"><div class="brand-badge">O</div><div>Olympion<small>Öğrenci Paneli</small></div></a>
+  <nav class="app-nav" aria-label="Panel menüsü"><a href="dashboard.html" class="app-link "><span>⌘</span>Genel</a><a href="courses.html" class="app-link active"><span>▶</span>Dersler</a><a href="roadmap.html" class="app-link "><span>🧭</span>Rota</a><a href="notes.html" class="app-link "><span>📚</span>PDF</a><a href="daily-problem.html" class="app-link "><span>🔥</span>Problem</a><a href="ai-coach.html" class="app-link "><span>✦</span>Koç</a><a href="student-labs.html" class="app-link "><span>🧪</span>Labs</a><a href="settings.html" class="app-link "><span>⚙</span>Ayarlar</a><button id="sidebarLogoutBtn" class="app-link logout-sidebar" type="button"><span>⏻</span>Çıkış</button></nav>
+  <div class="sidebar-upgrade">
+    <span>Pro</span>
+    <strong>Rotanı kilitsiz kullan.</strong>
+    <p>Premium dersler, PDF notları ve deney arşivi.</p>
+    <a href="pricing.html">Planı yükselt →</a>
+  </div>
+  <a href="index.html" class="back-site">← Ana siteye dön</a>
+</aside>
+    <main class="app-main">
+      <div class="app-top"><div><span class="eyebrow">Dersler</span><h1>Video ders akışın.</h1><p>Derse Git butonu seni platform içi izleme sayfasına taşır; sağ tarafta playlist ve otomatik tamamlanma takibi çalışır.</p></div></div>
+      <div class="course-list">
+        <article class="course-card"><div><span>Fizik • Mekanik</span><h3>Newton Yasaları ve Model Kurma</h3><p>6 ders • 2 PDF • 18 problem • playlist takibi</p></div><a class="btn btn-primary compact-btn" href="lesson.html?course=physics-mechanics">Derse Git →</a><div class="progress"><i style="width:72%"></i></div></article>
+        <article class="course-card"><div><span>Kimya • Fizikokimya</span><h3>Denge ve Tepkime Yönü</h3><p>4 ders • 1 PDF • 12 problem • kavramsal analiz</p></div><a class="btn btn-secondary compact-btn" href="lesson.html?course=chem-equilibrium">Derse Git →</a><div class="progress"><i style="width:36%"></i></div></article>
+        <article class="course-card"><div><span>Matematik • Strateji</span><h3>Olimpiyat Problemi Parçalama</h3><p>5 ders • 3 not • 25 problem • ispat sezgisi</p></div><a class="btn btn-secondary compact-btn" href="lesson.html?course=math-strategy">Derse Git →</a><div class="progress"><i style="width:18%"></i></div></article>
+      </div>
+    </main>
+  </div>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="script.js"></script>
+</body>
+</html>

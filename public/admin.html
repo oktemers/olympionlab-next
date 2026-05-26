@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Olympion | Admin Panel</title>
+  <meta name="description" content="Olympion öğrenci paneli." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="app-page ">
+  <a href="index.html" class="app-mobile-home">← Ana Sayfa</a>
+  <div class="noise"></div>
+  <div id="cursorFormulaLayer" class="cursor-formula-layer" aria-hidden="true"></div>
+  <div class="app-bg-formulas" aria-hidden="true"><span>F = ma</span><span>ΔG = ΔH − TΔS</span><span>∇·E = ρ/ε₀</span><span>sin²x + cos²x = 1</span></div>
+  <div class="app-shell">
+    <aside class="app-sidebar">
+  <a href="dashboard.html" class="app-brand"><div class="brand-badge">O</div><div>Olympion<small>Öğrenci Paneli</small></div></a>
+  <nav class="app-nav" aria-label="Panel menüsü"><a href="dashboard.html" class="app-link "><span>⌘</span>Genel</a><a href="courses.html" class="app-link "><span>▶</span>Dersler</a><a href="roadmap.html" class="app-link "><span>🧭</span>Rota</a><a href="notes.html" class="app-link "><span>📚</span>PDF</a><a href="daily-problem.html" class="app-link "><span>🔥</span>Problem</a><a href="ai-coach.html" class="app-link "><span>✦</span>Koç</a><a href="student-labs.html" class="app-link "><span>🧪</span>Labs</a><a href="settings.html" class="app-link active"><span>⚙</span>Ayarlar</a><button id="sidebarLogoutBtn" class="app-link logout-sidebar" type="button"><span>⏻</span>Çıkış</button></nav>
+  <div class="sidebar-upgrade"><span>Pro</span><strong>Rotanı kilitsiz kullan.</strong><p>Premium dersler, PDF notları ve deney arşivi.</p><a href="pricing.html">Planı yükselt →</a></div>
+  <a href="index.html" class="back-site">← Ana siteye dön</a>
+</aside>
+    <main class="app-main">
+<div class="app-top">
+  <div><span class="eyebrow">Admin Panel</span><h1>İçerik yönetimi.</h1><p>Bu prototipte video ve PDF ekleme akışını görüyorsun. Gerçek sürümde yalnızca admin rolü olan kullanıcılar erişebilir.</p></div>
+  <a href="dashboard.html" class="btn btn-secondary compact-btn">Öğrenci Paneline Dön</a>
+</div>
+<div class="admin-grid">
+  <section class="app-panel">
+    <div class="panel-head"><h2>Yeni video ekle</h2><span class="eyebrow">YouTube ID</span></div>
+    <form id="adminVideoForm" class="admin-form">
+      <label>Video başlığı<input id="adminVideoTitle" placeholder="Örn. TÜBİTAK Fizik 2025 Soru 13"></label>
+      <label>YouTube linki veya video ID<input id="adminVideoUrl" placeholder="https://youtube.com/watch?v=..."></label>
+      <div class="form-row"><label>Branş<select><option>Fizik</option><option>Kimya</option><option>Matematik</option><option>Biyoloji</option></select></label><label>Konu<select><option>Mekanik</option><option>Kimyasal Denge</option><option>Geometri</option><option>Genetik</option></select></label></div>
+      <div class="form-row"><label>Plan<select><option>Free</option><option>Plus</option><option>Pro</option></select></label><label>Sıra No<input type="number" placeholder="1"></label></div>
+      <label>PDF bağlantısı<input placeholder="downloads/mekanik-i.pdf"></label>
+      <button class="btn btn-primary" type="submit">Video Taslağını Kaydet</button><p id="adminVideoStatus" class="muted-small"></p>
+    </form>
+  </section>
+  <section class="app-panel"><div class="panel-head"><h2>Yayın mantığı</h2><span class="eyebrow">Plan erişimi</span></div><div class="admin-list"><div><strong>Free</strong><span>Tanıtım ve seçili örnek dersler</span></div><div><strong>Plus</strong><span>PDF + rota + geniş video arşivi</span></div><div><strong>Pro</strong><span>Tüm Labs + AI Koç + gelişmiş analiz</span></div></div></section>
+  <section class="app-panel wide"><div class="panel-head"><h2>Gerçek sistemde bağlanacak tablolar</h2><span class="eyebrow">Supabase</span></div><div class="admin-flow"><div><span>1</span><strong>videos</strong><p>YouTube ID, başlık, branş, konu, plan.</p></div><div><span>2</span><strong>profiles</strong><p>Kullanıcı rolü, hedef, seviye, üyelik.</p></div><div><span>3</span><strong>progress</strong><p>İzlenen ders, tamamlanan problem, rota ilerleme.</p></div></div></section>
+</div>
+</main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

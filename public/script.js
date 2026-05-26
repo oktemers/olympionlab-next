@@ -368,7 +368,7 @@ let OLYMPION_VIDEOS = [
     const plans={free:['Free','₺0','Temel keşif planı'],plus:['Plus','₺149 / ay','Soru çözüm arşivi + PDF notları'],pro:['Pro','₺299 / ay','Tüm platform + Labs + gelişmiş panel']};
     const p=new URLSearchParams(location.search).get('plan')||'plus'; const chosen=plans[p]||plans.plus;
     checkoutPlan.textContent=chosen[0]; document.getElementById('checkoutPrice').textContent=chosen[1]; document.getElementById('checkoutDesc').textContent=chosen[2];
-    document.getElementById('checkoutContinue')?.setAttribute('href',`login.html?mode=register&plan=${p}`);
+    document.getElementById('checkoutContinue')?.setAttribute('href',`/login?mode=register&plan=${p}`);
   }
 
   // Selected plan hint on login/register

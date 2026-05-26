@@ -3,26 +3,38 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
-function authErrorMessage(message: string) {
-  const lower = message.toLowerCase();
+function trAuthError(message?: string) {
+  const text = (message || "").toLowerCase();
 
-  if (lower.includes("invalid login credentials")) {
-    return "E-posta veya şifre yanlış.";
+  if (
+    text.includes("invalid login credentials") ||
+    text.includes("invalid credentials") ||
+    text.includes("invalid")
+  ) {
+    return "E-posta veya şifre hatalı.";
   }
 
-  if (lower.includes("email not confirmed")) {
-    return "E-posta henüz doğrulanmamış. Lütfen e-posta doğrulama ayarını kontrol et.";
+  if (text.includes("email not confirmed")) {
+    return "E-posta adresin henüz doğrulanmamış.";
   }
 
-  if (lower.includes("security purposes") || lower.includes("seconds")) {
+  if (text.includes("already registered") || text.includes("user already registered")) {
+    return "Bu e-posta adresiyle zaten hesap oluşturulmuş. Giriş yapmayı dene.";
+  }
+
+  if (text.includes("security purposes") || text.includes("seconds")) {
     return "Çok fazla deneme yaptın. Lütfen biraz bekleyip tekrar dene.";
   }
 
-  if (lower.includes("user already registered") || lower.includes("already registered")) {
-    return "Bu e-posta ile zaten hesap oluşturulmuş. Giriş yapmayı dene.";
+  if (text.includes("password")) {
+    return "Şifre geçersiz. Lütfen en az 8 karakterli bir şifre gir.";
   }
 
-  return message || "Bir hata oluştu. Lütfen tekrar dene.";
+  if (text.includes("email")) {
+    return "E-posta adresi geçersiz.";
+  }
+
+  return "Bir hata oluştu. Lütfen tekrar dene.";
 }
 
 export async function signIn(formData: FormData) {
@@ -41,7 +53,7 @@ export async function signIn(formData: FormData) {
   });
 
   if (error) {
-    redirect("/login?error=" + encodeURIComponent(authErrorMessage(error.message)));
+    redirect("/login?error=" + encodeURIComponent(trAuthError(error.message)));
   }
 
   redirect("/dashboard");
@@ -76,7 +88,7 @@ export async function signUp(formData: FormData) {
   if (error) {
     redirect(
       "/login?mode=register&error=" +
-        encodeURIComponent(authErrorMessage(error.message))
+        encodeURIComponent(trAuthError(error.message))
     );
   }
 
@@ -95,36 +107,39 @@ export async function signInWithGoogle() {
   });
 
   if (error) {
-    redirect("/login?error=" + encodeURIComponent(authErrorMessage(error.message)));
+    redirect("/login?error=" + encodeURIComponent(trAuthError(error.message)));
   }
 
   if (data.url) {
     redirect(data.url);
   }
 
-  redirect("/login?error=" + encodeURIComponent("Google bağlantısı başlatılamadı."));
+  redirect("/login?error=" + encodeURIComponent("Google ile giriş başlatılamadı."));
 }
 
 export async function resetPassword(formData: FormData) {
   const email = String(formData.get("email") || "").trim();
-  const supabase = await createClient();
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://olympionlab.com";
 
   if (!email) {
     redirect("/login?mode=reset&error=" + encodeURIComponent("E-posta zorunlu."));
   }
+
+  const supabase = await createClient();
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://olympionlab.com";
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${siteUrl}/reset-password`,
   });
 
   if (error) {
-    redirect("/login?mode=reset&error=" + encodeURIComponent(authErrorMessage(error.message)));
+    redirect(
+      "/login?mode=reset&error=" + encodeURIComponent(trAuthError(error.message))
+    );
   }
 
   redirect(
     "/login?message=" +
-      encodeURIComponent("Sıfırlama bağlantısı e-posta adresine gönderildi.")
+      encodeURIComponent("Şifre sıfırlama bağlantısı e-posta adresine gönderildi.")
   );
 }
 

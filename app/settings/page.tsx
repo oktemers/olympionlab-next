@@ -1,8 +1,19 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "@/app/auth/actions";
+import { updateProfile } from "@/app/settings/actions";
 
-export default async function SettingsPage() {
+type SettingsSearchParams = {
+  error?: string;
+  message?: string;
+};
+
+export default async function SettingsPage({
+  searchParams,
+}: {
+  searchParams: Promise<SettingsSearchParams>;
+}) {
+  const params = await searchParams;
   const supabase = await createClient();
 
   const {
@@ -22,9 +33,10 @@ export default async function SettingsPage() {
   const email = profile?.email || user.email || "";
   const fullName = profile?.full_name || email.split("@")[0] || "Öğrenci";
   const plan = profile?.plan || "free";
-  const branch = profile?.branch || "Henüz seçilmedi";
-  const level = profile?.level || "Henüz seçilmedi";
-  const goal = profile?.goal || "Henüz seçilmedi";
+  const role = profile?.role || "student";
+  const branch = profile?.branch || "";
+  const level = profile?.level || "";
+  const goal = profile?.goal || "";
 
   return (
     <>
@@ -120,11 +132,23 @@ export default async function SettingsPage() {
               <div>
                 <span className="eyebrow">Ayarlar</span>
                 <h1>Profil ayarları</h1>
-                <p>Hesap bilgilerin Supabase profilinden alınır.</p>
+                <p>Adını ve çalışma profilini buradan güncelleyebilirsin.</p>
               </div>
             </div>
 
-            <div className="settings-grid">
+            {params?.error && (
+              <div className="app-panel settings-status settings-error">
+                {params.error}
+              </div>
+            )}
+
+            {params?.message && (
+              <div className="app-panel settings-status settings-success">
+                {params.message}
+              </div>
+            )}
+
+            <form action={updateProfile} className="settings-grid">
               <section className="app-panel">
                 <div className="panel-head">
                   <h2>Hesap bilgileri</h2>
@@ -132,7 +156,12 @@ export default async function SettingsPage() {
 
                 <label>
                   Ad Soyad
-                  <input value={fullName} readOnly />
+                  <input
+                    name="full_name"
+                    defaultValue={fullName}
+                    placeholder="Adın ve soyadın"
+                    required
+                  />
                 </label>
 
                 <label>
@@ -147,11 +176,12 @@ export default async function SettingsPage() {
 
                 <label>
                   Rol
-                  <input value={profile?.role || "student"} readOnly />
+                  <input value={role === "admin" ? "admin" : "student"} readOnly />
                 </label>
 
                 <p className="auth-note">
-                  Bu bilgiler kayıt olurken oluşturulan profilinden gelir.
+                  E-posta, plan ve rol alanları güvenlik için kullanıcı tarafından
+                  değiştirilemez.
                 </p>
               </section>
 
@@ -162,24 +192,46 @@ export default async function SettingsPage() {
 
                 <label>
                   Branş
-                  <input value={branch} readOnly />
+                  <select name="branch" defaultValue={branch}>
+                    <option value="">Henüz seçilmedi</option>
+                    <option value="Fizik">Fizik</option>
+                    <option value="Kimya">Kimya</option>
+                    <option value="Matematik">Matematik</option>
+                    <option value="Biyoloji">Biyoloji</option>
+                    <option value="TÜBİTAK Proje">TÜBİTAK Proje</option>
+                  </select>
                 </label>
 
                 <label>
                   Seviye
-                  <input value={level} readOnly />
+                  <select name="level" defaultValue={level}>
+                    <option value="">Henüz seçilmedi</option>
+                    <option value="Başlangıç">Başlangıç</option>
+                    <option value="Orta">Orta</option>
+                    <option value="İleri">İleri</option>
+                  </select>
                 </label>
 
                 <label>
                   Hedef
-                  <input value={goal} readOnly />
+                  <select name="goal" defaultValue={goal}>
+                    <option value="">Henüz seçilmedi</option>
+                    <option value="TÜBİTAK 1. Aşama">TÜBİTAK 1. Aşama</option>
+                    <option value="TÜBİTAK 2. Aşama">TÜBİTAK 2. Aşama</option>
+                    <option value="Uluslararası Olimpiyat">Uluslararası Olimpiyat</option>
+                    <option value="Kavram öğrenmek">Kavram öğrenmek</option>
+                  </select>
                 </label>
+
+                <button className="btn btn-primary compact-btn" type="submit">
+                  Değişiklikleri kaydet
+                </button>
 
                 <a className="btn btn-secondary compact-btn" href="/dashboard">
                   Dashboard’a dön
                 </a>
               </section>
-            </div>
+            </form>
           </main>
         </div>
 
@@ -193,6 +245,29 @@ export default async function SettingsPage() {
             border: 0;
             text-align: left;
             cursor: pointer;
+          }
+
+          .settings-status {
+            margin-bottom: 18px;
+            padding: 16px 18px;
+            font-weight: 800;
+          }
+
+          .settings-error {
+            border-color: rgba(255, 120, 150, 0.35);
+            color: #ffd0d8;
+            background: rgba(255, 78, 116, 0.08);
+          }
+
+          .settings-success {
+            border-color: rgba(124, 242, 255, 0.35);
+            color: #cfffff;
+            background: rgba(124, 242, 255, 0.08);
+          }
+
+          .settings-grid button,
+          .settings-grid a.btn {
+            margin-top: 8px;
           }
         `}</style>
       </div>

@@ -33,10 +33,25 @@ export default async function SettingsPage({
   const email = profile?.email || user.email || "";
   const fullName = profile?.full_name || email.split("@")[0] || "Öğrenci";
   const plan = profile?.plan || "free";
-  const role = profile?.role || "student";
-  const branch = profile?.branch || "";
-  const level = profile?.level || "";
-  const goal = profile?.goal || "";
+const role = profile?.role || "student";
+const branch = profile?.branch || "";
+const level = profile?.level || "";
+const goal = profile?.goal || "";
+
+const displayPlan =
+  plan === "free"
+    ? "Ücretsiz"
+    : plan === "plus"
+      ? "Plus"
+      : plan === "pro"
+        ? "Pro"
+        : plan;
+
+const displayRole =
+  role === "admin"
+    ? "Admin"
+    : "Öğrenci";
+ 
 
   return (
     <>
@@ -170,14 +185,14 @@ export default async function SettingsPage({
                 </label>
 
                 <label>
-                  Plan
-                  <input value={plan} readOnly />
-                </label>
+  Plan
+  <input value={displayPlan} readOnly />
+</label>
 
-                <label>
-                  Rol
-                  <input value={role === "admin" ? "admin" : "student"} readOnly />
-                </label>
+<label>
+  Rol
+  <input value={displayRole} readOnly />
+</label>
 
                 <p className="auth-note">
                   E-posta, plan ve rol alanları güvenlik için kullanıcı tarafından
@@ -269,6 +284,22 @@ export default async function SettingsPage({
           .settings-grid a.btn {
             margin-top: 8px;
           }
+
+          .settings-grid select,
+.settings-grid select option {
+  background: #081222;
+  color: #f7fbff;
+}
+
+.settings-grid select:focus {
+  border-color: rgba(124, 242, 255, 0.45);
+  box-shadow: 0 0 0 3px rgba(124, 242, 255, 0.08);
+}
+
+.settings-grid input[readonly] {
+  color: #f7fbff;
+  opacity: 1;
+}
         `}</style>
       </div>
     </>

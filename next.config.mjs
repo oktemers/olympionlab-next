@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async rewrites() {
+  async rewrites() {source: "/dashboard.html", destination: "/dashboard" },
     return {
       beforeFiles: [
         { source: "/", destination: "/index.html" },

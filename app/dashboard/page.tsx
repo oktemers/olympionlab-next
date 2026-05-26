@@ -106,7 +106,7 @@ export default async function DashboardPage() {
                 Labs
               </a>
 
-              <a href="/settings.html" className="app-link">
+              <a href="/settings" className="app-link">
                 <span>⚙</span>
                 Ayarlar
               </a>

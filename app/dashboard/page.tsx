@@ -19,392 +19,329 @@ export default async function DashboardPage() {
     .eq("id", user.id)
     .maybeSingle();
 
+  const { count } = await supabase
+    .from("user_progress")
+    .select("*", { count: "exact", head: true })
+    .eq("user_id", user.id);
+
   const email = profile?.email || user.email || "";
   const fullName = profile?.full_name || email.split("@")[0] || "Öğrenci";
   const plan = profile?.plan || "free";
-  const branch = profile?.branch || "Henüz seçilmedi";
+  const branch = profile?.branch || "Seçilmedi";
   const level = profile?.level || "Başlangıç";
-  const goal = profile?.goal || "Onboarding tamamlanmadı";
+  const goal = profile?.goal || "TÜBİTAK 1. Aşama";
+  const completedCount = count || 0;
 
   return (
-    <div className="ol-dashboard">
-      <aside className="ol-sidebar">
-        <a href="/" className="ol-brand">
-          <div className="ol-brand-badge">O</div>
-          <div>
-            <strong>Olympion Lab</strong>
-            <span>Öğrenci Paneli</span>
-          </div>
-        </a>
+    <>
+      <link rel="stylesheet" href="/style.css" />
 
-        <nav className="ol-nav">
-          <a className="active" href="/dashboard">Genel</a>
-          <a href="/videos">Videolar</a>
-          <a href="/dashboard#rota">Rota</a>
-          <a href="/ai-coach">Koç</a>
-          <a href="/admin">Admin</a>
-        </nav>
+      <div className="app-page">
+        <div className="noise"></div>
 
-        <div className="ol-upgrade">
-          <small>PRO</small>
-          <strong>Rotanı kilitsiz kullan.</strong>
-          <p>Premium dersler, PDF notlar ve deney arşivi.</p>
-          <a href="/pricing">Planı yükselt →</a>
+        <div className="app-bg-formulas" aria-hidden="true">
+          <span>∇·E = ρ/ε₀</span>
+          <span>ATP → ADP + Pi</span>
+          <span>E = mc²</span>
+          <span>a² + b² = c²</span>
         </div>
 
-        <form action={signOut}>
-          <button className="ol-signout" type="submit">Çıkış</button>
-        </form>
-
-        <a className="ol-back" href="/">← Ana siteye dön</a>
-      </aside>
-
-      <main className="ol-main">
-        <header className="ol-header">
-          <div>
-            <span className="ol-pill">DASHBOARD</span>
-            <h1>Hoş geldin, {fullName}</h1>
-            <p>{email}</p>
-          </div>
-
-          <a className="ol-primary-link" href="/onboarding">
-            Onboarding’i tamamla →
-          </a>
-        </header>
-
-        <section className="ol-grid">
-          <article className="ol-card">
-            <span>Aktif plan</span>
-            <strong>{plan}</strong>
-            <p>Mevcut erişim seviyen.</p>
-          </article>
-
-          <article className="ol-card">
-            <span>Tamamlanan video</span>
-            <strong>0</strong>
-            <p>İlerleme takibi yakında burada.</p>
-          </article>
-
-          <article className="ol-card">
-            <span>Branş</span>
-            <strong>{branch}</strong>
-            <p>Onboarding ile hedef branşını seç.</p>
-          </article>
-
-          <article className="ol-card">
-            <span>Seviye</span>
-            <strong>{level}</strong>
-            <p>Çalışma rotan seviyene göre şekillenecek.</p>
-          </article>
-        </section>
-
-        <section className="ol-section" id="rota">
-          <div>
-            <span className="ol-pill">ROTA</span>
-            <h2>Bugünkü çalışma alanın</h2>
-            <p>{goal}</p>
-          </div>
-
-          <div className="ol-task-list">
-            <div className="ol-task">
-              <span>01</span>
+        <div className="app-shell">
+          <aside className="app-sidebar">
+            <a href="/" className="app-brand">
+              <div className="brand-badge">O</div>
               <div>
-                <strong>İlk hedefini belirle</strong>
-                <p>Branş, seviye ve hedef sınav bilgilerini tamamla.</p>
+                Olympion
+                <small>Öğrenci Paneli</small>
               </div>
+            </a>
+
+            <nav className="app-nav" aria-label="Dashboard menüsü">
+              <a className="app-link active" href="/dashboard">
+                <span>⌘</span>
+                Genel
+              </a>
+
+              <a className="app-link" href="/videos.html">
+                <span>▶</span>
+                Videolar
+              </a>
+
+              <a className="app-link" href="/dashboard#rota">
+                <span>🧭</span>
+                Rota
+              </a>
+
+              <a className="app-link" href="/ai-coach">
+                <span>✦</span>
+                Koç
+              </a>
+
+              <a className="app-link" href="/admin">
+                <span>⚙</span>
+                Admin
+              </a>
+
+              <form action={signOut}>
+                <button className="app-link logout-link" type="submit">
+                  <span>⏻</span>
+                  Çıkış
+                </button>
+              </form>
+            </nav>
+
+            <div className="sidebar-upgrade">
+              <span>PRO</span>
+              <strong>Rotanı kilitsiz kullan.</strong>
+              <p>Premium dersler, PDF notlar ve deney arşivi.</p>
+              <a href="/pricing.html">Planı yükselt →</a>
             </div>
 
-            <div className="ol-task">
-              <span>02</span>
+            <a className="back-site" href="/">
+              ← Ana siteye dön
+            </a>
+          </aside>
+
+          <main className="app-main">
+            <header className="app-top">
               <div>
-                <strong>Free videolardan başla</strong>
-                <p>Video erişim sistemi bağlandığında içerikler burada listelenecek.</p>
+                <div className="eyebrow">DASHBOARD</div>
+                <h1>Hoş geldin, {fullName}</h1>
+                <p>
+                  Rotan henüz oluşmadı. Onboarding’i tamamlayarak branş, seviye ve hedef
+                  bilgilerini seçebilirsin.
+                </p>
               </div>
-            </div>
 
-            <div className="ol-task">
-              <span>03</span>
+              <a href="/onboarding" className="btn btn-primary compact-btn">
+                Onboarding’i tamamla →
+              </a>
+            </header>
+
+            <section className="metric-grid">
+              <article className="metric-card">
+                <span>Aktif plan</span>
+                <strong>{plan}</strong>
+                <p>Mevcut erişim seviyen.</p>
+              </article>
+
+              <article className="metric-card">
+                <span>Tamamlanan video</span>
+                <strong>{completedCount}</strong>
+                <p>İlerleme takibi burada görünür.</p>
+              </article>
+
+              <article className="metric-card">
+                <span>Branş</span>
+                <strong>{branch}</strong>
+                <p>Hedef branşın.</p>
+              </article>
+
+              <article className="metric-card">
+                <span>Seviye</span>
+                <strong>{level}</strong>
+                <p>Çalışma başlangıç seviyen.</p>
+              </article>
+            </section>
+
+            <section className="app-panel continue-card">
               <div>
-                <strong>AI Koç’u kullan</strong>
-                <p>Çalışma planı ve soru çözüm stratejisi için koç modülü hazırlanıyor.</p>
+                <div className="eyebrow">DEVAM ET</div>
+                <h2>Bugünkü çalışma rotan</h2>
+                <p>
+                  {goal}. Video, problem ve not akışını tamamladıkça ilerleme çubuğun
+                  güncellenecek.
+                </p>
+
+                <div className="progress-track">
+                  <i style={{ width: completedCount > 0 ? "24%" : "7%" }}></i>
+                </div>
               </div>
+
+              <a className="btn btn-secondary" href="/videos.html">
+                Video kütüphanesine git
+              </a>
+            </section>
+
+            <div className="app-grid">
+              <section className="app-panel" id="rota">
+                <div className="panel-head">
+                  <h2>Çalışma rotası</h2>
+                  <a href="/onboarding">Düzenle →</a>
+                </div>
+
+                <div className="task-list">
+                  <label>
+                    <input type="checkbox" />
+                    İlk hedefini belirle
+                  </label>
+
+                  <label>
+                    <input type="checkbox" />
+                    Free videolardan bir ders izle
+                  </label>
+
+                  <label>
+                    <input type="checkbox" />
+                    Günün problemini çöz
+                  </label>
+
+                  <label>
+                    <input type="checkbox" />
+                    Koç’a bir soru sor
+                  </label>
+                </div>
+              </section>
+
+              <section className="app-panel">
+                <div className="panel-head">
+                  <h2>Profil özeti</h2>
+                  <a href="/settings">Ayarlar →</a>
+                </div>
+
+                <div className="note-mini">
+                  <strong>E-posta</strong>
+                  <span>{email}</span>
+                </div>
+
+                <div className="note-mini">
+                  <strong>Plan</strong>
+                  <span>{plan}</span>
+                </div>
+
+                <div className="note-mini">
+                  <strong>Rol</strong>
+                  <span>{profile?.role || "student"}</span>
+                </div>
+
+                <div className="note-mini">
+                  <strong>Hedef</strong>
+                  <span>{goal}</span>
+                </div>
+              </section>
+
+              <section className="app-panel wide">
+                <div className="panel-head">
+                  <h2>Sıradaki dersler</h2>
+                  <a href="/videos.html">Tümünü gör →</a>
+                </div>
+
+                <div className="video-grid mini-video-grid">
+                  <a className="video-card" href="/videos.html">
+                    <div className="thumb">
+                      <div className="thumb-fallback">
+                        Fizik
+                        <br />
+                        <small>TÜBİTAK Ulusal Fizik Olimpiyatı çözüm serisi</small>
+                      </div>
+                      <div className="play">▶</div>
+                      <div className="duration">10:31</div>
+                    </div>
+
+                    <div className="video-body">
+                      <span className="mini-tag">Sıradaki ders</span>
+                      <h3>Fizik Olimpiyatı soru çözümü</h3>
+                      <p>Model kurma ve sezgisel fizik yaklaşımıyla detaylı çözüm.</p>
+                    </div>
+                  </a>
+
+                  <a className="video-card" href="/videos.html">
+                    <div className="thumb">
+                      <div className="thumb-fallback">
+                        Kimya
+                        <br />
+                        <small>TÜBİTAK Ulusal Kimya Olimpiyatı çözüm serisi</small>
+                      </div>
+                      <div className="play">▶</div>
+                      <div className="duration">12:40</div>
+                    </div>
+
+                    <div className="video-body">
+                      <span className="mini-tag">Önerilen</span>
+                      <h3>Kimya Olimpiyatı soru çözümü</h3>
+                      <p>Kavramsal analiz ve hesaplama stratejisiyle ilerle.</p>
+                    </div>
+                  </a>
+                </div>
+              </section>
+
+              <section className="app-panel">
+                <div className="panel-head">
+                  <h2>PDF notları</h2>
+                  <a href="/notes.html">Aç →</a>
+                </div>
+
+                <p>
+                  Konu özeti, formül haritası ve soru setleri Plus/Pro planlarla
+                  açılacak.
+                </p>
+
+                <a className="btn btn-secondary compact-btn" href="/pricing.html">
+                  Planları incele
+                </a>
+              </section>
+
+              <section className="app-panel">
+                <div className="panel-head">
+                  <h2>AI Koç</h2>
+                  <a href="/ai-coach">Koç’a git →</a>
+                </div>
+
+                <p>
+                  Takıldığın soruda direkt cevap yerine ipucu, strateji ve düşünme yolu
+                  al.
+                </p>
+
+                <button className="prompt-btn" type="button">
+                  Enerji mi momentum mu kullanmalıyım?
+                </button>
+
+                <button className="prompt-btn" type="button">
+                  Bugün hangi konuyu tekrar etmeliyim?
+                </button>
+              </section>
             </div>
-          </div>
-        </section>
-      </main>
+          </main>
+        </div>
 
-      <style>{`
-        .ol-dashboard {
-          min-height: 100vh;
-          display: grid;
-          grid-template-columns: 280px 1fr;
-          background:
-            radial-gradient(circle at top left, rgba(98, 210, 255, 0.16), transparent 34%),
-            radial-gradient(circle at bottom right, rgba(130, 110, 255, 0.12), transparent 36%),
-            #050b14;
-          color: #f5f8ff;
-        }
-
-        .ol-sidebar {
-          border-right: 1px solid rgba(255,255,255,0.08);
-          background: rgba(5, 13, 24, 0.82);
-          backdrop-filter: blur(18px);
-          padding: 28px 22px;
-          display: flex;
-          flex-direction: column;
-          gap: 24px;
-        }
-
-        .ol-brand {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          color: inherit;
-          text-decoration: none;
-        }
-
-        .ol-brand-badge {
-          width: 44px;
-          height: 44px;
-          border-radius: 16px;
-          display: grid;
-          place-items: center;
-          background: linear-gradient(135deg, #78e7ff, #7aa7ff);
-          color: #02111f;
-          font-weight: 900;
-        }
-
-        .ol-brand strong {
-          display: block;
-          font-size: 16px;
-          letter-spacing: -0.02em;
-        }
-
-        .ol-brand span {
-          display: block;
-          color: rgba(245,248,255,0.62);
-          font-size: 12px;
-          margin-top: 2px;
-        }
-
-        .ol-nav {
-          display: grid;
-          gap: 8px;
-        }
-
-        .ol-nav a {
-          color: rgba(245,248,255,0.76);
-          text-decoration: none;
-          padding: 13px 14px;
-          border-radius: 16px;
-          font-weight: 700;
-          transition: 0.18s ease;
-        }
-
-        .ol-nav a:hover,
-        .ol-nav a.active {
-          color: #fff;
-          background: rgba(120, 231, 255, 0.12);
-          box-shadow: inset 0 0 0 1px rgba(120, 231, 255, 0.16);
-        }
-
-        .ol-upgrade {
-          margin-top: auto;
-          padding: 18px;
-          border-radius: 22px;
-          background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
-          border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .ol-upgrade small {
-          color: #ffe98a;
-          font-weight: 900;
-          letter-spacing: 0.1em;
-        }
-
-        .ol-upgrade strong {
-          display: block;
-          margin-top: 8px;
-          font-size: 16px;
-        }
-
-        .ol-upgrade p {
-          color: rgba(245,248,255,0.62);
-          font-size: 13px;
-          line-height: 1.55;
-        }
-
-        .ol-upgrade a,
-        .ol-back,
-        .ol-primary-link {
-          color: #75f1ff;
-          text-decoration: none;
-          font-weight: 800;
-        }
-
-        .ol-signout {
-          width: 100%;
-          border: 1px solid rgba(255, 120, 150, 0.28);
-          color: #ffc4cf;
-          background: rgba(255, 78, 116, 0.08);
-          padding: 13px 14px;
-          border-radius: 16px;
-          font-weight: 800;
-          cursor: pointer;
-        }
-
-        .ol-back {
-          font-size: 13px;
-        }
-
-        .ol-main {
-          padding: 42px;
-        }
-
-        .ol-header {
-          display: flex;
-          align-items: flex-start;
-          justify-content: space-between;
-          gap: 24px;
-          margin-bottom: 28px;
-        }
-
-        .ol-pill {
-          display: inline-flex;
-          width: fit-content;
-          padding: 7px 12px;
-          border-radius: 999px;
-          border: 1px solid rgba(120,231,255,0.22);
-          background: rgba(120,231,255,0.08);
-          color: #8ef4ff;
-          font-size: 12px;
-          font-weight: 900;
-          letter-spacing: 0.12em;
-        }
-
-        .ol-header h1 {
-          margin: 16px 0 8px;
-          font-size: clamp(32px, 4vw, 58px);
-          letter-spacing: -0.06em;
-          line-height: 0.96;
-        }
-
-        .ol-header p,
-        .ol-section p,
-        .ol-card p,
-        .ol-task p {
-          color: rgba(245,248,255,0.64);
-        }
-
-        .ol-grid {
-          display: grid;
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-          gap: 16px;
-          margin-bottom: 24px;
-        }
-
-        .ol-card,
-        .ol-section {
-          border: 1px solid rgba(255,255,255,0.1);
-          background:
-            linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.035));
-          border-radius: 28px;
-          box-shadow: 0 24px 80px rgba(0,0,0,0.24);
-        }
-
-        .ol-card {
-          padding: 22px;
-        }
-
-        .ol-card span {
-          color: rgba(245,248,255,0.58);
-          font-size: 13px;
-          font-weight: 800;
-        }
-
-        .ol-card strong {
-          display: block;
-          margin-top: 12px;
-          font-size: 30px;
-          letter-spacing: -0.04em;
-        }
-
-        .ol-section {
-          padding: 28px;
-          display: grid;
-          grid-template-columns: 0.9fr 1.1fr;
-          gap: 24px;
-        }
-
-        .ol-section h2 {
-          margin: 16px 0 10px;
-          font-size: 34px;
-          letter-spacing: -0.04em;
-        }
-
-        .ol-task-list {
-          display: grid;
-          gap: 12px;
-        }
-
-        .ol-task {
-          display: flex;
-          gap: 14px;
-          padding: 16px;
-          border-radius: 20px;
-          background: rgba(5, 13, 24, 0.48);
-          border: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .ol-task > span {
-          width: 38px;
-          height: 38px;
-          flex: 0 0 38px;
-          border-radius: 14px;
-          display: grid;
-          place-items: center;
-          background: rgba(120,231,255,0.12);
-          color: #8ef4ff;
-          font-weight: 900;
-        }
-
-        .ol-task strong {
-          display: block;
-          margin-bottom: 5px;
-        }
-
-        @media (max-width: 980px) {
-          .ol-dashboard {
-            grid-template-columns: 1fr;
+        <style>{`
+          .logout-link {
+            width: 100%;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            text-align: left;
           }
 
-          .ol-sidebar {
-            position: relative;
+          .logout-link:hover {
+            background: rgba(255, 116, 146, 0.11);
+            color: #ffd5dd;
           }
 
-          .ol-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+          .app-sidebar form {
+            margin: 0;
           }
 
-          .ol-section {
-            grid-template-columns: 1fr;
-          }
-        }
-
-        @media (max-width: 620px) {
-          .ol-main {
-            padding: 24px;
+          .continue-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 18px;
           }
 
-          .ol-grid {
-            grid-template-columns: 1fr;
-          }
+          @media (max-width: 760px) {
+            .continue-card {
+              display: block;
+            }
 
-          .ol-header {
-            display: grid;
+            .continue-card .btn {
+              margin-top: 12px;
+              width: 100%;
+            }
           }
-        }
-      `}</style>
-    </div>
+        `}</style>
+      </div>
+    </>
   );
 }

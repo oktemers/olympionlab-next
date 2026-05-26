@@ -382,26 +382,21 @@ export default async function DashboardPage() {
           </main>
         </div>
 
-        <div id="onboardingModal" className="onboarding-modal" aria-hidden="true">
-          <div className="onboarding-card">
-            <button id="onboardingClose" className="modal-close" aria-label="Kapat">
-              ×
-            </button>
+        <DashboardOnboardingModal />
 
-            <div className="badge cyan">İlk kurulum</div>
-            <h2>Rotanı birlikte oluşturalım.</h2>
-            <p>Dashboard’u sana göre şekillendirmek için birkaç hızlı seçim yap.</p>
+<style>{`
+  .dashboard-logout-form {
+    margin: 0;
+  }
 
-            <div className="onboarding-step">
-              <strong>Hangi branşla başlamak istiyorsun?</strong>
-              <div className="choice-grid" data-choice-group="branch">
-                <button data-value="Fizik">Fizik</button>
-                <button data-value="Kimya">Kimya</button>
-                <button data-value="Matematik">Matematik</button>
-                <button data-value="Biyoloji">Biyoloji</button>
-              </div>
-            </div>
-
+  .dashboard-logout-form .app-link {
+    width: 100%;
+    border: 0;
+    text-align: left;
+    cursor: pointer;
+  }
+`}</style>
+       
             <div className="onboarding-step">
               <strong>Seviyen?</strong>
               <div className="choice-grid" data-choice-group="level">

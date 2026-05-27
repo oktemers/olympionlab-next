@@ -49,6 +49,75 @@ const moduleTypeLabels: Record<string, string> = {
   exam: "Deneme",
 };
 
+async function saveDashboardSetup(formData: FormData) {
+  "use server";
+
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  const branch = String(formData.get("branch") || "");
+  const level = String(formData.get("level") || "beginner");
+  const goal = String(
+    formData.get("goal") || "Bilim olimpiyatlarına düzenli hazırlanmak"
+  );
+
+  const allowedBranches = ["math", "physics", "chemistry", "biology"];
+  const allowedLevels = ["beginner", "intermediate", "advanced"];
+
+  const safeBranch = allowedBranches.includes(branch) ? branch : "physics";
+  const safeLevel = allowedLevels.includes(level) ? level : "beginner";
+
+  const { data: firstSection } = await supabase
+    .from("course_sections")
+    .select("id,slug")
+    .eq("branch", safeBranch)
+    .eq("is_active", true)
+    .order("order_index", { ascending: true })
+    .limit(1)
+    .maybeSingle();
+
+  const { data: firstModule } = await supabase
+    .from("learning_modules")
+    .select("id")
+    .eq("is_active", true)
+    .or(`branch.eq.all,branch.eq.${safeBranch}`)
+    .order("order_index", { ascending: true })
+    .limit(1)
+    .maybeSingle();
+
+  await supabase
+    .from("profiles")
+    .update({
+      branch: safeBranch,
+      level: safeLevel,
+      goal,
+    })
+    .eq("id", user.id);
+
+  await supabase.from("user_route_state").upsert(
+    {
+      user_id: user.id,
+      branch: safeBranch,
+      level: safeLevel,
+      goal,
+      current_module_id: firstModule?.id || null,
+      updated_at: new Date().toISOString(),
+    },
+    {
+      onConflict: "user_id",
+    }
+  );
+
+  redirect(firstSection ? "/courses" : "/dashboard");
+}
+
 function getModuleIcon(type: LearningModule["type"]) {
   if (type === "guidance") return "🧭";
   if (type === "pdf_note") return "📚";
@@ -114,65 +183,83 @@ export default async function DashboardPage() {
   const fullName = profile?.full_name || email.split("@")[0] || "Öğrenci";
   const firstName = fullName.split(" ")[0] || "Öğrenci";
 
-  const branchKey = (profile?.branch as string | null) || "physics";
-  const levelKey = (profile?.level as string | null) || "beginner";
+  const branchKey = profile?.branch ? String(profile.branch) : null;
+  const levelKey = profile?.level ? String(profile.level) : null;
+  const hasRouteSetup = Boolean(branchKey);
 
-  const branch = branchLabels[branchKey] || branchKey;
-  const level = levelLabels[levelKey] || levelKey || "Başlangıç";
-  const goal = profile?.goal || "Bilim olimpiyatlarına düzenli hazırlanmak";
+  const branch = branchKey
+    ? branchLabels[branchKey] || branchKey
+    : "Henüz seçilmedi";
 
-  const { data: modulesData } = await supabase
-    .from("learning_modules")
-    .select(
-      "id,title,description,branch,level,type,order_index,xp_reward,estimated_minutes,href"
-    )
-    .eq("is_active", true)
-    .or(`branch.eq.all,branch.eq.${branchKey}`)
-    .order("order_index", { ascending: true });
+  const level = levelKey
+    ? levelLabels[levelKey] || levelKey
+    : "Henüz seçilmedi";
 
-  const modules = (modulesData || []) as LearningModule[];
+  const goal = profile?.goal || "Rotanı oluşturunca burada kişisel hedefin görünecek.";
 
-  let { data: routeState } = await supabase
-    .from("user_route_state")
-    .select("*")
-    .eq("user_id", user.id)
-    .maybeSingle();
+  let modules: LearningModule[] = [];
 
-  if (!routeState) {
-    const firstModule = modules[0];
+  if (branchKey) {
+    const { data: modulesData } = await supabase
+      .from("learning_modules")
+      .select(
+        "id,title,description,branch,level,type,order_index,xp_reward,estimated_minutes,href"
+      )
+      .eq("is_active", true)
+      .or(`branch.eq.all,branch.eq.${branchKey}`)
+      .order("order_index", { ascending: true });
 
-    const { data: createdRoute } = await supabase
-      .from("user_route_state")
-      .insert({
-        user_id: user.id,
-        branch: branchKey,
-        level: levelKey,
-        goal,
-        current_module_id: firstModule?.id || null,
-      })
-      .select("*")
-      .single();
-
-    routeState = createdRoute;
+    modules = (modulesData || []) as LearningModule[];
   }
 
-  if (routeState && routeState.branch !== branchKey) {
-    const firstModule = modules[0];
+  let routeState: { current_module_id?: string | null; branch?: string | null } | null =
+    null;
 
-    const { data: updatedRoute } = await supabase
+  if (branchKey) {
+    const { data: existingRouteState } = await supabase
       .from("user_route_state")
-      .update({
-        branch: branchKey,
-        level: levelKey,
-        goal,
-        current_module_id: firstModule?.id || null,
-        updated_at: new Date().toISOString(),
-      })
-      .eq("user_id", user.id)
       .select("*")
-      .single();
+      .eq("user_id", user.id)
+      .maybeSingle();
 
-    routeState = updatedRoute;
+    routeState = existingRouteState;
+
+    if (!routeState) {
+      const firstModule = modules[0];
+
+      const { data: createdRoute } = await supabase
+        .from("user_route_state")
+        .insert({
+          user_id: user.id,
+          branch: branchKey,
+          level: levelKey || "beginner",
+          goal,
+          current_module_id: firstModule?.id || null,
+        })
+        .select("*")
+        .single();
+
+      routeState = createdRoute;
+    }
+
+    if (routeState && routeState.branch !== branchKey) {
+      const firstModule = modules[0];
+
+      const { data: updatedRoute } = await supabase
+        .from("user_route_state")
+        .update({
+          branch: branchKey,
+          level: levelKey || "beginner",
+          goal,
+          current_module_id: firstModule?.id || null,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("user_id", user.id)
+        .select("*")
+        .single();
+
+      routeState = updatedRoute;
+    }
   }
 
   const { data: progressData } = await supabase
@@ -222,7 +309,7 @@ export default async function DashboardPage() {
     ? Number(progressMap.get(currentModule.id)?.progress_percent || 0)
     : 0;
 
-  const continueHref = "/courses.html";
+  const continueHref = hasRouteSetup ? "/courses" : "#setup-route";
 
   const { data: xpRows } = await supabase
     .from("user_xp_events")
@@ -343,7 +430,7 @@ export default async function DashboardPage() {
                 Genel
               </a>
 
-              <a href="/courses.html" className="app-link">
+              <a href="/courses" className="app-link">
                 <span>▶</span>
                 Dersler
               </a>
@@ -404,13 +491,14 @@ export default async function DashboardPage() {
                 <span className="eyebrow">Genel</span>
                 <h1>Hoş geldin, {firstName}.</h1>
                 <p>
-                  Bugünkü hedef: rotandan 1 modül aç, 1 not incele, çalışma
-                  ritmini koru.
+                  {hasRouteSetup
+                    ? "Bugünkü hedef: rotandan 1 modül aç, 1 not incele, çalışma ritmini koru."
+                    : "Başlamak için önce branşını, seviyeni ve hedefini seç."}
                 </p>
               </div>
 
               <a className="btn btn-primary compact-btn" href={continueHref}>
-                Kaldığın Yerden Devam Et
+                {hasRouteSetup ? "Kaldığın Yerden Devam Et" : "Rotanı Oluştur"}
               </a>
             </div>
 
@@ -418,12 +506,23 @@ export default async function DashboardPage() {
               <div>
                 <span className="eyebrow">Devam Et</span>
 
-                <h2>{currentModule?.title || "İlk rehberlik modülün hazır"}</h2>
+                <h2>
+                  {currentModule?.title ||
+                    (hasRouteSetup
+                      ? "İlk rehberlik modülün hazır"
+                      : "Kişisel rotanı oluşturalım")}
+                </h2>
 
                 <p>
-                  %{currentProgress} tamamlandı.{" "}
-                  {currentModule?.description ||
-                    "Rotana ilk adımdan başlayabilirsin."}
+                  {hasRouteSetup ? (
+                    <>
+                      %{currentProgress} tamamlandı.{" "}
+                      {currentModule?.description ||
+                        "Rotana ilk adımdan başlayabilirsin."}
+                    </>
+                  ) : (
+                    "Branş seçimini yaptıktan sonra derslerin, problemler ve PDF önerilerin sana göre düzenlenecek."
+                  )}
                 </p>
 
                 <div className="progress-track">
@@ -432,7 +531,7 @@ export default async function DashboardPage() {
               </div>
 
               <a className="btn btn-secondary compact-btn" href={continueHref}>
-                Aç
+                {hasRouteSetup ? "Aç" : "Başla"}
               </a>
             </div>
 
@@ -447,8 +546,9 @@ export default async function DashboardPage() {
               </strong>
 
               <p>
-                Branş seçilmemişse varsayılan olarak Fizik başlangıç rotası
-                açılır.
+                {hasRouteSetup
+                  ? "Bu alan Supabase profilindeki branş, seviye ve hedef bilgilerine göre güncellenir."
+                  : "Yeni üyeler için rota oluşturma popup’ı otomatik açılır."}
               </p>
             </div>
 
@@ -460,7 +560,7 @@ export default async function DashboardPage() {
               </div>
 
               <div className="metric-card">
-                <span>{branch} rotası</span>
+                <span>{hasRouteSetup ? `${branch} rotası` : "Rota"}</span>
                 <strong>%{routePercent}</strong>
                 <p>
                   {completedModules.length}/{totalModules} modül tamamlandı.
@@ -472,7 +572,11 @@ export default async function DashboardPage() {
                 <strong>
                   {completedPdfCount}/{pdfModules.length}
                 </strong>
-                <p>{branch} rotana uygun PDF notları.</p>
+                <p>
+                  {hasRouteSetup
+                    ? `${branch} rotana uygun PDF notları.`
+                    : "PDF notları branş seçildikten sonra kişiselleşir."}
+                </p>
               </div>
 
               <div className="metric-card">
@@ -559,8 +663,9 @@ export default async function DashboardPage() {
                 </div>
 
                 <p>
-                  {branch} rotana uygun günlük problem alanı yakında burada
-                  olacak.
+                  {hasRouteSetup
+                    ? `${branch} rotana uygun günlük problem alanı yakında burada olacak.`
+                    : "Günün problemi branş seçildikten sonra kişiselleşecek."}
                 </p>
 
                 <div className="problem-equation small">
@@ -588,7 +693,11 @@ export default async function DashboardPage() {
                 ) : (
                   <div className="note-mini">
                     <span>PDF Notu</span>
-                    <strong>Bu branş için PDF yakında eklenecek.</strong>
+                    <strong>
+                      {hasRouteSetup
+                        ? "Bu branş için PDF yakında eklenecek."
+                        : "Branş seçildikten sonra PDF önerileri görünecek."}
+                    </strong>
                   </div>
                 )}
               </section>
@@ -596,7 +705,7 @@ export default async function DashboardPage() {
               <section className="app-panel wide">
                 <div className="panel-head">
                   <h2>Devam etmen gereken dersler</h2>
-                  <a href="/courses.html">Dersler</a>
+                  <a href="/courses">Dersler</a>
                 </div>
 
                 <div id="dashVideoGrid" className="video-grid mini-video-grid">
@@ -609,7 +718,7 @@ export default async function DashboardPage() {
                         <a
                           key={module.id}
                           className="video-card"
-                          href="/courses.html"
+                          href="/courses"
                         >
                           <div className="thumb">
                             <div className="thumb-fallback">
@@ -643,10 +752,15 @@ export default async function DashboardPage() {
                     })
                   ) : (
                     <div className="empty-dashboard-state">
-                      <strong>Henüz rota içeriği yok.</strong>
+                      <strong>
+                        {hasRouteSetup
+                          ? "Henüz bu branş için rota içeriği yok."
+                          : "Önce kişisel rotanı oluştur."}
+                      </strong>
                       <p>
-                        Supabase learning_modules tablosuna bu branş için içerik
-                        ekle.
+                        {hasRouteSetup
+                          ? "Supabase course_sections ve lesson_videos tablolarına bu branş için içerik ekle."
+                          : "Branşını seçince derslerin burada listelenecek."}
                       </p>
                     </div>
                   )}
@@ -655,6 +769,65 @@ export default async function DashboardPage() {
             </div>
           </main>
         </div>
+
+        {!hasRouteSetup && (
+          <div
+            id="setup-route"
+            className="route-setup-modal open"
+            aria-hidden="false"
+          >
+            <div className="route-setup-card">
+              <div className="badge cyan">İlk kurulum</div>
+
+              <h2>Olympion Lab rotanı oluşturalım.</h2>
+
+              <p>
+                Branşını, seviyeni ve hedefini seç. Bu bilgiler Supabase
+                profilinde saklanacak ve dashboard, dersler, problem ve PDF
+                önerileri buna göre kişiselleşecek.
+              </p>
+
+              <form action={saveDashboardSetup} className="route-setup-form">
+                <label>
+                  <span>Branş</span>
+                  <select name="branch" defaultValue="chemistry" required>
+                    <option value="chemistry">Kimya</option>
+                    <option value="physics">Fizik</option>
+                    <option value="math">Matematik</option>
+                    <option value="biology">Biyoloji</option>
+                  </select>
+                </label>
+
+                <label>
+                  <span>Seviye</span>
+                  <select name="level" defaultValue="beginner" required>
+                    <option value="beginner">Başlangıç</option>
+                    <option value="intermediate">Orta</option>
+                    <option value="advanced">İleri</option>
+                  </select>
+                </label>
+
+                <label>
+                  <span>Hedef</span>
+                  <select name="goal" defaultValue="TÜBİTAK 1. Aşama">
+                    <option value="TÜBİTAK 1. Aşama">TÜBİTAK 1. Aşama</option>
+                    <option value="TÜBİTAK 2. Aşama">TÜBİTAK 2. Aşama</option>
+                    <option value="Uluslararası olimpiyat hazırlığı">
+                      Uluslararası olimpiyat hazırlığı
+                    </option>
+                    <option value="Kavram öğrenmek ve temel oluşturmak">
+                      Kavram öğrenmek ve temel oluşturmak
+                    </option>
+                  </select>
+                </label>
+
+                <button className="btn btn-primary" type="submit">
+                  Rotamı Oluştur
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
 
         <style>{`
           .dashboard-logout-form {
@@ -684,6 +857,82 @@ export default async function DashboardPage() {
             display: block;
             color: #ffffff;
             margin-bottom: 6px;
+          }
+
+          .route-setup-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            display: none;
+            place-items: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.72);
+            backdrop-filter: blur(14px);
+          }
+
+          .route-setup-modal.open {
+            display: grid;
+          }
+
+          .route-setup-card {
+            width: min(680px, 100%);
+            border-radius: 30px;
+            padding: 30px;
+            background:
+              radial-gradient(circle at top left, rgba(124, 242, 255, 0.12), transparent 42%),
+              #081222;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.5);
+          }
+
+          .route-setup-card h2 {
+            margin: 14px 0 10px;
+            color: #ffffff;
+            font-size: 28px;
+            letter-spacing: -0.03em;
+          }
+
+          .route-setup-card p {
+            color: rgba(235, 245, 255, 0.74);
+            line-height: 1.7;
+            margin-bottom: 22px;
+          }
+
+          .route-setup-form {
+            display: grid;
+            gap: 14px;
+          }
+
+          .route-setup-form label {
+            display: grid;
+            gap: 8px;
+          }
+
+          .route-setup-form label span {
+            color: rgba(235, 245, 255, 0.78);
+            font-size: 13px;
+            font-weight: 800;
+          }
+
+          .route-setup-form select {
+            width: 100%;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: #081222;
+            color: #f7fbff;
+            padding: 14px 15px;
+            outline: none;
+          }
+
+          .route-setup-form option {
+            background: #081222;
+            color: #f7fbff;
+          }
+
+          .route-setup-form button {
+            margin-top: 6px;
+            width: 100%;
+            justify-content: center;
           }
         `}</style>
       </div>

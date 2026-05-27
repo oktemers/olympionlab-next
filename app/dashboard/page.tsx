@@ -185,6 +185,7 @@ export default async function DashboardPage() {
 
   const completedModules = modules.filter((module) => {
     const progress = progressMap.get(module.id);
+
     return (
       progress?.status === "completed" ||
       Number(progress?.progress_percent || 0) >= 100
@@ -192,6 +193,7 @@ export default async function DashboardPage() {
   });
 
   const totalModules = modules.length;
+
   const routePercent =
     totalModules > 0
       ? Math.round((completedModules.length / totalModules) * 100)
@@ -201,6 +203,7 @@ export default async function DashboardPage() {
 
   const completedPdfCount = pdfModules.filter((module) => {
     const progress = progressMap.get(module.id);
+
     return (
       progress?.status === "completed" ||
       Number(progress?.progress_percent || 0) >= 100
@@ -219,7 +222,7 @@ export default async function DashboardPage() {
     ? Number(progressMap.get(currentModule.id)?.progress_percent || 0)
     : 0;
 
-  const continueHref = currentModule?.href || "/courses";
+  const continueHref = "/courses.html";
 
   const { data: xpRows } = await supabase
     .from("user_xp_events")
@@ -310,6 +313,7 @@ export default async function DashboardPage() {
         </a>
 
         <div className="noise"></div>
+
         <div
           id="cursorFormulaLayer"
           className="cursor-formula-layer"
@@ -339,32 +343,32 @@ export default async function DashboardPage() {
                 Genel
               </a>
 
-              <a href="/courses" className="app-link">
+              <a href="/courses.html" className="app-link">
                 <span>▶</span>
                 Dersler
               </a>
 
-              <a href="/roadmap" className="app-link">
+              <a href="/roadmap.html" className="app-link">
                 <span>🧭</span>
                 Rota
               </a>
 
-              <a href="/notes" className="app-link">
+              <a href="/notes.html" className="app-link">
                 <span>📚</span>
                 PDF
               </a>
 
-              <a href="/daily-problem" className="app-link">
+              <a href="/daily-problem.html" className="app-link">
                 <span>🔥</span>
                 Problem
               </a>
 
-              <a href="/ai-coach" className="app-link">
+              <a href="/ai-coach.html" className="app-link">
                 <span>✦</span>
                 Koç
               </a>
 
-              <a href="/student-labs" className="app-link">
+              <a href="/student-labs.html" className="app-link">
                 <span>🧪</span>
                 Labs
               </a>
@@ -413,6 +417,7 @@ export default async function DashboardPage() {
             <div className="continue-card app-panel">
               <div>
                 <span className="eyebrow">Devam Et</span>
+
                 <h2>{currentModule?.title || "İlk rehberlik modülün hazır"}</h2>
 
                 <p>
@@ -436,9 +441,11 @@ export default async function DashboardPage() {
               className="personal-route-summary app-panel"
             >
               <span className="eyebrow">Kişisel rota</span>
+
               <strong>
                 {branch} • {level} • {goal}
               </strong>
+
               <p>
                 Branş seçilmemişse varsayılan olarak Fizik başlangıç rotası
                 açılır.
@@ -485,7 +492,8 @@ export default async function DashboardPage() {
                       5 aktif gün.
                     </p>
                   </div>
-                  <a href="/roadmap">Rotayı aç</a>
+
+                  <a href="/roadmap.html">Rotayı aç</a>
                 </div>
 
                 <div className="activity-summary">
@@ -493,10 +501,12 @@ export default async function DashboardPage() {
                     <strong>{activeDays}/7</strong>
                     <span>aktif gün</span>
                   </div>
+
                   <div>
                     <strong>{totalStudyLabel}</strong>
                     <span>toplam süre</span>
                   </div>
+
                   <div>
                     <strong>{totalCompletedThisWeek}</strong>
                     <span>tamamlanan modül</span>
@@ -513,7 +523,10 @@ export default async function DashboardPage() {
                   <span>Paz</span>
                 </div>
 
-                <div className="heatmap modern-heatmap" aria-label="Çalışma yoğunluğu">
+                <div
+                  className="heatmap modern-heatmap"
+                  aria-label="Çalışma yoğunluğu"
+                >
                   {heatmapDays.map((day) => (
                     <span
                       key={day.key}
@@ -542,9 +555,14 @@ export default async function DashboardPage() {
               <section className="app-panel">
                 <div className="panel-head">
                   <h2>Günün Problemi</h2>
-                  <a href="/daily-problem">Aç</a>
+                  <a href="/daily-problem.html">Aç</a>
                 </div>
-                <p>{branch} rotana uygun günlük problem alanı yakında burada olacak.</p>
+
+                <p>
+                  {branch} rotana uygun günlük problem alanı yakında burada
+                  olacak.
+                </p>
+
                 <div className="problem-equation small">
                   Seçilen branş → {branch}
                 </div>
@@ -553,7 +571,7 @@ export default async function DashboardPage() {
               <section className="app-panel">
                 <div className="panel-head">
                   <h2>PDF</h2>
-                  <a href="/notes">Tüm notlar</a>
+                  <a href="/notes.html">Tüm notlar</a>
                 </div>
 
                 {pdfPreviewModules.length > 0 ? (
@@ -561,7 +579,7 @@ export default async function DashboardPage() {
                     <a
                       key={module.id}
                       className="note-mini"
-                      href={module.href || "/notes"}
+                      href="/notes.html"
                     >
                       <span>{moduleTypeLabels[module.type]}</span>
                       <strong>{module.title}</strong>
@@ -578,7 +596,7 @@ export default async function DashboardPage() {
               <section className="app-panel wide">
                 <div className="panel-head">
                   <h2>Devam etmen gereken dersler</h2>
-                  <a href="/courses">Dersler</a>
+                  <a href="/courses.html">Dersler</a>
                 </div>
 
                 <div id="dashVideoGrid" className="video-grid mini-video-grid">
@@ -591,7 +609,7 @@ export default async function DashboardPage() {
                         <a
                           key={module.id}
                           className="video-card"
-                          href={module.href || "/courses"}
+                          href="/courses.html"
                         >
                           <div className="thumb">
                             <div className="thumb-fallback">
@@ -599,7 +617,9 @@ export default async function DashboardPage() {
                               <br />
                               <small>{moduleTypeLabels[module.type]}</small>
                             </div>
+
                             <div className="play">▶</div>
+
                             <div className="duration">
                               {module.estimated_minutes} dk
                             </div>
@@ -610,7 +630,9 @@ export default async function DashboardPage() {
                               {branch} • {moduleTypeLabels[module.type]} • %
                               {percent}
                             </span>
+
                             <h3>{module.title}</h3>
+
                             <p>
                               {module.description ||
                                 "Bu modül rotana göre önerildi."}

@@ -369,3 +369,134 @@ body{letter-spacing:-.01em} p{line-height:1.75} .section-title p,.app-top p,.fea
 .badge.danger{background:rgba(255,72,72,.12);border-color:rgba(255,72,72,.32);color:#ffd7d7}.error-page .site-header{border-bottom-color:rgba(255,72,72,.22)}.error-card{border-color:rgba(255,72,72,.30)!important;background:linear-gradient(180deg,rgba(255,72,72,.10),rgba(255,255,255,.04))!important}.error-title{color:#ffdada!important;text-shadow:0 0 34px rgba(255,72,72,.24)}
 @media (max-width:900px){.compact-feature-grid,.branch-video-grid{grid-template-columns:1fr!important}.branch-video-card{grid-template-columns:92px 1fr}.coach-layout-v19{grid-template-columns:1fr!important}.ai-live-chat{min-height:320px}.goal-choice-grid{grid-template-columns:1fr!important}}
 @media (max-width:760px){.onboarding-step{padding:12px}.onboarding-card h2{font-size:34px!important}.branch-video-card{grid-template-columns:1fr}.branch-video-card img{width:100%;height:auto;aspect-ratio:16/9}.choice-grid button{line-height:1.25;min-height:46px}.coach-prompt-panel{order:-1}.coach-prompt-list{grid-template-columns:1fr}.ai-live-chat{max-height:none;min-height:280px}}
+
+/* =========================================================
+   Olympion Lab - Student Labs desktop alignment patch
+   Fixes desktop layout shifts for:
+   - Yörünge ve Merkezcil Etki
+   - Kimyasal Denge
+   Mobile layout is intentionally untouched.
+========================================================= */
+
+@media (min-width: 981px) {
+  .lab-grid,
+  .labs-grid,
+  .experiments-grid,
+  .student-labs-grid {
+    align-items: stretch;
+  }
+
+  .lab-card,
+  .experiment-card,
+  .student-lab-card {
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .lab-card .lab-visual,
+  .lab-card .lab-preview,
+  .lab-card .lab-canvas,
+  .lab-card .sim-area,
+  .experiment-card .lab-visual,
+  .experiment-card .lab-preview,
+  .experiment-card .lab-canvas,
+  .experiment-card .sim-area,
+  .student-lab-card .lab-visual,
+  .student-lab-card .lab-preview,
+  .student-lab-card .lab-canvas,
+  .student-lab-card .sim-area {
+    width: 100%;
+    min-height: 190px;
+    max-height: 230px;
+    overflow: hidden;
+    margin: 18px 0 20px;
+    display: grid;
+    place-items: center;
+  }
+
+  .lab-card canvas,
+  .lab-card svg,
+  .experiment-card canvas,
+  .experiment-card svg,
+  .student-lab-card canvas,
+  .student-lab-card svg {
+    max-width: 100%;
+    max-height: 210px;
+  }
+
+  .lab-card input[type="range"],
+  .experiment-card input[type="range"],
+  .student-lab-card input[type="range"] {
+    width: 100%;
+  }
+
+  .lab-card .btn,
+  .experiment-card .btn,
+  .student-lab-card .btn {
+    margin-top: auto;
+  }
+
+  /* Orbit / merkezcil etki kartındaki grafik ve yazı taşmasını toparlar */
+  .lab-card:has(h2, h3):has(input[type="range"]) .orbit,
+  .lab-card:has(h2, h3):has(input[type="range"]) .orbit-demo,
+  .lab-card:has(h2, h3):has(input[type="range"]) .orbit-sim,
+  .experiment-card:has(h2, h3):has(input[type="range"]) .orbit,
+  .experiment-card:has(h2, h3):has(input[type="range"]) .orbit-demo,
+  .experiment-card:has(h2, h3):has(input[type="range"]) .orbit-sim,
+  .student-lab-card:has(h2, h3):has(input[type="range"]) .orbit,
+  .student-lab-card:has(h2, h3):has(input[type="range"]) .orbit-demo,
+  .student-lab-card:has(h2, h3):has(input[type="range"]) .orbit-sim {
+    transform: scale(0.94);
+    transform-origin: center;
+  }
+
+  /* Kimyasal denge kartında bar/slider dikey kaymasını dengeler */
+  .lab-card:has(.equilibrium),
+  .lab-card:has(.equilibrium-demo),
+  .lab-card:has(.chemical-equilibrium),
+  .experiment-card:has(.equilibrium),
+  .experiment-card:has(.equilibrium-demo),
+  .experiment-card:has(.chemical-equilibrium),
+  .student-lab-card:has(.equilibrium),
+  .student-lab-card:has(.equilibrium-demo),
+  .student-lab-card:has(.chemical-equilibrium) {
+    justify-content: flex-start;
+  }
+
+  .lab-card:has(.equilibrium) .lab-visual,
+  .lab-card:has(.equilibrium-demo) .lab-visual,
+  .lab-card:has(.chemical-equilibrium) .lab-visual,
+  .experiment-card:has(.equilibrium) .lab-visual,
+  .experiment-card:has(.equilibrium-demo) .lab-visual,
+  .experiment-card:has(.chemical-equilibrium) .lab-visual,
+  .student-lab-card:has(.equilibrium) .lab-visual,
+  .student-lab-card:has(.equilibrium-demo) .lab-visual,
+  .student-lab-card:has(.chemical-equilibrium) .lab-visual {
+    min-height: 150px;
+    max-height: 175px;
+    margin-top: 12px;
+    margin-bottom: 18px;
+  }
+
+  .lab-card:has(.equilibrium) input[type="range"],
+  .lab-card:has(.equilibrium-demo) input[type="range"],
+  .lab-card:has(.chemical-equilibrium) input[type="range"],
+  .experiment-card:has(.equilibrium) input[type="range"],
+  .experiment-card:has(.equilibrium-demo) input[type="range"],
+  .experiment-card:has(.chemical-equilibrium) input[type="range"],
+  .student-lab-card:has(.equilibrium) input[type="range"],
+  .student-lab-card:has(.equilibrium-demo) input[type="range"],
+  .student-lab-card:has(.chemical-equilibrium) input[type="range"] {
+    margin-top: 14px;
+    margin-bottom: 18px;
+  }
+
+  /* Hesap makinesi kartını diğer kartlarla aynı hatta tutar */
+  .calculator-card,
+  .lab-card:has(.calculator),
+  .experiment-card:has(.calculator),
+  .student-lab-card:has(.calculator) {
+    min-height: 500px;
+  }
+}

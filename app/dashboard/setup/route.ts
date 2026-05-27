@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
   if (!supabaseUrl || !serviceRoleKey) {
     return NextResponse.redirect(
       new URL(
-        "/dashboard?setup_error=Supabase%20service%20role%20env%20eksik.",
+        "/dashboard?setup_error=SUPABASE_SERVICE_ROLE_KEY%20veya%20NEXT_PUBLIC_SUPABASE_URL%20eksik.",
         request.url
       ),
       { status: 303 }
@@ -49,23 +49,33 @@ export async function POST(request: NextRequest) {
   const safeBranch = allowedBranches.includes(branch) ? branch : "chemistry";
   const safeLevel = allowedLevels.includes(level) ? level : "beginner";
 
-  const { data: firstModule } = await adminSupabase
-    .from("learning_modules")
-    .select("id")
-    .eq("is_active", true)
-    .or(`branch.eq.all,branch.eq.${safeBranch}`)
-    .order("order_index", { ascending: true })
-    .limit(1)
+  const fallbackName =
+    user.user_metadata?.full_name ||
+    user.user_metadata?.name ||
+    user.email?.split("@")[0] ||
+    "Öğrenci";
+
+  const { data: existingProfile } = await adminSupabase
+    .from("profiles")
+    .select("id,email,full_name,role,plan")
+    .eq("id", user.id)
     .maybeSingle();
 
-  const { error: profileError } = await adminSupabase
-    .from("profiles")
-    .update({
+  const { error: profileError } = await adminSupabase.from("profiles").upsert(
+    {
+      id: user.id,
+      email: existingProfile?.email || user.email || "",
+      full_name: existingProfile?.full_name || fallbackName,
+      role: existingProfile?.role || "student",
+      plan: existingProfile?.plan || "free",
       branch: safeBranch,
       level: safeLevel,
       goal,
-    })
-    .eq("id", user.id);
+    },
+    {
+      onConflict: "id",
+    }
+  );
 
   if (profileError) {
     return NextResponse.redirect(
@@ -77,21 +87,28 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const { error: routeError } = await adminSupabase
-    .from("user_route_state")
-    .upsert(
-      {
-        user_id: user.id,
-        branch: safeBranch,
-        level: safeLevel,
-        goal,
-        current_module_id: firstModule?.id || null,
-        updated_at: new Date().toISOString(),
-      },
-      {
-        onConflict: "user_id",
-      }
-    );
+  const { data: firstModule } = await adminSupabase
+    .from("learning_modules")
+    .select("id")
+    .eq("is_active", true)
+    .or(`branch.eq.all,branch.eq.${safeBranch}`)
+    .order("order_index", { ascending: true })
+    .limit(1)
+    .maybeSingle();
+
+  const { error: routeError } = await adminSupabase.from("user_route_state").upsert(
+    {
+      user_id: user.id,
+      branch: safeBranch,
+      level: safeLevel,
+      goal,
+      current_module_id: firstModule?.id || null,
+      updated_at: new Date().toISOString(),
+    },
+    {
+      onConflict: "user_id",
+    }
+  );
 
   if (routeError) {
     return NextResponse.redirect(
@@ -103,7 +120,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  return NextResponse.redirect(new URL("/dashboard", request.url), {
+  return NextResponse.redirect(new URL("/dashboard?setup=success", request.url), {
     status: 303,
   });
 }

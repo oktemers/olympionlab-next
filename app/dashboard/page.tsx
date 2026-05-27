@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "@/app/auth/actions";
+import RouteSetupModal from "./RouteSetupModal";
 
 type LearningModule = {
   id: string;

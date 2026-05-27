@@ -60,7 +60,7 @@ export default function DailyProblemClient({
         <span className="eyebrow">Günlük Problem</span>
         <h2>Bu branş için problem yakında eklenecek.</h2>
         <p>
-          Şu an seçili branşın: {branchLabel}. Problem bankası admin panelinden
+          Şu an seçili branşın: {branchLabel}. Problem havuzu yakında
           genişletilecek.
         </p>
       </section>
@@ -69,29 +69,16 @@ export default function DailyProblemClient({
 
   return (
     <>
-      <section className="app-panel daily-problem-hero">
-        <div>
-          <span className="eyebrow">{branchLabel} • Günlük Problem</span>
-          <h2>{problem.title}</h2>
-          <p>
-            Konu: {problem.topic}. Önce kendi çözümünü dene, sonra adım adım
-            cevabı aç.
-          </p>
-        </div>
-
-        <div className="daily-streak-orb">
-          <strong>0</strong>
-          <span>seri</span>
-        </div>
-      </section>
-
       <section className="problem-layout">
         <article className="app-panel problem-main-card">
           <div className="panel-head">
             <div>
-              <h2>Soru</h2>
+              <span className="eyebrow">
+                {branchLabel} • {problem.topic}
+              </span>
+              <h2>{problem.title}</h2>
               <p className="panel-sub">
-                Bu problem {branchLabel} profiline göre seçildi.
+                Bu problem profilindeki {branchLabel} seçimine göre gösteriliyor.
               </p>
             </div>
 
@@ -116,7 +103,7 @@ export default function DailyProblemClient({
               id="studentAnswer"
               value={studentNote}
               onChange={(event) => setStudentNote(event.target.value)}
-              placeholder="Buraya kendi çözüm fikrini yaz. Sonraki adımda bunu Supabase'e kaydedeceğiz."
+              placeholder="Buraya kendi çözüm fikrini yaz. Yakında çözüm notların hesabında saklanacak ve ilerleme serine eklenecek."
             />
           </div>
 
@@ -157,8 +144,8 @@ export default function DailyProblemClient({
           <div className="problem-note">
             <strong>Profil bazlı seçim</strong>
             <p>
-              Şu an {branchLabel} profiliyle çalışıyorsun. Problem bankası her
-              gün bu branşa göre tarih bazlı değişir.
+              Şu an {branchLabel} profiliyle çalışıyorsun. Günlük problem
+              havuzu bu seçime göre gösterilir.
             </p>
           </div>
         </aside>
@@ -194,54 +181,6 @@ export default function DailyProblemClient({
       )}
 
       <style>{`
-        .daily-problem-hero {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 24px;
-          margin-bottom: 22px;
-        }
-
-        .daily-problem-hero h2 {
-          margin: 8px 0;
-          color: #ffffff;
-          letter-spacing: -0.02em;
-        }
-
-        .daily-problem-hero p {
-          color: rgba(235, 245, 255, 0.72);
-          line-height: 1.7;
-          max-width: 760px;
-        }
-
-        .daily-streak-orb {
-          width: 120px;
-          height: 120px;
-          border-radius: 999px;
-          display: grid;
-          place-items: center;
-          text-align: center;
-          border: 1px solid rgba(124, 242, 255, 0.28);
-          background:
-            radial-gradient(circle at 35% 30%, rgba(124, 242, 255, 0.22), transparent 55%),
-            rgba(255, 255, 255, 0.045);
-          flex: 0 0 auto;
-        }
-
-        .daily-streak-orb strong {
-          display: block;
-          color: #ffffff;
-          font-size: 30px;
-          line-height: 1;
-        }
-
-        .daily-streak-orb span {
-          display: block;
-          margin-top: -28px;
-          color: rgba(235, 245, 255, 0.62);
-          font-size: 13px;
-        }
-
         .problem-layout {
           display: grid;
           grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
@@ -251,6 +190,12 @@ export default function DailyProblemClient({
 
         .problem-main-card {
           min-height: 520px;
+        }
+
+        .problem-main-card h2 {
+          color: #ffffff;
+          margin: 8px 0;
+          letter-spacing: -0.02em;
         }
 
         .problem-side-card {
@@ -266,6 +211,7 @@ export default function DailyProblemClient({
           color: #7cf2ff;
           font-size: 12px;
           font-weight: 900;
+          white-space: nowrap;
         }
 
         .problem-visual {
@@ -440,11 +386,6 @@ export default function DailyProblemClient({
         }
 
         @media (max-width: 980px) {
-          .daily-problem-hero {
-            flex-direction: column;
-            align-items: flex-start;
-          }
-
           .problem-layout {
             grid-template-columns: 1fr;
           }

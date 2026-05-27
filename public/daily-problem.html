@@ -11,6 +11,13 @@
   <div class="app-page">
     <div class="noise"></div>
 
+    <div class="app-bg-formulas" id="formulaBg" aria-hidden="true">
+      <span>PV = nRT</span>
+      <span>4s² 3d⁶</span>
+      <span>ΔG = ΔH − TΔS</span>
+      <span>pH = −log[H⁺]</span>
+    </div>
+
     <div class="app-shell">
       <aside class="app-sidebar">
         <a href="/dashboard" class="app-brand">
@@ -21,7 +28,7 @@
           </div>
         </a>
 
-        <nav class="app-nav">
+        <nav class="app-nav" aria-label="Panel menüsü">
           <a href="/dashboard" class="app-link">
             <span>⌘</span>
             Genel
@@ -61,7 +68,19 @@
             <span>⚙</span>
             Ayarlar
           </a>
+
+          <a href="/login" class="app-link logout-sidebar">
+            <span>⏻</span>
+            Çıkış
+          </a>
         </nav>
+
+        <div class="sidebar-upgrade">
+          <span id="sideBranch">Profil</span>
+          <strong>Günlük problem serini başlat.</strong>
+          <p>Her gün seçili branşına uygun bir problem çöz.</p>
+          <a href="/pricing.html">Planı yükselt →</a>
+        </div>
 
         <a href="/" class="back-site">← Ana siteye dön</a>
       </aside>
@@ -70,10 +89,9 @@
         <div class="app-top">
           <div>
             <span class="eyebrow">Günlük Problem</span>
-            <h1>Problem sayfası çalışıyor.</h1>
-            <p>
-              404 çözüldü. Şimdi bu sayfayı tekrar Kimya/Fizik profiline göre
-              kişisel hale getireceğiz.
+            <h1 id="pageTitle">Problem yükleniyor...</h1>
+            <p id="pageSubtitle">
+              Profilindeki branşa göre bugünün problemi hazırlanıyor.
             </p>
           </div>
 
@@ -82,66 +100,617 @@
           </a>
         </div>
 
-        <section class="app-panel">
-          <span class="eyebrow">Kimya • Atom yapısı</span>
-          <h2>Elektron dizilimi ve 4s² yorumu</h2>
+        <section class="problem-layout">
+          <article class="app-panel problem-main-card">
+            <div class="panel-head">
+              <div>
+                <span id="problemTag" class="eyebrow">Problem</span>
+                <h2 id="problemTitle">Yükleniyor...</h2>
+                <p id="problemMeta" class="panel-sub">
+                  Kısa süre içinde problem görünecek.
+                </p>
+              </div>
 
-          <p>
-            Bir elementin temel hâl elektron diziliminin son kısmı
-            <strong>4s² 3d⁶</strong> şeklindedir. Bu element hangi blokta yer
-            alır ve neden yalnızca 4s² ifadesine bakmak yeterli değildir?
-          </p>
+              <span id="problemDifficulty" class="problem-pill">Seviye</span>
+            </div>
 
-          <button id="showAnswer" class="btn btn-primary" type="button">
-            Cevabı Göster
-          </button>
+            <div id="problemVisual" class="problem-visual"></div>
 
-          <div id="answerBox" class="answer-box" hidden>
-            <h3>Çözüm</h3>
-            <p>
-              Dizi 3d elektronları içerdiği için element d bloğundadır.
-              Geçiş metallerinde değerlik davranışı yalnızca 4s elektronlarıyla
-              değil, 3d elektronlarıyla birlikte yorumlanır.
-            </p>
+            <div id="problemQuestion" class="problem-question">
+              Problem metni yükleniyor...
+            </div>
+
+            <div class="student-answer-box">
+              <label for="studentAnswer">Kendi çözüm notun</label>
+              <textarea
+                id="studentAnswer"
+                placeholder="Buraya kendi çözüm fikrini yaz. Yakında çözüm notların hesabında saklanacak ve günlük seri durumuna eklenecek."
+              ></textarea>
+            </div>
+
+            <div class="problem-actions">
+              <button id="showAnswerBtn" class="btn btn-primary" type="button">
+                Cevabı Göster
+              </button>
+
+              <button id="nextProblemBtn" class="btn btn-secondary" type="button">
+                Başka Örnek Göster
+              </button>
+            </div>
+          </article>
+
+          <aside class="app-panel problem-side-card">
+            <div class="panel-head">
+              <div>
+                <h2>Çözüm disiplini</h2>
+                <p class="panel-sub">Cevabı açmadan önce kontrol et.</p>
+              </div>
+            </div>
+
+            <ul class="problem-checklist">
+              <li>Verilenleri sembollerle yazdın mı?</li>
+              <li>Ana kavramı veya yasayı seçtin mi?</li>
+              <li>Birimleri ve sınır durumları kontrol ettin mi?</li>
+              <li>Sonucun anlamlı olup olmadığını yorumladın mı?</li>
+            </ul>
+
+            <div class="problem-note">
+              <strong>Profil bazlı seçim</strong>
+              <p id="branchNote">
+                Problem, profilindeki branşa göre seçilir.
+              </p>
+            </div>
+          </aside>
+        </section>
+
+        <section id="answerPanel" class="app-panel answer-panel" hidden>
+          <div class="panel-head">
+            <div>
+              <span class="eyebrow">Çözüm</span>
+              <h2>Adım adım cevap</h2>
+            </div>
+
+            <button id="hideAnswerBtn" class="coach-reset-btn" type="button">
+              Gizle
+            </button>
           </div>
+
+          <div id="answerContent" class="answer-content"></div>
         </section>
       </main>
     </div>
-
-    <style>
-      .app-panel h2 {
-        color: #ffffff;
-        margin: 8px 0 12px;
-      }
-
-      .app-panel p {
-        color: rgba(235, 245, 255, 0.75);
-        line-height: 1.75;
-      }
-
-      .app-panel strong {
-        color: #7cf2ff;
-      }
-
-      .answer-box {
-        margin-top: 18px;
-        border-radius: 20px;
-        padding: 18px;
-        background: rgba(124, 242, 255, 0.08);
-        border: 1px solid rgba(124, 242, 255, 0.16);
-      }
-
-      .answer-box h3 {
-        color: #ffffff;
-        margin: 0 0 8px;
-      }
-    </style>
-
-    <script>
-      document.getElementById("showAnswer").addEventListener("click", function () {
-        document.getElementById("answerBox").hidden = false;
-      });
-    </script>
   </div>
+
+  <style>
+    .problem-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .problem-main-card {
+      min-height: 520px;
+    }
+
+    .problem-main-card h2 {
+      color: #ffffff;
+      margin: 8px 0;
+      letter-spacing: -0.02em;
+    }
+
+    .problem-side-card {
+      position: sticky;
+      top: 24px;
+    }
+
+    .problem-pill {
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: rgba(124, 242, 255, 0.1);
+      border: 1px solid rgba(124, 242, 255, 0.18);
+      color: #7cf2ff;
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .problem-visual {
+      margin-top: 18px;
+      border-radius: 24px;
+      padding: 22px;
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.085);
+      overflow: auto;
+    }
+
+    .problem-visual svg {
+      width: 100%;
+      max-width: 760px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .problem-question {
+      margin-top: 18px;
+      border-radius: 24px;
+      padding: 22px;
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.085);
+      color: rgba(245, 250, 255, 0.92);
+      line-height: 1.85;
+      font-size: 16px;
+    }
+
+    .problem-question strong {
+      color: #ffffff;
+    }
+
+    .problem-question code {
+      color: #7cf2ff;
+      font-weight: 900;
+    }
+
+    .student-answer-box {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .student-answer-box label {
+      color: rgba(235, 245, 255, 0.78);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .student-answer-box textarea {
+      width: 100%;
+      min-height: 150px;
+      resize: vertical;
+      border-radius: 20px;
+      padding: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(3, 10, 20, 0.58);
+      color: #f7fbff;
+      outline: none;
+      line-height: 1.6;
+    }
+
+    .problem-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .problem-checklist {
+      display: grid;
+      gap: 12px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .problem-checklist li {
+      border-radius: 16px;
+      padding: 13px 14px;
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: rgba(235, 245, 255, 0.76);
+      line-height: 1.5;
+    }
+
+    .problem-checklist li::before {
+      content: "✓";
+      color: #7cf2ff;
+      font-weight: 900;
+      margin-right: 8px;
+    }
+
+    .problem-note {
+      margin-top: 18px;
+      border-radius: 20px;
+      padding: 16px;
+      background: rgba(157, 255, 203, 0.075);
+      border: 1px solid rgba(157, 255, 203, 0.16);
+    }
+
+    .problem-note strong {
+      display: block;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .problem-note p {
+      color: rgba(235, 245, 255, 0.72);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .answer-panel {
+      margin-top: 18px;
+    }
+
+    .answer-content {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .answer-step {
+      border-radius: 22px;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.085);
+    }
+
+    .answer-step span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+      background: rgba(124, 242, 255, 0.12);
+      color: #7cf2ff;
+      font-weight: 900;
+      border: 1px solid rgba(124, 242, 255, 0.18);
+    }
+
+    .answer-step strong {
+      display: block;
+      color: #ffffff;
+      margin-bottom: 6px;
+      font-size: 16px;
+    }
+
+    .answer-step p {
+      color: rgba(235, 245, 255, 0.76);
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    .coach-reset-btn {
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.055);
+      color: #ffffff;
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    @media (max-width: 980px) {
+      .problem-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .problem-side-card {
+        position: static;
+      }
+    }
+  </style>
+
+  <script>
+    const problemBanks = {
+      chemistry: [
+        {
+          tag: "Kimya • Atom yapısı",
+          title: "Elektron dizilimi ve 4s² yorumu",
+          difficulty: "Orta",
+          meta: "Geçiş metalleri ve değerlik elektron yorumu.",
+          question: `
+            <p>
+              Bir elementin temel hâl elektron diziliminin son kısmı
+              <code>4s² 3d⁶</code> şeklindedir.
+            </p>
+            <p>
+              Bu element hangi blokta yer alır ve değerlik elektronları yorumlanırken
+              neden yalnızca <code>4s²</code> ifadesine bakmak yeterli değildir?
+            </p>
+          `,
+          visual: `
+            <svg viewBox="0 0 720 300" role="img" aria-label="4s ve 3d orbital enerji gösterimi">
+              <rect x="30" y="25" width="660" height="250" rx="24" fill="#071525" stroke="rgba(124,242,255,0.24)" />
+              <text x="70" y="70" fill="#ffffff" font-size="22">Enerji sırası ve geçiş metali yorumu</text>
+              <line x1="90" y1="220" x2="250" y2="220" stroke="#7cf2ff" stroke-width="7" stroke-linecap="round"/>
+              <text x="105" y="250" fill="#ffffff" font-size="18">4s²</text>
+              <circle cx="145" cy="205" r="10" fill="#ffd66b"/>
+              <circle cx="175" cy="205" r="10" fill="#ffd66b"/>
+              <line x1="360" y1="175" x2="610" y2="175" stroke="#9dffcb" stroke-width="7" stroke-linecap="round"/>
+              <text x="455" y="205" fill="#ffffff" font-size="18">3d⁶</text>
+              <circle cx="390" cy="158" r="9" fill="#ffd66b"/>
+              <circle cx="425" cy="158" r="9" fill="#ffd66b"/>
+              <circle cx="460" cy="158" r="9" fill="#ffd66b"/>
+              <circle cx="495" cy="158" r="9" fill="#ffd66b"/>
+              <circle cx="530" cy="158" r="9" fill="#ffd66b"/>
+              <circle cx="565" cy="158" r="9" fill="#ffd66b"/>
+            </svg>
+          `,
+          steps: [
+            ["Dizilimin son kısmı okunur", "Elektron dizilimi 4s² 3d⁶ içerdiği için element d orbitallerini doldurmaktadır."],
+            ["Blok yorumu yapılır", "d orbitali dolduğu için element d bloğundadır. Bu tür elementler geçiş metali karakteri gösterebilir."],
+            ["Neden yalnızca 4s² yetmez?", "Geçiş metallerinde kimyasal özelliklerde ns ve (n−1)d elektronları birlikte önemlidir. Bu nedenle 3d⁶ kısmı da değerlik davranışını etkiler."],
+            ["Sonuç", "Element d bloğundadır. Değerlik yorumu yapılırken 4s² ile birlikte 3d elektronları da dikkate alınmalıdır."]
+          ]
+        },
+        {
+          tag: "Kimya • Organik kimya",
+          title: "HBr katılması ve ana ürün",
+          difficulty: "Zor",
+          meta: "Organik reaksiyon yönelimi ve karbokatyon kararlılığı.",
+          question: `
+            <p>
+              Bir alkene asidik ortamda <code>HBr</code> katılıyor.
+            </p>
+            <p>
+              Ana ürün belirlenirken neden daha kararlı karbokatyon oluşumu dikkate alınır?
+              Brom hangi merkeze bağlanma eğilimindedir?
+            </p>
+          `,
+          visual: `
+            <svg viewBox="0 0 760 320" role="img" aria-label="Alken üzerine HBr katılması">
+              <rect x="25" y="25" width="710" height="270" rx="24" fill="#071525" stroke="rgba(124,242,255,0.24)" />
+              <text x="55" y="65" fill="#ffffff" font-size="22">Alken + HBr</text>
+              <line x1="115" y1="165" x2="185" y2="125" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+              <line x1="185" y1="125" x2="255" y2="165" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+              <line x1="188" y1="138" x2="245" y2="171" stroke="#7cf2ff" stroke-width="4" stroke-linecap="round"/>
+              <line x1="255" y1="165" x2="325" y2="125" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+              <path d="M385 150 L500 150" stroke="#9dffcb" stroke-width="8" stroke-linecap="round"/>
+              <path d="M500 150 L478 135 M500 150 L478 165" stroke="#9dffcb" stroke-width="8" stroke-linecap="round"/>
+              <text x="414" y="125" fill="#9dffcb" font-size="20">HBr</text>
+              <line x1="555" y1="165" x2="625" y2="125" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+              <line x1="625" y1="125" x2="695" y2="165" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+              <text x="610" y="104" fill="#ff9dc7" font-size="20">Br</text>
+              <text x="535" y="215" fill="#ffffff" font-size="18">Markovnikov ürünü</text>
+            </svg>
+          `,
+          steps: [
+            ["İlk adım protonlanmadır", "Çift bağ proton alır ve karbokatyon ara ürünü oluşur."],
+            ["Karbokatyon kararlılığı seçiciliği belirler", "Daha çok alkil grubu ile stabilize edilen karbokatyon daha kararlıdır."],
+            ["Bromür saldırısı", "Br⁻ iyonu oluşan karbokatyon merkezine saldırır."],
+            ["Sonuç", "Ana ürün Markovnikov yönelimine göre oluşur; brom daha sübstitüe karbona bağlanır."]
+          ]
+        },
+        {
+          tag: "Kimya • Kimyasal denge",
+          title: "Denge yönü ve Le Chatelier ilkesi",
+          difficulty: "Orta",
+          meta: "Dengeye madde eklenince sistemin tepkisi.",
+          question: `
+            <p>
+              Kapalı bir kapta <code>N₂(g) + 3H₂(g) ⇌ 2NH₃(g)</code> dengesi kurulmuştur.
+            </p>
+            <p>
+              Sabit sıcaklıkta kaba bir miktar <code>H₂</code> gazı eklenirse denge hangi yöne kayar?
+            </p>
+          `,
+          visual: `
+            <svg viewBox="0 0 720 260" role="img" aria-label="Kimyasal denge yönü">
+              <rect x="30" y="25" width="660" height="210" rx="24" fill="#071525" stroke="rgba(124,242,255,0.24)" />
+              <text x="80" y="85" fill="#ffffff" font-size="24">N₂ + 3H₂</text>
+              <text x="315" y="85" fill="#7cf2ff" font-size="32">⇌</text>
+              <text x="400" y="85" fill="#ffffff" font-size="24">2NH₃</text>
+              <circle cx="170" cy="155" r="16" fill="#7cf2ff"/>
+              <circle cx="210" cy="155" r="16" fill="#7cf2ff"/>
+              <circle cx="250" cy="155" r="16" fill="#7cf2ff"/>
+              <text x="145" y="205" fill="#ffffff" font-size="18">H₂ eklendi</text>
+              <path d="M330 155 L475 155" stroke="#9dffcb" stroke-width="8" stroke-linecap="round"/>
+              <path d="M475 155 L452 140 M475 155 L452 170" stroke="#9dffcb" stroke-width="8" stroke-linecap="round"/>
+              <text x="510" y="160" fill="#ffffff" font-size="18">sağa kayar</text>
+            </svg>
+          `,
+          steps: [
+            ["Eklenen maddeyi belirle", "H₂ tepkimenin girenler tarafındadır."],
+            ["Le Chatelier ilkesi uygulanır", "Sistem eklenen H₂ miktarını azaltacak yönde tepki verir."],
+            ["Denge yönü", "H₂ tüketilen yön ürünler yönüdür. Bu yüzden denge sağa kayar."],
+            ["Sonuç", "NH₃ miktarı artar."]
+          ]
+        }
+      ],
+
+      physics: [
+        {
+          tag: "Fizik • Mekanik",
+          title: "Enerji korunumu ile hız-yükseklik ilişkisi",
+          difficulty: "Orta-Zor",
+          meta: "Mekanikte enerji korunumu ve yükseklik farkı.",
+          question: `
+            <p>
+              Sürtünmesiz bir ray üzerinde hareket eden küçük bir cisim, yerden <code>h</code>
+              yüksekliğinden serbest bırakılıyor. Cisim daha sonra başlangıç seviyesinden
+              <code>h/4</code> kadar aşağıdaki bir noktadan geçiyor.
+            </p>
+            <p>Bu noktadaki hızının karesi <code>v²</code> kaçtır?</p>
+          `,
+          visual: `
+            <svg viewBox="0 0 720 260" role="img" aria-label="Enerji korunumu rampası">
+              <rect x="30" y="25" width="660" height="210" rx="24" fill="#071525" stroke="rgba(124,242,255,0.24)" />
+              <path d="M110 85 C230 90 310 178 440 178 C520 178 590 150 640 122" fill="none" stroke="#7cf2ff" stroke-width="8" stroke-linecap="round"/>
+              <circle cx="118" cy="84" r="18" fill="#ffd66b"/>
+              <circle cx="450" cy="178" r="14" fill="#9dffcb"/>
+              <line x1="85" y1="84" x2="85" y2="178" stroke="rgba(255,255,255,0.45)" stroke-dasharray="8 8"/>
+              <text x="52" y="133" fill="#ffffff" font-size="18">h/4</text>
+              <text x="95" y="55" fill="#ffffff" font-size="18">başlangıç</text>
+              <text x="415" y="215" fill="#ffffff" font-size="18">v ?</text>
+            </svg>
+          `,
+          steps: [
+            ["Mekanik enerji korunur", "Sürtünme olmadığı için potansiyel enerjideki azalma kinetik enerjiye dönüşür."],
+            ["Yükseklik farkı belirlenir", "Cisim başlangıç seviyesinden h/4 kadar aşağıya indiği için kaybedilen potansiyel enerji mgh/4 olur."],
+            ["Kinetik enerjiye eşitlenir", "mgh/4 = (1/2)mv² yazılır. Kütleler sadeleşir."],
+            ["Sonuç", "v² = gh/2 bulunur."]
+          ]
+        },
+        {
+          tag: "Fizik • Momentum",
+          title: "Yapışmalı çarpışma problemi",
+          difficulty: "Zor",
+          meta: "Tek boyutlu momentum korunumu.",
+          question: `
+            <p>
+              Sürtünmesiz yatay düzlemde <code>m</code> kütleli bir cisim <code>2v</code>
+              hızıyla, durmakta olan <code>3m</code> kütleli başka bir cisme çarpıp yapışıyor.
+            </p>
+            <p>Çarpışmadan sonra ortak hız kaç olur?</p>
+          `,
+          visual: `
+            <svg viewBox="0 0 720 240" role="img" aria-label="Momentum çarpışması">
+              <rect x="30" y="25" width="660" height="190" rx="24" fill="#071525" stroke="rgba(124,242,255,0.24)" />
+              <line x1="90" y1="158" x2="640" y2="158" stroke="rgba(255,255,255,0.25)" stroke-width="4"/>
+              <circle cx="170" cy="130" r="30" fill="#7cf2ff"/>
+              <rect x="395" y="102" width="90" height="56" rx="18" fill="#ffd66b"/>
+              <path d="M220 130 L320 130" stroke="#9dffcb" stroke-width="8" stroke-linecap="round"/>
+              <path d="M320 130 L300 118 M320 130 L300 142" stroke="#9dffcb" stroke-width="8" stroke-linecap="round"/>
+              <text x="150" y="190" fill="#ffffff" font-size="18">m, 2v</text>
+              <text x="395" y="190" fill="#ffffff" font-size="18">3m, duruyor</text>
+            </svg>
+          `,
+          steps: [
+            ["Momentum korunur", "Yatay doğrultuda dış kuvvet olmadığı için toplam momentum sabittir."],
+            ["Başlangıç momentumu", "İlk momentum m·2v + 3m·0 = 2mv olur."],
+            ["Son momentum", "Cisimler yapıştığı için toplam kütle 4m olur. Ortak hız V ise son momentum 4mV olur."],
+            ["Sonuç", "2mv = 4mV olduğundan V = v/2 bulunur."]
+          ]
+        }
+      ]
+    };
+
+    const branchLabels = {
+      chemistry: "Kimya",
+      physics: "Fizik"
+    };
+
+    let activeBranch = "chemistry";
+    let activeIndex = 0;
+
+    const pageTitle = document.getElementById("pageTitle");
+    const pageSubtitle = document.getElementById("pageSubtitle");
+    const sideBranch = document.getElementById("sideBranch");
+    const branchNote = document.getElementById("branchNote");
+    const formulaBg = document.getElementById("formulaBg");
+
+    const problemTag = document.getElementById("problemTag");
+    const problemTitle = document.getElementById("problemTitle");
+    const problemMeta = document.getElementById("problemMeta");
+    const problemDifficulty = document.getElementById("problemDifficulty");
+    const problemVisual = document.getElementById("problemVisual");
+    const problemQuestion = document.getElementById("problemQuestion");
+
+    const answerPanel = document.getElementById("answerPanel");
+    const answerContent = document.getElementById("answerContent");
+    const showAnswerBtn = document.getElementById("showAnswerBtn");
+    const hideAnswerBtn = document.getElementById("hideAnswerBtn");
+    const nextProblemBtn = document.getElementById("nextProblemBtn");
+
+    function getDailyIndex(total) {
+      const startDate = new Date("2026-01-01T00:00:00");
+      const today = new Date();
+      const dayIndex = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+      return Math.abs(dayIndex) % Math.max(total, 1);
+    }
+
+    async function loadBranch() {
+      try {
+        const response = await fetch("/api/profile/branch", {
+          credentials: "same-origin",
+          cache: "no-store"
+        });
+
+        const payload = await response.json();
+
+        if (!response.ok || !payload.ok) {
+          throw new Error(payload.error || "Profil okunamadı.");
+        }
+
+        activeBranch = payload.branch === "physics" ? "physics" : "chemistry";
+      } catch (error) {
+        activeBranch = "chemistry";
+        branchNote.textContent =
+          "Profil bilgisi okunamadığı için varsayılan olarak Kimya problemi gösteriliyor.";
+      }
+
+      activeIndex = getDailyIndex(problemBanks[activeBranch].length);
+      renderProblem();
+    }
+
+    function renderFormulaBg() {
+      if (activeBranch === "physics") {
+        formulaBg.innerHTML = `
+          <span>F = ma</span>
+          <span>E = ½mv²</span>
+          <span>p = mv</span>
+          <span>∑τ = Iα</span>
+        `;
+      } else {
+        formulaBg.innerHTML = `
+          <span>PV = nRT</span>
+          <span>4s² 3d⁶</span>
+          <span>ΔG = ΔH − TΔS</span>
+          <span>pH = −log[H⁺]</span>
+        `;
+      }
+    }
+
+    function renderProblem() {
+      const branchLabel = branchLabels[activeBranch];
+      const problem = problemBanks[activeBranch][activeIndex];
+
+      pageTitle.textContent = branchLabel + " problemi";
+      pageSubtitle.textContent =
+        "Bu sayfa profilindeki branşa göre günlük problem gösterir.";
+      sideBranch.textContent = branchLabel;
+      branchNote.textContent =
+        "Şu an " + branchLabel + " profiliyle çalışıyorsun. Problem havuzu bu seçime göre gösterilir.";
+
+      problemTag.textContent = problem.tag;
+      problemTitle.textContent = problem.title;
+      problemMeta.textContent = problem.meta;
+      problemDifficulty.textContent = problem.difficulty;
+      problemVisual.innerHTML = problem.visual;
+      problemQuestion.innerHTML = problem.question;
+
+      answerPanel.hidden = true;
+      answerContent.innerHTML = "";
+
+      renderFormulaBg();
+    }
+
+    function renderAnswer() {
+      const problem = problemBanks[activeBranch][activeIndex];
+
+      answerContent.innerHTML = problem.steps
+        .map((step, index) => {
+          return `
+            <div class="answer-step">
+              <span>${index + 1}</span>
+              <strong>${step[0]}</strong>
+              <p>${step[1]}</p>
+            </div>
+          `;
+        })
+        .join("");
+
+      answerPanel.hidden = false;
+      answerPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function nextProblem() {
+      activeIndex = (activeIndex + 1) % problemBanks[activeBranch].length;
+      document.getElementById("studentAnswer").value = "";
+      renderProblem();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    showAnswerBtn.addEventListener("click", renderAnswer);
+    hideAnswerBtn.addEventListener("click", function () {
+      answerPanel.hidden = true;
+      answerContent.innerHTML = "";
+    });
+    nextProblemBtn.addEventListener("click", nextProblem);
+
+    loadBranch();
+  </script>
 </body>
 </html>

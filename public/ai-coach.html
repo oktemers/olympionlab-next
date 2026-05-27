@@ -3,52 +3,826 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Olympion | Yapay Zeka Koçu</title>
-  <meta name="description" content="Olympion öğrenci paneli." />
-  <link rel="stylesheet" href="style.css" />
+  <title>Olympion | AI Koç</title>
+  <link rel="stylesheet" href="/style.css" />
 </head>
-<body class="app-page ">
-  <a href="index.html" class="app-mobile-home">← Ana Sayfa</a>
-  <div class="noise"></div>
-  <div id="cursorFormulaLayer" class="cursor-formula-layer" aria-hidden="true"></div>
-  <div class="app-bg-formulas" aria-hidden="true"><span>F = ma</span><span>ΔG = ΔH − TΔS</span><span>∇·E = ρ/ε₀</span><span>sin²x + cos²x = 1</span></div>
-  <div class="app-shell">
-    <aside class="app-sidebar">
-  <a href="dashboard.html" class="app-brand"><div class="brand-badge">O</div><div>Olympion<small>Öğrenci Paneli</small></div></a>
-  <nav class="app-nav" aria-label="Panel menüsü"><a href="dashboard.html" class="app-link "><span>⌘</span>Genel</a><a href="courses.html" class="app-link "><span>▶</span>Dersler</a><a href="roadmap.html" class="app-link "><span>🧭</span>Rota</a><a href="notes.html" class="app-link "><span>📚</span>PDF</a><a href="daily-problem.html" class="app-link "><span>🔥</span>Problem</a><a href="ai-coach.html" class="app-link active"><span>✦</span>Koç</a><a href="student-labs.html" class="app-link "><span>🧪</span>Labs</a><a href="settings.html" class="app-link "><span>⚙</span>Ayarlar</a><button id="sidebarLogoutBtn" class="app-link logout-sidebar" type="button"><span>⏻</span>Çıkış</button></nav>
-  <div class="sidebar-upgrade"><span>Pro</span><strong>Rotanı kilitsiz kullan.</strong><p>Premium dersler, PDF notları ve deney arşivi.</p><a href="pricing.html">Planı yükselt →</a></div>
-  <a href="index.html" class="back-site">← Ana siteye dön</a>
-</aside>
-    <main class="app-main">
-<div class="app-top">
-  <div><span class="eyebrow">Yapay Zeka Koçu</span><h1>Çözümü ezberletmez, düşünme yolunu açar.</h1><p>Hazır soruya tıkla veya kendi sorunu yaz. Bu prototip hazır akışlarla cevap verir; Next.js sürümünde gerçek OpenAI API rotasına bağlanır.</p></div>
-  <a class="btn btn-secondary compact-btn" href="dashboard.html">Panele dön</a>
-</div>
-<div class="coach-layout coach-layout-v19">
-  <section class="app-panel coach-panel">
-    <div class="panel-head"><h2>Koç oturumu</h2><span id="coachStatus" class="eyebrow">Hazır</span></div>
-    <div id="coachChat" class="coach-chat ai-live-chat">
-      <div class="chat-bubble bot"><strong>Olympion Koçu</strong><p>Bir konu seç. Sana direkt cevap vermek yerine çözüm yolunu, hangi fikri kullanacağını ve sonraki soruları göstereceğim.</p></div>
+
+<body>
+  <div class="app-page">
+    <a href="/" class="app-mobile-home">← Ana Sayfa</a>
+
+    <div class="noise"></div>
+
+    <div class="app-bg-formulas" aria-hidden="true">
+      <span>F = ma</span>
+      <span>PV = nRT</span>
+      <span>pH = −log[H⁺]</span>
+      <span>ΔG = ΔH − TΔS</span>
     </div>
-    <form id="coachForm" class="coach-input">
-      <input id="coachQuestion" type="text" placeholder="Örn. Enerji mi momentum mu kullanmalıyım?" />
-      <button class="btn btn-primary compact-btn" type="submit">Gönder</button>
-    </form>
-  </section>
-  <aside class="app-panel coach-prompt-panel">
-    <h2>Hazır sorular</h2>
-    <div id="coachPromptList" class="coach-prompt-list">
-      <button data-prompt="Enerji mi momentum mu kullanmalıyım?">Enerji mi momentum mu kullanmalıyım?</button>
-      <button data-prompt="Kimyasal dengede Le Chatelier mantığını nasıl kurarım?">Kimyasal dengeyi nasıl düşünmeliyim?</button>
-      <button data-prompt="TÜBİTAK 1. aşama için nasıl çalışmalıyım?">1. aşama için nasıl çalışmalıyım?</button>
-      <button data-prompt="Problem çözerken takılınca ne yapmalıyım?">Takılınca ne yapmalıyım?</button>
-      <button data-prompt="Fizikte kuvvet diyagramını nasıl hızlı çizerim?">Kuvvet diyagramı nasıl çizilir?</button>
+
+    <div class="app-shell">
+      <aside class="app-sidebar">
+        <a href="/dashboard" class="app-brand">
+          <div class="brand-badge">O</div>
+          <div>
+            Olympion
+            <small>Öğrenci Paneli</small>
+          </div>
+        </a>
+
+        <nav class="app-nav" aria-label="Panel menüsü">
+          <a href="/dashboard" class="app-link">
+            <span>⌘</span>
+            Genel
+          </a>
+
+          <a href="/courses" class="app-link">
+            <span>▶</span>
+            Dersler
+          </a>
+
+          <a href="/roadmap.html" class="app-link">
+            <span>🧭</span>
+            Rota
+          </a>
+
+          <a href="/notes.html" class="app-link">
+            <span>📚</span>
+            PDF
+          </a>
+
+          <a href="/daily-problem.html" class="app-link">
+            <span>🔥</span>
+            Problem
+          </a>
+
+          <a href="/ai-coach.html" class="app-link active">
+            <span>✦</span>
+            Koç
+          </a>
+
+          <a href="/student-labs.html" class="app-link">
+            <span>🧪</span>
+            Labs
+          </a>
+
+          <a href="/settings" class="app-link">
+            <span>⚙</span>
+            Ayarlar
+          </a>
+
+          <a href="/login" class="app-link logout-sidebar">
+            <span>⏻</span>
+            Çıkış
+          </a>
+        </nav>
+
+        <div class="sidebar-upgrade">
+          <span>Beta</span>
+          <strong>AI Koç hazırlık aşamasında.</strong>
+          <p>Şimdilik temel çalışma yönlendirmeleri ve başlangıç tavsiyeleri sunar.</p>
+          <a href="/pricing.html">Planı yükselt →</a>
+        </div>
+
+        <a href="/" class="back-site">← Ana siteye dön</a>
+      </aside>
+
+      <main class="app-main">
+        <div class="app-top">
+          <div>
+            <span class="eyebrow">AI Koç</span>
+            <h1>Başlangıç koçluğu beta sürümde.</h1>
+            <p>
+              Bu alan şu anda hazırlık aşamasındadır. Şimdilik olimpiyatlara başlama,
+              çalışma düzeni, kaynak seçimi ve soru analizi için temel öneriler sunar.
+            </p>
+          </div>
+
+          <a class="btn btn-primary compact-btn" href="/courses">
+            Derslere Dön
+          </a>
+        </div>
+
+        <section class="app-panel coach-beta-panel">
+          <div>
+            <span class="eyebrow">Beta notu</span>
+            <h2>AI Koç şu anda kontrollü cevaplarla çalışıyor.</h2>
+            <p>
+              Aşağıdaki temel başlıklardan birini seç. Koç sana kısa bir cevap verecek,
+              sonra 2-3 devam seçeneği sunacak. Devam seçenekleri bittiğinde tekrar
+              başlangıç sorularına döner.
+            </p>
+          </div>
+
+          <div class="coach-beta-badge">
+            <strong>Beta</strong>
+            <span>v0.1</span>
+          </div>
+        </section>
+
+        <section class="coach-layout">
+          <div class="app-panel coach-chat-panel">
+            <div class="panel-head">
+              <div>
+                <h2>Koç konuşması</h2>
+                <p class="panel-sub">Başlangıç seviyesi için kısa, net ve uygulanabilir öneriler.</p>
+              </div>
+
+              <button id="coachReset" class="coach-reset-btn" type="button">
+                Sıfırla
+              </button>
+            </div>
+
+            <div id="coachMessages" class="coach-messages" aria-live="polite"></div>
+          </div>
+
+          <aside class="app-panel coach-question-panel">
+            <div class="panel-head">
+              <div>
+                <h2>Temel sorular</h2>
+                <p class="panel-sub">Bir başlık seçerek ilerle.</p>
+              </div>
+            </div>
+
+            <div id="coachOptions" class="coach-options"></div>
+          </aside>
+        </section>
+      </main>
     </div>
-    <div id="coachFollowups" class="coach-followups"></div>
-  </aside>
-</div>
-</main>
   </div>
-  <script src="script.js"></script>
+
+  <style>
+    .coach-beta-panel {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 22px;
+    }
+
+    .coach-beta-panel h2 {
+      margin: 8px 0;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+    }
+
+    .coach-beta-panel p {
+      max-width: 780px;
+      color: rgba(235, 245, 255, 0.72);
+      line-height: 1.75;
+    }
+
+    .coach-beta-badge {
+      width: 118px;
+      height: 118px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border: 1px solid rgba(124, 242, 255, 0.28);
+      background:
+        radial-gradient(circle at 30% 28%, rgba(124, 242, 255, 0.22), transparent 58%),
+        rgba(255, 255, 255, 0.045);
+      flex: 0 0 auto;
+    }
+
+    .coach-beta-badge strong {
+      display: block;
+      color: #ffffff;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .coach-beta-badge span {
+      display: block;
+      margin-top: -28px;
+      color: rgba(235, 245, 255, 0.62);
+      font-size: 13px;
+    }
+
+    .coach-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.6fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .coach-chat-panel {
+      min-height: 620px;
+    }
+
+    .coach-question-panel {
+      position: sticky;
+      top: 24px;
+    }
+
+    .coach-messages {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .coach-message {
+      border-radius: 22px;
+      padding: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .coach-message.user {
+      margin-left: auto;
+      max-width: 82%;
+      background: rgba(124, 242, 255, 0.1);
+      border-color: rgba(124, 242, 255, 0.18);
+    }
+
+    .coach-message.ai {
+      max-width: 88%;
+    }
+
+    .coach-message span {
+      display: block;
+      margin-bottom: 7px;
+      color: #7cf2ff;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .coach-message strong {
+      display: block;
+      color: #ffffff;
+      margin-bottom: 6px;
+      font-size: 16px;
+    }
+
+    .coach-message p {
+      color: rgba(235, 245, 255, 0.76);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .coach-options {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .coach-option-btn {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.045);
+      color: rgba(245, 250, 255, 0.92);
+      padding: 14px;
+      border-radius: 18px;
+      text-align: left;
+      cursor: pointer;
+      font-weight: 800;
+      line-height: 1.45;
+      transition: 0.18s ease;
+    }
+
+    .coach-option-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(124, 242, 255, 0.32);
+      background: rgba(124, 242, 255, 0.08);
+      color: #ffffff;
+    }
+
+    .coach-option-btn small {
+      display: block;
+      margin-top: 5px;
+      color: rgba(235, 245, 255, 0.54);
+      font-weight: 700;
+    }
+
+    .coach-reset-btn {
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.055);
+      color: #ffffff;
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    .coach-cycle-note {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(157, 255, 203, 0.075);
+      border: 1px solid rgba(157, 255, 203, 0.16);
+      color: rgba(235, 245, 255, 0.76);
+      line-height: 1.65;
+    }
+
+    @media (max-width: 980px) {
+      .coach-beta-panel {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .coach-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .coach-question-panel {
+        position: static;
+      }
+
+      .coach-message.user,
+      .coach-message.ai {
+        max-width: 100%;
+      }
+    }
+  </style>
+
+  <script>
+    const coachTree = {
+      root: {
+        options: [
+          {
+            id: "start",
+            label: "Olimpiyatlara yeni başlıyorum. İlk ne yapmalıyım?",
+            hint: "Başlangıç planı",
+            answerTitle: "İlk hedefin zor soru çözmek değil, düzen kurmak.",
+            answer:
+              "İlk 2 hafta kendini ölçmeye ve çalışma alışkanlığı kurmaya odaklan. Her gün kısa da olsa konu + soru + hata analizi üçlüsünü uygula. Hemen ileri seviye kaynaklara atlamak yerine temel kavramları sağlamlaştır.",
+            next: ["start-plan", "start-mistakes", "start-time"]
+          },
+          {
+            id: "time",
+            label: "Haftada kaç gün çalışmalıyım?",
+            hint: "Çalışma ritmi",
+            answerTitle: "Az ama düzenli çalışma, dağınık yoğun çalışmadan iyidir.",
+            answer:
+              "Başlangıç seviyesinde haftada 4-5 aktif gün yeterlidir. Her gün 45-75 dakika arası net odak süresi hedefle. Daha önemlisi, çalışmanın sonunda ne öğrendiğini ve hangi hatayı yaptığını yazmandır.",
+            next: ["time-school", "time-short", "time-rest"]
+          },
+          {
+            id: "resources",
+            label: "Kaynak seçerken neye dikkat etmeliyim?",
+            hint: "Doğru kaynak seçimi",
+            answerTitle: "Kaynak seviyenle uyumlu olmalı.",
+            answer:
+              "Seni sürekli çözemediğin sorularla ezmeyen, ama çok da kolay kalmayan kaynakları seç. Bir konu için önce temel anlatım, sonra örnek soru, sonra olimpiyat tarzı seçilmiş sorular iyi bir sıradır.",
+            next: ["resources-too-hard", "resources-count", "resources-notes"]
+          },
+          {
+            id: "problem",
+            label: "Soru çözerken nasıl analiz yapmalıyım?",
+            hint: "Problem çözme alışkanlığı",
+            answerTitle: "Çözümden daha değerli şey, çözüm yolunu analiz etmektir.",
+            answer:
+              "Soruyu çözdükten sonra üç şeyi yaz: hangi fikri kullandın, nerede takıldın, bir daha benzer soruda neyi erken fark etmelisin? Bu alışkanlık gelişimi çok hızlandırır.",
+            next: ["problem-stuck", "problem-wrong", "problem-review"]
+          },
+          {
+            id: "motivation",
+            label: "Motivasyonum düşerse ne yapmalıyım?",
+            hint: "Sürdürülebilirlik",
+            answerTitle: "Motivasyon yerine sistem kurmalısın.",
+            answer:
+              "Motivasyon dalgalanır. Bu yüzden küçük bir minimum hedef belirle: örneğin 'bugün sadece 20 dakika çalışacağım'. Başlamak çoğu zaman devam etmeyi getirir.",
+            next: ["motivation-low", "motivation-break", "motivation-compare"]
+          }
+        ]
+      },
+
+      "start-plan": {
+        question: "İlk hafta nasıl plan yapmalıyım?",
+        answerTitle: "İlk hafta tanıma ve düzen haftası olmalı.",
+        answer:
+          "Her gün kısa bir oturum yap: 20 dakika konu, 20 dakika temel soru, 10 dakika hata notu. Amaç kendini yormak değil, ritim yakalamaktır.",
+        next: ["start-plan-daily", "start-plan-topic", "loop"]
+      },
+      "start-mistakes": {
+        question: "En sık yapılan başlangıç hataları neler?",
+        answerTitle: "En büyük hata erken zorlanmaktır.",
+        answer:
+          "Çok zor kaynakla başlamak, çözümü hemen izlemek ve hata defteri tutmamak başlangıçta en sık yapılan hatalardır. Önce temel düşünme düzenini kur.",
+        next: ["start-mistakes-solution", "start-mistakes-notebook", "loop"]
+      },
+      "start-time": {
+        question: "Günde kaç dakika ayırmalıyım?",
+        answerTitle: "Başlangıç için 45-60 dakika yeterli.",
+        answer:
+          "Her gün saatlerce çalışmak zorunda değilsin. Önemli olan düzenli ve dikkatli çalışmak. 45 dakika odaklı çalışma, 2 saat dağınık çalışmadan daha değerlidir.",
+        next: ["start-time-split", "start-time-weekend", "loop"]
+      },
+
+      "time-school": {
+        question: "Okulla beraber nasıl denge kurarım?",
+        answerTitle: "Okul günlerinde kısa, hafta sonu daha uzun çalış.",
+        answer:
+          "Okul günlerinde 45 dakika olimpiyat çalışması yeterli olabilir. Hafta sonu 1 uzun konu-soru oturumu yap. Programın gerçekçi olmazsa sürdürülemez.",
+        next: ["time-school-exam", "time-school-evening", "loop"]
+      },
+      "time-short": {
+        question: "Vaktim çok azsa ne yapmalıyım?",
+        answerTitle: "Minimum çalışma hedefi koy.",
+        answer:
+          "Vaktin azsa sadece 1 konu özeti ve 3 soru çöz. Ama mutlaka hata notu çıkar. Böylece çalışmadığın gün sayısı azalır.",
+        next: ["time-short-20", "time-short-priority", "loop"]
+      },
+      "time-rest": {
+        question: "Dinlenme günü olmalı mı?",
+        answerTitle: "Evet, dinlenme planın parçası olmalı.",
+        answer:
+          "Haftada en az 1 hafif gün bırak. O gün sadece önceki hataları gözden geçirmek yeterli olabilir. Sürekli yüklenmek verimi düşürür.",
+        next: ["time-rest-light", "time-rest-guilt", "loop"]
+      },
+
+      "resources-too-hard": {
+        question: "Kaynak çok zor gelirse bırakmalı mıyım?",
+        answerTitle: "Tamamen bırakma, seviyeyi düşür.",
+        answer:
+          "Eğer soruların çoğunu hiç başlatamıyorsan kaynak şu an seviyenin üstündedir. Daha temel kaynakla zemin kur, sonra tekrar dön.",
+        next: ["resources-too-hard-sign", "resources-too-hard-return", "loop"]
+      },
+      "resources-count": {
+        question: "Aynı anda kaç kaynak kullanmalıyım?",
+        answerTitle: "Başlangıçta az kaynak daha iyidir.",
+        answer:
+          "Bir ana konu kaynağı, bir soru kaynağı ve bir hata defteri yeterli. Çok kaynak açmak ilerleme hissini azaltır.",
+        next: ["resources-count-one", "resources-count-change", "loop"]
+      },
+      "resources-notes": {
+        question: "Not tutmalı mıyım?",
+        answerTitle: "Evet, ama uzun özet değil kısa karar notu tut.",
+        answer:
+          "Her konu için 5-8 maddelik kısa not çıkar. Formül ezberinden çok, hangi durumda hangi fikri kullanacağını yaz.",
+        next: ["resources-notes-format", "resources-notes-review", "loop"]
+      },
+
+      "problem-stuck": {
+        question: "Soruda takılırsam ne kadar uğraşmalıyım?",
+        answerTitle: "Başlangıçta 10-15 dakika ciddi deneme yeterli.",
+        answer:
+          "Hemen çözüme bakma. Önce sistemi çiz, verilenleri yaz, hangi konuyla ilişkili olduğunu tahmin et. 10-15 dakika sonra hâlâ hiç ilerleyemiyorsan ipucu al.",
+        next: ["problem-stuck-hint", "problem-stuck-solution", "loop"]
+      },
+      "problem-wrong": {
+        question: "Yanlış yaptığım soruları nasıl değerlendirmeliyim?",
+        answerTitle: "Yanlış soru gelişim verisidir.",
+        answer:
+          "Yanlış soruyu üçe ayır: bilgi eksiği, işlem hatası, fikir hatası. En değerli kategori fikir hatasıdır; çünkü benzer sorularda tekrar eder.",
+        next: ["problem-wrong-types", "problem-wrong-repeat", "loop"]
+      },
+      "problem-review": {
+        question: "Çözdüğüm soruları tekrar etmeli miyim?",
+        answerTitle: "Evet, tekrar etmezsen çözüm kalıcı olmaz.",
+        answer:
+          "Özellikle yanlış yaptığın soruları 3 gün sonra tekrar çöz. Çözümü hatırlıyor musun, yoksa fikri gerçekten kurabiliyor musun bunu kontrol et.",
+        next: ["problem-review-days", "problem-review-same", "loop"]
+      },
+
+      "motivation-low": {
+        question: "Hiç çalışasım yoksa ne yapmalıyım?",
+        answerTitle: "Çok küçük başla.",
+        answer:
+          "Kendine sadece 10 dakika hedef koy. Masaya otur, bir soru oku, verilenleri yaz. Çoğu zaman başlamak direnci kırar.",
+        next: ["motivation-low-10", "motivation-low-phone", "loop"]
+      },
+      "motivation-break": {
+        question: "Ara verirsem geri düşer miyim?",
+        answerTitle: "Planlı ara geri düşürmez.",
+        answer:
+          "Bilinçli dinlenme, verimi artırır. Ama ara çok uzarsa geri dönüş zorlaşır. Bu yüzden ara günlerinde sadece 10 dakikalık hafif tekrar yapabilirsin.",
+        next: ["motivation-break-light", "motivation-break-return", "loop"]
+      },
+      "motivation-compare": {
+        question: "Kendimi başkalarıyla kıyaslıyorum, ne yapmalıyım?",
+        answerTitle: "Kıyas yön gösterebilir ama ölçü olmamalı.",
+        answer:
+          "Başkasının seviyesi senin çalışma planını belirlememeli. Senin ölçün: geçen haftaya göre daha düzenli misin, daha az hata yapıyor musun, daha iyi analiz ediyor musun?",
+        next: ["motivation-compare-metric", "motivation-compare-social", "loop"]
+      },
+
+      "start-plan-daily": {
+        question: "Günlük plan örneği ver.",
+        answerTitle: "Basit günlük plan:",
+        answer:
+          "10 dakika önceki not tekrarı, 25 dakika konu öğrenme, 25 dakika soru çözme, 10 dakika hata analizi. Başlangıç için bu düzen yeterli.",
+        next: ["loop"]
+      },
+      "start-plan-topic": {
+        question: "İlk hangi konuya başlamalıyım?",
+        answerTitle: "Branşına göre temel kavramlardan başla.",
+        answer:
+          "Fizikte hareket-kuvvet, kimyada mol-periyodik sistem, matematikte sayılar teorisi, biyolojide hücre ve temel biyokimya iyi başlangıçtır.",
+        next: ["loop"]
+      },
+      "start-mistakes-solution": {
+        question: "Çözümü izlemek zararlı mı?",
+        answerTitle: "Hayır, ama zamanlaması önemli.",
+        answer:
+          "Çözümü hemen izlemek öğrenmeyi zayıflatır. Önce kendi denemeni yap, sonra çözümü izle ve en sonda çözümü kapatıp tekrar kurmaya çalış.",
+        next: ["loop"]
+      },
+      "start-mistakes-notebook": {
+        question: "Hata defteri nasıl tutulur?",
+        answerTitle: "Kısa ve karar odaklı tut.",
+        answer:
+          "Soru numarası, hata türü ve 'bir dahaki sefere neyi fark edeceğim?' cümlesi yeterli. Uzun uzun çözüm kopyalama.",
+        next: ["loop"]
+      },
+      "start-time-split": {
+        question: "45 dakikayı nasıl bölmeliyim?",
+        answerTitle: "20 + 20 + 5 sistemi kullan.",
+        answer:
+          "20 dakika konu, 20 dakika soru, 5 dakika hata notu. Kısa ama net bir oturum olur.",
+        next: ["loop"]
+      },
+      "start-time-weekend": {
+        question: "Hafta sonu nasıl çalışmalıyım?",
+        answerTitle: "Hafta sonu analiz günü yap.",
+        answer:
+          "Bir uzun soru çözüm oturumu ve haftalık hata tekrarı yap. Yeni konuya boğulmak yerine haftayı toparla.",
+        next: ["loop"]
+      },
+
+      "time-school-exam": {
+        question: "Okul sınav haftasında olimpiyat çalışmalı mıyım?",
+        answerTitle: "Azalt ama tamamen bırakma.",
+        answer:
+          "Sınav haftasında olimpiyat çalışmasını 15-20 dakikalık tekrar düzeyine indir. Böylece ritim kopmaz.",
+        next: ["loop"]
+      },
+      "time-school-evening": {
+        question: "Akşam çok yoruluyorum, ne yapayım?",
+        answerTitle: "En zor işi en yorgun zamana koyma.",
+        answer:
+          "Akşam sadece tekrar ve kolay soru yap. Yeni ve zor konuları hafta sonuna veya daha dinç olduğun saate koy.",
+        next: ["loop"]
+      },
+      "time-short-20": {
+        question: "20 dakikam varsa ne yapmalıyım?",
+        answerTitle: "Tek bir küçük hedef seç.",
+        answer:
+          "1 kavramı tekrar et veya 2 soru çöz. 20 dakikada her şeyi yapmaya çalışma.",
+        next: ["loop"]
+      },
+      "time-short-priority": {
+        question: "Önceliğim konu mu soru mu olmalı?",
+        answerTitle: "Başlangıçta konu + örnek soru birlikte gitmeli.",
+        answer:
+          "Sadece konu çalışırsan pasif kalırsın, sadece soru çözersen dağılabilirsin. İkisini küçük dozlarda birleştir.",
+        next: ["loop"]
+      },
+      "time-rest-light": {
+        question: "Hafif gün nasıl olur?",
+        answerTitle: "Hafif gün tekrar günüdür.",
+        answer:
+          "Yeni konu açma. Eski notları oku, hata defterinden 2-3 madde seç, zihnini toparla.",
+        next: ["loop"]
+      },
+      "time-rest-guilt": {
+        question: "Dinlenince suçlu hissediyorum.",
+        answerTitle: "Dinlenme çalışmanın düşmanı değil.",
+        answer:
+          "Planlı dinlenme sürdürülebilirliği artırır. Asıl sorun plansız kopuştur.",
+        next: ["loop"]
+      },
+
+      "resources-too-hard-sign": {
+        question: "Kaynağın zor olduğunu nasıl anlarım?",
+        answerTitle: "Başlatamıyorsan seviye yüksek olabilir.",
+        answer:
+          "Soruların çoğunda ilk adımı bile kuramıyorsan temel eksik olabilir. Daha kolay örneklerle geri dön.",
+        next: ["loop"]
+      },
+      "resources-too-hard-return": {
+        question: "Zor kaynağa ne zaman döneyim?",
+        answerTitle: "Temel sorularda istikrar görünce dön.",
+        answer:
+          "Bir konuda temel soruların çoğunu doğru çözüyorsan, zor kaynağa seçilmiş sorularla geri dönebilirsin.",
+        next: ["loop"]
+      },
+      "resources-count-one": {
+        question: "Tek kaynak yeter mi?",
+        answerTitle: "Başlangıçta evet.",
+        answer:
+          "İyi seçilmiş tek kaynakla düzen kurmak, beş kaynağı yarım bırakmaktan daha iyidir.",
+        next: ["loop"]
+      },
+      "resources-count-change": {
+        question: "Kaynak değiştirmek ne zaman mantıklı?",
+        answerTitle: "Kaynak seni geliştirmiyorsa değiştir.",
+        answer:
+          "Ya çok kolay kalıyorsa ya da sürekli çözümsüz bırakıyorsa kaynak değiştirilebilir.",
+        next: ["loop"]
+      },
+      "resources-notes-format": {
+        question: "Not formatı nasıl olmalı?",
+        answerTitle: "Kısa, maddeli ve uygulanabilir.",
+        answer:
+          "Formül, kullanım durumu, dikkat edilecek hata ve örnek fikir şeklinde yaz.",
+        next: ["loop"]
+      },
+      "resources-notes-review": {
+        question: "Notları ne zaman tekrar etmeliyim?",
+        answerTitle: "Kısa aralıklarla tekrar et.",
+        answer:
+          "Yeni konudan 1 gün sonra, sonra 3 gün sonra, sonra hafta sonunda tekrar iyi çalışır.",
+        next: ["loop"]
+      },
+
+      "problem-stuck-hint": {
+        question: "İpucu nasıl alınmalı?",
+        answerTitle: "Tam çözüm değil, yön ipucu al.",
+        answer:
+          "Örneğin 'hangi yasa kullanılmalı?' gibi küçük ipucu al. Tüm çözümü hemen görmek öğrenmeyi azaltır.",
+        next: ["loop"]
+      },
+      "problem-stuck-solution": {
+        question: "Çözümü izledikten sonra ne yapmalıyım?",
+        answerTitle: "Çözümü kapatıp tekrar kur.",
+        answer:
+          "Anladım sanmak kolaydır. Çözümü kapat ve aynı mantığı kendi cümlelerinle tekrar yaz.",
+        next: ["loop"]
+      },
+      "problem-wrong-types": {
+        question: "Hata türlerini nasıl ayırırım?",
+        answerTitle: "Bilgi, işlem, fikir olarak ayır.",
+        answer:
+          "Bilgi hatası konuyu bilmemektir. İşlem hatası dikkattir. Fikir hatası sorunun modelini yanlış kurmaktır.",
+        next: ["loop"]
+      },
+      "problem-wrong-repeat": {
+        question: "Aynı hatayı tekrar yapıyorum.",
+        answerTitle: "Hata notunu karar cümlesine çevir.",
+        answer:
+          "'Dikkatsizlik yaptım' yazma. 'Grafikte eğimin hız olduğunu erken kontrol edeceğim' gibi net karar yaz.",
+        next: ["loop"]
+      },
+      "problem-review-days": {
+        question: "Yanlış soruyu kaç gün sonra çözeyim?",
+        answerTitle: "3 gün iyi bir başlangıç.",
+        answer:
+          "Aynı gün çözmek ezber olabilir. 3 gün sonra tekrar kurabiliyorsan öğrenme daha kalıcıdır.",
+        next: ["loop"]
+      },
+      "problem-review-same": {
+        question: "Aynı soruyu tekrar çözmek zaman kaybı mı?",
+        answerTitle: "Hayır, doğru kullanılırsa çok değerlidir.",
+        answer:
+          "Amaç cevabı hatırlamak değil, çözüm fikrini yeniden kurabilmektir.",
+        next: ["loop"]
+      },
+
+      "motivation-low-10": {
+        question: "10 dakika gerçekten işe yarar mı?",
+        answerTitle: "Evet, çünkü başlangıç direncini kırar.",
+        answer:
+          "10 dakika bazen 40 dakikaya dönüşür. Dönüşmese bile ritmi korumuş olursun.",
+        next: ["loop"]
+      },
+      "motivation-low-phone": {
+        question: "Telefon dikkatimi dağıtıyor.",
+        answerTitle: "Çalışma başlamadan telefonu uzaklaştır.",
+        answer:
+          "Telefonu sessize almak yetmez. Fiziksel olarak erişemeyeceğin bir yere koy.",
+        next: ["loop"]
+      },
+      "motivation-break-light": {
+        question: "Ara gününde ne yapayım?",
+        answerTitle: "Sadece hafif tekrar yap.",
+        answer:
+          "Hata defterinden 2 madde oku veya bir önceki konunun kısa özetini gözden geçir.",
+        next: ["loop"]
+      },
+      "motivation-break-return": {
+        question: "Uzun aradan sonra nasıl dönerim?",
+        answerTitle: "Eski hızına hemen dönmeye çalışma.",
+        answer:
+          "İlk 2 gün düşük tempo yap. Amaç performans değil yeniden ritim kurmaktır.",
+        next: ["loop"]
+      },
+      "motivation-compare-metric": {
+        question: "Kendimi nasıl ölçmeliyim?",
+        answerTitle: "Kendi verini takip et.",
+        answer:
+          "Aktif gün sayısı, çözülen soru, tekrar edilen yanlışlar ve tamamlanan modüller iyi ölçülerdir.",
+        next: ["loop"]
+      },
+      "motivation-compare-social": {
+        question: "Başkalarının ilerlemesi moralimi bozuyor.",
+        answerTitle: "Gördüğün şey genelde sonuçtur, süreç değil.",
+        answer:
+          "Başkasının hızını değil, kendi sürdürülebilir sistemini önemse. Olimpiyat hazırlığı maratondur.",
+        next: ["loop"]
+      },
+
+      loop: {
+        question: "Başka bir temel konu seç.",
+        answerTitle: "Şimdi tekrar başlangıç başlıklarına dönelim.",
+        answer:
+          "Bir konuyu netleştirdik. İstersen farklı bir başlıktan devam edebiliriz.",
+        next: ["root"]
+      }
+    };
+
+    const messagesEl = document.getElementById("coachMessages");
+    const optionsEl = document.getElementById("coachOptions");
+    const resetBtn = document.getElementById("coachReset");
+
+    function addMessage(type, title, text) {
+      const message = document.createElement("div");
+      message.className = "coach-message " + type;
+
+      message.innerHTML = `
+        <span>${type === "user" ? "Sen" : "Olympion Koç"}</span>
+        <strong>${title}</strong>
+        <p>${text}</p>
+      `;
+
+      messagesEl.appendChild(message);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+      message.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function renderOptions(optionIds) {
+      optionsEl.innerHTML = "";
+
+      const ids = optionIds && optionIds.length ? optionIds : ["root"];
+
+      if (ids.includes("root")) {
+        renderRootOptions();
+        return;
+      }
+
+      ids.forEach((id) => {
+        const node = coachTree[id];
+        if (!node) return;
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "coach-option-btn";
+        button.innerHTML = `${node.question}<small>Devam sorusu</small>`;
+        button.addEventListener("click", () => chooseNode(id));
+        optionsEl.appendChild(button);
+      });
+    }
+
+    function renderRootOptions() {
+      optionsEl.innerHTML = "";
+
+      coachTree.root.options.forEach((option) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "coach-option-btn";
+        button.innerHTML = `${option.label}<small>${option.hint}</small>`;
+        button.addEventListener("click", () => chooseRoot(option.id));
+        optionsEl.appendChild(button);
+      });
+    }
+
+    function chooseRoot(id) {
+      const option = coachTree.root.options.find((item) => item.id === id);
+      if (!option) return;
+
+      addMessage("user", "Soru", option.label);
+      addMessage("ai", option.answerTitle, option.answer);
+      renderOptions(option.next);
+    }
+
+    function chooseNode(id) {
+      const node = coachTree[id];
+      if (!node) return;
+
+      addMessage("user", "Devam sorusu", node.question);
+      addMessage("ai", node.answerTitle, node.answer);
+
+      if (!node.next || node.next.length === 0 || node.next.includes("loop")) {
+        const loopNode = coachTree.loop;
+        addMessage("ai", loopNode.answerTitle, loopNode.answer);
+        renderRootOptions();
+        return;
+      }
+
+      renderOptions(node.next);
+    }
+
+    function resetCoach() {
+      messagesEl.innerHTML = "";
+      addMessage(
+        "ai",
+        "Merhaba, ben Olympion Koç.",
+        "Şu anda beta sürümdeyim. Sana başlangıç seviyesinde çalışma düzeni, kaynak seçimi, soru analizi ve motivasyon konularında kısa öneriler verebilirim."
+      );
+      renderRootOptions();
+
+      const note = document.createElement("div");
+      note.className = "coach-cycle-note";
+      note.textContent =
+        "Cevap seçenekleri bittiğinde sistem tekrar temel başlıklara döner. Böylece başlangıç koçluğu döngü halinde kullanılabilir.";
+      messagesEl.appendChild(note);
+    }
+
+    resetBtn.addEventListener("click", resetCoach);
+    resetCoach();
+  </script>
 </body>
 </html>

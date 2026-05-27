@@ -50,75 +50,6 @@ const moduleTypeLabels: Record<string, string> = {
   exam: "Deneme",
 };
 
-async function saveDashboardSetup(formData: FormData) {
-  "use server";
-
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect("/login");
-  }
-
-  const branch = String(formData.get("branch") || "");
-  const level = String(formData.get("level") || "beginner");
-  const goal = String(
-    formData.get("goal") || "Bilim olimpiyatlarına düzenli hazırlanmak"
-  );
-
-  const allowedBranches = ["math", "physics", "chemistry", "biology"];
-  const allowedLevels = ["beginner", "intermediate", "advanced"];
-
-  const safeBranch = allowedBranches.includes(branch) ? branch : "physics";
-  const safeLevel = allowedLevels.includes(level) ? level : "beginner";
-
-  const { data: firstSection } = await supabase
-    .from("course_sections")
-    .select("id,slug")
-    .eq("branch", safeBranch)
-    .eq("is_active", true)
-    .order("order_index", { ascending: true })
-    .limit(1)
-    .maybeSingle();
-
-  const { data: firstModule } = await supabase
-    .from("learning_modules")
-    .select("id")
-    .eq("is_active", true)
-    .or(`branch.eq.all,branch.eq.${safeBranch}`)
-    .order("order_index", { ascending: true })
-    .limit(1)
-    .maybeSingle();
-
-  await supabase
-    .from("profiles")
-    .update({
-      branch: safeBranch,
-      level: safeLevel,
-      goal,
-    })
-    .eq("id", user.id);
-
-  await supabase.from("user_route_state").upsert(
-    {
-      user_id: user.id,
-      branch: safeBranch,
-      level: safeLevel,
-      goal,
-      current_module_id: firstModule?.id || null,
-      updated_at: new Date().toISOString(),
-    },
-    {
-      onConflict: "user_id",
-    }
-  );
-
-  redirect(firstSection ? "/courses" : "/dashboard");
-}
-
 function getModuleIcon(type: LearningModule["type"]) {
   if (type === "guidance") return "🧭";
   if (type === "pdf_note") return "📚";
@@ -196,7 +127,8 @@ export default async function DashboardPage() {
     ? levelLabels[levelKey] || levelKey
     : "Henüz seçilmedi";
 
-  const goal = profile?.goal || "Rotanı oluşturunca burada kişisel hedefin görünecek.";
+  const goal =
+    profile?.goal || "Rotanı oluşturunca burada kişisel hedefin görünecek.";
 
   let modules: LearningModule[] = [];
 
@@ -213,8 +145,10 @@ export default async function DashboardPage() {
     modules = (modulesData || []) as LearningModule[];
   }
 
-  let routeState: { current_module_id?: string | null; branch?: string | null } | null =
-    null;
+  let routeState: {
+    current_module_id?: string | null;
+    branch?: string | null;
+  } | null = null;
 
   if (branchKey) {
     const { data: existingRouteState } = await supabase
@@ -490,7 +424,19 @@ export default async function DashboardPage() {
             <div className="app-top">
               <div>
                 <span className="eyebrow">Genel</span>
-                <h1>Hoş geldin, {firstName}.</h1>
+
+                <h1
+                  className="greeting-rotator"
+                  aria-label={`Hoş geldin, ${firstName}.`}
+                >
+                  <span>Hoş geldin, {firstName}.</span>
+                  <span>Welcome, {firstName}.</span>
+                  <span>Bonjour, {firstName}.</span>
+                  <span>Hola, {firstName}.</span>
+                  <span>Ciao, {firstName}.</span>
+                  <span>Willkommen, {firstName}.</span>
+                </h1>
+
                 <p>
                   {hasRouteSetup
                     ? "Bugünkü hedef: rotandan 1 modül aç, 1 not incele, çalışma ritmini koru."
@@ -682,11 +628,7 @@ export default async function DashboardPage() {
 
                 {pdfPreviewModules.length > 0 ? (
                   pdfPreviewModules.map((module) => (
-                    <a
-                      key={module.id}
-                      className="note-mini"
-                      href="/notes.html"
-                    >
+                    <a key={module.id} className="note-mini" href="/notes.html">
                       <span>{moduleTypeLabels[module.type]}</span>
                       <strong>{module.title}</strong>
                     </a>
@@ -771,57 +713,7 @@ export default async function DashboardPage() {
           </main>
         </div>
 
-      {!hasRouteSetup && <RouteSetupModal />}
-
-              <h2>Olympion Lab rotanı oluşturalım.</h2>
-
-              <p>
-                Branşını, seviyeni ve hedefini seç. Bu bilgiler Supabase
-                profilinde saklanacak ve dashboard, dersler, problem ve PDF
-                önerileri buna göre kişiselleşecek.
-              </p>
-
-              <form action={saveDashboardSetup} className="route-setup-form">
-                <label>
-                  <span>Branş</span>
-                  <select name="branch" defaultValue="chemistry" required>
-                    <option value="chemistry">Kimya</option>
-                    <option value="physics">Fizik</option>
-                    <option value="math">Matematik</option>
-                    <option value="biology">Biyoloji</option>
-                  </select>
-                </label>
-
-                <label>
-                  <span>Seviye</span>
-                  <select name="level" defaultValue="beginner" required>
-                    <option value="beginner">Başlangıç</option>
-                    <option value="intermediate">Orta</option>
-                    <option value="advanced">İleri</option>
-                  </select>
-                </label>
-
-                <label>
-                  <span>Hedef</span>
-                  <select name="goal" defaultValue="TÜBİTAK 1. Aşama">
-                    <option value="TÜBİTAK 1. Aşama">TÜBİTAK 1. Aşama</option>
-                    <option value="TÜBİTAK 2. Aşama">TÜBİTAK 2. Aşama</option>
-                    <option value="Uluslararası olimpiyat hazırlığı">
-                      Uluslararası olimpiyat hazırlığı
-                    </option>
-                    <option value="Kavram öğrenmek ve temel oluşturmak">
-                      Kavram öğrenmek ve temel oluşturmak
-                    </option>
-                  </select>
-                </label>
-
-                <button className="btn btn-primary" type="submit">
-                  Rotamı Oluştur
-                </button>
-              </form>
-            </div>
-          </div>
-        )}
+        {!hasRouteSetup && <RouteSetupModal />}
 
         <style>{`
           .dashboard-logout-form {
@@ -833,6 +725,73 @@ export default async function DashboardPage() {
             border: 0;
             text-align: left;
             cursor: pointer;
+          }
+
+          .greeting-rotator {
+            position: relative;
+            min-height: 1.18em;
+            overflow: hidden;
+            margin: 0;
+          }
+
+          .greeting-rotator span {
+            position: absolute;
+            inset: 0 auto auto 0;
+            opacity: 0;
+            transform: translateY(18px);
+            animation: greetingCycle 15s infinite;
+            white-space: nowrap;
+          }
+
+          .greeting-rotator span:nth-child(1) {
+            animation-delay: 0s;
+          }
+
+          .greeting-rotator span:nth-child(2) {
+            animation-delay: 2.5s;
+          }
+
+          .greeting-rotator span:nth-child(3) {
+            animation-delay: 5s;
+          }
+
+          .greeting-rotator span:nth-child(4) {
+            animation-delay: 7.5s;
+          }
+
+          .greeting-rotator span:nth-child(5) {
+            animation-delay: 10s;
+          }
+
+          .greeting-rotator span:nth-child(6) {
+            animation-delay: 12.5s;
+          }
+
+          @keyframes greetingCycle {
+            0% {
+              opacity: 0;
+              transform: translateY(18px);
+            }
+
+            6% {
+              opacity: 1;
+              transform: translateY(0);
+            }
+
+            14% {
+              opacity: 1;
+              transform: translateY(0);
+            }
+
+            20% {
+              opacity: 0;
+              transform: translateY(-18px);
+            }
+
+            100% {
+              opacity: 0;
+              transform: translateY(-18px);
+            }
           }
 
           .note-mini {
@@ -851,82 +810,6 @@ export default async function DashboardPage() {
             display: block;
             color: #ffffff;
             margin-bottom: 6px;
-          }
-
-          .route-setup-modal {
-            position: fixed;
-            inset: 0;
-            z-index: 300;
-            display: none;
-            place-items: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.72);
-            backdrop-filter: blur(14px);
-          }
-
-          .route-setup-modal.open {
-            display: grid;
-          }
-
-          .route-setup-card {
-            width: min(680px, 100%);
-            border-radius: 30px;
-            padding: 30px;
-            background:
-              radial-gradient(circle at top left, rgba(124, 242, 255, 0.12), transparent 42%),
-              #081222;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.5);
-          }
-
-          .route-setup-card h2 {
-            margin: 14px 0 10px;
-            color: #ffffff;
-            font-size: 28px;
-            letter-spacing: -0.03em;
-          }
-
-          .route-setup-card p {
-            color: rgba(235, 245, 255, 0.74);
-            line-height: 1.7;
-            margin-bottom: 22px;
-          }
-
-          .route-setup-form {
-            display: grid;
-            gap: 14px;
-          }
-
-          .route-setup-form label {
-            display: grid;
-            gap: 8px;
-          }
-
-          .route-setup-form label span {
-            color: rgba(235, 245, 255, 0.78);
-            font-size: 13px;
-            font-weight: 800;
-          }
-
-          .route-setup-form select {
-            width: 100%;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            background: #081222;
-            color: #f7fbff;
-            padding: 14px 15px;
-            outline: none;
-          }
-
-          .route-setup-form option {
-            background: #081222;
-            color: #f7fbff;
-          }
-
-          .route-setup-form button {
-            margin-top: 6px;
-            width: 100%;
-            justify-content: center;
           }
         `}</style>
       </div>

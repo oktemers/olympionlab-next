@@ -771,14 +771,7 @@ export default async function DashboardPage() {
           </main>
         </div>
 
-        {!hasRouteSetup && (
-          <div
-            id="setup-route"
-            className="route-setup-modal open"
-            aria-hidden="false"
-          >
-            <div className="route-setup-card">
-              <div className="badge cyan">İlk kurulum</div>
+      {!hasRouteSetup && <RouteSetupModal />}
 
               <h2>Olympion Lab rotanı oluşturalım.</h2>
 

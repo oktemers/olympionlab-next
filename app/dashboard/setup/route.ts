@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { createClient as createSupabaseAdminClient } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: NextRequest) {
@@ -14,6 +15,26 @@ export async function POST(request: NextRequest) {
     });
   }
 
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !serviceRoleKey) {
+    return NextResponse.redirect(
+      new URL(
+        "/dashboard?setup_error=Supabase%20service%20role%20env%20eksik.",
+        request.url
+      ),
+      { status: 303 }
+    );
+  }
+
+  const adminSupabase = createSupabaseAdminClient(supabaseUrl, serviceRoleKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  });
+
   const formData = await request.formData();
 
   const branch = String(formData.get("branch") || "");
@@ -28,7 +49,7 @@ export async function POST(request: NextRequest) {
   const safeBranch = allowedBranches.includes(branch) ? branch : "chemistry";
   const safeLevel = allowedLevels.includes(level) ? level : "beginner";
 
-  const { data: firstModule } = await supabase
+  const { data: firstModule } = await adminSupabase
     .from("learning_modules")
     .select("id")
     .eq("is_active", true)
@@ -37,7 +58,7 @@ export async function POST(request: NextRequest) {
     .limit(1)
     .maybeSingle();
 
-  const { error: profileError } = await supabase
+  const { error: profileError } = await adminSupabase
     .from("profiles")
     .update({
       branch: safeBranch,
@@ -48,24 +69,39 @@ export async function POST(request: NextRequest) {
 
   if (profileError) {
     return NextResponse.redirect(
-      new URL(`/dashboard?setup_error=${encodeURIComponent(profileError.message)}`, request.url),
+      new URL(
+        `/dashboard?setup_error=${encodeURIComponent(profileError.message)}`,
+        request.url
+      ),
       { status: 303 }
     );
   }
 
-  await supabase.from("user_route_state").upsert(
-    {
-      user_id: user.id,
-      branch: safeBranch,
-      level: safeLevel,
-      goal,
-      current_module_id: firstModule?.id || null,
-      updated_at: new Date().toISOString(),
-    },
-    {
-      onConflict: "user_id",
-    }
-  );
+  const { error: routeError } = await adminSupabase
+    .from("user_route_state")
+    .upsert(
+      {
+        user_id: user.id,
+        branch: safeBranch,
+        level: safeLevel,
+        goal,
+        current_module_id: firstModule?.id || null,
+        updated_at: new Date().toISOString(),
+      },
+      {
+        onConflict: "user_id",
+      }
+    );
+
+  if (routeError) {
+    return NextResponse.redirect(
+      new URL(
+        `/dashboard?setup_error=${encodeURIComponent(routeError.message)}`,
+        request.url
+      ),
+      { status: 303 }
+    );
+  }
 
   return NextResponse.redirect(new URL("/dashboard", request.url), {
     status: 303,

@@ -19,7 +19,7 @@ type LessonVideo = {
 type CourseSection = {
   id: string;
   slug: string;
-  branch: string;
+  branch: "physics" | "chemistry";
   stage: "guidance" | "stage_1" | "stage_2" | "international";
   title: string;
   short_title: string | null;
@@ -38,10 +38,8 @@ type VideoProgress = {
 };
 
 const branchLabels: Record<string, string> = {
-  math: "Matematik",
   physics: "Fizik",
   chemistry: "Kimya",
-  biology: "Biyoloji",
 };
 
 const stageLabels: Record<string, string> = {
@@ -100,9 +98,18 @@ export default async function CoursesPage() {
   const fullName = profile?.full_name || email.split("@")[0] || "Öğrenci";
   const firstName = fullName.split(" ")[0] || "Öğrenci";
 
-  const branchKey = (profile?.branch as string | null) || "physics";
-  const branch = branchLabels[branchKey] || "Fizik";
-  const plan = (profile?.plan as string | null) || "free";
+  const rawBranchKey = profile?.branch ? String(profile.branch) : "";
+  const branchKey =
+    rawBranchKey === "physics" || rawBranchKey === "chemistry"
+      ? rawBranchKey
+      : null;
+
+  if (!branchKey) {
+    redirect("/dashboard");
+  }
+
+  const branch = branchLabels[branchKey];
+  const plan = String(profile?.plan || "free");
 
   const { data: sectionsData } = await supabase
     .from("course_sections")
@@ -170,7 +177,10 @@ export default async function CoursesPage() {
     const completedVideos = videos.filter((video) => {
       const progress = progressMap.get(video.id);
 
-      return progress?.is_completed || Number(progress?.progress_percent || 0) >= 100;
+      return (
+        progress?.is_completed ||
+        Number(progress?.progress_percent || 0) >= 100
+      );
     });
 
     const progressPercent =
@@ -198,22 +208,11 @@ export default async function CoursesPage() {
 
     const isUnlocked = !section.unlock_after_slug || requiredProgress >= 100;
 
-    const firstUnfinishedVideo =
-      section.videos.find((video) => {
-        const progress = progressMap.get(video.id);
-
-        return !progress?.is_completed && Number(progress?.progress_percent || 0) < 100;
-      }) || section.videos[0];
-
     return {
       ...section,
       isUnlocked,
       requiredProgress,
-      firstUnfinishedVideo,
-      href:
-        isUnlocked && firstUnfinishedVideo
-          ? `/lesson/${firstUnfinishedVideo.slug}`
-          : "#",
+      href: isUnlocked ? `/courses/${section.slug}` : "#",
     };
   });
 
@@ -253,10 +252,21 @@ export default async function CoursesPage() {
         ></div>
 
         <div className="app-bg-formulas" aria-hidden="true">
-          <span>F = ma</span>
-          <span>∇·E = ρ/ε₀</span>
-          <span>p = mv</span>
-          <span>E = mc²</span>
+          {branchKey === "physics" ? (
+            <>
+              <span>F = ma</span>
+              <span>∇·E = ρ/ε₀</span>
+              <span>p = mv</span>
+              <span>E = mc²</span>
+            </>
+          ) : (
+            <>
+              <span>PV = nRT</span>
+              <span>ΔG = ΔH − TΔS</span>
+              <span>K = [ürünler]/[girenler]</span>
+              <span>pH = −log[H⁺]</span>
+            </>
+          )}
         </div>
 
         <div className="app-shell">
@@ -342,7 +352,7 @@ export default async function CoursesPage() {
               </div>
 
               <a
-                className="btn btn-primary compact-btn"
+                className="btn btn-primary compact-btn course-top-action"
                 href={nextSection?.href || "#"}
                 data-locked={nextSection?.isUnlocked ? "false" : "true"}
                 data-lock-message={
@@ -390,12 +400,15 @@ export default async function CoursesPage() {
 
                       <div>
                         <span className="eyebrow">
-                          {stageLabels[section.stage]} • {section.totalVideosCount} video
+                          {stageLabels[section.stage]} •{" "}
+                          {section.totalVideosCount} video
                         </span>
                         <h2>{section.title}</h2>
                       </div>
 
-                      {!section.isUnlocked && <span className="lock-pill">Kilitli</span>}
+                      {!section.isUnlocked && (
+                        <span className="lock-pill">Kilitli</span>
+                      )}
                     </div>
 
                     <p className="course-description">{section.description}</p>
@@ -415,7 +428,9 @@ export default async function CoursesPage() {
                     <div className="course-video-preview-list">
                       {previewVideos.map((video) => {
                         const progress = progressMap.get(video.id);
-                        const videoPercent = Number(progress?.progress_percent || 0);
+                        const videoPercent = Number(
+                          progress?.progress_percent || 0
+                        );
                         const isCompleted =
                           progress?.is_completed || videoPercent >= 100;
 
@@ -427,7 +442,8 @@ export default async function CoursesPage() {
                               <strong>{video.title}</strong>
                               <small>
                                 {formatDuration(video.duration_seconds)} •{" "}
-                                {accessLabels[video.access_tier]} • %{videoPercent}
+                                {accessLabels[video.access_tier]} • %
+                                {videoPercent}
                               </small>
                             </div>
                           </div>
@@ -455,7 +471,8 @@ export default async function CoursesPage() {
                       </a>
 
                       <span>
-                        {section.completedVideosCount}/{section.totalVideosCount} tamamlandı
+                        {section.completedVideosCount}/
+                        {section.totalVideosCount} tamamlandı
                       </span>
                     </div>
                   </article>
@@ -502,6 +519,12 @@ export default async function CoursesPage() {
             border: 0;
             text-align: left;
             cursor: pointer;
+          }
+
+          .course-top-action {
+            color: #061320 !important;
+            font-weight: 900 !important;
+            opacity: 1 !important;
           }
 
           .course-hero-panel {
@@ -715,16 +738,17 @@ export default async function CoursesPage() {
             padding: 0 18px;
             border-radius: 999px;
             text-decoration: none;
-            color: #04111f;
+            color: #04111f !important;
             background: linear-gradient(135deg, #7cf2ff, #9dffcb);
             font-weight: 900;
             letter-spacing: -0.01em;
             box-shadow: 0 12px 34px rgba(124, 242, 255, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.24);
+            opacity: 1 !important;
           }
 
           .course-open-btn[data-locked="true"] {
-            color: rgba(255, 255, 255, 0.72);
+            color: rgba(255, 255, 255, 0.72) !important;
             background: rgba(255, 255, 255, 0.075);
             border: 1px solid rgba(255, 255, 255, 0.12);
             box-shadow: none;

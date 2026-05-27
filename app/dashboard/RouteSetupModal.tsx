@@ -18,20 +18,40 @@ export default function RouteSetupModal() {
     setMessage("Rota kaydediliyor...");
 
     try {
-      const response = await fetch("/dashboard/setup", {
+      const response = await fetch("/api/dashboard/setup", {
         method: "POST",
         body: formData,
+        credentials: "same-origin",
         headers: {
           Accept: "application/json",
-          "X-Olympion-Setup": "fetch",
         },
       });
 
-      const payload = await response.json().catch(() => null);
+      const text = await response.text();
+
+      let payload: {
+        ok?: boolean;
+        error?: string;
+        branch?: string;
+        level?: string;
+        goal?: string;
+      } | null = null;
+
+      try {
+        payload = JSON.parse(text);
+      } catch {
+        throw new Error(
+          `Sunucu JSON dönmedi. HTTP ${response.status}. Cevap: ${text.slice(
+            0,
+            180
+          )}`
+        );
+      }
 
       if (!response.ok || !payload?.ok) {
         throw new Error(
-          payload?.error || "Rota kaydedilemedi. Lütfen tekrar dene."
+          payload?.error ||
+            `Rota kaydedilemedi. HTTP ${response.status}.`
         );
       }
 
@@ -110,15 +130,11 @@ export default function RouteSetupModal() {
           position: fixed;
           inset: 0;
           z-index: 300;
-          display: none;
+          display: grid;
           place-items: center;
           padding: 20px;
           background: rgba(0, 0, 0, 0.72);
           backdrop-filter: blur(14px);
-        }
-
-        .route-setup-modal.open {
-          display: grid;
         }
 
         .route-setup-card {
@@ -197,6 +213,7 @@ export default function RouteSetupModal() {
           color: rgba(235, 245, 255, 0.86);
           font-size: 13px;
           line-height: 1.5;
+          word-break: break-word;
         }
       `}</style>
     </div>

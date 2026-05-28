@@ -498,5 +498,14 @@ body{letter-spacing:-.01em} p{line-height:1.75} .section-title p,.app-top p,.fea
   .experiment-card:has(.calculator),
   .student-lab-card:has(.calculator) {
     min-height: 500px;
+
+     .site-logo-icon {
+  width: 42px;
+  height: 42px;
+  display: block;
+  border-radius: 15px;
+  flex: 0 0 auto;
+  object-fit: cover;
+}
   }
 }

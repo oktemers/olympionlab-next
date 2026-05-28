@@ -2,229 +2,558 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Olympion Lab | KVKK Aydınlatma Metni</title>
+  <title>Kullanım Şartları | Olympion Lab</title>
+  <meta
+    name="description"
+    content="Olympion Lab kullanım şartları: üyelik, hesap kullanımı, içerik hakları, abonelikler, platform kuralları ve sorumluluklar."
+  />
+
+  <link rel="stylesheet" href="/style.css" />
 
   <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
+    :root {
+      --bg: #050b14;
+      --panel: rgba(255, 255, 255, 0.055);
+      --border: rgba(255, 255, 255, 0.12);
+      --text: #f7fbff;
+      --muted: rgba(235, 245, 255, 0.72);
+      --soft: rgba(235, 245, 255, 0.56);
+      --cyan: #7cf2ff;
+      --green: #9dffcb;
+      --dark: #07111f;
     }
 
-    body{
-      background:#060b16;
-      color:#f5f7ff;
-      font-family:Inter,Arial,sans-serif;
-      line-height:1.7;
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 16% 8%, rgba(124, 242, 255, 0.13), transparent 34%),
+        radial-gradient(circle at 82% 12%, rgba(157, 255, 203, 0.08), transparent 34%),
+        radial-gradient(circle at 50% 92%, rgba(111, 134, 255, 0.08), transparent 36%),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
     }
 
-    a{
-      color:#7aa2ff;
-      text-decoration:none;
+    a { color: inherit; }
+
+    .privacy-shell { min-height: 100vh; position: relative; overflow-x: hidden; }
+
+    .privacy-noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
     }
 
-    .container{
-      width:min(920px,92%);
-      margin:auto;
-      padding:80px 0;
+    .privacy-header {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 22px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      position: relative;
+      z-index: 2;
     }
 
-    .card{
-      background:#10182b;
-      border:1px solid rgba(255,255,255,0.08);
-      border-radius:24px;
-      padding:42px;
-      box-shadow:0 10px 40px rgba(0,0,0,0.35);
+    .privacy-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 950;
+      letter-spacing: -0.03em;
     }
 
-    h1{
-      font-size:42px;
-      margin-bottom:12px;
+    .privacy-brand-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      color: #061320;
+      background: linear-gradient(135deg, var(--cyan), #9dc8ff);
+      font-weight: 1000;
+      box-shadow: 0 14px 34px rgba(124, 242, 255, 0.2);
     }
 
-    .updated{
-      color:#9aa6c7;
-      margin-bottom:40px;
-      font-size:15px;
+    .privacy-brand small {
+      display: block;
+      margin-top: 2px;
+      color: var(--soft);
+      font-size: 12px;
+      letter-spacing: 0;
+      font-weight: 750;
     }
 
-    h2{
-      margin-top:42px;
-      margin-bottom:14px;
-      font-size:26px;
-      color:white;
+    .privacy-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
-    p{
-      color:#d7deee;
-      margin-bottom:18px;
+    .privacy-nav a {
+      text-decoration: none;
+      color: rgba(245, 250, 255, 0.78);
+      font-size: 14px;
+      font-weight: 800;
+      padding: 10px 13px;
+      border-radius: 999px;
+      transition: 0.18s ease;
     }
 
-    ul{
-      padding-left:20px;
-      margin-bottom:18px;
+    .privacy-nav a:hover {
+      color: #ffffff;
+      background: rgba(255,255,255,0.075);
     }
 
-    li{
-      margin-bottom:10px;
-      color:#d7deee;
+    .privacy-nav .privacy-login {
+      color: #061320;
+      background: linear-gradient(135deg, var(--cyan), #9dc8ff);
+      border: 1px solid rgba(255,255,255,0.22);
     }
 
-    .info-box{
-      background:rgba(122,162,255,0.08);
-      border:1px solid rgba(122,162,255,0.25);
-      padding:18px;
-      border-radius:16px;
-      margin-top:18px;
+    .privacy-main {
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 54px 0 84px;
+      position: relative;
+      z-index: 1;
     }
 
-    .footer{
-      margin-top:50px;
-      padding-top:24px;
-      border-top:1px solid rgba(255,255,255,0.08);
-      color:#9aa6c7;
-      font-size:14px;
+    .privacy-hero {
+      border: 1px solid var(--border);
+      border-radius: 34px;
+      padding: clamp(24px, 5vw, 48px);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.085), rgba(255,255,255,0.035)),
+        rgba(7,17,31,0.74);
+      box-shadow: 0 28px 90px rgba(0,0,0,0.34);
+      backdrop-filter: blur(18px);
     }
 
-    @media(max-width:768px){
+    .privacy-eyebrow {
+      display: inline-flex;
+      color: var(--cyan);
+      background: rgba(124,242,255,0.09);
+      border: 1px solid rgba(124,242,255,0.2);
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-size: 12px;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
 
-      .card{
-        padding:26px;
+    .privacy-hero h1 {
+      margin: 18px 0 16px;
+      max-width: 860px;
+      font-size: clamp(42px, 8vw, 86px);
+      line-height: 0.95;
+      letter-spacing: -0.075em;
+      color: #ffffff;
+    }
+
+    .privacy-hero p {
+      max-width: 900px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.85;
+      margin: 0;
+    }
+
+    .privacy-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .privacy-meta span {
+      border-radius: 999px;
+      padding: 10px 13px;
+      color: rgba(245,250,255,0.82);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.09);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .privacy-content {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 22px;
+      margin-top: 22px;
+      align-items: start;
+    }
+
+    .privacy-toc {
+      position: sticky;
+      top: 18px;
+      border-radius: 26px;
+      padding: 18px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.09);
+      backdrop-filter: blur(14px);
+    }
+
+    .privacy-toc strong {
+      display: block;
+      color: #ffffff;
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    .privacy-toc a {
+      display: block;
+      text-decoration: none;
+      color: var(--muted);
+      padding: 9px 10px;
+      border-radius: 14px;
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 800;
+    }
+
+    .privacy-toc a:hover {
+      color: #ffffff;
+      background: rgba(124,242,255,0.08);
+    }
+
+    .privacy-sections { display: grid; gap: 16px; }
+
+    .privacy-card {
+      border-radius: 28px;
+      padding: clamp(20px, 3vw, 30px);
+      background: rgba(255,255,255,0.052);
+      border: 1px solid rgba(255,255,255,0.095);
+      box-shadow: 0 20px 70px rgba(0,0,0,0.18);
+    }
+
+    .privacy-card h2 {
+      color: #ffffff;
+      margin: 0 0 12px;
+      font-size: clamp(22px, 3vw, 30px);
+      line-height: 1.15;
+      letter-spacing: -0.045em;
+    }
+
+    .privacy-card p {
+      color: var(--muted);
+      line-height: 1.82;
+      margin: 12px 0 0;
+    }
+
+    .privacy-card strong { color: #ffffff; }
+
+    .privacy-list {
+      display: grid;
+      gap: 11px;
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .privacy-list li {
+      position: relative;
+      padding-left: 28px;
+      color: var(--muted);
+      line-height: 1.72;
+    }
+
+    .privacy-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--cyan);
+      font-weight: 1000;
+    }
+
+    .privacy-info {
+      margin-top: 16px;
+      border-radius: 22px;
+      padding: 17px;
+      background: rgba(124,242,255,0.08);
+      border: 1px solid rgba(124,242,255,0.18);
+    }
+
+    .privacy-final {
+      background:
+        radial-gradient(circle at 0% 0%, rgba(124,242,255,0.14), transparent 45%),
+        rgba(255,255,255,0.06);
+    }
+
+    .privacy-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      margin-top: 18px;
+      padding: 0 18px;
+      border-radius: 999px;
+      color: #061320 !important;
+      background: linear-gradient(135deg, var(--cyan), #9dc8ff);
+      text-decoration: none !important;
+      font-weight: 1000;
+      box-shadow: 0 16px 40px rgba(124,242,255,0.18);
+    }
+
+    .privacy-footer {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 26px 0 40px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      color: var(--soft);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      z-index: 1;
+    }
+
+    .privacy-footer strong { color: #ffffff; }
+
+    .privacy-footer p {
+      margin: 4px 0 0;
+      font-size: 13px;
+    }
+
+    .privacy-footer nav {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .privacy-footer a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    @media (max-width: 920px) {
+      .privacy-header { align-items: flex-start; flex-direction: column; }
+      .privacy-nav { justify-content: flex-start; }
+      .privacy-content { grid-template-columns: 1fr; }
+      .privacy-toc { position: static; }
+      .privacy-footer { flex-direction: column; align-items: flex-start; }
+      .privacy-footer nav { justify-content: flex-start; }
+    }
+
+    @media (max-width: 560px) {
+      .privacy-header, .privacy-main, .privacy-footer {
+        width: min(100% - 24px, 1180px);
       }
 
-      h1{
-        font-size:32px;
+      .privacy-nav a {
+        padding: 9px 10px;
+        font-size: 13px;
       }
 
-      h2{
-        font-size:22px;
-      }
+      .privacy-hero { border-radius: 24px; }
+      .privacy-card { border-radius: 22px; }
     }
   </style>
 </head>
+
 <body>
+  <div class="privacy-shell">
+    <div class="privacy-noise" aria-hidden="true"></div>
 
-  <div class="container">
-    <div class="card">
+    <header class="privacy-header">
+      <a href="/index.html" class="privacy-brand">
+        <div class="privacy-brand-badge">O</div>
+        <div>
+          Olympion Lab
+          <small>Olimpiyat Öğrenme Platformu</small>
+        </div>
+      </a>
 
-      <h1>KVKK Aydınlatma Metni</h1>
+      <nav class="privacy-nav" aria-label="Ana menü">
+        <a href="/index.html">Ana Sayfa</a>
+        <a href="/video.html">Video Kütüphanesi</a>
+        <a href="/branches.html">Branşlar</a>
+        <a href="/pricing.html">Fiyatlandırma</a>
+        <a href="/privacy.html">Gizlilik Politikası</a>
+        <a class="privacy-login" href="/login">Giriş Yap →</a>
+      </nav>
+    </header>
 
-      <div class="updated">
-        Son güncelleme: 28 Mayıs 2026
+    <main class="privacy-main">
+      <section class="privacy-hero">
+        <span class="privacy-eyebrow">Yasal Bilgilendirme</span>
+        <h1>Kullanım Şartları</h1>
+        <p>
+          Bu Kullanım Şartları, Olympion Lab platformunu ziyaret eden, hesap oluşturan,
+          ders içeriklerine erişen veya platform hizmetlerinden yararlanan kullanıcılar için
+          geçerli kuralları açıklar.
+        </p>
+
+        <div class="privacy-meta">
+          <span>Son güncelleme: 28 Mayıs 2026</span>
+          <span>Yürürlük tarihi: 28 Mayıs 2026</span>
+          <span>Geçerli bölge: Türkiye ve uluslararası kullanıcılar</span>
+        </div>
+      </section>
+
+      <div class="privacy-content">
+        <aside class="privacy-toc">
+          <strong>İçindekiler</strong>
+          <a href="#kabul">1. Şartların kabulü</a>
+          <a href="#hizmet">2. Platform hizmetleri</a>
+          <a href="#hesap">3. Hesap kullanımı</a>
+          <a href="#icerik">4. İçerik hakları</a>
+          <a href="#abonelik">5. Planlar ve abonelikler</a>
+          <a href="#kurallar">6. Kullanıcı kuralları</a>
+          <a href="#degisiklik">7. Hizmet değişiklikleri</a>
+          <a href="#sorumluluk">8. Sorumluluk sınırı</a>
+          <a href="#gizlilik">9. Gizlilik</a>
+          <a href="#iletisim">10. İletişim</a>
+        </aside>
+
+        <div class="privacy-sections">
+          <section id="kabul" class="privacy-card">
+            <h2>1. Şartların Kabulü</h2>
+            <p>
+              Olympion Lab’i kullanarak bu Kullanım Şartları’nı kabul etmiş sayılırsınız.
+              Bu şartları kabul etmiyorsanız platformu kullanmamalısınız.
+            </p>
+          </section>
+
+          <section id="hizmet" class="privacy-card">
+            <h2>2. Platform Hizmetleri</h2>
+            <p>
+              Olympion Lab; bilim olimpiyatlarına hazırlanan öğrenciler için video dersler,
+              kişisel çalışma rotaları, günlük problemler, PDF notları, AI koç desteği,
+              deney/lab araçları ve ilerleme takip sistemleri sunan dijital bir eğitim platformudur.
+            </p>
+          </section>
+
+          <section id="hesap" class="privacy-card">
+            <h2>3. Hesap Kullanımı</h2>
+            <ul class="privacy-list">
+              <li>Hesabınızın güvenliğinden siz sorumlusunuz.</li>
+              <li>Yanlış, yanıltıcı veya başkasına ait bilgilerle hesap oluşturulmamalıdır.</li>
+              <li>Hesap bilgileri üçüncü kişilerle paylaşılmamalıdır.</li>
+              <li>Yetkisiz erişim, kötüye kullanım veya şüpheli işlem tespit edilirse hesap erişimi sınırlandırılabilir.</li>
+            </ul>
+          </section>
+
+          <section id="icerik" class="privacy-card">
+            <h2>4. İçerik ve Fikri Mülkiyet Hakları</h2>
+            <p>
+              Platformdaki video dersler, metinler, soru çözümleri, PDF içerikleri, görseller,
+              arayüz tasarımları ve eğitim sistemleri Olympion Lab’e veya ilgili hak sahiplerine aittir.
+            </p>
+
+            <ul class="privacy-list">
+              <li>İçerikler izinsiz kopyalanamaz.</li>
+              <li>Toplu şekilde indirilemez veya dağıtılamaz.</li>
+              <li>Üçüncü kişilere satılamaz veya ticari amaçla kullanılamaz.</li>
+              <li>Platform içerikleri yalnızca kişisel eğitim amacıyla kullanılabilir.</li>
+            </ul>
+          </section>
+
+          <section id="abonelik" class="privacy-card">
+            <h2>5. Planlar, Ücretlendirme ve Abonelikler</h2>
+            <p>
+              Olympion Lab ücretsiz veya ücretli üyelik planları sunabilir. Planların kapsamı,
+              erişim hakları, içerik limitleri ve fiyatları ilgili sayfalarda belirtilir.
+            </p>
+
+            <div class="privacy-info">
+              <strong>Not</strong>
+              <p>
+                Dijital içerik erişimleri, satın alınan planın kapsamına ve geçerlilik süresine göre değişebilir.
+              </p>
+            </div>
+          </section>
+
+          <section id="kurallar" class="privacy-card">
+            <h2>6. Kullanıcı Kuralları</h2>
+            <ul class="privacy-list">
+              <li>Platforma zarar verecek teknik girişimlerde bulunulmamalıdır.</li>
+              <li>Bot, otomasyon, veri kazıma veya yetkisiz erişim araçları kullanılmamalıdır.</li>
+              <li>Diğer kullanıcıların deneyimini bozacak davranışlardan kaçınılmalıdır.</li>
+              <li>Yasa dışı, zararlı veya yanıltıcı içerik paylaşılmamalıdır.</li>
+              <li>Platformdaki güvenlik önlemleri aşılmaya çalışılmamalıdır.</li>
+            </ul>
+          </section>
+
+          <section id="degisiklik" class="privacy-card">
+            <h2>7. Hizmet Değişiklikleri</h2>
+            <p>
+              Olympion Lab; platform özelliklerini, içeriklerini, planlarını, fiyatlandırmasını
+              veya teknik altyapısını zaman içinde güncelleyebilir, değiştirebilir veya geçici
+              olarak durdurabilir.
+            </p>
+          </section>
+
+          <section id="sorumluluk" class="privacy-card">
+            <h2>8. Sorumluluğun Sınırlandırılması</h2>
+            <p>
+              Olympion Lab eğitim ve rehberlik amacıyla sunulur. Platform, kullanıcıların akademik
+              başarısı veya sınav sonuçları hakkında kesin garanti vermez.
+            </p>
+            <p>
+              Teknik kesintiler, üçüncü taraf servis sorunları, internet bağlantısı problemleri
+              veya kullanıcı cihazlarından kaynaklanan erişim sorunlarından dolayı hizmette
+              geçici aksaklıklar yaşanabilir.
+            </p>
+          </section>
+
+          <section id="gizlilik" class="privacy-card">
+            <h2>9. Gizlilik ve Veri Koruma</h2>
+            <p>
+              Kişisel verilerin işlenmesi, saklanması, paylaşılması ve kullanıcı hakları hakkında
+              detaylı bilgi için Gizlilik Politikası ve KVKK Aydınlatma Metni incelenmelidir.
+            </p>
+
+            <a class="privacy-button" href="/privacy.html">Gizlilik Politikasını İncele</a>
+          </section>
+
+          <section id="iletisim" class="privacy-card privacy-final">
+            <h2>10. İletişim</h2>
+            <p>
+              Kullanım şartlarıyla ilgili sorularınız için bizimle iletişime geçebilirsiniz.
+            </p>
+
+            <a class="privacy-button" href="mailto:privacy@olympionlab.com">
+              Olympion Lab’e Yaz
+            </a>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <footer class="privacy-footer">
+      <div>
+        <strong>Olympion Lab</strong>
+        <p>Olimpiyat hazırlığını kişisel bir öğrenme sistemine dönüştürür.</p>
       </div>
 
-      <p>
-        Bu aydınlatma metni, Olympion Lab tarafından sunulan hizmetler kapsamında
-        kullanıcı verilerinin nasıl işlendiği hakkında bilgilendirme amacıyla hazırlanmıştır.
-      </p>
-
-      <h2>1. Veri Sorumlusu</h2>
-
-      <p>
-        6698 sayılı Kişisel Verilerin Korunması Kanunu (“KVKK”) kapsamında,
-        kişisel verileriniz veri sorumlusu sıfatıyla Olympion Lab tarafından işlenebilir.
-      </p>
-
-      <h2>2. İşlenen Kişisel Veriler</h2>
-
-      <p>
-        Platform kullanımınız sırasında aşağıdaki veriler işlenebilir:
-      </p>
-
-      <ul>
-        <li>Ad ve soyad bilgisi</li>
-        <li>E-posta adresi</li>
-        <li>Hesap bilgileri</li>
-        <li>Ders ve çalışma tercihleri</li>
-        <li>Platform kullanım verileri</li>
-        <li>İlerleme ve öğrenme istatistikleri</li>
-        <li>Teknik oturum ve cihaz bilgileri</li>
-      </ul>
-
-      <h2>3. Verilerin İşlenme Amaçları</h2>
-
-      <p>
-        Toplanan veriler aşağıdaki amaçlarla işlenebilir:
-      </p>
-
-      <ul>
-        <li>Kullanıcı hesabının oluşturulması ve yönetilmesi</li>
-        <li>Eğitim içeriklerinin kişiselleştirilmesi</li>
-        <li>Öğrenme ilerlemesinin takip edilmesi</li>
-        <li>Platform performansının geliştirilmesi</li>
-        <li>Teknik destek sağlanması</li>
-        <li>Güvenlik süreçlerinin yürütülmesi</li>
-        <li>Yasal yükümlülüklerin yerine getirilmesi</li>
-      </ul>
-
-      <h2>4. Verilerin Aktarılması</h2>
-
-      <p>
-        Kişisel veriler; altyapı, barındırma, analiz veya teknik destek hizmetleri kapsamında
-        sınırlı olarak üçüncü taraf hizmet sağlayıcılarla paylaşılabilir.
-      </p>
-
-      <div class="info-box">
-        Olympion Lab; Supabase, Vercel veya benzeri altyapı servislerinden yararlanabilir.
-      </div>
-
-      <h2>5. Veri Toplama Yöntemi</h2>
-
-      <p>
-        Veriler; üyelik formları, platform kullanımı, giriş işlemleri,
-        kullanıcı tercihleri ve teknik kayıt sistemleri aracılığıyla toplanabilir.
-      </p>
-
-      <h2>6. KVKK Kapsamındaki Haklarınız</h2>
-
-      <p>
-        KVKK’nın 11. maddesi kapsamında kullanıcılar:
-      </p>
-
-      <ul>
-        <li>Kişisel verilerinin işlenip işlenmediğini öğrenme</li>
-        <li>İşlenen verilere ilişkin bilgi talep etme</li>
-        <li>Eksik veya yanlış işlenen verilerin düzeltilmesini isteme</li>
-        <li>Verilerin silinmesini veya yok edilmesini talep etme</li>
-        <li>İşleme faaliyetlerine itiraz etme</li>
-        <li>Zarara uğramaları halinde tazminat talep etme</li>
-      </ul>
-
-      <h2>7. Veri Güvenliği</h2>
-
-      <p>
-        Olympion Lab, kullanıcı verilerini koruyabilmek adına makul teknik ve idari güvenlik önlemleri uygulamaya çalışır.
-      </p>
-
-      <p>
-        Ancak internet altyapısının doğası gereği hiçbir sistemin tamamen risksiz olduğu garanti edilemez.
-      </p>
-
-      <h2>8. Saklama Süresi</h2>
-
-      <p>
-        Kişisel veriler; hizmetin sağlanabilmesi, yasal yükümlülüklerin yerine getirilmesi
-        ve meşru iş süreçlerinin sürdürülebilmesi amacıyla gerekli süre boyunca saklanabilir.
-      </p>
-
-      <h2>9. İletişim</h2>
-
-      <p>
-        KVKK kapsamındaki talepleriniz için:
-      </p>
-
-      <p>
-        📩 privacy@olympionlab.com
-      </p>
-
-      <div class="footer">
-        © 2026 Olympion Lab — Tüm hakları saklıdır.
-      </div>
-
-    </div>
+      <nav>
+        <a href="/privacy.html">Gizlilik</a>
+        <a href="/kvkk.html">KVKK</a>
+        <a href="/index.html">Ana Sayfa</a>
+      </nav>
+    </footer>
   </div>
-
 </body>
 </html>

@@ -507,5 +507,31 @@ body{letter-spacing:-.01em} p{line-height:1.75} .section-title p,.app-top p,.fea
   flex: 0 0 auto;
   object-fit: cover;
 }
+     .brand-mark {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  max-width: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  border-radius: 15px !important;
+  overflow: hidden !important;
+  display: grid !important;
+  place-items: center !important;
+  flex: 0 0 42px !important;
+  background: transparent !important;
+}
+
+.brand-logo-img {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  max-width: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  display: block !important;
+  object-fit: cover !important;
+  border-radius: 15px !important;
+}
   }
 }

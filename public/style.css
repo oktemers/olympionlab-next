@@ -1936,3 +1936,48 @@ body.public-page {
 .global-reach-section {
   display: none !important;
 }
+
+const members = {
+  kurucu: {
+    badge: "Kurucu",
+    title: "Ozan Öktemer",
+    role: "Kurucu & Genel Koordinatör",
+    text: "Olympion Lab’in ürün vizyonu, marka kimliği, içerik standardı ve genel koordinasyonu kurucu liderliğinde şekillenir. Platformun temel hedefi; olimpiyat hazırlığını yalnızca içerik izleme süreci olmaktan çıkarıp öğrencinin düzenli çalıştığı, gelişimini takip ettiği ve zor konuları görselleştirerek öğrendiği sürdürülebilir bir akademik çalışma alanına dönüştürmektir.",
+    icon: "person"
+  },
+  akademik: {
+    badge: "Akademik İçerik",
+    title: "Elif Arslan",
+    role: "Eğitim Kalitesi ve İçerik Başkanı",
+    text: "Akademik içerik yapısı; video dersler, soru çözüm serileri, PDF notları ve günlük problem akışının olimpiyat seviyesine uygun biçimde planlanmasını hedefler. Bu alanın temel görevi; öğrencinin yalnızca konuyu görmesini değil, problem çözme refleksi kazanmasını sağlayan içerik standardını korumaktır.",
+    icon: "education"
+  },
+  teknoloji: {
+    badge: "Teknoloji",
+    title: "Mert Kaya",
+    role: "Ürün ve Altyapı Sorumlusu",
+    text: "Teknoloji ve ürün yapısı; üyelik sistemi, kullanıcı paneli, çalışma rotası, içerik erişimi, ödeme akışı ve platform performansı gibi temel alanlardan sorumludur. Amaç; öğrencinin öğrenme sürecini sade, hızlı ve güvenilir bir dijital deneyim üzerinden sürdürebilmesini sağlamaktır.",
+    icon: "tech"
+  },
+  labs: {
+    badge: "Olympion Labs",
+    title: "Deniz Yalçın",
+    role: "Deneysel Öğrenme Direktörü",
+    text: "Olympion Labs; soyut bilimsel kavramları öğrencinin deneyimleyebileceği görsel ve etkileşimli modellere dönüştürmeyi amaçlar. Vektör, elektrik alan, denge, hareket ve benzeri konular, yalnızca formül üzerinden değil; sistem davranışını görerek öğrenme mantığıyla ele alınır.",
+    icon: "lab"
+  },
+  strateji: {
+    badge: "Mentörlük",
+    title: "Selin Demir",
+    role: "Öğrenci Başarısı Koordinatörü",
+    text: "Mentörlük ve öğrenci başarısı yapısı; başvuru değerlendirme, seviye analizi, kişisel çalışma planı, düzenli takip ve öğrenci iletişimi süreçlerini kapsar. Bu alanın odağı; öğrencinin hedefini, seviyesini ve zaman planını dikkate alan daha kişisel bir hazırlık deneyimi oluşturmaktır.",
+    icon: "group"
+  },
+  mentorluk: {
+    badge: "Strateji",
+    title: "Kerem Aydın",
+    role: "Strateji ve Kurumsal Gelişim Sorumlusu",
+    text: "Strateji ve gelişim yapısı; Olympion Lab’in uzun vadeli marka konumlandırmasını, iş birliklerini, büyüme kanallarını ve operasyonel sürdürülebilirliğini ele alır. Amaç; platformun yalnızca bugünkü içerik ihtiyacını değil, gelecekteki akademik ekosistem hedeflerini de desteklemesidir.",
+    icon: "growth"
+  }
+};

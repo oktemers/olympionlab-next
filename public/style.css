@@ -533,5 +533,48 @@ body{letter-spacing:-.01em} p{line-height:1.75} .section-title p,.app-top p,.fea
   object-fit: cover !important;
   border-radius: 15px !important;
 }
+     /* Olympion global logo patch */
+.brand-badge,
+.brand-mark,
+.privacy-brand-badge,
+.boot-mark {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  max-width: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  flex: 0 0 42px !important;
+  display: grid !important;
+  place-items: center !important;
+  border-radius: 15px !important;
+  overflow: hidden !important;
+  background-image: url("/logo-icon.svg") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-color: transparent !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  box-shadow: none !important;
+}
+
+.brand-badge::before,
+.brand-mark::before,
+.privacy-brand-badge::before,
+.boot-mark::before {
+  content: none !important;
+}
+
+.brand-badge img,
+.brand-mark img,
+.privacy-brand-badge img {
+  width: 42px !important;
+  height: 42px !important;
+  display: block !important;
+  object-fit: cover !important;
+  border-radius: 15px !important;
+}
   }
 }

@@ -106,6 +106,24 @@ export default async function LoginPage({
             </Link>
           </div>
 
+          <style>{`
+  .auth-tabs {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+
+  .auth-tab {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100% !important;
+    min-height: 52px !important;
+    padding: 0 18px !important;
+  }
+`}</style>
+
           {params?.error && <p className="next-status-error">{params.error}</p>}
           {params?.message && <p className="next-status-ok">{params.message}</p>}
 

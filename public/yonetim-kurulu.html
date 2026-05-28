@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Yönetim Kurulu | Olympion Lab</title>
-  <meta name="description" content="Olympion Lab yönetim yaklaşımı ve karar alma yapısı." />
+  <meta name="description" content="Olympion Lab yönetim yaklaşımı ve kurumsal yapılanması." />
 
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -17,7 +17,9 @@
   <header class="site-header">
     <div class="container nav">
       <a href="index.html" class="brand">
-        <div class="brand-mark"><img class="brand-logo-img" src="/logo-icon.svg" alt="Olympion logosu" width="42" height="42" /></div>
+        <div class="brand-mark">
+          <img class="brand-logo-img" src="/logo-icon.svg" alt="Olympion logosu" width="42" height="42" />
+        </div>
         <div>Olympion<small>Olimpiyat Öğrenme Platformu</small></div>
       </a>
 
@@ -28,6 +30,7 @@
         <a href="labs.html">Olympion Labs</a>
         <a href="pricing.html">Fiyatlandırma</a>
         <a href="faq.html">SSS</a>
+
         <div class="nav-dropdown">
           <a href="hakkimizda.html" class="nav-drop-trigger active">Hakkımızda <span>⌄</span></a>
           <div class="nav-drop-menu">
@@ -38,8 +41,11 @@
         </div>
       </nav>
 
-      <div class="nav-right"><a href="login.html" class="login-bubble">Giriş Yap <span>→</span></a></div>
-      <button class="menu-btn" id="menuBtn">☰</button>
+      <div class="nav-right">
+        <a href="login.html" class="login-bubble">Giriş Yap <span>→</span></a>
+      </div>
+
+      <button class="menu-btn" id="menuBtn" aria-label="Menüyü aç/kapat">☰</button>
     </div>
 
     <div class="container mobile-menu" id="mobileMenu">
@@ -48,6 +54,7 @@
       <a href="branches.html">Branşlar</a>
       <a href="labs.html">Olympion Labs</a>
       <a href="pricing.html">Fiyatlandırma</a>
+      <a href="faq.html">SSS</a>
       <a href="hakkimizda.html">Hakkımızda</a>
       <a href="biz-kimiz.html">Biz Kimiz?</a>
       <a href="yonetim-kurulu.html">Yönetim Kurulu</a>
@@ -56,51 +63,118 @@
   </header>
 
   <main class="site-main">
-    <section class="corporate-hero">
+    <section class="board-hero">
       <div class="container">
-        <div class="corporate-hero-card reveal">
+        <div class="board-hero-card reveal">
           <div class="badge gold">Yönetim Kurulu</div>
-          <h1>Karar alma yapımızı şeffaf ve gelişime açık tutuyoruz.</h1>
+
+          <h1>Olympion Lab yönetim yapısı.</h1>
+
           <p>
-            Olympion Lab erken aşama bir eğitim girişimidir. Bu sayfa, platformun yönetim
-            yaklaşımını, karar alma prensiplerini ve kalite odağını açıklar.
+            Olympion Lab’in yönetim yaklaşımı; eğitim kalitesi, ürün geliştirme,
+            teknoloji altyapısı, öğrenci başarısı ve uzun vadeli kurumsal büyüme
+            başlıkları etrafında şekillenir. Aşağıdaki yapı, platformun karar alma
+            ve gelişim alanlarını sade bir kurumsal model olarak sunar.
           </p>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="container corporate-split">
-        <div class="corporate-panel reveal">
-          <h2>Kurucu liderliği</h2>
-          <p>
-            Olympion Lab’in ürün, içerik ve marka yönü kurucu liderliğinde şekillenir.
-            Platformun temel odağı; öğrencinin gerçek çalışma sürecini kolaylaştıran
-            sade, güvenilir ve sürdürülebilir bir sistem kurmaktır.
-          </p>
-        </div>
-
-        <div class="corporate-panel reveal">
-          <h2>Yönetim prensipleri</h2>
-          <ul class="corporate-list">
-            <li>Eğitim kalitesini büyümenin önünde tutmak</li>
-            <li>Öğrenci verisini ve güvenini korumak</li>
-            <li>İçerik ve ürün kararlarını ölçülebilir geri bildirimle almak</li>
-            <li>Uzun vadeli, güvenilir bir olimpiyat hazırlık markası oluşturmak</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section>
+    <section class="board-grid-section">
       <div class="container">
-        <div class="corporate-panel reveal">
-          <h2>Not</h2>
-          <p>
-            Resmi yönetim kurulu, danışman kadrosu veya akademik kurul yapısı oluştukça
-            bu sayfa güncellenecektir. Şimdilik sayfa, Olympion Lab’in yönetim yaklaşımını
-            ve kurumsal duruşunu açıklamak için hazırlanmıştır.
-          </p>
+        <div class="board-grid">
+          <a class="board-member-card reveal" href="yonetim-kurulu-detay.html?member=kurucu">
+            <div class="board-member-content">
+              <div class="board-avatar">
+                <svg viewBox="0 0 96 96" fill="none">
+                  <circle cx="48" cy="34" r="18" fill="#061320"/>
+                  <path d="M20 78C24 58 36 48 48 48C60 48 72 58 76 78" fill="#061320"/>
+                </svg>
+              </div>
+              <h2>Ozan Öktemer</h2>
+              <span class="board-role">Kurucu & Platform Yönetimi</span>
+              <p class="board-description">Ürün vizyonu, marka yönü, içerik standardı ve platform stratejisi.</p>
+            </div>
+            <div class="board-arrow">→</div>
+          </a>
+
+          <a class="board-member-card reveal" href="yonetim-kurulu-detay.html?member=akademik">
+            <div class="board-member-content">
+              <div class="board-avatar">
+                <svg viewBox="0 0 96 96" fill="none">
+                  <path d="M18 30L48 16L78 30L48 44L18 30Z" fill="#061320"/>
+                  <path d="M28 40V58C35 66 61 66 68 58V40" stroke="#061320" stroke-width="8" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <h2>Akademik İçerik</h2>
+              <span class="board-role">Eğitim Kalitesi Kurulu</span>
+              <p class="board-description">Ders içerikleri, soru çözüm standardı ve olimpiyat seviye uyumu.</p>
+            </div>
+            <div class="board-arrow">→</div>
+          </a>
+
+          <a class="board-member-card reveal" href="yonetim-kurulu-detay.html?member=teknoloji">
+            <div class="board-member-content">
+              <div class="board-avatar">
+                <svg viewBox="0 0 96 96" fill="none">
+                  <rect x="22" y="24" width="52" height="38" rx="8" fill="#061320"/>
+                  <path d="M34 74H62" stroke="#061320" stroke-width="8" stroke-linecap="round"/>
+                  <path d="M48 62V74" stroke="#061320" stroke-width="8" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <h2>Teknoloji & Ürün</h2>
+              <span class="board-role">Platform Altyapısı</span>
+              <p class="board-description">Kullanıcı deneyimi, üyelik sistemi, panel ve ölçeklenebilir altyapı.</p>
+            </div>
+            <div class="board-arrow">→</div>
+          </a>
+
+          <a class="board-member-card reveal" href="yonetim-kurulu-detay.html?member=labs">
+            <div class="board-member-content">
+              <div class="board-avatar">
+                <svg viewBox="0 0 96 96" fill="none">
+                  <path d="M38 18H58" stroke="#061320" stroke-width="8" stroke-linecap="round"/>
+                  <path d="M44 22V45L28 74H68L52 45V22" fill="#061320"/>
+                </svg>
+              </div>
+              <h2>Olympion Labs</h2>
+              <span class="board-role">Deneysel Öğrenme</span>
+              <p class="board-description">Simülasyonlar, görsel modeller ve bilimsel etkileşimli deneyler.</p>
+            </div>
+            <div class="board-arrow">→</div>
+          </a>
+
+          <a class="board-member-card reveal" href="yonetim-kurulu-detay.html?member=mentorluk">
+            <div class="board-member-content">
+              <div class="board-avatar">
+                <svg viewBox="0 0 96 96" fill="none">
+                  <circle cx="36" cy="36" r="14" fill="#061320"/>
+                  <circle cx="62" cy="42" r="12" fill="#061320" opacity=".82"/>
+                  <path d="M16 78C20 60 30 52 42 52C54 52 64 60 68 78" fill="#061320"/>
+                  <path d="M52 78C55 64 64 58 74 58C80 58 84 64 86 78" fill="#061320" opacity=".82"/>
+                </svg>
+              </div>
+              <h2>Mentörlük</h2>
+              <span class="board-role">Öğrenci Başarısı</span>
+              <p class="board-description">Kişisel rota, başvuru değerlendirme, takip ve öğrenci iletişimi.</p>
+            </div>
+            <div class="board-arrow">→</div>
+          </a>
+
+          <a class="board-member-card reveal" href="yonetim-kurulu-detay.html?member=strateji">
+            <div class="board-member-content">
+              <div class="board-avatar">
+                <svg viewBox="0 0 96 96" fill="none">
+                  <path d="M24 70L42 52L54 60L74 30" stroke="#061320" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="74" cy="30" r="8" fill="#061320"/>
+                </svg>
+              </div>
+              <h2>Strateji & Gelişim</h2>
+              <span class="board-role">Kurumsal Büyüme</span>
+              <p class="board-description">Marka gelişimi, iş birlikleri, sürdürülebilir büyüme ve operasyon.</p>
+            </div>
+            <div class="board-arrow">→</div>
+          </a>
         </div>
       </div>
     </section>

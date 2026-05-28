@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { resetPassword, signIn, signInWithGoogle, signUp } from "@/app/auth/actions";
 
 type LoginSearchParams = {
@@ -12,6 +13,7 @@ export default async function LoginPage({
   searchParams: Promise<LoginSearchParams>;
 }) {
   const params = await searchParams;
+
   const mode =
     params?.mode === "register" || params?.mode === "reset"
       ? params.mode
@@ -20,16 +22,53 @@ export default async function LoginPage({
   return (
     <div className="login-page premium-login-page">
       <div className="noise"></div>
-      <div id="cursorFormulaLayer" className="cursor-formula-layer" aria-hidden="true"></div>
+      <div
+        id="cursorFormulaLayer"
+        className="cursor-formula-layer"
+        aria-hidden="true"
+      ></div>
 
       <main className="auth-layout-v2">
-        <a href="/" className="brand auth-brand">
-          <div className="brand-badge">O</div>
+        <Link href="/index.html" className="brand auth-brand">
+          <span
+            className="brand-badge"
+            style={{
+              width: "42px",
+              height: "42px",
+              minWidth: "42px",
+              maxWidth: "42px",
+              minHeight: "42px",
+              maxHeight: "42px",
+              flex: "0 0 42px",
+              display: "grid",
+              placeItems: "center",
+              borderRadius: "15px",
+              overflow: "hidden",
+              background: "transparent",
+              boxShadow: "none",
+              padding: 0,
+            }}
+          >
+            <img
+              src="/logo-icon.svg"
+              alt="Olympion logosu"
+              width={42}
+              height={42}
+              style={{
+                width: "42px",
+                height: "42px",
+                display: "block",
+                objectFit: "cover",
+                borderRadius: "15px",
+              }}
+            />
+          </span>
+
           <div>
             Olympion
             <small>Akademik çalışma alanı</small>
           </div>
-        </a>
+        </Link>
 
         <section className="auth-copy-panel">
           <div className="badge cyan">Öğrenci girişi</div>
@@ -37,8 +76,8 @@ export default async function LoginPage({
           <h1>Çalışma rotana kaldığın yerden devam et.</h1>
 
           <p>
-            Videolarını, PDF notlarını, günlük problemini ve Labs deneylerini tek panelden
-            yönet.
+            Videolarını, PDF notlarını, günlük problemini ve Labs deneylerini tek
+            panelden yönet.
           </p>
 
           <div className="auth-highlights">
@@ -50,13 +89,21 @@ export default async function LoginPage({
 
         <section className="auth-card premium-auth-card">
           <div className="auth-tabs">
-            <a className={`auth-tab ${mode === "login" || mode === "reset" ? "active" : ""}`} href="/login">
+            <Link
+              className={`auth-tab ${
+                mode === "login" || mode === "reset" ? "active" : ""
+              }`}
+              href="/login"
+            >
               Giriş Yap
-            </a>
+            </Link>
 
-            <a className={`auth-tab ${mode === "register" ? "active" : ""}`} href="/login?mode=register">
+            <Link
+              className={`auth-tab ${mode === "register" ? "active" : ""}`}
+              href="/login?mode=register"
+            >
               Üye Ol
-            </a>
+            </Link>
           </div>
 
           {params?.error && <p className="next-status-error">{params.error}</p>}
@@ -65,7 +112,11 @@ export default async function LoginPage({
           {mode !== "reset" && (
             <>
               <form action={signInWithGoogle}>
-                <button className="google-btn" type="submit" aria-label="Google ile bağlan">
+                <button
+                  className="google-btn"
+                  type="submit"
+                  aria-label="Google ile bağlan"
+                >
                   <svg viewBox="0 0 48 48" aria-hidden="true">
                     <path
                       fill="#FFC107"
@@ -98,12 +149,22 @@ export default async function LoginPage({
             <form id="authForm" action={signIn}>
               <label>
                 E-posta
-                <input name="email" type="email" required placeholder="ornek@mail.com" />
+                <input
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="ornek@mail.com"
+                />
               </label>
 
               <label>
                 Şifre
-                <input name="password" type="password" required placeholder="••••••••" />
+                <input
+                  name="password"
+                  type="password"
+                  required
+                  placeholder="••••••••"
+                />
               </label>
 
               <div className="auth-row">
@@ -111,9 +172,9 @@ export default async function LoginPage({
                   <input type="checkbox" /> Beni hatırla
                 </label>
 
-                <a href="/login?mode=reset" className="forgot-link">
+                <Link href="/login?mode=reset" className="forgot-link">
                   Şifremi unuttum
-                </a>
+                </Link>
               </div>
 
               <button id="authMainBtn" className="btn btn-primary" type="submit">
@@ -121,8 +182,8 @@ export default async function LoginPage({
               </button>
 
               <p className="auth-note">
-                Hesabın Olympion Lab profilinle eşleşir. Giriş yaptıktan sonra çalışma
-                paneline yönlendirilirsin.
+                Hesabın Olympion Lab profilinle eşleşir. Giriş yaptıktan sonra
+                çalışma paneline yönlendirilirsin.
               </p>
             </form>
           )}
@@ -131,12 +192,22 @@ export default async function LoginPage({
             <form id="authForm" action={signUp}>
               <label>
                 Ad Soyad
-                <input name="full_name" type="text" required placeholder="Adın ve soyadın" />
+                <input
+                  name="full_name"
+                  type="text"
+                  required
+                  placeholder="Adın ve soyadın"
+                />
               </label>
 
               <label>
                 E-posta
-                <input name="email" type="email" required placeholder="ornek@mail.com" />
+                <input
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="ornek@mail.com"
+                />
               </label>
 
               <label>
@@ -166,7 +237,7 @@ export default async function LoginPage({
               </button>
 
               <p className="auth-note">
-                Hesabın Supabase Auth’a kaydedilir ve otomatik öğrenci profilin oluşturulur.
+                Hesabın güvenli şekilde oluşturulur ve öğrenci profilin hazırlanır.
               </p>
             </form>
           )}
@@ -177,7 +248,12 @@ export default async function LoginPage({
 
               <label>
                 E-posta
-                <input name="email" type="email" required placeholder="ornek@mail.com" />
+                <input
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="ornek@mail.com"
+                />
               </label>
 
               <button id="authMainBtn" className="btn btn-primary" type="submit">
@@ -188,9 +264,9 @@ export default async function LoginPage({
                 Şifre sıfırlama bağlantısı e-posta adresine gönderilecek.
               </p>
 
-              <a href="/login" className="forgot-link">
+              <Link href="/login" className="forgot-link">
                 Giriş ekranına dön
-              </a>
+              </Link>
             </form>
           )}
         </section>

@@ -1,6 +1,495 @@
 <!DOCTYPE html>
-<html lang="tr"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Olympion | Plan Seçimi</title><meta name="description" content="Olympion plan seçimi ve ödeme prototipi." /><link rel="stylesheet" href="style.css" /></head>
-<body class="login-page checkout-page"><div class="noise"></div><div id="cursorFormulaLayer" class="cursor-formula-layer" aria-hidden="true"></div>
-<main class="checkout-layout"><a href="index.html" class="brand auth-brand"><div class="brand-badge">O</div><div>Olympion<small>Güvenli plan seçimi</small></div></a>
-<section class="checkout-card"><div class="badge gold">Plan seçimi</div><h1 id="checkoutPlanName">Plus</h1><div id="checkoutPrice" class="checkout-price">₺149 / ay</div><p id="checkoutDesc">Soru çözüm arşivi + PDF notları</p><div class="checkout-methods"><span>Visa</span><span>Mastercard</span><span>TROY</span><span>iyzico</span></div><div class="checkout-note"><strong>Şimdilik güvenli prototip:</strong> canlı ödeme bağlanmadı. Gerçek sürümde bu adım iyzico/Stripe ödeme sayfasına gider, ödeme başarılı olunca Supabase profilinde plan açılır.</div><a id="checkoutContinue" href="login.html?mode=register&plan=plus" class="btn btn-primary">Hesap oluştur ve devam et →</a><a href="pricing.html" class="btn btn-secondary">Planları tekrar incele</a></section>
-<section class="checkout-side"><h2>Plan açılınca ne olur?</h2><ul><li>Plus/Pro video kartları açılır.</li><li>PDF notları ve çalışma rotası profile bağlanır.</li><li>Labs kilidi plana göre açılır.</li><li>Dashboard ilerlemesi Supabase’e kaydedilir.</li></ul></section></main><script src="script.js"></script></body></html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Denemeyi Başlat | Olympion</title>
+  <meta name="description" content="Olympion planını seç ve 7 günlük ücretsiz denemeni başlat." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <style>
+    body {
+      min-height: 100vh;
+    }
+
+    .checkout-page {
+      min-height: 100vh;
+      padding: 42px 0 90px;
+      position: relative;
+      z-index: 4;
+    }
+
+    .checkout-header {
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .checkout-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #f7fbff;
+      font-weight: 950;
+      letter-spacing: -0.03em;
+    }
+
+    .checkout-brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 15px;
+      display: block;
+      object-fit: cover;
+    }
+
+    .checkout-brand small {
+      display: block;
+      color: rgba(235, 245, 255, 0.56);
+      font-size: 12px;
+      font-weight: 750;
+      margin-top: 2px;
+      letter-spacing: 0;
+    }
+
+    .checkout-back {
+      color: rgba(235, 245, 255, 0.76);
+      font-weight: 850;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.055);
+      padding: 11px 14px;
+      border-radius: 999px;
+    }
+
+    .checkout-wrap {
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 430px;
+      gap: 34px;
+      align-items: start;
+    }
+
+    .checkout-copy {
+      padding-top: 24px;
+    }
+
+    .checkout-copy h1 {
+      margin: 20px 0 18px;
+      font-size: clamp(44px, 7vw, 82px);
+      line-height: 0.94;
+      letter-spacing: -0.075em;
+      color: #ffffff;
+    }
+
+    .checkout-copy p {
+      max-width: 680px;
+      color: rgba(235, 245, 255, 0.74);
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .checkout-points {
+      display: grid;
+      gap: 12px;
+      margin-top: 28px;
+      max-width: 580px;
+    }
+
+    .checkout-point {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.055);
+      border-radius: 20px;
+      padding: 15px 16px;
+      color: rgba(235, 245, 255, 0.8);
+      font-weight: 800;
+    }
+
+    .checkout-point strong {
+      color: #ffffff;
+    }
+
+    .checkout-card {
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(124, 242, 255, 0.12), transparent 44%),
+        rgba(7, 17, 31, 0.82);
+      border-radius: 32px;
+      padding: 28px;
+      box-shadow: 0 34px 90px rgba(0, 0, 0, 0.38);
+      backdrop-filter: blur(20px);
+    }
+
+    .checkout-plan-tag {
+      display: inline-flex;
+      width: fit-content;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: rgba(124, 242, 255, 0.1);
+      border: 1px solid rgba(124, 242, 255, 0.25);
+      color: #7cf2ff;
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .checkout-card h2 {
+      margin: 18px 0 8px;
+      font-size: 34px;
+      letter-spacing: -0.055em;
+      color: #ffffff;
+    }
+
+    .trial-box {
+      margin: 20px 0;
+      border-radius: 24px;
+      padding: 20px;
+      background: rgba(255, 78, 78, 0.1);
+      border: 1px solid rgba(255, 78, 78, 0.34);
+    }
+
+    .trial-label {
+      color: #ff6b6b;
+      font-size: 13px;
+      font-weight: 1000;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .trial-price {
+      margin-top: 8px;
+      font-size: 46px;
+      font-weight: 1000;
+      letter-spacing: -0.06em;
+      color: #ff4d4d;
+    }
+
+    .trial-price span {
+      font-size: 15px;
+      letter-spacing: 0;
+      color: rgba(255, 220, 220, 0.82);
+      margin-left: 4px;
+    }
+
+    .after-price {
+      color: rgba(235, 245, 255, 0.72);
+      line-height: 1.65;
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    .after-price strong {
+      color: #ffffff;
+    }
+
+    .normal-price {
+      margin: 20px 0;
+      font-size: 48px;
+      font-weight: 1000;
+      letter-spacing: -0.06em;
+      color: #ffffff;
+    }
+
+    .normal-price span {
+      font-size: 16px;
+      color: rgba(235, 245, 255, 0.58);
+      margin-left: 4px;
+      letter-spacing: 0;
+    }
+
+    .checkout-list {
+      margin: 20px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 11px;
+    }
+
+    .checkout-list li {
+      position: relative;
+      padding-left: 28px;
+      color: rgba(235, 245, 255, 0.78);
+      line-height: 1.55;
+      font-weight: 760;
+    }
+
+    .checkout-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #7cf2ff;
+      font-weight: 1000;
+    }
+
+    .checkout-button {
+      width: 100%;
+      min-height: 54px;
+      margin-top: 24px;
+      border: 0;
+      border-radius: 999px;
+      cursor: pointer;
+      background: linear-gradient(135deg, #7cf2ff, #7aa7ff);
+      color: #061320;
+      font-weight: 1000;
+      font-size: 15px;
+      box-shadow: 0 18px 46px rgba(124, 242, 255, 0.16);
+    }
+
+    .checkout-note {
+      margin: 14px 0 0;
+      color: rgba(235, 245, 255, 0.55);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .free-note {
+      color: #ff6b6b;
+      font-weight: 950;
+    }
+
+    @media (max-width: 900px) {
+      .checkout-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .checkout-card {
+        max-width: 520px;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .checkout-header,
+      .checkout-wrap {
+        width: min(100% - 24px, 1120px);
+      }
+
+      .checkout-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .checkout-card {
+        padding: 22px;
+        border-radius: 24px;
+      }
+
+      .checkout-copy h1 {
+        font-size: 44px;
+      }
+    }
+  </style>
+</head>
+
+<body class="public-page">
+  <div class="noise"></div>
+
+  <div class="checkout-page">
+    <header class="checkout-header">
+      <a href="/index.html" class="checkout-brand">
+        <img src="/logo-icon.svg" alt="Olympion logosu" />
+        <div>
+          Olympion
+          <small>Olimpiyat Öğrenme Platformu</small>
+        </div>
+      </a>
+
+      <a class="checkout-back" href="/pricing.html">Planlara Dön →</a>
+    </header>
+
+    <main class="checkout-wrap">
+      <section class="checkout-copy">
+        <div class="badge cyan">7 gün ücretsiz deneme</div>
+
+        <h1>
+          Önce dene.
+          <br />
+          Sonra karar ver.
+        </h1>
+
+        <p>
+          Plus ve Pro planlarını 7 gün boyunca ücretsiz deneyebilirsin.
+          Deneme sürecinde hesabın oluşturulur ve çalışma paneline erişimin hazırlanır.
+        </p>
+
+        <div class="checkout-points">
+          <div class="checkout-point">
+            <strong>Ödeme ekranı yok:</strong> önce hesap oluştur, platformu dene.
+          </div>
+          <div class="checkout-point">
+            <strong>7 gün ücretsiz:</strong> deneme süresince Plus veya Pro özelliklerini keşfet.
+          </div>
+          <div class="checkout-point">
+            <strong>Lansman fiyatı:</strong> erken erişim dönemindeki özel fiyat korunur.
+          </div>
+        </div>
+      </section>
+
+      <section class="checkout-card">
+        <div id="planTag" class="checkout-plan-tag">Plan</div>
+
+        <h2 id="planTitle">Plan seçiliyor...</h2>
+
+        <div id="trialBox" class="trial-box">
+          <div class="trial-label">İlk 7 gün</div>
+          <div class="trial-price">Ücretsiz <span>₺0</span></div>
+          <div class="after-price">
+            Sonrasında <strong id="afterPrice">₺149 / ay</strong> lansman fiyatıyla devam eder.
+          </div>
+        </div>
+
+        <div id="normalPrice" class="normal-price" hidden>
+          ₺0<span>/ay</span>
+        </div>
+
+        <ul id="featureList" class="checkout-list"></ul>
+
+        <button id="startButton" class="checkout-button" type="button">
+          Ücretsiz Denemeyi Başlat
+        </button>
+
+        <p id="checkoutNote" class="checkout-note">
+          <span class="free-note">Bugün ücret ödemezsin.</span>
+          Devam etmek için hesap oluşturma ekranına yönlendirileceksin.
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const plans = {
+      free: {
+        name: "Free",
+        tag: "Ücretsiz Plan",
+        price: "₺0",
+        after: "₺0 / ay",
+        button: "Ücretsiz Başla",
+        trial: false,
+        features: [
+          "Seçili ücretsiz videolar",
+          "Günün problemi önizlemesi",
+          "Temel PDF örnekleri",
+          "Platformu risksiz keşfetme"
+        ]
+      },
+      plus: {
+        name: "Plus",
+        tag: "Lansman Fiyatı",
+        price: "₺149",
+        after: "₺149 / ay",
+        button: "7 Gün Ücretsiz Dene",
+        trial: true,
+        features: [
+          "Plus video içerikleri",
+          "PDF not kütüphanesi",
+          "Haftalık çalışma rotası",
+          "Günün problemi erişimi",
+          "İlerleme takibi"
+        ]
+      },
+      pro: {
+        name: "Pro",
+        tag: "Lansman Fiyatı",
+        price: "₺299",
+        after: "₺299 / ay",
+        button: "7 Gün Ücretsiz Dene",
+        trial: true,
+        features: [
+          "Tüm Plus özellikleri",
+          "Tüm premium video arşivi",
+          "Olympion Labs kilitsiz",
+          "Koç erişimi",
+          "Gelişmiş çalışma paneli"
+        ]
+      },
+      mentor: {
+        name: "Mentörlük",
+        tag: "Başvuru ile",
+        price: "Özel",
+        after: "Başvuru ile",
+        button: "Başvuru Yap",
+        trial: false,
+        features: [
+          "Seviye analizi",
+          "Kişisel çalışma rotası",
+          "Düzenli takip",
+          "Hedefe göre planlama"
+        ]
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const planKey = params.get("plan") || "plus";
+    const trial = params.get("trial") === "7";
+    const selected = plans[planKey] || plans.plus;
+
+    const planTag = document.getElementById("planTag");
+    const planTitle = document.getElementById("planTitle");
+    const trialBox = document.getElementById("trialBox");
+    const normalPrice = document.getElementById("normalPrice");
+    const afterPrice = document.getElementById("afterPrice");
+    const featureList = document.getElementById("featureList");
+    const startButton = document.getElementById("startButton");
+    const checkoutNote = document.getElementById("checkoutNote");
+
+    planTag.textContent = selected.tag;
+    planTitle.textContent = selected.name;
+    afterPrice.textContent = selected.after;
+
+    featureList.innerHTML = selected.features
+      .map((item) => `<li>${item}</li>`)
+      .join("");
+
+    if (selected.trial && trial) {
+      trialBox.hidden = false;
+      normalPrice.hidden = true;
+      startButton.textContent = "Ücretsiz Denemeyi Başlat";
+      checkoutNote.innerHTML =
+        '<span class="free-note">Bugün ücret ödemezsin.</span> Devam etmek için hesap oluşturma ekranına yönlendirileceksin.';
+    } else if (selected.trial) {
+      trialBox.hidden = false;
+      normalPrice.hidden = true;
+      startButton.textContent = selected.button;
+      checkoutNote.innerHTML =
+        '<span class="free-note">Bugün ücret ödemezsin.</span> Devam etmek için hesap oluşturma ekranına yönlendirileceksin.';
+    } else {
+      trialBox.hidden = true;
+      normalPrice.hidden = false;
+      normalPrice.innerHTML = `${selected.price}<span>/ay</span>`;
+      startButton.textContent = selected.button;
+      checkoutNote.textContent =
+        selected.name === "Mentörlük"
+          ? "Başvuru formuna yönlendirileceksin."
+          : "Devam etmek için hesap oluşturma ekranına yönlendirileceksin.";
+    }
+
+    startButton.addEventListener("click", () => {
+      if (planKey === "mentor") {
+        window.location.href = "/mentorship-application.html";
+        return;
+      }
+
+      const target = new URL("/login", window.location.origin);
+      target.searchParams.set("mode", "register");
+      target.searchParams.set("plan", planKey);
+
+      if (selected.trial) {
+        target.searchParams.set("trial", "7");
+      }
+
+      window.location.href = target.toString();
+    });
+  </script>
+</body>
+</html>

@@ -576,5 +576,80 @@ body{letter-spacing:-.01em} p{line-height:1.75} .section-title p,.app-top p,.fea
   object-fit: cover !important;
   border-radius: 15px !important;
 }
+     /* =========================
+   Olympion Global Logo Patch
+   Sadece logo alanlarını düzeltir
+   ========================= */
+
+.brand-badge,
+.brand-mark,
+.privacy-brand-badge,
+.boot-mark {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  max-width: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  flex: 0 0 42px !important;
+
+  display: grid !important;
+  place-items: center !important;
+
+  border-radius: 15px !important;
+  overflow: hidden !important;
+
+  background: transparent url("/logo-icon.svg") center / cover no-repeat !important;
+
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  text-indent: -9999px !important;
+
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.brand-badge::before,
+.brand-badge::after,
+.brand-mark::before,
+.brand-mark::after,
+.privacy-brand-badge::before,
+.privacy-brand-badge::after,
+.boot-mark::before,
+.boot-mark::after {
+  content: none !important;
+  display: none !important;
+}
+
+.brand-logo-img,
+.brand-badge img,
+.brand-mark img,
+.privacy-brand-badge img {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  max-width: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+
+  display: block !important;
+  object-fit: cover !important;
+  border-radius: 15px !important;
+
+  position: static !important;
+  transform: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.brand,
+.app-brand,
+.footer-brand,
+.privacy-brand {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
   }
 }

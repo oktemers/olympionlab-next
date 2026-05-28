@@ -617,3 +617,62 @@ body{letter-spacing:-.01em} p{line-height:1.75} .section-title p,.app-top p,.fea
     border-radius: 14px !important;
   }
 }
+/* =========================
+   Dark select dropdown fix
+   Mentorship ve tüm form seçimleri
+   ========================= */
+
+body.public-page {
+  color-scheme: dark;
+}
+
+.mentor-form select,
+.auth-card select,
+.settings-grid select,
+.sort-select {
+  appearance: auto !important;
+  -webkit-appearance: auto !important;
+
+  background: rgba(7, 17, 31, 0.94) !important;
+  color: #f7fbff !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 18px !important;
+
+  padding: 14px 44px 14px 14px !important;
+  outline: none !important;
+
+  color-scheme: dark !important;
+}
+
+.mentor-form select:focus,
+.auth-card select:focus,
+.settings-grid select:focus,
+.sort-select:focus {
+  border-color: rgba(124, 242, 255, 0.45) !important;
+  box-shadow: 0 0 0 4px rgba(124, 242, 255, 0.08) !important;
+}
+
+.mentor-form select option,
+.auth-card select option,
+.settings-grid select option,
+.sort-select option {
+  background: #07111f !important;
+  color: #f7fbff !important;
+}
+
+.mentor-form select option:checked,
+.auth-card select option:checked,
+.settings-grid select option:checked,
+.sort-select option:checked {
+  background: #12344a !important;
+  color: #7cf2ff !important;
+}
+
+.mentor-form select option:hover,
+.auth-card select option:hover,
+.settings-grid select option:hover,
+.sort-select option:hover {
+  background: #12344a !important;
+  color: #ffffff !important;
+}

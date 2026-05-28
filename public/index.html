@@ -49,6 +49,67 @@
       position: static !important;
       transform: none !important;
     }
+
+    /* Trial + launch pricing labels */
+    .plan-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .launch-pill {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: rgba(247, 213, 121, 0.12);
+      border: 1px solid rgba(247, 213, 121, 0.34);
+      color: #fff1bb;
+      font-size: 11px;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .trial-note {
+      margin: 8px 0 0;
+      color: #7cf2ff !important;
+      font-size: 13px;
+      font-weight: 900;
+      line-height: 1.5;
+    }
+
+    .launch-subnote {
+      color: rgba(235, 245, 255, 0.64) !important;
+      font-size: 13px;
+      line-height: 1.6;
+      margin-top: 8px;
+    }
+
+    /* Desktop hero animation alignment patch */
+    @media (min-width: 1041px) {
+      .premium-hero .hero-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(500px, 560px);
+        align-items: center;
+      }
+
+      .premium-hero .hero-visual {
+        width: 560px;
+        max-width: 100%;
+        min-height: 560px;
+        justify-self: center;
+        margin-inline: auto;
+      }
+
+      .premium-hero .science-canvas {
+        height: 500px;
+      }
+    }
+
   </style>
 </head>
 
@@ -83,9 +144,9 @@
         <span
           id="promoRotator"
           class="promo-message"
-          data-messages='["OLYMPION2026 koduyla Plus planında %20 indirim","Fizik ve kimya olimpiyat video arşivi sürekli genişliyor","Plus ve Pro planlarında PDF notları, rota sistemi ve premium içerikler açılıyor"]'
+          data-messages='["Plus ve Pro planlarında 7 gün ücretsiz deneme başladı","Plus ₺149, Pro ₺299 lansmana özel fiyatla yayında","Video, PDF, Labs ve çalışma rotası tek panelde"]'
         >
-          OLYMPION2026 koduyla Plus planında %20 indirim
+          Plus ve Pro planlarında 7 gün ücretsiz deneme başladı
         </span>
         <a class="promo-link" href="pricing.html">Detaylar →</a>
       </div>
@@ -300,7 +361,7 @@
       <div class="section-title reveal">
         <div class="badge gold">Planlar</div>
         <h2>Hazırlık seviyene göre doğru paketi seç.</h2>
-        <p>Ücretsiz keşiften kişisel mentörlüğe kadar her aşama için net, anlaşılır ve ölçeklenebilir bir yapı.</p>
+        <p>Plus ve Pro’da 7 gün ücretsiz deneme; erken erişim dönemine özel lansman fiyatları.</p>
       </div>
 
       <div class="pricing-mobile-tabs" role="tablist" aria-label="Paket seçimi">
@@ -325,29 +386,43 @@
         </article>
 
         <article class="price-card reveal" data-plan="plus">
-          <div class="plan-tag cyan">Plus</div>
+          <div class="plan-title-row">
+            <div class="plan-tag cyan">Plus</div>
+            <span class="launch-pill">Lansman fiyatı</span>
+          </div>
+
           <h3>Plus</h3>
           <div class="price">₺149<span>/ay</span></div>
+          <p class="trial-note">7 gün ücretsiz dene, sonra devam etmek istersen Plus’a geç.</p>
           <p>Olimpiyat soru çözümlerini düzenli takip etmek isteyen öğrenciler için.</p>
           <ul>
+            <li>7 gün ücretsiz deneme</li>
             <li>Plus video kartları</li>
             <li>PDF not kütüphanesi</li>
             <li>Haftalık çalışma rotası</li>
           </ul>
-          <a href="checkout.html?plan=plus" class="btn btn-primary">Plus’a Geç</a>
+          <p class="launch-subnote">Erken erişim döneminden sonra fiyat güncellenebilir.</p>
+          <a href="checkout.html?plan=plus&trial=7" class="btn btn-primary">7 Gün Ücretsiz Dene</a>
         </article>
 
         <article class="price-card highlight reveal" data-plan="pro">
-          <div class="plan-tag gold">Pro</div>
+          <div class="plan-title-row">
+            <div class="plan-tag gold">Pro</div>
+            <span class="launch-pill">Lansman fiyatı</span>
+          </div>
+
           <h3>Pro</h3>
           <div class="price">₺299<span>/ay</span></div>
+          <p class="trial-note">7 gün ücretsiz dene, sonra tüm premium araçlarla devam et.</p>
           <p>Tüm arşivi, Labs deneylerini ve gelişmiş çalışma araçlarını açar.</p>
           <ul>
+            <li>7 gün ücretsiz deneme</li>
             <li>Tüm premium arşiv</li>
             <li>Olympion Labs kilitsiz</li>
             <li>Koç</li>
           </ul>
-          <a href="checkout.html?plan=pro" class="btn btn-primary">Pro’ya Geç</a>
+          <p class="launch-subnote">Erken erişim döneminden sonra fiyat güncellenebilir.</p>
+          <a href="checkout.html?plan=pro&trial=7" class="btn btn-primary">7 Gün Ücretsiz Dene</a>
         </article>
 
         <article class="price-card mentor-card reveal" data-plan="mentor">

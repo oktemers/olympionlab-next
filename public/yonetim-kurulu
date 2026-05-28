@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Yönetim Kurulu | Olympion Lab</title>
+  <meta name="description" content="Olympion Lab yönetim yaklaşımı ve karar alma yapısı." />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+</head>
+
+<body class="public-page">
+  <div class="noise"></div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="brand">
+        <div class="brand-mark"><img class="brand-logo-img" src="/logo-icon.svg" alt="Olympion logosu" width="42" height="42" /></div>
+        <div>Olympion<small>Olimpiyat Öğrenme Platformu</small></div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html">Ana Sayfa</a>
+        <a href="videos.html">Video Kütüphanesi</a>
+        <a href="branches.html">Branşlar</a>
+        <a href="labs.html">Olympion Labs</a>
+        <a href="pricing.html">Fiyatlandırma</a>
+        <a href="faq.html">SSS</a>
+        <div class="nav-dropdown">
+          <a href="hakkimizda.html" class="nav-drop-trigger active">Hakkımızda <span>⌄</span></a>
+          <div class="nav-drop-menu">
+            <a href="biz-kimiz.html">Biz Kimiz?</a>
+            <a href="yonetim-kurulu.html">Yönetim Kurulu</a>
+            <a href="organizasyon-semasi.html">Organizasyon Şeması</a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="nav-right"><a href="login.html" class="login-bubble">Giriş Yap <span>→</span></a></div>
+      <button class="menu-btn" id="menuBtn">☰</button>
+    </div>
+
+    <div class="container mobile-menu" id="mobileMenu">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="videos.html">Video Kütüphanesi</a>
+      <a href="branches.html">Branşlar</a>
+      <a href="labs.html">Olympion Labs</a>
+      <a href="pricing.html">Fiyatlandırma</a>
+      <a href="hakkimizda.html">Hakkımızda</a>
+      <a href="biz-kimiz.html">Biz Kimiz?</a>
+      <a href="yonetim-kurulu.html">Yönetim Kurulu</a>
+      <a href="organizasyon-semasi.html">Organizasyon Şeması</a>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <section class="corporate-hero">
+      <div class="container">
+        <div class="corporate-hero-card reveal">
+          <div class="badge gold">Yönetim Kurulu</div>
+          <h1>Karar alma yapımızı şeffaf ve gelişime açık tutuyoruz.</h1>
+          <p>
+            Olympion Lab erken aşama bir eğitim girişimidir. Bu sayfa, platformun yönetim
+            yaklaşımını, karar alma prensiplerini ve kalite odağını açıklar.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container corporate-split">
+        <div class="corporate-panel reveal">
+          <h2>Kurucu liderliği</h2>
+          <p>
+            Olympion Lab’in ürün, içerik ve marka yönü kurucu liderliğinde şekillenir.
+            Platformun temel odağı; öğrencinin gerçek çalışma sürecini kolaylaştıran
+            sade, güvenilir ve sürdürülebilir bir sistem kurmaktır.
+          </p>
+        </div>
+
+        <div class="corporate-panel reveal">
+          <h2>Yönetim prensipleri</h2>
+          <ul class="corporate-list">
+            <li>Eğitim kalitesini büyümenin önünde tutmak</li>
+            <li>Öğrenci verisini ve güvenini korumak</li>
+            <li>İçerik ve ürün kararlarını ölçülebilir geri bildirimle almak</li>
+            <li>Uzun vadeli, güvenilir bir olimpiyat hazırlık markası oluşturmak</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="corporate-panel reveal">
+          <h2>Not</h2>
+          <p>
+            Resmi yönetim kurulu, danışman kadrosu veya akademik kurul yapısı oluştukça
+            bu sayfa güncellenecektir. Şimdilik sayfa, Olympion Lab’in yönetim yaklaşımını
+            ve kurumsal duruşunu açıklamak için hazırlanmıştır.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

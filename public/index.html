@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Olympion | Premium Olimpiyat Öğrenme Platfomu</title>
+  <title>Olympion | Premium Olimpiyat Öğrenme Platformu</title>
   <meta name="description" content="Olympion olimpiyat öğrencileri için premium öğrenme platformu." />
 
   <link rel="stylesheet" href="style.css" />
@@ -12,9 +12,9 @@
 
   <style>
     .site-header .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 12px !important;
     }
 
     .site-header .brand-mark,
@@ -32,6 +32,7 @@
       border-radius: 15px !important;
       background: transparent !important;
       box-shadow: none !important;
+      padding: 0 !important;
     }
 
     .site-header .brand-logo-img,
@@ -45,6 +46,8 @@
       display: block !important;
       object-fit: cover !important;
       border-radius: 15px !important;
+      position: static !important;
+      transform: none !important;
     }
   </style>
 </head>
@@ -95,6 +98,7 @@
         <div class="brand-mark">
           <img class="brand-logo-img" src="/logo-icon.svg" alt="Olympion logosu" width="42" height="42" />
         </div>
+
         <div>
           Olympion
           <small>Olimpiyat Öğrenme Platformu</small>
@@ -207,6 +211,271 @@
     </section>
   </main>
 
+  <section>
+    <div class="container">
+      <div class="section-title reveal">
+        <div class="badge gold">Platform mimarisi</div>
+        <h2>Öğrenciyi sadece izletmeyen, çalıştıran sistem.</h2>
+        <p>Premium hissin temelinde temiz tasarım değil, öğrenciyi her gün geri getiren öğrenme döngüsü var.</p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card reveal">
+          <div class="feature-icon">🧭</div>
+          <h3>Çalışma Rotası</h3>
+          <p>Branş, seviye ve hedefe göre haftalık video, problem ve not akışı.</p>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-icon">📚</div>
+          <h3>PDF Not Kütüphanesi</h3>
+          <p>Konu özeti, formül haritası ve soru seti mantığıyla düzenlenmiş kaynak alanı.</p>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-icon">🔥</div>
+          <h3>Günün Problemi</h3>
+          <p>Her gün tek kaliteli soru, ipucu ve çözüm stratejisiyle düzenli çalışma alışkanlığı.</p>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-icon">🧪</div>
+          <h3>Olympion Labs</h3>
+          <p>Vektör, elektrik alan, harmonik hareket, kimyasal denge ve formül evreni deneyleri.</p>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-icon">📈</div>
+          <h3>İlerleme Takibi</h3>
+          <p>Tamamlanan rota, izlenen ders, zayıf konu ve çalışma serisi tek panelde.</p>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-icon">✦</div>
+          <h3>Koç</h3>
+          <p>Cevabı direkt vermek yerine ipucu, sezgi ve çözüm stratejisi sunan rehber.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-title reveal">
+        <div class="badge cyan">Branşlar</div>
+        <h2>Olimpiyat hazırlığını disiplinlere göre yapılandır.</h2>
+        <p>Her branş, yalnızca konu listesi değil; problem çözme kültürü, düşünme tekniği ve tekrar sistemi olarak ele alınır.</p>
+      </div>
+
+      <div class="branch-grid four-branch-grid">
+        <a class="branch-card reveal" href="branches.html#matematik">
+          <span>01</span>
+          <h3>Matematik</h3>
+          <p>İspat • Kombinatorik • Sayı teorisi • Geometri</p>
+        </a>
+
+        <a class="branch-card reveal" href="branches.html#fizik">
+          <span>02</span>
+          <h3>Fizik</h3>
+          <p>Mekanik • Elektromanyetizma • Termodinamik • Modern fizik</p>
+        </a>
+
+        <a class="branch-card reveal" href="branches.html#kimya">
+          <span>03</span>
+          <h3>Kimya</h3>
+          <p>Fizikokimya • Organik • Analitik • İnorganik</p>
+        </a>
+
+        <a class="branch-card reveal" href="branches.html#biyoloji">
+          <span>04</span>
+          <h3>Biyoloji</h3>
+          <p>Genetik • Hücre • Biyokimya • Ekoloji</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing-strip-section">
+    <div class="container">
+      <div class="section-title reveal">
+        <div class="badge gold">Planlar</div>
+        <h2>Hazırlık seviyene göre doğru paketi seç.</h2>
+        <p>Ücretsiz keşiften kişisel mentörlüğe kadar her aşama için net, anlaşılır ve ölçeklenebilir bir yapı.</p>
+      </div>
+
+      <div class="pricing-mobile-tabs" role="tablist" aria-label="Paket seçimi">
+        <button class="plan-switch active" data-plan-target="free" type="button">Free</button>
+        <button class="plan-switch" data-plan-target="plus" type="button">Plus</button>
+        <button class="plan-switch" data-plan-target="pro" type="button">Pro</button>
+        <button class="plan-switch" data-plan-target="mentor" type="button">Mentörlük</button>
+      </div>
+
+      <div class="pricing-grid four-plans">
+        <article class="price-card reveal" data-plan="free">
+          <div class="plan-tag">Free</div>
+          <h3>Başlangıç</h3>
+          <div class="price">₺0<span>/ay</span></div>
+          <p>Platformu tanımak ve örnek dersleri izlemek için.</p>
+          <ul>
+            <li>Seçili ücretsiz videolar</li>
+            <li>Günün problemi önizlemesi</li>
+            <li>Temel PDF örnekleri</li>
+          </ul>
+          <a href="checkout.html?plan=free" class="btn btn-secondary">Ücretsiz Başla</a>
+        </article>
+
+        <article class="price-card reveal" data-plan="plus">
+          <div class="plan-tag cyan">Plus</div>
+          <h3>Plus</h3>
+          <div class="price">₺149<span>/ay</span></div>
+          <p>Olimpiyat soru çözümlerini düzenli takip etmek isteyen öğrenciler için.</p>
+          <ul>
+            <li>Plus video kartları</li>
+            <li>PDF not kütüphanesi</li>
+            <li>Haftalık çalışma rotası</li>
+          </ul>
+          <a href="checkout.html?plan=plus" class="btn btn-primary">Plus’a Geç</a>
+        </article>
+
+        <article class="price-card highlight reveal" data-plan="pro">
+          <div class="plan-tag gold">Pro</div>
+          <h3>Pro</h3>
+          <div class="price">₺299<span>/ay</span></div>
+          <p>Tüm arşivi, Labs deneylerini ve gelişmiş çalışma araçlarını açar.</p>
+          <ul>
+            <li>Tüm premium arşiv</li>
+            <li>Olympion Labs kilitsiz</li>
+            <li>Koç</li>
+          </ul>
+          <a href="checkout.html?plan=pro" class="btn btn-primary">Pro’ya Geç</a>
+        </article>
+
+        <article class="price-card mentor-card reveal" data-plan="mentor">
+          <div class="plan-tag">Kişisel</div>
+          <h3>Mentörlük</h3>
+          <div class="price">Özel<span>başvuru</span></div>
+          <p>Hedefi, seviyeyi ve okul durumunu analiz ederek kişiye özel çalışma sistemi kurar.</p>
+          <ul>
+            <li>Seviye analizi</li>
+            <li>Kişisel rota</li>
+            <li>Düzenli takip</li>
+          </ul>
+          <a href="mentorship-application.html" class="btn btn-secondary">Başvuru Yap</a>
+        </article>
+      </div>
+
+      <div class="center-actions reveal">
+        <a href="pricing.html" class="btn btn-secondary">Daha fazla özellik görmek için plan karşılaştırmasına git →</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container roadmap">
+      <div class="roadmap-panel reveal">
+        <div class="badge cyan">Örnek akış</div>
+        <h3>Fizik Olimpiyatı için 4 haftalık başlangıç planı</h3>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div>
+              <strong>Vektör ve model kurma</strong>
+              <span>Önce problemi çiz, sonra nicel ifadeye dönüştür.</span>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">2</div>
+            <div>
+              <strong>Kuvvet diyagramı ve sezgi</strong>
+              <span>Hangi etki baskın, hangi varsayım gereksiz?</span>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">3</div>
+            <div>
+              <strong>Korunum yasaları</strong>
+              <span>Enerji ve momentumla hızlı strateji kur.</span>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">4</div>
+            <div>
+              <strong>Karma problem analizi</strong>
+              <span>Zayıf konuları rota üzerinden tekrar et.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="problem-card reveal concept-card">
+        <div class="badge gold">Günün Problemi</div>
+        <h3>Fizik ve matematiğin ortak fikri: Simetri korunumu neden doğurur?</h3>
+        <p>Noether fikrini olimpiyat seviyesinde sezgisel olarak düşün: değişmeyen yapı, hangi niceliğin sabit kalacağını söyler.</p>
+        <a class="btn btn-primary" href="problem.html">Problemi Aç</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="labs-home-section">
+    <div class="container labs-showcase reveal">
+      <div class="labs-visual-card large-labs-visual">
+        <div class="science-top"><span></span><span></span><span></span></div>
+
+        <div class="labs-visual-inner">
+          <div class="lab-orb orb-a"></div>
+          <div class="lab-orb orb-b"></div>
+          <div class="lab-orb orb-c"></div>
+          <div class="lab-formula f1">E⃗ = kq/r²</div>
+          <div class="lab-formula f2">x(t)=Acos(ωt)</div>
+          <div class="lab-formula f3">K = [ürün]/[reaktif]</div>
+          <div class="lab-beam"></div>
+        </div>
+      </div>
+
+      <div class="labs-copy">
+        <div class="badge cyan">Olympion Labs</div>
+        <h2>Formülleri ezberleme; sistemin nasıl davrandığını gör.</h2>
+        <p>Vektörü sürükle, alan çizgisini izle, dengeyi değiştir. Labs, soyut kavramları öğrencinin oynayabileceği deneylere dönüştürür.</p>
+        <a href="labs.html" class="btn btn-primary">Labs’i Keşfet</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-title reveal">
+        <div class="badge gold">SSS</div>
+        <h2>En çok merak edilenler.</h2>
+        <p>Planlar, içerik erişimi ve mentörlük başvurusu hakkında kısa cevaplar.</p>
+      </div>
+
+      <div class="faq-mini-grid">
+        <div class="faq-card reveal">
+          <h3>Free planla neler açılır?</h3>
+          <p>Seçili videolar, günlük problem önizlemesi ve temel PDF örnekleri.</p>
+        </div>
+
+        <div class="faq-card reveal">
+          <h3>Plus ve Pro farkı nedir?</h3>
+          <p>Plus soru çözüm serilerine odaklanır; Pro Labs, arşiv ve gelişmiş araçları açar.</p>
+        </div>
+
+        <div class="faq-card reveal">
+          <h3>Mentörlük herkese açık mı?</h3>
+          <p>Başvuru formu üzerinden seviye ve hedef analizi sonrası uygunluk değerlendirilir.</p>
+        </div>
+      </div>
+
+      <div class="center-actions reveal">
+        <a href="faq.html" class="btn btn-secondary">Daha fazla SSS gör</a>
+      </div>
+    </div>
+  </section>
+
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
@@ -214,6 +483,7 @@
           <div class="brand-mark">
             <img class="brand-logo-img" src="/logo-icon.svg" alt="Olympion logosu" width="42" height="42" />
           </div>
+
           <div>
             Olympion
             <small>Görsel sezgiyle olimpiyat hazırlığı</small>

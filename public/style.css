@@ -948,4 +948,117 @@ body.public-page {
   }
 }
 
+/* =========================
+   About page refined corporate look
+   ========================= */
+
+.corporate-hero-card.about-refined {
+  padding: clamp(30px, 4.6vw, 50px);
+}
+
+.corporate-hero-card.about-refined h1 {
+  max-width: 760px;
+  font-size: clamp(38px, 5.2vw, 64px);
+  line-height: 1.02;
+  letter-spacing: -0.065em;
+}
+
+.corporate-hero-card.about-refined p {
+  max-width: 940px;
+  font-size: 17px;
+  line-height: 1.9;
+  color: rgba(235, 245, 255, 0.78);
+}
+
+.corporate-card.science-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.corporate-card.science-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.44;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(124, 242, 255, 0.18), transparent 28%),
+    radial-gradient(circle at 12% 88%, rgba(122, 167, 255, 0.14), transparent 32%),
+    linear-gradient(135deg, rgba(255,255,255,.055), rgba(255,255,255,.015));
+  pointer-events: none;
+}
+
+.corporate-card.science-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  background-image:
+    linear-gradient(rgba(124,242,255,.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124,242,255,.16) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: radial-gradient(circle at 75% 25%, black 0%, transparent 62%);
+  pointer-events: none;
+}
+
+.corporate-card.science-bg > * {
+  position: relative;
+  z-index: 2;
+}
+
+.corporate-card.who-card {
+  background:
+    radial-gradient(circle at 78% 18%, rgba(124,242,255,.12), transparent 32%),
+    linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.04));
+}
+
+.corporate-card.board-card {
+  background:
+    radial-gradient(circle at 80% 18%, rgba(247,213,121,.12), transparent 32%),
+    linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.04));
+}
+
+.corporate-card.org-card {
+  background:
+    radial-gradient(circle at 80% 18%, rgba(157,200,255,.14), transparent 32%),
+    linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.04));
+}
+
+.card-visual {
+  position: absolute;
+  right: -12px;
+  top: -8px;
+  width: 150px;
+  height: 150px;
+  opacity: 0.52;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-visual svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.corporate-card .btn {
+  margin-top: 24px;
+}
+
+@media (max-width: 560px) {
+  .corporate-hero-card.about-refined h1 {
+    font-size: 38px;
+  }
+
+  .corporate-hero-card.about-refined p {
+    font-size: 15.5px;
+  }
+
+  .card-visual {
+    width: 118px;
+    height: 118px;
+    opacity: 0.42;
+  }
+}
+
+
 

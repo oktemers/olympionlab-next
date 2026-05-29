@@ -2,8 +2,8 @@ import { PublicNav } from "@/components/PublicNav";
 
 const plans = [
   ["Free", "₺0", "Seçili ücretsiz videolar ve temel rota önizlemesi."],
-  ["Plus", "₺149", "Geniş video arşivi, PDF notları ve rota sistemi."],
-  ["Pro", "₺299", "Tüm premium içerikler, AI Koç ve Labs erişimi."],
+  ["Plus", "₺199", "Geniş video arşivi, PDF notları ve rota sistemi."],
+  ["Pro", "₺349", "Tüm premium içerikler, AI Koç ve Labs erişimi."],
   ["Mentörlük", "Başvuru", "Kişisel takip ve özel çalışma rotası."]
 ];
 

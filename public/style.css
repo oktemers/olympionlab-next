@@ -3238,3 +3238,56 @@ const members = {
     color: #f7fbff !important;
   }
 }
+
+/* =========================
+   Platform section title refinement
+   ========================= */
+
+.platform-title {
+  max-width: 980px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+
+.platform-title h2 {
+  max-width: 980px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-wrap: balance;
+}
+
+.platform-title p {
+  max-width: 860px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  line-height: 1.8 !important;
+}
+
+@media (min-width: 900px) {
+  .platform-title h2 {
+    font-size: clamp(42px, 4.2vw, 64px) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -0.06em !important;
+  }
+
+  .platform-title p {
+    font-size: 17px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .platform-title {
+    text-align: left !important;
+  }
+
+  .platform-title h2 {
+    font-size: clamp(29px, 7.8vw, 38px) !important;
+    line-height: 1.08 !important;
+  }
+
+  .platform-title p {
+    font-size: 14.5px !important;
+    line-height: 1.7 !important;
+  }
+}

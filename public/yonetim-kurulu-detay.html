@@ -167,6 +167,7 @@
 
     .profile-meta-item strong {
       color: #fff;
+      text-align: right;
     }
 
     .profile-actions {
@@ -234,6 +235,10 @@
         display: grid;
       }
 
+      .profile-meta-item strong {
+        text-align: left;
+      }
+
       .profile-actions .btn {
         width: 100%;
       }
@@ -246,17 +251,18 @@
 
   <header class="site-header">
     <div class="container nav">
-      <a href="index.html" class="brand">
+      <a href="index.html" class="brand" aria-label="Olympion ana sayfa">
         <div class="brand-mark">
           <img class="brand-logo-img" src="/logo-icon.svg" alt="Olympion logosu" width="42" height="42" />
         </div>
+
         <div>
           Olympion
           <small>Olimpiyat Öğrenme Platformu</small>
         </div>
       </a>
 
-      <nav class="nav-links">
+      <nav class="nav-links" aria-label="Ana menü">
         <a href="index.html">Ana Sayfa</a>
         <a href="videos.html">Video Kütüphanesi</a>
         <a href="branches.html">Branşlar</a>
@@ -265,7 +271,10 @@
         <a href="faq.html">SSS</a>
 
         <div class="nav-dropdown">
-          <a href="hakkimizda.html" class="nav-drop-trigger active">Hakkımızda <span>⌄</span></a>
+          <a href="hakkimizda.html" class="nav-drop-trigger active">
+            Hakkımızda <span>⌄</span>
+          </a>
+
           <div class="nav-drop-menu">
             <a href="biz-kimiz.html">Biz Kimiz?</a>
             <a href="yonetim-kurulu.html">Yönetim Kurulu</a>
@@ -292,6 +301,7 @@
       <a href="biz-kimiz.html">Biz Kimiz?</a>
       <a href="yonetim-kurulu.html">Yönetim Kurulu</a>
       <a href="organizasyon-semasi.html">Organizasyon Şeması</a>
+      <a href="login.html" class="login-bubble mobile-login">Giriş Yap →</a>
     </div>
   </header>
 
@@ -379,28 +389,26 @@
         taskArea: "Platform yönetimi ve genel koordinasyon",
         text: "Ozan Öktemer, fizik olimpiyatları, bilimsel araştırmalar ve eğitim teknolojileri alanlarında çalışmalar yürüten bir araştırmacı ve girişimcidir. Koç Üniversitesi Fizik ve Kimya Çift Anadal Programı'nda eğitimine devam etmekte olup kuantum fiziği, yüksek enerji fiziği, biyofizik, sensör teknolojileri ve yapay zekâ destekli bilimsel uygulamalar üzerine yoğunlaşmaktadır. Ulusal Fizik Olimpiyatı programında yer almakta, TÜBİTAK destekli araştırma projelerinde görev almakta ve bilimsel çalışmalarını uluslararası düzeyde sürdürmektedir. CERN, Technische Universität München (TUM) ve çeşitli araştırma merkezlerinde gerçekleştirilen bilimsel programlara katılmış; parçacık fiziği, hızlandırıcı teknolojileri ve deneysel araştırma yöntemleri üzerine çalışmalar yürütmüştür. Kurucusu olduğu Olympion Lab kapsamında ürün geliştirme, akademik içerik tasarımı ve eğitim teknolojileri alanlarında faaliyet göstermektedir. Çalışmaları, öğrencilerin bilim olimpiyatları hazırlık süreçlerini daha sistematik, ölçülebilir ve sürdürülebilir hâle getirmeyi amaçlamaktadır.",
         education: [
-          "Koç Üniversitesi Fizik & Kimya (2023 — Günümüz) ",
+          "Koç Üniversitesi Fizik & Kimya Çift Anadal Programı (2023 — Günümüz)"
         ],
         experience: [
-          "Max Planck İmmünobiyoloji Enstitüsü Ar-Ge Araştırmacısı (2026)"
-         "CERN Ziyaretçi Araştırmacı (2025)",
-  "Technische Universität München (TUM) Ziyaretçi Araştırmacı (2025)"
-  "TÜBİTAK Yapay Zekâ Destekli İmmünosensör Projesi (2024)"
-  "CERN ve TUM araştırma programlarında yüksek enerji fiziği gözlemleri.",
-  "Bilimsel veri analizi, teknik raporlama ve araştırma süreçlerinde deneyim."
+          "Max Planck İmmünobiyoloji Enstitüsü Ar-Ge Araştırmacısı (2026)",
+          "CERN Ziyaretçi Araştırmacı (2025)",
+          "Technische Universität München (TUM) Ziyaretçi Araştırmacı (2025)",
+          "TÜBİTAK Yapay Zekâ Destekli İmmünosensör Projesi (2024)",
+          "CERN ve TUM araştırma programlarında yüksek enerji fiziği gözlemleri.",
+          "Bilimsel veri analizi, teknik raporlama ve araştırma süreçlerinde deneyim."
         ],
         languages: [
           "Türkçe — Ana dil",
-          "İngilizce — İyi seviye"
-          "Almanca — Orta seviye"
+          "İngilizce — İyi seviye",
+          "Almanca — Orta seviye",
           "Fransızca — Orta seviye"
-          
         ],
         memberships: [
           "Türk Fizik Derneği",
           "IEEE (Institute of Electrical and Electronics Engineers)",
-          "APS (American Physics Society)"
-          
+          "APS (American Physical Society)"
         ],
         icon: "person"
       },
@@ -557,14 +565,17 @@
 
     function renderList(id, items) {
       const list = document.getElementById(id);
-      list.innerHTML = items.map((item) => `<li>${item}</li>`).join("");
+      if (!list) return;
+      list.innerHTML = items.map(function (item) {
+        return "<li>" + item + "</li>";
+      }).join("");
     }
 
     const params = new URLSearchParams(window.location.search);
     const key = params.get("member") || "kurucu";
     const selected = members[key] || members.kurucu;
 
-    document.title = `${selected.title} | Olympion Lab`;
+    document.title = selected.title + " | Olympion Lab";
 
     document.getElementById("detailBadge").textContent = selected.badge;
     document.getElementById("detailTitle").textContent = selected.title;

@@ -2115,3 +2115,108 @@ const members = {
 .branches-launch-note strong {
   color: #ffffff;
 }
+
+/* =========================
+   Homepage branch status labels
+   ========================= */
+
+.branch-status-pill {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  gap: 7px;
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 1000;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.branch-status-pill::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+}
+
+.branch-status-pill.soon {
+  background: rgba(255, 91, 110, 0.12);
+  border: 1px solid rgba(255, 91, 110, 0.34);
+  color: #ff6b7a;
+  box-shadow: 0 0 24px rgba(255, 91, 110, 0.08);
+}
+
+.branch-status-pill.soon::before {
+  background: #ff6b7a;
+  box-shadow: 0 0 14px rgba(255, 91, 110, 0.8);
+}
+
+.branch-status-pill.loading {
+  background: rgba(124, 242, 255, 0.12);
+  border: 1px solid rgba(124, 242, 255, 0.34);
+  color: #7cf2ff;
+  box-shadow: 0 0 24px rgba(124, 242, 255, 0.1);
+}
+
+.branch-status-pill.loading::before {
+  background: #7cf2ff;
+  box-shadow: 0 0 14px rgba(124, 242, 255, 0.8);
+}
+
+.branch-card.branch-status-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.branch-card.branch-status-card::after {
+  content: "";
+  position: absolute;
+  right: -42px;
+  top: -42px;
+  width: 150px;
+  height: 150px;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.branch-card.branch-status-card.status-soon::after {
+  background: radial-gradient(circle, rgba(255, 91, 110, 0.24), transparent 66%);
+}
+
+.branch-card.branch-status-card.status-loading::after {
+  background: radial-gradient(circle, rgba(124, 242, 255, 0.22), transparent 66%);
+}
+
+.branch-card.branch-status-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.branch-card .branch-soon-note {
+  margin-top: 12px;
+  color: rgba(235, 245, 255, 0.7);
+  font-size: 13px;
+  font-weight: 850;
+  line-height: 1.55;
+}
+
+.branch-card.status-soon .branch-soon-note {
+  color: rgba(255, 210, 216, 0.82);
+}
+
+.branch-card.status-loading .branch-soon-note {
+  color: rgba(200, 250, 255, 0.84);
+}
+
+@media (max-width: 760px) {
+  .branch-status-pill {
+    font-size: 10px;
+    padding: 7px 10px;
+  }
+
+  .branch-card .branch-soon-note {
+    font-size: 12.5px;
+  }
+}

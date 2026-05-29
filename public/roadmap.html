@@ -3,31 +3,184 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Olympion | Rota</title>
-  <meta name="description" content="Olympion öğrenci paneli." />
+  <meta name="description" content="Olympion çalışma rotası; öğrencinin seviyesine ve hedeflerine göre video, PDF, problem ve tekrar akışını düzenler." />
+
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="app-page"><a href="index.html" class="app-mobile-home">← Ana Sayfa</a>
+
+<body class="app-page">
+  <a href="index.html" class="app-mobile-home">← Ana Sayfa</a>
+
   <div class="noise"></div>
   <div id="cursorFormulaLayer" class="cursor-formula-layer" aria-hidden="true"></div>
-  <div class="app-bg-formulas" aria-hidden="true"><span>F = ma</span><span>ΔG = ΔH − TΔS</span><span>∇·E = ρ/ε₀</span><span>sin²x + cos²x = 1</span></div>
+
+  <div class="app-bg-formulas" aria-hidden="true">
+    <span>F = ma</span>
+    <span>ΔG = ΔH − TΔS</span>
+    <span>∇·E = ρ/ε₀</span>
+    <span>sin²x + cos²x = 1</span>
+  </div>
+
   <div class="app-shell">
-    
-<aside class="app-sidebar">
-  <a href="dashboard.html" class="app-brand"><div class="brand-badge">O</div><div>Olympion<small>Öğrenci Paneli</small></div></a>
-  <nav class="app-nav" aria-label="Panel menüsü"><a href="dashboard.html" class="app-link "><span>⌘</span>Genel</a><a href="courses.html" class="app-link "><span>▶</span>Dersler</a><a href="roadmap.html" class="app-link active"><span>🧭</span>Rota</a><a href="notes.html" class="app-link "><span>📚</span>PDF</a><a href="daily-problem.html" class="app-link "><span>🔥</span>Problem</a><a href="ai-coach.html" class="app-link "><span>✦</span>Koç</a><a href="student-labs.html" class="app-link "><span>🧪</span>Labs</a><a href="settings.html" class="app-link "><span>⚙</span>Ayarlar</a><button id="sidebarLogoutBtn" class="app-link logout-sidebar" type="button"><span>⏻</span>Çıkış</button></nav>
-  <div class="sidebar-upgrade">
-    <span>Pro</span>
-    <strong>Rotanı kilitsiz kullan.</strong>
-    <p>Premium dersler, PDF notları ve deney arşivi.</p>
-    <a href="pricing.html">Planı yükselt →</a>
-  </div>
-  <a href="index.html" class="back-site">← Ana siteye dön</a>
-</aside>
+    <aside class="app-sidebar">
+      <a href="dashboard.html" class="app-brand">
+        <div class="brand-badge">O</div>
+        <div>
+          Olympion
+          <small>Öğrenci Paneli</small>
+        </div>
+      </a>
+
+      <nav class="app-nav" aria-label="Panel menüsü">
+        <a href="dashboard.html" class="app-link"><span>⌘</span>Genel</a>
+        <a href="courses.html" class="app-link"><span>▶</span>Dersler</a>
+        <a href="roadmap.html" class="app-link active"><span>🧭</span>Rota</a>
+        <a href="notes.html" class="app-link"><span>📚</span>PDF</a>
+        <a href="daily-problem.html" class="app-link"><span>🔥</span>Problem</a>
+        <a href="ai-coach.html" class="app-link"><span>✦</span>Koç</a>
+        <a href="student-labs.html" class="app-link"><span>🧪</span>Labs</a>
+        <a href="settings.html" class="app-link"><span>⚙</span>Ayarlar</a>
+
+        <button id="sidebarLogoutBtn" class="app-link logout-sidebar" type="button">
+          <span>⏻</span>Çıkış
+        </button>
+      </nav>
+
+      <div class="sidebar-upgrade">
+        <span>Pro</span>
+        <strong>Rotanı kilitsiz kullan.</strong>
+        <p>Premium dersler, PDF notları ve deney arşivi.</p>
+        <a href="pricing.html">Planı yükselt →</a>
+      </div>
+
+      <a href="index.html" class="back-site">← Ana siteye dön</a>
+    </aside>
+
     <main class="app-main">
-<div class="app-top"><div><span class="eyebrow">Rota</span><h1>4 haftalık olimpiyat başlangıç planı.</h1><p>Her hafta video, not ve problem setiyle kapanır.</p></div></div>
-<div class="roadmap-graph"><div class="road-line l1"></div><div class="road-line l2"></div><div class="road-line l3"></div><div class="road-line l4"></div><div class="road-line l5"></div><div class="road-node n1 done"><strong>Vektör</strong><span>Model kurma temeli</span></div><div class="road-node n2 active"><strong>Kuvvet</strong><span>Serbest cisim diyagramı</span></div><div class="road-node n3"><strong>Enerji</strong><span>Korunum stratejisi</span></div><div class="road-node n4 locked"><strong>Momentum</strong><span>Çarpışma analizi</span></div><div class="road-node n5"><strong>Elektrik</strong><span>Alan ve potansiyel</span></div><div class="road-node n6 locked"><strong>Karma Deneme</strong><span>Zayıf konu analizi</span></div></div><div class="timeline"><div class="timeline-item done"><span>Hafta 1</span><h3>Vektör ve kuvvet temeli</h3><p>Temel vektör işlemleri, serbest cisim diyagramı ve 15 giriş problemi.</p></div><div class="timeline-item active"><span>Hafta 2</span><h3>Newton yasaları ve sürtünme</h3><p>Eğik düzlem, makara sistemleri ve sürtünmeli hareket.</p></div><div class="timeline-item"><span>Hafta 3</span><h3>Enerji ve momentum</h3><p>Korunum yasalarıyla olimpiyat sorularında kısa yol stratejileri.</p></div><div class="timeline-item"><span>Hafta 4</span><h3>Karma mini deneme</h3><p>Zayıf konulara göre tekrar ve mini deneme analizi.</p></div></div></main>
+      <div class="app-top">
+        <div>
+          <span class="eyebrow">Rota</span>
+          <h1>Çalışma planını tek akışta yönet.</h1>
+          <p>
+            Olympion, video dersleri, PDF notlarını, günlük problemleri ve tekrar görevlerini
+            seviyene göre düzenleyerek ne çalışacağını daha net hale getirir.
+          </p>
+        </div>
+      </div>
+
+      <section class="roadmap-system-section app-roadmap-system-section">
+        <div class="roadmap-system-card app-roadmap-system-card">
+          <div class="roadmap-system-copy">
+            <div class="badge cyan">Çalışma rotası</div>
+
+            <h1>Olimpiyat hazırlığını haftalık plana dönüştür.</h1>
+
+            <p>
+              Rota sistemi, öğrencinin branşını ve hedefini merkeze alarak çalışmayı
+              daha düzenli hale getirir. Amaç sadece konu listesi göstermek değil;
+              hangi videonun izleneceğini, hangi PDF’in okunacağını, hangi problemle
+              pekiştirileceğini ve ne zaman tekrar yapılacağını netleştirmektir.
+            </p>
+
+            <div class="roadmap-summary-grid">
+              <div>
+                <strong>Video</strong>
+                <span>Konu anlatımı ve soru çözümü</span>
+              </div>
+
+              <div>
+                <strong>PDF</strong>
+                <span>Not, formül ve kısa tekrar</span>
+              </div>
+
+              <div>
+                <strong>Problem</strong>
+                <span>Günlük soru ve pekiştirme</span>
+              </div>
+
+              <div>
+                <strong>Koç</strong>
+                <span>Yapay zeka destekli yönlendirme</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="roadmap-plan-flow" aria-label="Olympion çalışma planı">
+            <div class="roadmap-plan-step">
+              <span>01</span>
+              <div>
+                <strong>Seviye ve hedef belirlenir</strong>
+                <p>Öğrencinin branşı, mevcut seviyesi ve olimpiyat hedefi netleştirilir.</p>
+              </div>
+            </div>
+
+            <div class="roadmap-plan-step">
+              <span>02</span>
+              <div>
+                <strong>Haftalık rota oluşturulur</strong>
+                <p>Video dersler, PDF notları ve problem setleri doğru sıraya yerleştirilir.</p>
+              </div>
+            </div>
+
+            <div class="roadmap-plan-step">
+              <span>03</span>
+              <div>
+                <strong>Öğrenme döngüsü kurulur</strong>
+                <p>Öğrenci önce konuyu görür, sonra notla toparlar ve problemle pekiştirir.</p>
+              </div>
+            </div>
+
+            <div class="roadmap-plan-step">
+              <span>04</span>
+              <div>
+                <strong>Takip ve tekrar yapılır</strong>
+                <p>Tamamlanan dersler, eksik kalan konular ve tekrar ihtiyacı düzenli izlenir.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="roadmap-week-section">
+        <div class="roadmap-week-title">
+          <span class="eyebrow">Örnek haftalık akış</span>
+          <h2>Rota, çalışmayı parçalara böler.</h2>
+          <p>
+            Her hafta; video, PDF, problem ve tekrar görevlerinden oluşan sade bir çalışma paketiyle ilerler.
+          </p>
+        </div>
+
+        <div class="timeline roadmap-clean-timeline">
+          <div class="timeline-item done">
+            <span>Hafta 1</span>
+            <h3>Temel kavramları oturt</h3>
+            <p>Başlangıç videoları, kısa PDF notları ve giriş seviyesi problem seti.</p>
+          </div>
+
+          <div class="timeline-item active">
+            <span>Hafta 2</span>
+            <h3>Problem çözme ritmi kazan</h3>
+            <p>Video sonrası hedefli soru çözümü, yanlış analizi ve yapay zeka destekli ipuçları.</p>
+          </div>
+
+          <div class="timeline-item">
+            <span>Hafta 3</span>
+            <h3>Zayıf konuları güçlendir</h3>
+            <p>Eksik kalan başlıklar için tekrar görevleri, PDF özetleri ve karma problemler.</p>
+          </div>
+
+          <div class="timeline-item">
+            <span>Hafta 4</span>
+            <h3>Karma deneme ile ölç</h3>
+            <p>Mini deneme, çözüm analizi ve sonraki ayın çalışma rotasına hazırlık.</p>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>

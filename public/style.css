@@ -3834,3 +3834,23 @@ const members = {
     font-size: 31px !important;
   }
 }
+
+/* =========================
+   Checkout mobile hero remove
+   ========================= */
+
+@media (max-width: 760px) {
+  body.public-page .checkout-hero,
+  body.public-page .trial-checkout-hero,
+  body.public-page .checkout-intro,
+  body.public-page .checkout-info-hero {
+    display: none !important;
+  }
+
+  body.public-page .checkout-section,
+  body.public-page .checkout-page,
+  body.public-page .checkout-container,
+  body.public-page main {
+    padding-top: 28px !important;
+  }
+}

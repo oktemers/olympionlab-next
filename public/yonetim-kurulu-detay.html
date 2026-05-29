@@ -324,16 +324,11 @@
             </p>
 
             <div class="profile-meta">
-              <div class="profile-meta-item">
-                <span>Doğum Tarihi</span>
-                <strong id="birthDate">-</strong>
-              </div>
-
-              <div class="profile-meta-item">
-                <span>Görev Alanı</span>
-                <strong id="taskArea">-</strong>
-              </div>
-            </div>
+  <div class="profile-meta-item">
+    <span>Görev Alanı</span>
+    <strong id="taskArea">-</strong>
+  </div>
+</div>
 
             <div class="profile-info-grid">
               <div class="profile-info-card">
@@ -581,7 +576,7 @@
     document.getElementById("detailTitle").textContent = selected.title;
     document.getElementById("detailRole").textContent = selected.role;
     document.getElementById("detailText").textContent = selected.text;
-    document.getElementById("birthDate").textContent = selected.birthDate;
+    
     document.getElementById("taskArea").textContent = selected.taskArea;
     document.getElementById("detailIcon").innerHTML = icons[selected.icon] || icons.person;
 

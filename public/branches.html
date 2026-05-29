@@ -3,56 +3,441 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Olympion | Branşlar</title>
-  <meta name="description" content="Olympion olimpiyat öğrencileri için premium öğrenme platformu." />
+  <meta name="description" content="Olympion branş video içerikleri ve olimpiyat hazırlık rotaları yakında yayında." />
+
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <style>
+    .site-header .brand-mark,
+    .site-footer .brand-mark {
+      width: 42px !important;
+      height: 42px !important;
+      min-width: 42px !important;
+      max-width: 42px !important;
+      min-height: 42px !important;
+      max-height: 42px !important;
+      flex: 0 0 42px !important;
+      display: grid !important;
+      place-items: center !important;
+      overflow: hidden !important;
+      border-radius: 15px !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+    }
+
+    .brand-logo-img {
+      width: 42px !important;
+      height: 42px !important;
+      display: block !important;
+      object-fit: cover !important;
+      border-radius: 15px !important;
+    }
+
+    .branches-soon-hero {
+      position: relative;
+    }
+
+    .branches-launch-note {
+      margin-top: 22px;
+      max-width: 820px;
+      padding: 18px 20px;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 91, 110, 0.14), transparent 42%),
+        rgba(255, 91, 110, 0.08);
+      border: 1px solid rgba(255, 91, 110, 0.24);
+      color: rgba(255, 226, 230, 0.88);
+      line-height: 1.75;
+      font-weight: 760;
+      box-shadow: 0 18px 50px rgba(255, 91, 110, 0.06);
+    }
+
+    .branches-launch-note strong {
+      color: #ffffff;
+      font-weight: 950;
+    }
+
+    .branch-coming-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .branch-coming-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.7;
+      background:
+        radial-gradient(circle at 84% 12%, rgba(255, 91, 110, 0.17), transparent 30%),
+        radial-gradient(circle at 12% 88%, rgba(124, 242, 255, 0.10), transparent 34%);
+      pointer-events: none;
+    }
+
+    .branch-coming-card::after {
+      content: "";
+      position: absolute;
+      right: -42px;
+      top: -42px;
+      width: 150px;
+      height: 150px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(255, 91, 110, 0.26), transparent 66%);
+      pointer-events: none;
+    }
+
+    .branch-coming-card > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .coming-soon-pill {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      gap: 7px;
+      margin-bottom: 14px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 91, 110, 0.12);
+      border: 1px solid rgba(255, 91, 110, 0.34);
+      color: #ff6b7a;
+      font-size: 11px;
+      font-weight: 1000;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 0 24px rgba(255, 91, 110, 0.08);
+    }
+
+    .coming-soon-pill::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #ff6b7a;
+      box-shadow: 0 0 14px rgba(255, 91, 110, 0.8);
+    }
+
+    .branch-coming-card span {
+      color: rgba(124, 242, 255, 0.82);
+    }
+
+    .branch-coming-card h2 {
+      margin-top: 10px;
+    }
+
+    .branch-coming-card p {
+      color: rgba(235, 245, 255, 0.72);
+    }
+
+    .branch-coming-card ul {
+      margin-top: 20px;
+    }
+
+    .branch-soon-note {
+      margin-top: 18px;
+      padding: 14px 15px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.055);
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      color: rgba(255, 225, 230, 0.86);
+      font-size: 13px;
+      font-weight: 850;
+      line-height: 1.6;
+    }
+
+    .branch-soon-note strong {
+      color: #ffffff;
+    }
+
+    @media (max-width: 760px) {
+      .branches-launch-note {
+        font-size: 14px;
+        padding: 16px;
+        border-radius: 20px;
+      }
+
+      .coming-soon-pill {
+        font-size: 10px;
+        padding: 7px 10px;
+      }
+
+      .branch-soon-note {
+        font-size: 12.5px;
+      }
+    }
+  </style>
 </head>
+
 <body class="public-page">
   <div class="noise"></div>
-  <div id="bootLoader" class="boot-loader" aria-hidden="true"><div class="boot-mark">O</div><div class="boot-copy">Olympion yükleniyor</div><div class="boot-line"></div></div>
+
+  <div id="bootLoader" class="boot-loader" aria-hidden="true">
+    <div class="boot-mark">O</div>
+    <div class="boot-copy">Olympion yükleniyor</div>
+    <div class="boot-line"></div>
+  </div>
+
   <div id="cursorFormulaLayer" class="cursor-formula-layer" aria-hidden="true"></div>
-  <div class="formula-layer" aria-hidden="true"><div class="formula drift-right" style="top:7%; left:4%; font-size:28px; animation-duration:25s;">F = ma</div><div class="formula drift-left" style="top:12%; left:78%; font-size:24px; animation-duration:30s;">∫ f(x) dx</div><div class="formula drift-diagonal" style="top:18%; left:42%; font-size:22px; animation-duration:27s;">E = mc²</div><div class="formula drift-up" style="top:28%; left:72%; font-size:21px; animation-duration:12s;">PV = nRT</div><div class="formula drift-left" style="top:38%; left:8%; font-size:22px; animation-duration:28s;">ΔG = ΔH − TΔS</div><div class="formula drift-right" style="top:47%; left:72%; font-size:21px; animation-duration:22s;">∇·E = ρ/ε₀</div><div class="formula drift-up" style="top:60%; left:18%; font-size:23px; animation-duration:11s;">DNA → RNA → Protein</div><div class="formula drift-left" style="top:72%; left:56%; font-size:20px; animation-duration:27s;">sin²x + cos²x = 1</div><div class="formula drift-up" style="top:82%; left:12%; font-size:22px; animation-duration:13s;">λ = h/p</div><div class="formula drift-diagonal" style="top:84%; left:76%; font-size:20px; animation-duration:23s;">pH = −log[H⁺]</div></div>
+
+  <div class="formula-layer" aria-hidden="true">
+    <div class="formula drift-right" style="top:7%; left:4%; font-size:28px; animation-duration:25s;">F = ma</div>
+    <div class="formula drift-left" style="top:12%; left:78%; font-size:24px; animation-duration:30s;">∫ f(x) dx</div>
+    <div class="formula drift-diagonal" style="top:18%; left:42%; font-size:22px; animation-duration:27s;">E = mc²</div>
+    <div class="formula drift-up" style="top:28%; left:72%; font-size:21px; animation-duration:12s;">PV = nRT</div>
+    <div class="formula drift-left" style="top:38%; left:8%; font-size:22px; animation-duration:28s;">ΔG = ΔH − TΔS</div>
+    <div class="formula drift-right" style="top:47%; left:72%; font-size:21px; animation-duration:22s;">∇·E = ρ/ε₀</div>
+    <div class="formula drift-up" style="top:60%; left:18%; font-size:23px; animation-duration:11s;">DNA → RNA → Protein</div>
+    <div class="formula drift-left" style="top:72%; left:56%; font-size:20px; animation-duration:27s;">sin²x + cos²x = 1</div>
+    <div class="formula drift-up" style="top:82%; left:12%; font-size:22px; animation-duration:13s;">λ = h/p</div>
+    <div class="formula drift-diagonal" style="top:84%; left:76%; font-size:20px; animation-duration:23s;">pH = −log[H⁺]</div>
+  </div>
+
   <header class="site-header">
-  <div class="container nav">
-    <a href="index.html" class="brand" aria-label="Olympion ana sayfa">
-      <div class="brand-badge">O</div>
-      <div>Olympion<small>Olimpiyat Öğrenme Platformu</small></div>
-    </a>
-    <nav class="nav-links" aria-label="Ana menü"><a href="index.html" class="">Ana Sayfa</a><a href="videos.html" class="">Video Kütüphanesi</a><a href="branches.html" class="active">Branşlar</a><a href="labs.html" class="">Olympion Labs</a><a href="pricing.html" class="">Fiyatlandırma</a><a href="faq.html" class="">SSS</a><a href="hakkimizda.html" class="">Hakkımızda</a></nav>
-    <div class="nav-right"><a href="login.html" class="login-bubble">Giriş Yap <span>→</span></a></div>
-    <button class="menu-btn" id="menuBtn" aria-label="Menüyü aç/kapat">☰</button>
-  </div>
-  <div class="container mobile-menu" id="mobileMenu"><a href="index.html">Ana Sayfa</a><a href="videos.html">Video Kütüphanesi</a><a href="branches.html">Branşlar</a><a href="labs.html">Olympion Labs</a><a href="pricing.html">Fiyatlandırma</a><a href="faq.html">SSS</a><a href="hakkimizda.html">Hakkımızda</a><a href="login.html" class="login-bubble mobile-login">Giriş Yap →</a></div>
-</header>
-  <main class="site-main">
+    <div class="container nav">
+      <a href="index.html" class="brand" aria-label="Olympion ana sayfa">
+        <div class="brand-mark">
+          <img class="brand-logo-img" src="/logo-icon.svg" alt="Olympion logosu" width="42" height="42" />
+        </div>
 
-<section class="page-hero compact"><div class="container reveal"><div class="badge cyan">Branşlar</div><h1>Her branş için ayrı düşünme sistemi.</h1><p>Olympion’da branşlar yalnızca içerik başlığı değil, öğrenme rotası ve problem çözme disiplinidir.</p></div></section>
-<section><div class="container deep-grid branch-deep-grid">
-  <article id="matematik" class="deep-card reveal"><span>Matematik</span><h2>İspat, yapı ve strateji.</h2><p>Sayı teorisi, kombinatorik, geometri ve cebir problemlerinde sezgisel örüntü kurma.</p><ul><li>İspat teknikleri</li><li>Problem parçalama</li><li>Zihin haritası yaklaşımı</li></ul></article>
-  <article id="fizik" class="deep-card reveal"><span>Fizik</span><h2>Model kur, vektörü gör, sonucu tahmin et.</h2><p>Mekanikten elektromanyetizmaya olimpiyat sorularını modelleme mantığıyla çöz.</p><ul><li>Vektör sezgisi</li><li>Korunum yasaları</li><li>Kavramsal analiz</li></ul></article>
-  <article id="kimya" class="deep-card reveal"><span>Kimya</span><h2>Denge, yapı ve hesaplama.</h2><p>Fizikokimya, organik, analitik ve inorganik kimyayı olimpiyat problem stratejisiyle ele al.</p><ul><li>Denge mantığı</li><li>Mol ve stokiyometri</li><li>Reaksiyon sezgisi</li></ul></article>
-  <article id="biyoloji" class="deep-card reveal"><span>Biyoloji</span><h2>Sistemleri veriyle oku.</h2><p>Genetik, hücresel sistemler, biyokimya ve ekoloji konularında yorum gücü geliştir.</p><ul><li>Veri yorumlama</li><li>Genetik olasılık</li><li>Sistem düşüncesi</li></ul></article>
-</div></section>
+        <div>
+          Olympion
+          <small>Olimpiyat Öğrenme Platformu</small>
+        </div>
+      </a>
 
-  </main>
-  <footer class="site-footer">
-  <div class="container footer-grid">
-    <div>
-      <a href="index.html" class="brand footer-brand"><div class="brand-badge">O</div><div>Olympion<small>Görsel sezgiyle olimpiyat hazırlığı</small></div></a>
-      <p>Olympion; olimpiyat öğrencileri için video, çalışma rotası, PDF notları, günlük problem ve deneysel öğrenme araçlarını tek çatı altında birleştiren premium öğrenme platformudur.</p>
-      <div class="payment-logos" aria-label="Ödeme yöntemleri">
-  <span class="pay-logo visa"><svg viewBox="0 0 96 32" role="img" aria-label="Visa"><text x="48" y="18" text-anchor="middle">VISA</text></svg></span>
-  <span class="pay-logo mc"><svg viewBox="0 0 96 32" role="img" aria-label="Mastercard"><circle cx="40" cy="16" r="10"></circle><circle cx="56" cy="16" r="10"></circle></svg></span>
-  <span class="pay-logo troy"><svg viewBox="0 0 96 32" role="img" aria-label="TROY"><text x="48" y="18" text-anchor="middle">TROY</text></svg></span>
-  <span class="pay-logo iyzico"><svg viewBox="0 0 110 32" role="img" aria-label="iyzico"><text x="55" y="18" text-anchor="middle">iyzico</text></svg></span>
-</div>
+      <nav class="nav-links" aria-label="Ana menü">
+        <a href="index.html">Ana Sayfa</a>
+        <a href="videos.html">Video Kütüphanesi</a>
+        <a href="branches.html" class="active">Branşlar</a>
+        <a href="labs.html">Olympion Labs</a>
+        <a href="pricing.html">Fiyatlandırma</a>
+        <a href="faq.html">SSS</a>
+        <a href="hakkimizda.html">Hakkımızda</a>
+      </nav>
+
+      <div class="nav-right">
+        <a href="login.html" class="login-bubble">Giriş Yap <span>→</span></a>
+      </div>
+
+      <button class="menu-btn" id="menuBtn" aria-label="Menüyü aç/kapat">☰</button>
     </div>
-    <div><h4>Platform</h4><a href="videos.html">Video Kütüphanesi</a><a href="labs.html">Olympion Labs</a><a href="pricing.html">Fiyatlandırma</a><a href="problem.html">Günün Problemi</a></div>
-    <div><h4>Kurumsal</h4><a href="hakkimizda.html">Hakkımızda</a><a href="faq.html">SSS</a><a href="mailto:oktemerozannnn@gmail.com">İletişim</a><a href="mentorship-application.html">Mentörlük Başvurusu</a></div>
-    <div><h4>Yasal</h4><a href="privacy.html">Gizlilik Politikası</a><a href="terms.html">Kullanım Şartları</a><a href="kvkk.html">KVKK Aydınlatma Metni</a></div>
-  </div>
-  <div class="container footer-bottom"><span>© Olympion 2026. Tüm hakları saklıdır.</span><span>Premium olimpiyat öğrenme deneyimi</span></div>
-</footer>
+
+    <div class="container mobile-menu" id="mobileMenu">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="videos.html">Video Kütüphanesi</a>
+      <a href="branches.html">Branşlar</a>
+      <a href="labs.html">Olympion Labs</a>
+      <a href="pricing.html">Fiyatlandırma</a>
+      <a href="faq.html">SSS</a>
+      <a href="hakkimizda.html">Hakkımızda</a>
+      <a href="login.html" class="login-bubble mobile-login">Giriş Yap →</a>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <section class="page-hero compact branches-soon-hero">
+      <div class="container reveal">
+        <div class="badge cyan">Branşlar</div>
+
+        <h1>Olimpiyat branşları için video içerikler hazırlanıyor.</h1>
+
+        <p>
+          Matematik, fizik, kimya ve biyoloji alanlarında olimpiyat seviyesine uygun
+          video dersler, soru çözüm serileri, PDF notları ve çalışma rotaları kademeli
+          olarak yayına alınacaktır.
+        </p>
+
+        <div class="branches-launch-note">
+          <strong>Çok yakında:</strong>
+          Branş içerikleri şu anda hazırlanıyor. İlk yayın döneminde seçili video dersler,
+          temel problem setleri ve örnek PDF notları erişime açılacak.
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container deep-grid branch-deep-grid">
+        <article id="matematik" class="deep-card branch-coming-card reveal">
+          <div class="coming-soon-pill">Çok yakında</div>
+
+          <span>Matematik</span>
+
+          <h2>İspat, yapı ve strateji.</h2>
+
+          <p>
+            Sayı teorisi, kombinatorik, geometri ve cebir problemlerinde sezgisel örüntü
+            kurmaya yönelik video dersler hazırlanıyor.
+          </p>
+
+          <ul>
+            <li>İspat teknikleri</li>
+            <li>Problem parçalama</li>
+            <li>Zihin haritası yaklaşımı</li>
+          </ul>
+
+          <div class="branch-soon-note">
+            <strong>Hazırlanıyor:</strong> Konu anlatımları, örnek çözümler ve olimpiyat
+            seviyesi problem serileri.
+          </div>
+        </article>
+
+        <article id="fizik" class="deep-card branch-coming-card reveal">
+          <div class="coming-soon-pill">Çok yakında</div>
+
+          <span>Fizik</span>
+
+          <h2>Model kur, vektörü gör, sonucu tahmin et.</h2>
+
+          <p>
+            Mekanikten elektromanyetizmaya olimpiyat sorularını modelleme mantığıyla
+            çözmeye yönelik içerikler yayına hazırlanıyor.
+          </p>
+
+          <ul>
+            <li>Vektör sezgisi</li>
+            <li>Korunum yasaları</li>
+            <li>Kavramsal analiz</li>
+          </ul>
+
+          <div class="branch-soon-note">
+            <strong>Hazırlanıyor:</strong> Fizik olimpiyatı için video dersler, soru çözüm
+            serileri ve görsel model anlatımları.
+          </div>
+        </article>
+
+        <article id="kimya" class="deep-card branch-coming-card reveal">
+          <div class="coming-soon-pill">Çok yakında</div>
+
+          <span>Kimya</span>
+
+          <h2>Denge, yapı ve hesaplama.</h2>
+
+          <p>
+            Fizikokimya, organik, analitik ve inorganik kimyayı olimpiyat problem stratejisiyle
+            ele alan ders içerikleri hazırlanıyor.
+          </p>
+
+          <ul>
+            <li>Denge mantığı</li>
+            <li>Mol ve stokiyometri</li>
+            <li>Reaksiyon sezgisi</li>
+          </ul>
+
+          <div class="branch-soon-note">
+            <strong>Hazırlanıyor:</strong> Kimya olimpiyatı için PDF notları, konu anlatımı
+            ve problem çözüm akışları.
+          </div>
+        </article>
+
+        <article id="biyoloji" class="deep-card branch-coming-card reveal">
+          <div class="coming-soon-pill">Çok yakında</div>
+
+          <span>Biyoloji</span>
+
+          <h2>Sistemleri veriyle oku.</h2>
+
+          <p>
+            Genetik, hücresel sistemler, biyokimya ve ekoloji konularında yorum gücü
+            geliştirmeye yönelik içerikler planlanıyor.
+          </p>
+
+          <ul>
+            <li>Veri yorumlama</li>
+            <li>Genetik olasılık</li>
+            <li>Sistem düşüncesi</li>
+          </ul>
+
+          <div class="branch-soon-note">
+            <strong>Hazırlanıyor:</strong> Biyoloji olimpiyatı için konu haritaları,
+            görsel anlatımlar ve problem setleri.
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html" class="brand footer-brand">
+          <div class="brand-mark">
+            <img class="brand-logo-img" src="/logo-icon.svg" alt="Olympion logosu" width="42" height="42" />
+          </div>
+
+          <div>
+            Olympion
+            <small>Görsel sezgiyle olimpiyat hazırlığı</small>
+          </div>
+        </a>
+
+        <p>
+          Olympion; olimpiyat öğrencileri için video, çalışma rotası, PDF notları,
+          günlük problem ve deneysel öğrenme araçlarını tek çatı altında birleştiren
+          premium öğrenme platformudur.
+        </p>
+
+        <div class="payment-logos" aria-label="Ödeme yöntemleri">
+          <span class="pay-logo visa">
+            <svg viewBox="0 0 96 32" role="img" aria-label="Visa">
+              <text x="48" y="18" text-anchor="middle">VISA</text>
+            </svg>
+          </span>
+
+          <span class="pay-logo mc">
+            <svg viewBox="0 0 96 32" role="img" aria-label="Mastercard">
+              <circle cx="40" cy="16" r="10"></circle>
+              <circle cx="56" cy="16" r="10"></circle>
+            </svg>
+          </span>
+
+          <span class="pay-logo troy">
+            <svg viewBox="0 0 96 32" role="img" aria-label="TROY">
+              <text x="48" y="18" text-anchor="middle">TROY</text>
+            </svg>
+          </span>
+
+          <span class="pay-logo iyzico">
+            <svg viewBox="0 0 110 32" role="img" aria-label="iyzico">
+              <text x="55" y="18" text-anchor="middle">iyzico</text>
+            </svg>
+          </span>
+        </div>
+      </div>
+
+      <div>
+        <h4>Platform</h4>
+        <a href="videos.html">Video Kütüphanesi</a>
+        <a href="labs.html">Olympion Labs</a>
+        <a href="pricing.html">Fiyatlandırma</a>
+        <a href="problem.html">Günün Problemi</a>
+      </div>
+
+      <div>
+        <h4>Kurumsal</h4>
+        <a href="hakkimizda.html">Hakkımızda</a>
+        <a href="faq.html">SSS</a>
+        <a href="mailto:oktemerozan@gmail.com">İletişim</a>
+        <a href="mentorship-application.html">Mentörlük Başvurusu</a>
+      </div>
+
+      <div>
+        <h4>Yasal</h4>
+        <a href="privacy.html">Gizlilik Politikası</a>
+        <a href="terms.html">Kullanım Şartları</a>
+        <a href="kvkk.html">KVKK Aydınlatma Metni</a>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <span>© Olympion 2026. Tüm hakları saklıdır.</span>
+      <span>Premium olimpiyat öğrenme deneyimi</span>
+    </div>
+  </footer>
+
   <script src="script.js"></script>
 </body>
 </html>

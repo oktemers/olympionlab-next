@@ -3981,3 +3981,69 @@ const members = {
     transform: none !important;
   }
 }
+
+/* =========================
+   Checkout mobile direct card view
+   ========================= */
+
+@media (max-width: 760px) {
+  body.public-page .checkout-header,
+  body.public-page .checkout-top,
+  body.public-page .checkout-brand-row,
+  body.public-page .checkout-nav,
+  body.public-page .checkout-back,
+  body.public-page .checkout-back-link,
+  body.public-page .checkout-page-header {
+    display: none !important;
+  }
+
+  body.public-page .checkout-wrap {
+    min-height: auto !important;
+    display: block !important;
+    padding: 18px 18px 90px !important;
+    margin: 0 !important;
+  }
+
+  body.public-page .checkout-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 26px 22px !important;
+    border-radius: 28px !important;
+  }
+
+  body.public-page .checkout-card h1,
+  body.public-page .checkout-card h2,
+  body.public-page #planTitle {
+    font-size: 42px !important;
+    line-height: 1 !important;
+    margin: 24px 0 22px !important;
+  }
+
+  body.public-page .checkout-trial-box,
+  body.public-page .trial-price-box,
+  body.public-page .checkout-price-box {
+    padding: 22px !important;
+    border-radius: 24px !important;
+    margin-bottom: 24px !important;
+  }
+
+  body.public-page .checkout-trial-box strong,
+  body.public-page .trial-price-box strong,
+  body.public-page .checkout-price-box strong {
+    font-size: 46px !important;
+    line-height: 0.95 !important;
+  }
+
+  body.public-page .checkout-card li {
+    font-size: 15px !important;
+    line-height: 1.45 !important;
+    margin-bottom: 10px !important;
+  }
+
+  body.public-page .checkout-card .btn {
+    min-height: 54px !important;
+    border-radius: 18px !important;
+    font-size: 15px !important;
+  }
+}

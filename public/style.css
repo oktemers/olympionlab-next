@@ -2681,3 +2681,55 @@ const members = {
     min-width: 44px;
   }
 }
+
+/* =========================
+   Mobile footer legal column placement
+   ========================= */
+
+.footer-legal-mobile {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .footer-legal-mobile {
+    display: block !important;
+  }
+
+  .footer-legal-mobile h4 {
+    font-size: 22px;
+    line-height: 1.1;
+    letter-spacing: -0.045em;
+    margin-bottom: 16px;
+    color: #ffffff;
+    font-weight: 950;
+  }
+
+  .footer-legal-mobile a {
+    font-size: 15px;
+    line-height: 1.9;
+    color: rgba(235, 245, 255, 0.72);
+    display: block;
+  }
+
+  .footer-legal-mobile a:hover {
+    color: #7cf2ff;
+  }
+
+  /* Alttaki eski yasal satırı mobilde kaldırıyoruz */
+  .footer-legal-row {
+    display: none !important;
+  }
+
+  /* Ödeme yöntemleri artık direkt kolonların altına gelir */
+  .footer-payment-row {
+    margin-top: 34px !important;
+    padding-top: 24px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+  }
+}
+
+@media (min-width: 761px) {
+  .footer-legal-mobile {
+    display: none !important;
+  }
+}

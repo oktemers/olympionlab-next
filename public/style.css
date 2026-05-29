@@ -2733,3 +2733,87 @@ const members = {
     display: none !important;
   }
 }
+
+/* =========================
+   Mobile sticky header + clearer menu button
+   ========================= */
+
+@media (max-width: 760px) {
+  .site-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 9990 !important;
+    background:
+      linear-gradient(180deg, rgba(5, 9, 20, 0.96), rgba(5, 9, 20, 0.88)) !important;
+    backdrop-filter: blur(22px) saturate(1.2) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(1.2) !important;
+    border-bottom: 1px solid rgba(124, 242, 255, 0.16) !important;
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.28) !important;
+  }
+
+  .site-header .nav {
+    min-height: 76px !important;
+    height: 76px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .menu-btn {
+    width: 54px !important;
+    height: 54px !important;
+    min-width: 54px !important;
+    border-radius: 18px !important;
+    display: grid !important;
+    place-items: center !important;
+    margin-left: auto !important;
+    background: linear-gradient(135deg, #7cf2ff, #7aa7ff) !important;
+    color: #061320 !important;
+    border: 1px solid rgba(255, 255, 255, 0.36) !important;
+    box-shadow:
+      0 14px 34px rgba(124, 242, 255, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.36) !important;
+    font-size: 0 !important;
+    position: relative !important;
+  }
+
+  .menu-btn::before,
+  .menu-btn::after,
+  .menu-btn span {
+    content: "";
+    width: 23px;
+    height: 2.5px;
+    border-radius: 999px;
+    background: #061320;
+    display: block;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .menu-btn::before {
+    top: 18px;
+  }
+
+  .menu-btn span {
+    top: 26px;
+  }
+
+  .menu-btn::after {
+    top: 34px;
+  }
+
+  .menu-btn:hover,
+  .menu-btn:active {
+    transform: translateY(-1px);
+    box-shadow:
+      0 18px 42px rgba(124, 242, 255, 0.24),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  }
+
+  .mobile-menu {
+    background: rgba(5, 9, 20, 0.96) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-bottom: 1px solid rgba(124, 242, 255, 0.14) !important;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.34) !important;
+  }
+}

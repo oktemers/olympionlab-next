@@ -110,11 +110,424 @@
       }
     }
 
+    /* Homepage branch status labels */
+    .branch-status-pill {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      gap: 7px;
+      margin-bottom: 12px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 1000;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .branch-status-pill::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+    }
+
+    .branch-status-pill.soon {
+      background: rgba(255, 91, 110, 0.12);
+      border: 1px solid rgba(255, 91, 110, 0.34);
+      color: #ff6b7a;
+      box-shadow: 0 0 24px rgba(255, 91, 110, 0.08);
+    }
+
+    .branch-status-pill.soon::before {
+      background: #ff6b7a;
+      box-shadow: 0 0 14px rgba(255, 91, 110, 0.8);
+    }
+
+    .branch-status-pill.loading {
+      background: rgba(124, 242, 255, 0.12);
+      border: 1px solid rgba(124, 242, 255, 0.34);
+      color: #7cf2ff;
+      box-shadow: 0 0 24px rgba(124, 242, 255, 0.1);
+    }
+
+    .branch-status-pill.loading::before {
+      background: #7cf2ff;
+      box-shadow: 0 0 14px rgba(124, 242, 255, 0.8);
+    }
+
+    .branch-card.branch-status-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .branch-card.branch-status-card::after {
+      content: "";
+      position: absolute;
+      right: -42px;
+      top: -42px;
+      width: 150px;
+      height: 150px;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    .branch-card.branch-status-card.status-soon::after {
+      background: radial-gradient(circle, rgba(255, 91, 110, 0.24), transparent 66%);
+    }
+
+    .branch-card.branch-status-card.status-loading::after {
+      background: radial-gradient(circle, rgba(124, 242, 255, 0.22), transparent 66%);
+    }
+
+    .branch-card.branch-status-card > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .branch-card .branch-soon-note {
+      margin-top: 12px;
+      color: rgba(235, 245, 255, 0.7);
+      font-size: 13px;
+      font-weight: 850;
+      line-height: 1.55;
+    }
+
+    .branch-card.status-soon .branch-soon-note {
+      color: rgba(255, 210, 216, 0.82);
+    }
+
+    .branch-card.status-loading .branch-soon-note {
+      color: rgba(200, 250, 255, 0.84);
+    }
+
+    /* Mobile promo bar fix */
+    @media (max-width: 640px) {
+      .promo-strip {
+        min-height: 34px !important;
+        height: 34px !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+      }
+
+      .promo-strip-inner {
+        min-height: 34px !important;
+        height: 34px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        overflow: hidden !important;
+        white-space: nowrap !important;
+      }
+
+      .promo-label {
+        font-size: 9.5px !important;
+        line-height: 1 !important;
+        padding: 5px 8px !important;
+        white-space: nowrap !important;
+      }
+
+      .promo-message,
+      .promo-link {
+        font-size: 10.5px !important;
+        line-height: 1 !important;
+        white-space: nowrap !important;
+      }
+
+      .promo-message {
+        max-width: 55vw !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+
+      .branch-status-pill {
+        font-size: 10px;
+        padding: 7px 10px;
+      }
+
+      .branch-card .branch-soon-note {
+        font-size: 12.5px;
+      }
+    }
+
+    /* Olympion Trial Popup */
+    .trial-popup-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: none;
+      place-items: center;
+      padding: 22px;
+      background: rgba(3, 7, 17, 0.76);
+      backdrop-filter: blur(16px);
+    }
+
+    .trial-popup-overlay.show {
+      display: grid;
+      animation: popupOverlayFade 0.22s ease forwards;
+    }
+
+    .trial-popup {
+      position: relative;
+      overflow: hidden;
+      width: min(520px, 100%);
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(124, 242, 255, 0.13), transparent 42%),
+        linear-gradient(180deg, rgba(11, 23, 39, 0.98), rgba(5, 10, 20, 0.98));
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 38px 120px rgba(0, 0, 0, 0.62);
+    }
+
+    .trial-popup-close {
+      position: absolute;
+      z-index: 5;
+      right: 18px;
+      top: 18px;
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      background: rgba(3, 7, 17, 0.58);
+      color: #ffffff;
+      font-size: 30px;
+      line-height: 1;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+
+    .trial-popup-visual {
+      position: relative;
+      height: 230px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 45%, rgba(124, 242, 255, 0.2), transparent 34%),
+        radial-gradient(circle at 20% 80%, rgba(122, 167, 255, 0.16), transparent 38%),
+        linear-gradient(135deg, #07111f, #0c1b2f);
+    }
+
+    .trial-popup-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(124, 242, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124, 242, 255, 0.08) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 78%);
+    }
+
+    .trial-orbit {
+      position: absolute;
+      left: 50%;
+      top: 52%;
+      border: 1px solid rgba(124, 242, 255, 0.34);
+      border-radius: 999px;
+      transform: translate(-50%, -50%) rotate(-17deg);
+    }
+
+    .trial-orbit.orbit-a {
+      width: 280px;
+      height: 96px;
+    }
+
+    .trial-orbit.orbit-b {
+      width: 190px;
+      height: 190px;
+      transform: translate(-50%, -50%) rotate(24deg);
+      border-color: rgba(157, 200, 255, 0.25);
+    }
+
+    .trial-core {
+      position: absolute;
+      left: 50%;
+      top: 52%;
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, #ffffff, #7cf2ff 28%, transparent 72%);
+      box-shadow: 0 0 78px rgba(124, 242, 255, 0.46);
+    }
+
+    .trial-chip {
+      position: absolute;
+      padding: 8px 11px;
+      border-radius: 999px;
+      color: rgba(235, 245, 255, 0.82);
+      background: rgba(3, 8, 17, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .trial-chip.chip-a {
+      left: 24px;
+      top: 34px;
+    }
+
+    .trial-chip.chip-b {
+      right: 78px;
+      top: 62px;
+    }
+
+    .trial-chip.chip-c {
+      left: 34px;
+      bottom: 30px;
+    }
+
+    .trial-popup-content {
+      padding: 30px 28px 32px;
+      text-align: center;
+    }
+
+    .trial-popup-badge {
+      width: fit-content;
+      margin: 0 auto 14px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(124, 242, 255, 0.12);
+      border: 1px solid rgba(124, 242, 255, 0.28);
+      color: #7cf2ff;
+      font-size: 11px;
+      font-weight: 1000;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .trial-popup h2 {
+      margin: 0;
+      color: #ffffff;
+      font-size: clamp(32px, 6vw, 48px);
+      line-height: 1;
+      letter-spacing: -0.06em;
+    }
+
+    .trial-popup h2 span {
+      display: block;
+      background: linear-gradient(90deg, #7cf2ff, #7aa7ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .trial-popup p {
+      margin: 16px auto 0;
+      max-width: 410px;
+      color: rgba(235, 245, 255, 0.72);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .trial-popup-actions {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .trial-primary-btn,
+    .trial-secondary-btn {
+      min-height: 56px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      text-decoration: none;
+      font-weight: 1000;
+    }
+
+    .trial-primary-btn {
+      color: #061320;
+      background: linear-gradient(135deg, #7cf2ff, #7aa7ff);
+      box-shadow: 0 18px 46px rgba(124, 242, 255, 0.16);
+    }
+
+    .trial-secondary-btn {
+      color: #f7fbff;
+      background: rgba(255, 255, 255, 0.065);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+    }
+
+    @keyframes popupOverlayFade {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .trial-popup-overlay {
+        padding: 18px;
+      }
+
+      .trial-popup {
+        border-radius: 30px;
+      }
+
+      .trial-popup-visual {
+        height: 210px;
+      }
+
+      .trial-popup-content {
+        padding: 26px 22px 28px;
+      }
+
+      .trial-popup h2 {
+        font-size: 34px;
+      }
+
+      .trial-popup p {
+        font-size: 14px;
+      }
+
+      .trial-primary-btn,
+      .trial-secondary-btn {
+        min-height: 54px;
+      }
+    }
   </style>
 </head>
 
 <body class="public-page">
   <div class="noise"></div>
+
+  <div id="trialPopup" class="trial-popup-overlay" aria-hidden="true">
+    <div class="trial-popup">
+      <button class="trial-popup-close" id="trialPopupClose" aria-label="Popup kapat">×</button>
+
+      <div class="trial-popup-visual">
+        <div class="trial-orbit orbit-a"></div>
+        <div class="trial-orbit orbit-b"></div>
+        <div class="trial-core"></div>
+
+        <div class="trial-chip chip-a">pH = ?</div>
+        <div class="trial-chip chip-b">E = mc²</div>
+        <div class="trial-chip chip-c">ΔG = ΔH − TΔS</div>
+      </div>
+
+      <div class="trial-popup-content">
+        <div class="trial-popup-badge">Lansman fırsatı</div>
+
+        <h2>
+          7 Gün Ücretsiz Denemeye
+          <span>Hazır mısın?</span>
+        </h2>
+
+        <p>
+          Plus ve Pro planlarında video dersler, PDF notları, çalışma rotası
+          ve Olympion Labs deneyimini 7 gün ücretsiz keşfet.
+        </p>
+
+        <div class="trial-popup-actions">
+          <a href="pricing.html" class="trial-primary-btn">Planları İncele →</a>
+          <a href="login.html" class="trial-secondary-btn">Hesap Oluştur</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div id="bootLoader" class="boot-loader" aria-hidden="true">
     <div class="boot-mark">O</div>
@@ -144,9 +557,9 @@
         <span
           id="promoRotator"
           class="promo-message"
-          data-messages='["Plus ve Pro planlarında 7 gün ücretsiz deneme başladı","Plus ₺149, Pro ₺299 lansmana özel fiyatla yayında","Video, PDF, Labs ve çalışma rotası tek panelde"]'
+          data-messages='["Plus ve Pro’da 7 gün ücretsiz deneme","Plus ₺149, Pro ₺299 lansmana özel fiyatla yayında","Video, PDF, Labs ve çalışma rotası tek panelde"]'
         >
-          Plus ve Pro planlarında 7 gün ücretsiz deneme başladı
+          Plus ve Pro’da 7 gün ücretsiz deneme
         </span>
         <a class="promo-link" href="pricing.html">Detaylar →</a>
       </div>
@@ -329,39 +742,38 @@
       </div>
 
       <div class="branch-grid four-branch-grid">
-  <a class="branch-card branch-status-card status-loading reveal" href="branches.html#fizik">
-    <div class="branch-status-pill loading">Videolar yükleniyor</div>
-    <span>01</span>
-    <h3>Fizik</h3>
-    <p>Mekanik • Elektromanyetizma • Termodinamik • Modern fizik</p>
-    <div class="branch-soon-note">Fizik video dersleri ve soru çözüm serileri hazırlanıyor.</div>
-  </a>
+        <a class="branch-card branch-status-card status-loading reveal" href="branches.html#fizik">
+          <div class="branch-status-pill loading">Videolar yükleniyor</div>
+          <span>01</span>
+          <h3>Fizik</h3>
+          <p>Mekanik • Elektromanyetizma • Termodinamik • Modern fizik</p>
+          <div class="branch-soon-note">Fizik video dersleri ve soru çözüm serileri hazırlanıyor.</div>
+        </a>
 
-  <a class="branch-card branch-status-card status-loading reveal" href="branches.html#kimya">
-    <div class="branch-status-pill loading">Videolar yükleniyor</div>
-    <span>02</span>
-    <h3>Kimya</h3>
-    <p>Fizikokimya • Organik • Analitik • İnorganik</p>
-    <div class="branch-soon-note">Kimya video içerikleri ve PDF notları yayına hazırlanıyor.</div>
-  </a>
+        <a class="branch-card branch-status-card status-loading reveal" href="branches.html#kimya">
+          <div class="branch-status-pill loading">Videolar yükleniyor</div>
+          <span>02</span>
+          <h3>Kimya</h3>
+          <p>Fizikokimya • Organik • Analitik • İnorganik</p>
+          <div class="branch-soon-note">Kimya video içerikleri ve PDF notları yayına hazırlanıyor.</div>
+        </a>
 
-  <a class="branch-card branch-status-card status-soon reveal" href="branches.html#matematik">
-    <div class="branch-status-pill soon">Çok yakında</div>
-    <span>03</span>
-    <h3>Matematik</h3>
-    <p>İspat • Kombinatorik • Sayı teorisi • Geometri</p>
-    <div class="branch-soon-note">Matematik olimpiyat içerikleri planlama aşamasında.</div>
-  </a>
+        <a class="branch-card branch-status-card status-soon reveal" href="branches.html#matematik">
+          <div class="branch-status-pill soon">Çok yakında</div>
+          <span>03</span>
+          <h3>Matematik</h3>
+          <p>İspat • Kombinatorik • Sayı teorisi • Geometri</p>
+          <div class="branch-soon-note">Matematik olimpiyat içerikleri planlama aşamasında.</div>
+        </a>
 
-  <a class="branch-card branch-status-card status-soon reveal" href="branches.html#biyoloji">
-    <div class="branch-status-pill soon">Çok yakında</div>
-    <span>04</span>
-    <h3>Biyoloji</h3>
-    <p>Genetik • Hücre • Biyokimya • Ekoloji</p>
-    <div class="branch-soon-note">Biyoloji olimpiyat içerikleri kademeli olarak açılacak.</div>
-  </a>
-</div>
-    
+        <a class="branch-card branch-status-card status-soon reveal" href="branches.html#biyoloji">
+          <div class="branch-status-pill soon">Çok yakında</div>
+          <span>04</span>
+          <h3>Biyoloji</h3>
+          <p>Genetik • Hücre • Biyokimya • Ekoloji</p>
+          <div class="branch-soon-note">Biyoloji olimpiyat içerikleri kademeli olarak açılacak.</div>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -620,7 +1032,7 @@
         <h4>Kurumsal</h4>
         <a href="hakkimizda.html">Hakkımızda</a>
         <a href="faq.html">SSS</a>
-        <a href="mailto:oktemerozannnn@gmail.com">İletişim</a>
+        <a href="mailto:oktemerozan@gmail.com">İletişim</a>
         <a href="mentorship-application.html">Mentörlük Başvurusu</a>
       </div>
 
@@ -637,6 +1049,46 @@
       <span>Premium olimpiyat öğrenme deneyimi</span>
     </div>
   </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const popup = document.getElementById("trialPopup");
+      const closeBtn = document.getElementById("trialPopupClose");
+
+      if (!popup || !closeBtn) return;
+
+      const popupKey = "olympionTrialPopupClosed_v1";
+
+      if (localStorage.getItem(popupKey) === "true") {
+        return;
+      }
+
+      setTimeout(function () {
+        popup.classList.add("show");
+        popup.setAttribute("aria-hidden", "false");
+      }, 1200);
+
+      function closePopup() {
+        popup.classList.remove("show");
+        popup.setAttribute("aria-hidden", "true");
+        localStorage.setItem(popupKey, "true");
+      }
+
+      closeBtn.addEventListener("click", closePopup);
+
+      popup.addEventListener("click", function (event) {
+        if (event.target === popup) {
+          closePopup();
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && popup.classList.contains("show")) {
+          closePopup();
+        }
+      });
+    });
+  </script>
 
   <script src="script.js"></script>
 </body>

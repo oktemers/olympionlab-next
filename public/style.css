@@ -3665,3 +3665,172 @@ const members = {
     left: 22px;
   }
 }
+
+/* =========================
+   Roadmap mobile layout fix
+   ========================= */
+
+@media (max-width: 760px) {
+  body.app-page .app-roadmap-system-section {
+    padding: 0 0 22px !important;
+  }
+
+  body.app-page .app-roadmap-system-card {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+    padding: 22px !important;
+    border-radius: 28px !important;
+    margin-top: 14px !important;
+    background:
+      radial-gradient(circle at 0% 0%, rgba(124, 242, 255, 0.12), transparent 42%),
+      rgba(255, 255, 255, 0.045) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  }
+
+  body.app-page .app-roadmap-system-card .roadmap-system-copy h1 {
+    font-size: 34px !important;
+    line-height: 1.04 !important;
+    letter-spacing: -0.055em !important;
+    margin: 16px 0 14px !important;
+  }
+
+  body.app-page .app-roadmap-system-card .roadmap-system-copy p {
+    font-size: 14.5px !important;
+    line-height: 1.75 !important;
+    margin-bottom: 18px !important;
+    color: rgba(235, 245, 255, 0.72) !important;
+  }
+
+  body.app-page .roadmap-summary-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+    margin-top: 18px !important;
+  }
+
+  body.app-page .roadmap-summary-grid div {
+    min-height: auto !important;
+    padding: 14px !important;
+    border-radius: 18px !important;
+    background: rgba(255, 255, 255, 0.055) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+
+  body.app-page .roadmap-summary-grid strong {
+    display: block !important;
+    font-size: 15px !important;
+    margin-bottom: 5px !important;
+    color: #ffffff !important;
+  }
+
+  body.app-page .roadmap-summary-grid span {
+    display: block !important;
+    font-size: 12.5px !important;
+    line-height: 1.45 !important;
+    color: rgba(235, 245, 255, 0.62) !important;
+  }
+
+  body.app-page .roadmap-plan-flow {
+    display: grid !important;
+    gap: 12px !important;
+    position: relative !important;
+    margin-top: 6px !important;
+  }
+
+  body.app-page .roadmap-plan-flow::before {
+    display: none !important;
+  }
+
+  body.app-page .roadmap-plan-step {
+    display: grid !important;
+    grid-template-columns: 42px 1fr !important;
+    gap: 13px !important;
+    align-items: flex-start !important;
+    padding: 15px !important;
+    border-radius: 20px !important;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.035)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.11) !important;
+  }
+
+  body.app-page .roadmap-plan-step > span {
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 15px !important;
+    display: grid !important;
+    place-items: center !important;
+    color: #061320 !important;
+    background: linear-gradient(135deg, #7cf2ff, #7aa7ff) !important;
+    font-size: 12px !important;
+    font-weight: 1000 !important;
+    line-height: 1 !important;
+  }
+
+  body.app-page .roadmap-plan-step strong {
+    display: block !important;
+    font-size: 16px !important;
+    line-height: 1.25 !important;
+    margin: 1px 0 6px !important;
+    color: #ffffff !important;
+  }
+
+  body.app-page .roadmap-plan-step p {
+    margin: 0 !important;
+    font-size: 13px !important;
+    line-height: 1.55 !important;
+    color: rgba(235, 245, 255, 0.65) !important;
+  }
+
+  body.app-page .roadmap-week-section {
+    margin-top: 22px !important;
+  }
+
+  body.app-page .roadmap-week-title h2 {
+    font-size: 28px !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.045em !important;
+  }
+
+  body.app-page .roadmap-week-title p {
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+  }
+
+  body.app-page .roadmap-clean-timeline {
+    display: grid !important;
+    gap: 12px !important;
+  }
+
+  body.app-page .roadmap-clean-timeline .timeline-item {
+    padding: 16px !important;
+    border-radius: 20px !important;
+    background: rgba(255, 255, 255, 0.055) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+
+  body.app-page .roadmap-clean-timeline .timeline-item span {
+    font-size: 11px !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  body.app-page .roadmap-clean-timeline .timeline-item h3 {
+    font-size: 17px !important;
+    line-height: 1.25 !important;
+  }
+
+  body.app-page .roadmap-clean-timeline .timeline-item p {
+    font-size: 13px !important;
+    line-height: 1.55 !important;
+  }
+}
+
+@media (max-width: 390px) {
+  body.app-page .roadmap-summary-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  body.app-page .app-roadmap-system-card .roadmap-system-copy h1 {
+    font-size: 31px !important;
+  }
+}

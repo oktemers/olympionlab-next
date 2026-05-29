@@ -3073,3 +3073,168 @@ const members = {
   }
 }
 
+/* =========================
+   Mobile header/menu premium glass final
+   Dashboard hariç sadece public sayfalar
+   ========================= */
+
+@media (max-width: 760px) {
+  body.public-page .site-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 9990 !important;
+    background: rgba(5, 10, 20, 0.62) !important;
+    backdrop-filter: blur(18px) saturate(1.2) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(1.2) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    box-shadow: none !important;
+  }
+
+  body.public-page .promo-strip + .site-header {
+    top: 0 !important;
+  }
+
+  body.public-page .site-main {
+    padding-top: 0 !important;
+  }
+
+  body.public-page:has(.promo-strip) .site-main {
+    padding-top: 0 !important;
+  }
+
+  body.public-page .site-header .nav {
+    height: 70px !important;
+    min-height: 70px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  body.public-page .site-header .brand {
+    gap: 10px !important;
+    align-items: center !important;
+  }
+
+  body.public-page .site-header .brand-mark,
+  body.public-page .site-header .brand-logo-img {
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    max-width: 42px !important;
+    min-height: 42px !important;
+    max-height: 42px !important;
+    border-radius: 14px !important;
+  }
+
+  body.public-page .site-header .brand > div:last-child {
+    font-size: 21px !important;
+    line-height: 1 !important;
+    letter-spacing: -0.04em !important;
+  }
+
+  body.public-page .site-header .brand small {
+    display: none !important;
+  }
+
+  body.public-page .menu-btn {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    border-radius: 15px !important;
+    margin-left: auto !important;
+    display: grid !important;
+    place-items: center !important;
+    position: relative !important;
+
+    background: rgba(255, 255, 255, 0.045) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    box-shadow: none !important;
+  }
+
+  body.public-page .menu-btn::before,
+  body.public-page .menu-btn::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 50% !important;
+    width: 20px !important;
+    height: 2px !important;
+    border-radius: 999px !important;
+    background: rgba(247, 251, 255, 0.88) !important;
+    transform: translateX(-50%) !important;
+  }
+
+  body.public-page .menu-btn::before {
+    top: 17px !important;
+  }
+
+  body.public-page .menu-btn::after {
+    top: 26px !important;
+  }
+
+  body.public-page .menu-btn:active {
+    background: rgba(124, 242, 255, 0.10) !important;
+    border-color: rgba(124, 242, 255, 0.22) !important;
+  }
+
+  body.public-page .mobile-menu {
+    position: sticky !important;
+    top: 70px !important;
+    z-index: 9988 !important;
+
+    width: calc(100% - 28px) !important;
+    margin: 0 auto !important;
+    padding: 10px !important;
+
+    background: rgba(4, 9, 18, 0.72) !important;
+    backdrop-filter: blur(22px) saturate(1.25) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(1.25) !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 22px !important;
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.32) !important;
+    overflow: hidden !important;
+  }
+
+  body.public-page .mobile-menu a {
+    display: flex !important;
+    align-items: center !important;
+    min-height: 48px !important;
+    padding: 0 14px !important;
+    margin: 0 !important;
+
+    color: rgba(235, 245, 255, 0.82) !important;
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    letter-spacing: -0.015em !important;
+    text-align: left !important;
+
+    border-radius: 14px !important;
+    border-bottom: 0 !important;
+  }
+
+  body.public-page .mobile-menu a + a {
+    margin-top: 2px !important;
+  }
+
+  body.public-page .mobile-menu a:hover,
+  body.public-page .mobile-menu a:active {
+    background: rgba(124, 242, 255, 0.08) !important;
+    color: #ffffff !important;
+  }
+
+  body.public-page .mobile-menu .login-bubble,
+  body.public-page .mobile-menu .mobile-login {
+    width: fit-content !important;
+    min-height: 44px !important;
+    margin-top: 8px !important;
+    padding: 0 18px !important;
+    border-radius: 999px !important;
+    background: rgba(124, 242, 255, 0.10) !important;
+    border: 1px solid rgba(124, 242, 255, 0.25) !important;
+    color: #f7fbff !important;
+  }
+}

@@ -3956,3 +3956,28 @@ const members = {
     border-radius: 18px !important;
   }
 }
+/* =========================
+   Checkout desktop center fix
+   ========================= */
+
+@media (min-width: 901px) {
+  .checkout-wrap {
+    width: 100% !important;
+    min-height: calc(100vh - 160px) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 70px 24px !important;
+  }
+
+  .checkout-card {
+    width: min(620px, 100%) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  main.checkout-wrap,
+  .checkout-wrap .checkout-card {
+    transform: none !important;
+  }
+}

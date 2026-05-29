@@ -1981,3 +1981,67 @@ const members = {
     icon: "growth"
   }
 };
+
+
+/* =========================
+   Mobile promo bar fix
+   ========================= */
+
+@media (max-width: 640px) {
+  .promo-bar,
+  .announcement-bar,
+  .top-banner {
+    min-height: 34px !important;
+    height: 34px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .promo-bar .container,
+  .announcement-bar .container,
+  .top-banner .container,
+  .promo-inner,
+  .announcement-inner,
+  .top-banner-inner {
+    min-height: 34px !important;
+    height: 34px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+  }
+
+  .promo-bar span,
+  .promo-bar a,
+  .announcement-bar span,
+  .announcement-bar a,
+  .top-banner span,
+  .top-banner a,
+  .promo-text,
+  .announcement-text {
+    font-size: 10.5px !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+  }
+
+  .promo-bar strong,
+  .announcement-bar strong,
+  .top-banner strong,
+  .promo-pill,
+  .announcement-pill {
+    font-size: 9.5px !important;
+    line-height: 1 !important;
+    padding: 5px 8px !important;
+    white-space: nowrap !important;
+  }
+
+  .promo-text,
+  .announcement-text,
+  .top-banner-text {
+    max-width: 62vw !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+}

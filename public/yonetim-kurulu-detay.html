@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Yönetim Kurulu Detay | Olympion Lab</title>
+  <meta name="description" content="Olympion Lab yönetim kurulu detay sayfası." />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <style>
+    .profile-detail-section {
+      padding: 72px 0 96px;
+    }
+
+    .profile-detail-card {
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      border: 1px solid var(--line);
+      border-radius: 38px;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(124, 242, 255, 0.11), transparent 38%),
+        linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.035));
+      box-shadow: var(--shadow);
+    }
+
+    .profile-copy {
+      padding: clamp(30px, 5vw, 62px);
+    }
+
+    .profile-copy h1 {
+      margin: 18px 0 10px;
+      color: #fff;
+      font-size: clamp(42px, 6vw, 76px);
+      line-height: .96;
+      letter-spacing: -0.075em;
+    }
+
+    .profile-role {
+      color: var(--cyan);
+      font-size: 18px;
+      font-weight: 950;
+      margin-bottom: 26px;
+    }
+
+    .profile-summary {
+      color: var(--soft);
+      line-height: 1.85;
+      font-size: 16px;
+      margin-bottom: 28px;
+    }
+
+    .profile-visual {
+      position: relative;
+      min-height: 520px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(124,242,255,.17), transparent 34%),
+        linear-gradient(135deg, rgba(7,17,31,.96), rgba(3,7,17,.88));
+      border-left: 1px solid rgba(255,255,255,.10);
+    }
+
+    .profile-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(124,242,255,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,242,255,.08) 1px, transparent 1px);
+      background-size: 38px 38px;
+      mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 78%);
+    }
+
+    .profile-avatar {
+      position: relative;
+      z-index: 2;
+      width: 230px;
+      height: 230px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 35% 25%, rgba(255,255,255,.45), transparent 22%),
+        linear-gradient(135deg, rgba(124,242,255,.96), rgba(122,167,255,.86));
+      box-shadow:
+        0 0 0 18px rgba(124,242,255,.06),
+        0 0 110px rgba(124,242,255,.25);
+    }
+
+    .profile-avatar svg {
+      width: 128px;
+      height: 128px;
+    }
+
+    .profile-orbit {
+      position: absolute;
+      z-index: 1;
+      width: 360px;
+      height: 130px;
+      border: 1px solid rgba(124,242,255,.28);
+      border-radius: 999px;
+      transform: rotate(-18deg);
+    }
+
+    .profile-orbit.second {
+      width: 280px;
+      height: 280px;
+      transform: rotate(24deg);
+      border-color: rgba(157,200,255,.22);
+    }
+
+    .profile-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .profile-info-card {
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 24px;
+      padding: 20px;
+      background: rgba(255,255,255,.055);
+    }
+
+    .profile-info-card h2 {
+      margin: 0 0 14px;
+      color: #fff;
+      font-size: 20px;
+      letter-spacing: -0.04em;
+    }
+
+    .profile-info-card p,
+    .profile-info-card li {
+      color: rgba(235,245,255,.74);
+      line-height: 1.75;
+      font-size: 14px;
+    }
+
+    .profile-info-card ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .profile-meta {
+      display: grid;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .profile-meta-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 18px;
+      padding: 13px 15px;
+      background: rgba(255,255,255,.045);
+      color: rgba(235,245,255,.72);
+      font-size: 14px;
+    }
+
+    .profile-meta-item strong {
+      color: #fff;
+    }
+
+    .profile-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    @media (max-width: 980px) {
+      .profile-detail-card {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-visual {
+        order: -1;
+        min-height: 360px;
+        border-left: 0;
+        border-bottom: 1px solid rgba(255,255,255,.10);
+      }
+
+      .profile-info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .profile-detail-section {
+        padding: 34px 0 72px;
+      }
+
+      .profile-detail-card {
+        border-radius: 28px;
+      }
+
+      .profile-copy {
+        padding: 28px 22px;
+      }
+
+      .profile-copy h1 {
+        font-size: 42px;
+      }
+
+      .profile-avatar {
+        width: 170px;
+        height: 170px;
+      }
+
+      .profile-avatar svg {
+        width: 94px;
+        height: 94px;
+      }
+
+      .profile-orbit {
+        width: 260px;
+        height: 96px;
+      }
+
+      .profile-orbit.second {
+        width: 210px;
+        height: 210px;
+      }
+
+      .profile-meta-item {
+        display: grid;
+      }
+
+      .profile-actions .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body class="public-page">
+  <div class="noise"></div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="brand">
+        <div class="brand-mark">
+          <img class="brand-logo-img" src="/logo-icon.svg" alt="Olympion logosu" width="42" height="42" />
+        </div>
+        <div>
+          Olympion
+          <small>Olimpiyat Öğrenme Platformu</small>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html">Ana Sayfa</a>
+        <a href="videos.html">Video Kütüphanesi</a>
+        <a href="branches.html">Branşlar</a>
+        <a href="labs.html">Olympion Labs</a>
+        <a href="pricing.html">Fiyatlandırma</a>
+        <a href="faq.html">SSS</a>
+
+        <div class="nav-dropdown">
+          <a href="hakkimizda.html" class="nav-drop-trigger active">Hakkımızda <span>⌄</span></a>
+          <div class="nav-drop-menu">
+            <a href="biz-kimiz.html">Biz Kimiz?</a>
+            <a href="yonetim-kurulu.html">Yönetim Kurulu</a>
+            <a href="organizasyon-semasi.html">Organizasyon Şeması</a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="nav-right">
+        <a href="login.html" class="login-bubble">Giriş Yap <span>→</span></a>
+      </div>
+
+      <button class="menu-btn" id="menuBtn" aria-label="Menüyü aç/kapat">☰</button>
+    </div>
+
+    <div class="container mobile-menu" id="mobileMenu">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="videos.html">Video Kütüphanesi</a>
+      <a href="branches.html">Branşlar</a>
+      <a href="labs.html">Olympion Labs</a>
+      <a href="pricing.html">Fiyatlandırma</a>
+      <a href="faq.html">SSS</a>
+      <a href="hakkimizda.html">Hakkımızda</a>
+      <a href="biz-kimiz.html">Biz Kimiz?</a>
+      <a href="yonetim-kurulu.html">Yönetim Kurulu</a>
+      <a href="organizasyon-semasi.html">Organizasyon Şeması</a>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <section class="profile-detail-section">
+      <div class="container">
+        <article class="profile-detail-card reveal">
+          <div class="profile-copy">
+            <div class="badge cyan" id="detailBadge">Yönetim Kurulu</div>
+
+            <h1 id="detailTitle">Olympion Lab</h1>
+
+            <div class="profile-role" id="detailRole">
+              Yönetim Yapısı
+            </div>
+
+            <p class="profile-summary" id="detailText">
+              Olympion Lab’in yönetim yaklaşımı; eğitim kalitesi, teknoloji, öğrenci başarısı
+              ve sürdürülebilir gelişim ilkeleri üzerine kuruludur.
+            </p>
+
+            <div class="profile-meta">
+              <div class="profile-meta-item">
+                <span>Doğum Tarihi</span>
+                <strong id="birthDate">-</strong>
+              </div>
+
+              <div class="profile-meta-item">
+                <span>Görev Alanı</span>
+                <strong id="taskArea">-</strong>
+              </div>
+            </div>
+
+            <div class="profile-info-grid">
+              <div class="profile-info-card">
+                <h2>Öğrenim Bilgileri</h2>
+                <ul id="educationList"></ul>
+              </div>
+
+              <div class="profile-info-card">
+                <h2>Tecrübe Bilgileri</h2>
+                <ul id="experienceList"></ul>
+              </div>
+
+              <div class="profile-info-card">
+                <h2>Yabancı Dil Bilgileri</h2>
+                <ul id="languageList"></ul>
+              </div>
+
+              <div class="profile-info-card">
+                <h2>Üye Olduğu Kuruluşlar</h2>
+                <ul id="membershipList"></ul>
+              </div>
+            </div>
+
+            <div class="profile-actions">
+              <a href="yonetim-kurulu.html" class="btn btn-secondary">← Yönetim Kuruluna Dön</a>
+              <a href="hakkimizda.html" class="btn btn-primary">Hakkımızda</a>
+            </div>
+          </div>
+
+          <div class="profile-visual" aria-hidden="true">
+            <div class="profile-orbit"></div>
+            <div class="profile-orbit second"></div>
+
+            <div class="profile-avatar">
+              <svg id="detailIcon" viewBox="0 0 96 96" fill="none">
+                <circle cx="48" cy="34" r="18" fill="#061320"/>
+                <path d="M20 78C24 58 36 48 48 48C60 48 72 58 76 78" fill="#061320"/>
+              </svg>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const members = {
+      kurucu: {
+        badge: "Kurucu",
+        title: "Ozan Öktemer",
+        role: "Kurucu & Genel Koordinatör",
+        birthDate: "2 Ağustos 2005",
+        taskArea: "Platform yönetimi, marka, içerik standardı ve genel koordinasyon",
+        text: "Olympion Lab’in ürün vizyonu, marka kimliği, içerik standardı ve genel koordinasyonu kurucu liderliğinde şekillenir. Platformun temel hedefi; olimpiyat hazırlığını yalnızca içerik izleme süreci olmaktan çıkarıp öğrencinin düzenli çalıştığı, gelişimini takip ettiği ve zor konuları görselleştirerek öğrendiği sürdürülebilir bir akademik çalışma alanına dönüştürmektir.",
+        education: [
+          "Lise ve üniversite hazırlık sürecinde sayısal bilimler, olimpiyat mantığı ve dijital eğitim üretimi üzerine çalışmalar.",
+          "Bilimsel problem çözme, içerik planlama ve dijital platform geliştirme alanlarında bağımsız öğrenim çalışmaları.",
+          "Olimpiyat öğrencileri için video, PDF, rota ve Labs temelli öğrenme sistemi tasarımı."
+        ],
+        experience: [
+          "Olympion Lab kurucu çalışmaları ve platform mimarisi.",
+          "Video ders, çalışma rotası, fiyatlandırma ve üyelik yapısının planlanması.",
+          "Bilim olimpiyatlarına yönelik dijital içerik ve öğrenci deneyimi geliştirme."
+        ],
+        languages: [
+          "Türkçe — Ana dil",
+          "İngilizce — İyi seviye"
+        ],
+        memberships: [
+          "Olympion Lab",
+          "Olympion Labs Gelişim Ekibi",
+          "Dijital Eğitim ve Bilimsel İçerik Çalışma Grubu"
+        ],
+        icon: "person"
+      },
+
+      akademik: {
+        badge: "Akademik İçerik",
+        title: "Elif Arslan",
+        role: "Eğitim Kalitesi ve İçerik Başkanı",
+        birthDate: "14 Mart 2004",
+        taskArea: "Akademik içerik standardı, ders yapısı ve soru çözüm kalitesi",
+        text: "Akademik içerik yapısı; video dersler, soru çözüm serileri, PDF notları ve günlük problem akışının olimpiyat seviyesine uygun biçimde planlanmasını hedefler. Bu alanın temel görevi, öğrencinin yalnızca konuyu görmesini değil, problem çözme refleksi kazanmasını sağlayan içerik standardını korumaktır.",
+        education: [
+          "Fen bilimleri ve matematik temelli lise eğitimi.",
+          "Olimpiyat düzeyi konu anlatımı ve problem çözüm yaklaşımı üzerine çalışmalar.",
+          "Akademik içerik planlama ve müfredat yapılandırma çalışmaları."
+        ],
+        experience: [
+          "Olimpiyat hazırlık içerikleri için konu haritası oluşturma.",
+          "PDF notları ve soru çözüm akışlarının düzenlenmesi.",
+          "Öğrenci seviyesine göre içerik sınıflandırma çalışmaları."
+        ],
+        languages: [
+          "Türkçe — Ana dil",
+          "İngilizce — Orta-ileri seviye"
+        ],
+        memberships: [
+          "Olympion Akademik İçerik Kurulu",
+          "Bilim Olimpiyatları İçerik Çalışma Grubu"
+        ],
+        icon: "education"
+      },
+
+      teknoloji: {
+        badge: "Teknoloji",
+        title: "Mert Kaya",
+        role: "Ürün ve Altyapı Sorumlusu",
+        birthDate: "9 Eylül 2003",
+        taskArea: "Ürün geliştirme, kullanıcı deneyimi ve teknik altyapı",
+        text: "Teknoloji ve ürün yapısı; üyelik sistemi, kullanıcı paneli, çalışma rotası, içerik erişimi, ödeme akışı ve platform performansı gibi temel alanlardan sorumludur. Amaç; öğrencinin öğrenme sürecini sade, hızlı ve güvenilir bir dijital deneyim üzerinden sürdürebilmesini sağlamaktır.",
+        education: [
+          "Bilgisayar bilimi, web teknolojileri ve ürün geliştirme üzerine çalışmalar.",
+          "Kullanıcı deneyimi, arayüz tasarımı ve platform mimarisi alanlarında proje bazlı öğrenim.",
+          "Eğitim teknolojileri ve üyelik sistemleri üzerine teknik araştırmalar."
+        ],
+        experience: [
+          "Web arayüzü ve kullanıcı paneli geliştirme çalışmaları.",
+          "Ödeme, üyelik ve erişim akışlarının ürün mantığına göre yapılandırılması.",
+          "Platform performansı, güvenlik ve ölçeklenebilirlik odaklı geliştirme süreçleri."
+        ],
+        languages: [
+          "Türkçe — Ana dil",
+          "İngilizce — İyi seviye"
+        ],
+        memberships: [
+          "Olympion Teknoloji ve Ürün Kurulu",
+          "Dijital Ürün Geliştirme Çalışma Grubu"
+        ],
+        icon: "tech"
+      },
+
+      labs: {
+        badge: "Olympion Labs",
+        title: "Deniz Yalçın",
+        role: "Deneysel Öğrenme Direktörü",
+        birthDate: "27 Ocak 2004",
+        taskArea: "Etkileşimli deneyler, simülasyonlar ve görsel öğrenme",
+        text: "Olympion Labs; soyut bilimsel kavramları öğrencinin deneyimleyebileceği görsel ve etkileşimli modellere dönüştürmeyi amaçlar. Vektör, elektrik alan, denge, hareket ve benzeri konular, yalnızca formül üzerinden değil; sistem davranışını görerek öğrenme mantığıyla ele alınır.",
+        education: [
+          "Fizik, kimya ve matematik temelli deneysel öğrenme çalışmaları.",
+          "Simülasyon mantığı, görsel modelleme ve eğitim tasarımı üzerine bağımsız çalışmalar.",
+          "Bilimsel kavramların etkileşimli deneylere dönüştürülmesi üzerine proje çalışmaları."
+        ],
+        experience: [
+          "Olympion Labs deney fikirlerinin oluşturulması.",
+          "Görsel model ve simülasyon senaryolarının planlanması.",
+          "Soyut kavramların öğrenci tarafından deneyimlenebilir hale getirilmesi."
+        ],
+        languages: [
+          "Türkçe — Ana dil",
+          "İngilizce — Orta-ileri seviye"
+        ],
+        memberships: [
+          "Olympion Labs Kurulu",
+          "Deneysel Öğrenme ve Simülasyon Çalışma Grubu"
+        ],
+        icon: "lab"
+      },
+
+      mentorluk: {
+        badge: "Mentörlük",
+        title: "Selin Demir",
+        role: "Öğrenci Başarısı Koordinatörü",
+        birthDate: "6 Haziran 2005",
+        taskArea: "Başvuru değerlendirme, kişisel rota ve öğrenci takibi",
+        text: "Mentörlük ve öğrenci başarısı yapısı; başvuru değerlendirme, seviye analizi, kişisel çalışma planı, düzenli takip ve öğrenci iletişimi süreçlerini kapsar. Bu alanın odağı; öğrencinin hedefini, seviyesini ve zaman planını dikkate alan daha kişisel bir hazırlık deneyimi oluşturmaktır.",
+        education: [
+          "Eğitim planlama, öğrenci takibi ve öğrenme alışkanlıkları üzerine çalışmalar.",
+          "Olimpiyat hazırlığında seviye analizi ve çalışma rotası tasarımı üzerine araştırmalar.",
+          "Öğrenci iletişimi ve akademik rehberlik süreçleri üzerine bağımsız öğrenim."
+        ],
+        experience: [
+          "Mentörlük başvuru süreçlerinin yapılandırılması.",
+          "Öğrenci hedeflerine göre rota ve takip planı oluşturma.",
+          "Düzenli iletişim, geri bildirim ve gelişim takibi süreçleri."
+        ],
+        languages: [
+          "Türkçe — Ana dil",
+          "İngilizce — İyi seviye"
+        ],
+        memberships: [
+          "Olympion Mentörlük ve Öğrenci Başarısı Kurulu",
+          "Akademik Rehberlik Çalışma Grubu"
+        ],
+        icon: "group"
+      },
+
+      strateji: {
+        badge: "Strateji",
+        title: "Kerem Aydın",
+        role: "Strateji ve Kurumsal Gelişim Sorumlusu",
+        birthDate: "18 Kasım 2003",
+        taskArea: "Marka gelişimi, iş birlikleri ve operasyonel büyüme",
+        text: "Strateji ve gelişim yapısı; Olympion Lab’in uzun vadeli marka konumlandırmasını, iş birliklerini, büyüme kanallarını ve operasyonel sürdürülebilirliğini ele alır. Amaç; platformun yalnızca bugünkü içerik ihtiyacını değil, gelecekteki akademik ekosistem hedeflerini de desteklemesidir.",
+        education: [
+          "Girişimcilik, marka yönetimi ve dijital eğitim stratejisi üzerine çalışmalar.",
+          "Kurumsal iletişim, pazar konumlandırma ve sürdürülebilir büyüme alanlarında proje bazlı öğrenim.",
+          "Eğitim teknolojileri ve dijital platform ekonomisi üzerine araştırmalar."
+        ],
+        experience: [
+          "Marka konumlandırması ve büyüme stratejisi planlama.",
+          "İş birlikleri, topluluk gelişimi ve operasyonel süreçlerin yapılandırılması.",
+          "Kurumsal sayfa, iletişim ve güven unsurlarının geliştirilmesi."
+        ],
+        languages: [
+          "Türkçe — Ana dil",
+          "İngilizce — İyi seviye"
+        ],
+        memberships: [
+          "Olympion Strateji ve Kurumsal Gelişim Kurulu",
+          "Dijital Eğitim Girişimleri Çalışma Grubu"
+        ],
+        icon: "growth"
+      }
+    };
+
+    const icons = {
+      person: '<circle cx="48" cy="34" r="18" fill="#061320"/><path d="M20 78C24 58 36 48 48 48C60 48 72 58 76 78" fill="#061320"/>',
+      education: '<path d="M18 30L48 16L78 30L48 44L18 30Z" fill="#061320"/><path d="M28 40V58C35 66 61 66 68 58V40" stroke="#061320" stroke-width="8" stroke-linecap="round"/>',
+      tech: '<rect x="22" y="24" width="52" height="38" rx="8" fill="#061320"/><path d="M34 74H62" stroke="#061320" stroke-width="8" stroke-linecap="round"/><path d="M48 62V74" stroke="#061320" stroke-width="8" stroke-linecap="round"/>',
+      lab: '<path d="M38 18H58" stroke="#061320" stroke-width="8" stroke-linecap="round"/><path d="M44 22V45L28 74H68L52 45V22" fill="#061320"/>',
+      group: '<circle cx="36" cy="36" r="14" fill="#061320"/><circle cx="62" cy="42" r="12" fill="#061320" opacity=".82"/><path d="M16 78C20 60 30 52 42 52C54 52 64 60 68 78" fill="#061320"/><path d="M52 78C55 64 64 58 74 58C80 58 84 64 86 78" fill="#061320" opacity=".82"/>',
+      growth: '<path d="M24 70L42 52L54 60L74 30" stroke="#061320" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="74" cy="30" r="8" fill="#061320"/>'
+    };
+
+    function renderList(id, items) {
+      const list = document.getElementById(id);
+      list.innerHTML = items.map((item) => `<li>${item}</li>`).join("");
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const key = params.get("member") || "kurucu";
+    const selected = members[key] || members.kurucu;
+
+    document.title = `${selected.title} | Olympion Lab`;
+
+    document.getElementById("detailBadge").textContent = selected.badge;
+    document.getElementById("detailTitle").textContent = selected.title;
+    document.getElementById("detailRole").textContent = selected.role;
+    document.getElementById("detailText").textContent = selected.text;
+    document.getElementById("birthDate").textContent = selected.birthDate;
+    document.getElementById("taskArea").textContent = selected.taskArea;
+    document.getElementById("detailIcon").innerHTML = icons[selected.icon] || icons.person;
+
+    renderList("educationList", selected.education);
+    renderList("experienceList", selected.experience);
+    renderList("languageList", selected.languages);
+    renderList("membershipList", selected.memberships);
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>

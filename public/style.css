@@ -2951,3 +2951,125 @@ const members = {
     top: 76px !important;
   }
 }
+
+/* =========================
+   Public mobile fixed header - final
+   Dashboard hariç
+   ========================= */
+
+@media (max-width: 760px) {
+  body.public-page .site-header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 9990 !important;
+    background: rgba(5, 9, 20, 0.9) !important;
+    backdrop-filter: blur(20px) saturate(1.15) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(1.15) !important;
+    border-bottom: 1px solid rgba(124, 242, 255, 0.13) !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22) !important;
+  }
+
+  body.public-page .promo-strip + .site-header {
+    top: 34px !important;
+  }
+
+  body.public-page .site-main {
+    padding-top: 76px !important;
+  }
+
+  body.public-page:has(.promo-strip) .site-main {
+    padding-top: 110px !important;
+  }
+
+  body.public-page .site-header .nav {
+    height: 76px !important;
+    min-height: 76px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  body.public-page .site-header .brand {
+    gap: 11px !important;
+  }
+
+  body.public-page .site-header .brand-mark,
+  body.public-page .site-header .brand-logo-img {
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    max-width: 46px !important;
+    min-height: 46px !important;
+    max-height: 46px !important;
+    border-radius: 16px !important;
+  }
+
+  body.public-page .site-header .brand > div:last-child {
+    font-size: 24px !important;
+    line-height: 1 !important;
+  }
+
+  body.public-page .site-header .brand small {
+    display: none !important;
+  }
+
+  body.public-page .menu-btn {
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    border-radius: 16px !important;
+    display: grid !important;
+    place-items: center !important;
+    margin-left: auto !important;
+    background: rgba(255, 255, 255, 0.075) !important;
+    border: 1px solid rgba(255, 255, 255, 0.13) !important;
+    box-shadow: none !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    position: relative !important;
+  }
+
+  body.public-page .menu-btn::before,
+  body.public-page .menu-btn::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 50% !important;
+    width: 22px !important;
+    height: 2px !important;
+    border-radius: 999px !important;
+    background: rgba(247, 251, 255, 0.94) !important;
+    transform: translateX(-50%) !important;
+  }
+
+  body.public-page .menu-btn::before {
+    top: 18px !important;
+  }
+
+  body.public-page .menu-btn::after {
+    top: 27px !important;
+  }
+
+  body.public-page .menu-btn:active {
+    background: rgba(124, 242, 255, 0.12) !important;
+    border-color: rgba(124, 242, 255, 0.26) !important;
+  }
+
+  body.public-page .mobile-menu {
+    position: fixed !important;
+    top: 76px !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 9989 !important;
+    background: rgba(5, 9, 20, 0.97) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    border-bottom: 1px solid rgba(124, 242, 255, 0.13) !important;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.34) !important;
+  }
+
+  body.public-page:has(.promo-strip) .mobile-menu {
+    top: 110px !important;
+  }
+}
+

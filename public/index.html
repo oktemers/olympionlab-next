@@ -537,41 +537,6 @@
 <body class="public-page">
   <div class="noise"></div>
 
-  <div id="trialPopup" class="trial-popup-overlay" aria-hidden="true">
-    <div class="trial-popup">
-      <button class="trial-popup-close" id="trialPopupClose" aria-label="Popup kapat">×</button>
-
-      <div class="trial-popup-visual">
-        <div class="trial-orbit orbit-a"></div>
-        <div class="trial-orbit orbit-b"></div>
-        <div class="trial-core"></div>
-
-        <div class="trial-chip chip-a">pH = ?</div>
-        <div class="trial-chip chip-b">E = mc²</div>
-        <div class="trial-chip chip-c">ΔG = ΔH − TΔS</div>
-      </div>
-
-      <div class="trial-popup-content">
-        <div class="trial-popup-badge">Lansman fırsatı</div>
-
-        <h2>
-          7 Gün Ücretsiz Denemeye
-          <span>Hazır mısın?</span>
-        </h2>
-
-        <p>
-          Plus ve Pro planlarında video dersler, PDF notları, çalışma rotası
-          ve Olympion Labs deneyimini 7 gün ücretsiz keşfet.
-        </p>
-
-        <div class="trial-popup-actions">
-          <a href="/fiyatlandirma" class="trial-primary-btn">Planları İncele →</a>
-          <a href="/giris" class="trial-secondary-btn">Hesap Oluştur</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div id="bootLoader" class="boot-loader" aria-hidden="true">
     <div class="boot-mark">O</div>
     <div class="boot-copy">Olympion yükleniyor</div>
@@ -593,18 +558,12 @@
     <div class="formula drift-diagonal" style="top:84%; left:76%; font-size:20px; animation-duration:23s;">pH = −log[H⁺]</div>
   </div>
 
-  <div class="promo-strip">
+  <div class="promo-strip" role="region" aria-label="Olympion erken erişim duyurusu">
     <div class="container">
       <div class="promo-strip-inner">
-        <span class="promo-label">Erken Erişim</span>
-        <span
-          id="promoRotator"
-          class="promo-message"
-          data-messages='["7 gün ücretsiz deneme başladı","Plus ₺349 • Pro ₺649 lansman fiyatı","Video, PDF, Labs ve rota tek panelde"]'
-        >
-          7 gün ücretsiz deneme başladı
-        </span>
-        <a class="promo-link" href="/fiyatlandirma">Detaylar →</a>
+        <span class="promo-label">ERKEN ERİŞİM</span>
+        <span class="promo-message">1 günlük deneme · Plus ₺349/ay · Pro ₺649/ay</span>
+        <a class="promo-link" href="/fiyatlandirma">Planları gör <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>
@@ -632,8 +591,9 @@
         <a href="/hakkimizda">Hakkımızda</a>
       </nav>
 
-      <div class="nav-right">
-        <a href="/giris" class="login-bubble">Giriş Yap <span>→</span></a>
+      <div class="nav-right auth-actions">
+        <a href="/giris?mode=register" class="header-register">Kayıt Ol</a>
+        <a href="/giris" class="header-login">Giriş Yap <span aria-hidden="true">→</span></a>
       </div>
 
       <button class="menu-btn" id="menuBtn" aria-label="Menüyü aç/kapat">
@@ -649,7 +609,8 @@
       <a href="/fiyatlandirma">Fiyatlandırma</a>
       <a href="/sikca-sorulan-sorular">SSS</a>
       <a href="/hakkimizda">Hakkımızda</a>
-      <a href="/giris" class="login-bubble mobile-login">Giriş Yap →</a>
+      <a href="/giris?mode=register" class="mobile-auth-register">Kayıt Ol</a>
+      <a href="/giris" class="mobile-auth-login">Giriş Yap →</a>
     </div>
   </header>
 
@@ -657,17 +618,17 @@
     <section class="hero premium-hero">
       <div class="container hero-grid">
         <div class="reveal">
-          <div class="badge cyan">Olympion 2026 • Premium öğrenme sistemi</div>
-          <h1>Derin düşün. <span class="gradient">Görerek öğren.</span> Olimpiyata hazırlan.</h1>
+          <div class="badge cyan">Bilim olimpiyatlarına hazırlık · Olympion</div>
+          <h1>Zor sorulara <span class="gradient">farklı bir gözle bak.</span></h1>
           <p>
-            Olympion; zor konuları ezberletmek yerine görünür hale getiren,
-            öğrenciyi video izlemekten problem çözmeye taşıyan modern olimpiyat
-            hazırlık platformudur.
+            Fizik, kimya, matematik ve biyoloji olimpiyatlarına hazırlanırken
+            konuları gerçekten anlaman için buradayız. Video dersler, soru çözümleri
+            ve çalışma araçlarıyla kendi hızında ilerle.
           </p>
 
           <div class="hero-actions">
-            <a href="/video-kutuphanesi" class="btn btn-primary">Video Kütüphanesine Gir</a>
-            <a href="/fiyatlandirma" class="btn btn-secondary">Planları İncele</a>
+            <a href="/video-kutuphanesi" class="btn btn-primary">Dersleri keşfet <span aria-hidden="true">→</span></a>
+            <a href="/mentorluk-basvurusu" class="btn btn-secondary">Mentörlük hakkında bilgi al</a>
           </div>
 
           <div class="hero-stats">
@@ -733,13 +694,10 @@
   <section>
     <div class="container">
   <div class="section-title platform-title reveal">
-  <div class="badge gold">Platform mimarisi</div>
-  <h2>Olimpiyat hazırlığını düzenli, ölçülebilir ve sürdürülebilir hale getiren sistem.</h2>
-  <p>
-    Olympion; video dersleri, PDF notlarını, günlük problemleri, çalışma rotasını ve deneysel öğrenme araçlarını
-    tek bir akışta birleştirerek öğrencinin ne çalışacağını, nasıl ilerleyeceğini ve hangi konuda geliştiğini
-    daha net görmesini sağlar.
-  </p>
+  <div class="badge gold">Olympion'da neler var?</div>
+  <h2>Öğrenmek ve ilerlemek için ihtiyacın olan her şey.</h2>
+  <p>Video derslerden problem setlerine, çalışma planından etkileşimli deneylere kadar
+    olimpiyat hazırlığının temel adımlarını bir araya getiriyoruz.</p>
 </div>
 
       <div class="feature-grid">
@@ -776,7 +734,7 @@
         <article class="feature-card reveal">
           <div class="feature-icon">✦</div>
           <h3>Yapay Zeka Koçu</h3>
-          <p>Cevabı direkt vermek yerine ipucu, sezgi ve çözüm stratejisi sunan rehber.</p>
+          <p>Doğrudan cevabı vermek yerine çözümü bulmana yardımcı olan ipuçları.</p>
         </article>
       </div>
     </div>
@@ -786,15 +744,15 @@
     <div class="container">
       <div class="section-title clean-title reveal">
         <div class="badge cyan">Branşlar</div>
-        <h2>Olimpiyat hazırlığını disiplinlere göre yapılandır.</h2>
+        <h2>İlgini çeken branştan başla.</h2>
         <p>
-          Fizik, kimya, matematik ve biyoloji içerikleri; konu anlatımı, problem çözme alışkanlığı
-          ve düzenli tekrar sistemi etrafında yapılandırılır.
+          Fizik, kimya, matematik ve biyoloji için hazırlanan konu anlatımlarını,
+          çözümleri ve kaynakları tek yerden keşfet.
         </p>
       </div>
 
       <div class="branch-grid four-branch-grid">
-        <a class="branch-card branch-status-card status-loading reveal" href="branches.html#fizik">
+        <a class="branch-card branch-status-card status-loading reveal" href="/branslar#fizik">
           <div class="branch-status-pill loading">Videolar yükleniyor</div>
           <span>01</span>
           <h3>Fizik</h3>
@@ -802,7 +760,7 @@
           <div class="branch-soon-note">Fizik video dersleri ve soru çözüm serileri hazırlanıyor.</div>
         </a>
 
-        <a class="branch-card branch-status-card status-loading reveal" href="branches.html#kimya">
+        <a class="branch-card branch-status-card status-loading reveal" href="/branslar#kimya">
           <div class="branch-status-pill loading">Videolar yükleniyor</div>
           <span>02</span>
           <h3>Kimya</h3>
@@ -810,7 +768,7 @@
           <div class="branch-soon-note">Kimya video içerikleri ve PDF notları yayına hazırlanıyor.</div>
         </a>
 
-        <a class="branch-card branch-status-card status-soon reveal" href="branches.html#matematik">
+        <a class="branch-card branch-status-card status-soon reveal" href="/branslar#matematik">
           <div class="branch-status-pill soon">Çok yakında</div>
           <span>03</span>
           <h3>Matematik</h3>
@@ -818,7 +776,7 @@
           <div class="branch-soon-note">Matematik olimpiyat içerikleri planlama aşamasında.</div>
         </a>
 
-        <a class="branch-card branch-status-card status-soon reveal" href="branches.html#biyoloji">
+        <a class="branch-card branch-status-card status-soon reveal" href="/branslar#biyoloji">
           <div class="branch-status-pill soon">Çok yakında</div>
           <span>04</span>
           <h3>Biyoloji</h3>
@@ -833,10 +791,10 @@
     <div class="container">
       <div class="section-title clean-title reveal">
         <div class="badge gold">Planlar</div>
-        <h2>Hazırlık seviyene göre doğru paketi seç.</h2>
+        <h2>Çalışma tarzına uygun bir plan seç.</h2>
         <p>
-          Plus ve Pro planlarında 7 gün ücretsiz deneme sunulur. Erken erişim döneminde
-          platformu lansmana özel fiyatlarla kullanmaya başlayabilirsin.
+          Free ile ücretsiz içerikleri keşfet. Plus ve Pro planlarını aylık fiyatlarıyla karşılaştır;
+          1 günlük deneme seçeneği ödeme sistemi açıldığında sunulacak.
         </p>
       </div>
 
@@ -869,16 +827,16 @@
 
           <h3>Plus</h3>
           <div class="price">₺349<span>/ay</span></div>
-          <p class="trial-note">7 gün ücretsiz dene, sonra devam etmek istersen Plus’a geç.</p>
+          <p class="trial-note">1 günlük deneme seçeneğiyle Plus içeriğini keşfet.</p>
           <p>Olimpiyat soru çözümlerini düzenli takip etmek isteyen öğrenciler için.</p>
           <ul>
-            <li>7 gün ücretsiz deneme</li>
+            <li>1 gün ücretsiz deneme</li>
             <li>Plus video kartları</li>
             <li>PDF not kütüphanesi</li>
             <li>Haftalık çalışma rotası</li>
           </ul>
           <p class="launch-subnote">Erken erişim döneminden sonra fiyat güncellenebilir.</p>
-          <a href="/odeme?plan=plus&trial=7" class="btn btn-primary">7 Gün Ücretsiz Dene</a>
+          <a href="/odeme?plan=plus&trial=1" class="btn btn-primary">1 Gün Ücretsiz Dene</a>
         </article>
 
         <article class="price-card highlight reveal" data-plan="pro">
@@ -889,16 +847,16 @@
 
           <h3>Pro</h3>
           <div class="price">₺649<span>/ay</span></div>
-          <p class="trial-note">7 gün ücretsiz dene, sonra tüm premium araçlarla devam et.</p>
+          <p class="trial-note">1 günlük deneme seçeneğiyle Pro araçlarını tanı.</p>
           <p>Tüm arşivi, Labs deneylerini ve gelişmiş çalışma araçlarını açar.</p>
           <ul>
-            <li>7 gün ücretsiz deneme</li>
+            <li>1 gün ücretsiz deneme</li>
             <li>Tüm premium arşiv</li>
             <li>Olympion Labs kilitsiz</li>
             <li>Yapay zeka koçu</li>
           </ul>
           <p class="launch-subnote">Erken erişim döneminden sonra fiyat güncellenebilir.</p>
-          <a href="/odeme?plan=pro&trial=7" class="btn btn-primary">7 Gün Ücretsiz Dene</a>
+          <a href="/odeme?plan=pro&trial=1" class="btn btn-primary">1 Gün Ücretsiz Dene</a>
         </article>
 
         <article class="price-card mentor-card reveal" data-plan="mentor">
@@ -921,11 +879,22 @@
     </div>
   </section>
 
+ <section class="home-mentor-section">
+    <div class="container home-mentor-bar">
+      <div>
+        <span class="home-mentor-kicker">BİRE BİR MENTÖRLÜK</span>
+        <h2>Çalışma planını birlikte netleştirelim.</h2>
+        <p>Hedefine, seviyene ve ihtiyaçlarına göre kişisel bir yol haritası oluşturmak için mentörlüğe başvurabilirsin.</p>
+      </div>
+      <a href="/mentorluk-basvurusu" class="btn btn-primary">Mentörlüğe başvur <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
  <section>
   <div class="container roadmap">
     <div class="roadmap-panel reveal">
       <div class="badge cyan">Nasıl yardımcı olur?</div>
-      <h3>Olympion, öğrencinin ne çalışacağını ve nasıl ilerleyeceğini netleştirir.</h3>
+      <h3>Bugün nereden başlayacağını bil, yarın bir adım ilerle.</h3>
 
       <div class="steps">
         <div class="step">
@@ -964,7 +933,7 @@
 
     <div class="problem-card reveal concept-card">
       <div class="badge gold">Akıllı çalışma sistemi</div>
-      <h3>Video, program, yapay zeka ve günlük problem aynı öğrenme akışında birleşir.</h3>
+      <h3>Öğren, soru çöz, gelişimini takip et.</h3>
       <p>
         Olympion; öğrencinin sadece içerik tüketmesini değil, düzenli problem çözmesini,
         zayıf konularını fark etmesini ve çalışma alışkanlığını sürdürülebilir hale getirmesini hedefler.
@@ -992,7 +961,7 @@
 
       <div class="labs-copy">
         <div class="badge cyan">Olympion Labs</div>
-        <h2>Formülleri ezberleme; sistemin nasıl davrandığını gör.</h2>
+        <h2>Formüllerin arkasındaki fikri keşfet.</h2>
         <p>Vektörü sürükle, alan çizgisini izle, dengeyi değiştir. Labs, soyut kavramları öğrencinin oynayabileceği deneylere dönüştürür.</p>
         <a href="/laboratuvarlar" class="btn btn-primary">Labs’i Keşfet</a>
       </div>
@@ -1003,7 +972,7 @@
     <div class="container">
       <div class="section-title clean-title reveal">
         <div class="badge gold">SSS</div>
-        <h2>En çok merak edilenler.</h2>
+        <h2>Merak ettiklerin, kısaca.</h2>
         <p>
           Planlar, içerik erişimi, ücretsiz deneme ve mentörlük başvurusu hakkında
           en sık sorulan soruları kısa ve net şekilde yanıtladık.
@@ -1127,45 +1096,7 @@
   </div>
 </footer>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const popup = document.getElementById("trialPopup");
-      const closeBtn = document.getElementById("trialPopupClose");
 
-      if (!popup || !closeBtn) return;
-
-      const popupKey = "olympionTrialPopupClosed_v1";
-
-      if (localStorage.getItem(popupKey) === "true") {
-        return;
-      }
-
-      setTimeout(function () {
-        popup.classList.add("show");
-        popup.setAttribute("aria-hidden", "false");
-      }, 1200);
-
-      function closePopup() {
-        popup.classList.remove("show");
-        popup.setAttribute("aria-hidden", "true");
-        localStorage.setItem(popupKey, "true");
-      }
-
-      closeBtn.addEventListener("click", closePopup);
-
-      popup.addEventListener("click", function (event) {
-        if (event.target === popup) {
-          closePopup();
-        }
-      });
-
-      document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape" && popup.classList.contains("show")) {
-          closePopup();
-        }
-      });
-    });
-  </script>
 
   <script src="script.js"></script>
 </body>

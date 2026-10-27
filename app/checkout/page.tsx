@@ -4,5 +4,5 @@ export const metadata = { title: "Plan Önizlemesi | Olympion Lab", description:
 type Search = { plan?: string; trial?: string };
 export default async function Page({ searchParams }: { searchParams: Promise<Search> }) {
   const search = await searchParams;
-  return <HomeChrome active="/fiyatlandirma"><CheckoutPage embedded plan={search?.plan === "pro" ? "pro" : "plus"} trial={search?.trial === "7"} /></HomeChrome>;
+  return <HomeChrome active="/fiyatlandirma"><CheckoutPage embedded plan={search?.plan === "pro" ? "pro" : "plus"} trial={search?.trial === "1"} /></HomeChrome>;
 }

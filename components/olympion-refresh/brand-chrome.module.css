@@ -1,0 +1,34 @@
+.header,.footer{font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;box-sizing:border-box;color:#eef6ff}
+.header *,.footer *{box-sizing:border-box}
+.header a,.footer a{color:inherit;text-decoration:none}
+.header{position:sticky;top:0;z-index:50;background:rgba(9,18,31,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(134,185,206,.12)}
+.headerInner{width:min(1170px,calc(100% - 36px));min-height:72px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:22px}
+.brand{display:flex;align-items:center;gap:12px;min-width:208px;flex-shrink:0}
+.symbol{display:grid;place-items:center;flex-shrink:0;border-radius:50%;background:radial-gradient(circle at 36% 26%,#51f4f1 0,#16b8c6 42%,#076488 75%,#113b69 100%);box-shadow:0 0 18px rgba(29,204,220,.20);border:1px solid rgba(116,238,235,.21)}
+.brandText{display:flex;flex-direction:column;gap:3px;min-width:0;line-height:1.2}
+.brandText strong{color:#f1f5fa;font-weight:840;font-size:18px;letter-spacing:-.055em}
+.brandText small{color:#8c9fb6;font-size:10px;font-weight:680;letter-spacing:.002em;white-space:nowrap}
+.nav{display:flex;align-items:center;gap:3px;min-width:0;justify-content:center}
+.navItem{display:flex;align-items:center;border-radius:999px;padding:12px 11px;color:#c1cedc!important;font-size:12px;font-weight:650;white-space:nowrap;transition:background .18s ease,color .18s ease}
+.navItem:hover,.navActive{color:#fff!important;background:rgba(208,227,242,.11)}
+.actions{display:flex;align-items:center;gap:10px}
+.login{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:10px 15px;border:1px solid rgba(88,215,234,.52);border-radius:999px;color:#effaff!important;white-space:nowrap;font-size:13px;font-weight:790;transition:background .2s}
+.login:hover{background:rgba(31,152,174,.18)}
+.menuToggle{display:none;width:43px;height:43px;border-radius:11px;background:#142b3d;border:1px solid #2a5165;align-items:center;justify-content:center;flex-direction:column;gap:5px;padding:0;cursor:pointer}
+.menuToggle span{display:block;width:19px;height:2px;border-radius:2px;background:#e9ffff}
+.mobileMenu{display:none}
+.footer{background:radial-gradient(ellipse at -10% 10%,rgba(24,98,114,.11),transparent 41%),radial-gradient(ellipse at 96% 90%,rgba(17,61,110,.13),transparent 43%),#080d15;border-top:1px solid #1b2c3a;position:relative;overflow:hidden}
+.footer:before{content:"E = mc²                 PV = nRT                 ΔG = ΔH − TΔS";position:absolute;top:18px;left:0;right:0;text-align:center;color:rgba(100,189,216,.035);font-size:24px;letter-spacing:4vw;font-weight:850;pointer-events:none;white-space:nowrap}
+.footerInner{position:relative;width:min(1165px,calc(100% - 44px));margin:0 auto}
+.footerGrid{display:grid;grid-template-columns:minmax(310px,1.6fr) repeat(3,minmax(125px,.7fr));gap:48px;padding:43px 0 29px}
+.footerBrand{margin-bottom:19px}.footerBrand .brandText strong{font-size:20px}.footerBrand .brandText small{font-size:11px}
+.footerAbout p{color:#9aafc5;font-size:14px;line-height:2;max-width:440px;margin:0 0 18px}
+.socials{display:flex;gap:12px}.social{display:grid;place-items:center;width:43px;height:43px;border-radius:50%;color:#f0f7ff;background:#171d27;border:1px solid #363e4a;transition:transform .2s,border-color .2s}.social:hover{transform:translateY(-3px);border-color:#75d4e8}.socialInactive{opacity:.77;cursor:default}
+.footerCol{display:flex;flex-direction:column;align-items:flex-start;gap:11px}.footerCol h3{margin:0 0 4px;color:#f0f3fa;font-weight:820;font-size:15px}.footerCol a{font-size:14px;color:#9aafc5!important;line-height:1.3}.footerCol a:hover{color:#c6f9fb!important}
+.footerPayments{display:flex;flex-direction:column;align-items:center;gap:14px;border-top:1px solid #25303b;padding:25px 0 26px}.legal{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 24px}.legal a{font-weight:680;font-size:12px;color:#9ba6b6!important}.legal a:hover{color:#ecf8ff!important}
+.paymentLogos{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap}.payLogo{display:grid;place-items:center;height:33px;min-width:64px;padding:0 10px;border-radius:9px;background:#fff;color:#152438;letter-spacing:-.015em;font-size:16px;font-weight:900;font-style:italic}.visa{color:#1953b2}.troy{font-size:17px;color:#1860a6}.iyzico{color:#1b2b48;font-size:15px}.secure{font-size:9px;font-style:normal;color:#506075;letter-spacing:0}.mastercard{display:flex;align-items:center;justify-content:center;gap:0}.mastercard i{display:block;width:20px;height:20px;border-radius:50%;background:#ef0b30}.mastercard i+i{background:#ffad08;margin-left:-7px;opacity:.94}.payCaption{font-size:11px;color:#697f8e;margin-top:-7px}
+.bottom{display:flex;justify-content:space-between;gap:20px;border-top:1px solid #25303b;padding:19px 0 25px;color:#9db0c4;font-size:12px}
+@media(max-width:1140px){.headerInner{gap:10px}.brand{min-width:174px}.brandText strong{font-size:16px}.navItem{padding:10px 7px;font-size:11px}.footerGrid{gap:25px}}
+@media(max-width:890px){.nav{display:none}.menuToggle{display:flex}.headerInner{min-height:67px}.mobileMenu{display:flex;flex-direction:column;padding:9px 18px 17px;background:#0a1523;border-top:1px solid #23394c;box-shadow:0 20px 28px rgba(0,0,0,.2)}.mobileMenu a{display:flex;justify-content:space-between;align-items:center;border-radius:9px;padding:11px 12px;font-size:15px;font-weight:680;color:#c4d7e8!important}.mobileMenu a:hover,.mobileActive{background:#163447;color:#effbff!important}.footerGrid{grid-template-columns:repeat(3,1fr);gap:30px}.footerAbout{grid-column:1/-1}.footerAbout p{max-width:650px}}
+@media(max-width:520px){.headerInner{width:calc(100% - 30px);min-height:64px}.brand{min-width:0;gap:9px}.brandText strong{font-size:17px}.brandText small{font-size:9px}.login{font-size:12px;padding:8px 10px}.login svg{width:15px}.menuToggle{width:40px;height:40px}.footerInner{width:calc(100% - 36px)}.footerGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 20px;padding:31px 0 25px}.footerAbout{grid-column:1/-1}.footerCol:nth-of-type(4){grid-column:1/-1}.footerAbout p{font-size:13px;line-height:1.8}.footerCol a{font-size:13px}.footerCol h3{font-size:14px}.legal{gap:10px 14px}.legal a{font-size:11px}.bottom{flex-direction:column;gap:7px;padding-bottom:22px;font-size:11px}}
+@media(prefers-reduced-motion:reduce){.header *,.footer *{transition:none!important;animation:none!important}}

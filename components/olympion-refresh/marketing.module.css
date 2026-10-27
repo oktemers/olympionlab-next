@@ -67,3 +67,73 @@
 
 .mobileCount{display:none}
 @media(max-width:760px){.mobileCount{display:inline-flex;align-items:center;font-size:13px;font-weight:700;color:#b6eefa;border:1px solid #2a5665;border-radius:999px;padding:9px 13px;margin-top:6px}}
+
+/* ===================== OLYMPION V3 ===================== */
+/* Top nav and footer are now rendered once per route by BrandChrome. */
+.root{overflow-x:clip;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+.root .main{padding-bottom:40px}
+.mobilePricing{display:none}
+.pageHero h1 .gradientText{display:block}
+.checkoutHero{padding:58px 0 67px}
+.checkoutCard .featureList li{font-size:16px}
+.checkoutCard .checkoutName>div span{font-size:14px}
+@media(max-width:760px){
+ .root .main{padding-bottom:26px}
+ .pageHero{display:flex;flex-direction:column;align-items:stretch;gap:14px;padding:30px 0 22px}
+ .pageHero>div:first-child{min-width:0;width:100%}
+ .pageHero h1{font-size:clamp(33px,8vw,49px);letter-spacing:-.052em;line-height:1.1;margin:15px 0 13px;overflow-wrap:break-word}
+ .pageHero p{font-size:15px;line-height:1.6;margin:0;max-width:100%}
+ .mobileCount{margin:2px 0 1px;display:flex;flex-wrap:wrap;gap:7px;border:none;padding:0;background:none}
+ .mobileCount span{font-size:12px;line-height:1.3;color:#b7e9f7;display:inline-block;border:1px solid #2a5366;border-radius:999px;padding:7px 10px;background:#122639}
+ .featuredTop{margin-bottom:12px}
+ .featuredArea{margin:4px 0 29px}
+ .featuredText{padding:20px 19px}
+ .featuredText h2{font-size:24px}
+ .featuredText p{font-size:14px;line-height:1.55}
+ .libraryHeading{gap:15px;margin-bottom:14px}
+ .libraryHeading .sectionIntro h2{font-size:29px}
+ .libraryHeading .sectionIntro p{font-size:14px;line-height:1.55}
+ .filterRow{margin:0 0 16px}
+ .chipGroup{gap:8px;min-width:0}
+ .chip{font-size:13px;min-height:43px;padding:10px 14px}
+ .centerHero{padding:32px 0 22px}
+ .centerHero h1{font-size:clamp(36px,8.2vw,47px);line-height:1.09}
+ .centerHero p{font-size:15px;line-height:1.55}
+ .checkoutHero{padding:32px 0 42px;gap:23px}
+ .checkoutHero h1{font-size:clamp(36px,8.2vw,48px)}
+}
+@media(max-width:680px){
+ .pricingGrid{display:none}
+ .mobilePricing{display:block;width:min(100%,470px);margin:2px auto 0}
+ .mobilePlanSelector{display:flex;gap:7px;padding:5px;border:1px solid #304258;border-radius:14px;background:#0a1624;margin:0 0 12px}
+ .mobilePlanTab{flex:1;border:1px solid transparent;border-radius:10px;background:transparent;color:#98aec6;font-size:15px;min-height:41px;font-weight:800;cursor:pointer}
+ .mobilePlanSelected{background:#214864;border-color:#6aafcf;color:white;box-shadow:0 2px 12px rgba(46,151,188,.18)}
+ .mobilePlanPanel{background:linear-gradient(155deg,#132538,#0b1523);border:1px solid #29445b;border-radius:17px;padding:21px 19px 16px;box-shadow:0 14px 40px rgba(0,0,0,.14);animation:ol-card-appear .22s both}
+ .mobilePlanHeader{display:flex;align-items:flex-end;justify-content:space-between;gap:15px}
+ .mobilePlanHeader small{display:block;color:#8cb8d1;text-transform:uppercase;font-size:10px;font-weight:820;letter-spacing:.08em;margin-bottom:4px}
+ .mobilePlanHeader h2{font-size:27px;margin:0;line-height:1.06;letter-spacing:-.04em}
+ .mobilePlanPrice{color:#84bfff;font-weight:880;font-size:34px;line-height:1.2;letter-spacing:-.04em;white-space:nowrap}
+ .mobilePlanPrice span{font-size:13px;font-weight:660;letter-spacing:0;color:#97abc0}
+ .mobilePlanDescription{font-size:13px;line-height:1.5;color:#a2b8c9;margin:12px 0 17px}
+ .mobileFeatureTitle{font-size:12px;color:#65b7f6;letter-spacing:.055em;font-weight:850;border-top:1px solid #2e3d51;padding:17px 0 5px}
+ .mobileFeatureList{list-style:none;padding:0;margin:0 0 15px}
+ .mobileFeatureList li{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:10px 0;border-bottom:1px solid rgba(126,157,191,.11);color:#dce8f3;font-size:14px;line-height:1.4}
+ .mobileFeatureList li strong{color:#78e7d3;font-weight:900;font-size:17px}
+ .mobilePlanButton{display:flex;justify-content:center;align-items:center;gap:10px;border-radius:11px;color:#06192a!important;background:linear-gradient(105deg,#7aebf2,#87b4ff);min-height:46px;font-size:15px;font-weight:860;margin-top:8px}
+ .mobilePayNote{font-size:11px;color:#8098af;text-align:center;line-height:1.45;margin:11px auto 0}
+ .pricingDisclaimer{max-width:470px;margin:13px auto 0;font-size:12px;line-height:1.5}
+}
+@media(max-width:520px){
+ .container{width:calc(100% - 32px)}
+ .pageHero{padding-top:26px}
+ .pageHero h1{font-size:clamp(33px,8.4vw,42px)}
+ .pageHero p{font-size:14px}
+ .mobileCount{margin:2px 0}
+ .featuredText h2{font-size:22px}
+ .searchBox{width:100%;min-width:0}
+ .videoMeta{font-size:10px}
+ .checkoutCard{padding:21px 19px}
+ .checkoutCard .featureList li{font-size:14px}
+ .checkoutHero>div:first-child>p{font-size:15px}
+}
+@media(prefers-reduced-motion:reduce){.mobilePlanPanel{animation:none}}

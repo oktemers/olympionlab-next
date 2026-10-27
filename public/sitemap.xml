@@ -7,13 +7,10 @@
     <priority>1.00</priority>
   </url>
 
-  <url>
-    <loc>https://olympionlab.com/index.html</loc>
-    <priority>1.00</priority>
-  </url>
+  
 
   <url>
-    <loc>https://olympionlab.com/branches.html</loc>
+    <loc>https://olympionlab.com/branslar</loc>
     <priority>0.90</priority>
   </url>
 
@@ -23,37 +20,37 @@
   </url>
 
   <url>
-    <loc>https://olympionlab.com/pricing.html</loc>
+    <loc>https://olympionlab.com/fiyatlandirma</loc>
     <priority>0.80</priority>
   </url>
 
   <url>
-    <loc>https://olympionlab.com/daily-problem.html</loc>
+    <loc>https://olympionlab.com/gunun-sorusu</loc>
     <priority>0.75</priority>
   </url>
 
   <url>
-    <loc>https://olympionlab.com/ai-coach.html</loc>
+    <loc>https://olympionlab.com/yapay-zeka-kocu</loc>
     <priority>0.70</priority>
   </url>
 
   <url>
-    <loc>https://olympionlab.com/student-labs.html</loc>
+    <loc>https://olympionlab.com/student-labs</loc>
     <priority>0.70</priority>
   </url>
 
   <url>
-    <loc>https://olympionlab.com/privacy.html</loc>
+    <loc>https://olympionlab.com/gizlilik-politikasi</loc>
     <priority>0.40</priority>
   </url>
 
   <url>
-    <loc>https://olympionlab.com/terms.html</loc>
+    <loc>https://olympionlab.com/kullanim-kosullari</loc>
     <priority>0.40</priority>
   </url>
 
   <url>
-    <loc>https://olympionlab.com/kvkk.html</loc>
+    <loc>https://olympionlab.com/kvkk</loc>
     <priority>0.40</priority>
   </url>
 

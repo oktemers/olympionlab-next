@@ -297,7 +297,7 @@
 
   <div class="checkout-page">
     <header class="checkout-header">
-      <a href="/index.html" class="checkout-brand">
+      <a href="/" class="checkout-brand">
         <img src="/logo-icon.svg" alt="Olympion logosu" />
         <div>
           Olympion
@@ -305,7 +305,7 @@
         </div>
       </a>
 
-      <a class="checkout-back" href="/pricing.html">Planlara Dön →</a>
+      <a class="checkout-back" href="/fiyatlandirma">Planlara Dön →</a>
     </header>
 
     <main class="checkout-wrap">
@@ -451,11 +451,11 @@
 
     startButton.addEventListener("click", () => {
       if (planKey === "mentor") {
-        window.location.href = "/mentorship-application.html";
+        window.location.href = "/mentorluk-basvurusu";
         return;
       }
 
-      const target = new URL("/login", window.location.origin);
+      const target = new URL("/giris", window.location.origin);
       target.searchParams.set("mode", "register");
       target.searchParams.set("plan", planKey);
 

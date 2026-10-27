@@ -263,12 +263,12 @@ let OLYMPION_VIDEOS = [
   const authCard=document.querySelector('.auth-card'); const authTabs=document.querySelectorAll('.auth-tab'); const authBtn=document.getElementById('authMainBtn'); const params=new URLSearchParams(location.search);
   if(params.get('mode')==='register' && authCard){authCard.classList.add('register-mode');authTabs.forEach(t=>t.classList.toggle('active',t.dataset.auth==='register'));if(authBtn) authBtn.textContent='Üye Ol';}
   authTabs.forEach(tab=>tab.addEventListener('click',()=>{authTabs.forEach(t=>t.classList.remove('active'));tab.classList.add('active');if(authCard) authCard.classList.toggle('register-mode',tab.dataset.auth==='register');if(authBtn) authBtn.textContent=tab.dataset.auth==='register'?'Üye Ol':'Giriş Yap';}));
-  document.getElementById('authForm')?.addEventListener('submit',e=>{e.preventDefault();window.location.href='dashboard.html';});
+  document.getElementById('authForm')?.addEventListener('submit',e=>{e.preventDefault();window.location.href='/panel';});
 
   // Premium modal
-  const modal=document.createElement('div'); modal.className='premium-modal'; modal.innerHTML=`<div class="premium-modal-card"><button class="modal-close" aria-label="Kapat">×</button><div class="badge gold">Plus içerik</div><h2>Sen de Olympion topluluğuna katıl.</h2><p>Bu içerik Plus/Pro üyeleri için ayrıldı. Planı seç, devam et ve çalışma rotanı aç.</p><div class="modal-plans"><button data-plan="plus">Plus</button><button data-plan="pro">Pro</button><button data-plan="mentor">Mentörlük</button></div><a id="modalContinue" href="checkout.html?plan=plus" class="btn btn-primary">İlerle →</a></div>`; document.body.appendChild(modal);
+  const modal=document.createElement('div'); modal.className='premium-modal'; modal.innerHTML=`<div class="premium-modal-card"><button class="modal-close" aria-label="Kapat">×</button><div class="badge gold">Plus içerik</div><h2>Sen de Olympion topluluğuna katıl.</h2><p>Bu içerik Plus/Pro üyeleri için ayrıldı. Planı seç, devam et ve çalışma rotanı aç.</p><div class="modal-plans"><button data-plan="plus">Plus</button><button data-plan="pro">Pro</button><button data-plan="mentor">Mentörlük</button></div><a id="modalContinue" href="/odeme?plan=plus" class="btn btn-primary">İlerle →</a></div>`; document.body.appendChild(modal);
   let selectedPlan='plus'; const cont=modal.querySelector('#modalContinue');
-  function setPlan(plan){selectedPlan=plan; modal.querySelectorAll('.modal-plans button').forEach(b=>b.classList.toggle('active',b.dataset.plan===plan)); cont.href=plan==='mentor'?'mentorship-application.html':`checkout.html?plan=${plan}`; }
+  function setPlan(plan){selectedPlan=plan; modal.querySelectorAll('.modal-plans button').forEach(b=>b.classList.toggle('active',b.dataset.plan===plan)); cont.href=plan==='mentor'?'/mentorluk-basvurusu':`/odeme?plan=${plan}`; }
   modal.querySelector('.modal-close')?.addEventListener('click',()=>modal.classList.remove('open'));
   modal.addEventListener('click',e=>{if(e.target===modal) modal.classList.remove('open');});
   modal.querySelectorAll('.modal-plans button').forEach(b=>b.addEventListener('click',()=>setPlan(b.dataset.plan)));
@@ -289,13 +289,13 @@ let OLYMPION_VIDEOS = [
     });
     items.sort((a,b)=>{ if(sort==='views') return (b.views||0)-(a.views||0); if(sort==='newest') return (b.priority||0)-(a.priority||0); if(sort==='branch') return a.branch.localeCompare(b.branch,'tr')||a.order-b.order; if(sort==='question') return (a.level===b.level?0:(a.level==='project'?-1:1)) || (a.branch||'').localeCompare(b.branch||'','tr') || (a.order||0)-(b.order||0); return (a.priority||0)-(b.priority||0); });
     grid.innerHTML=items.map(v=>`<article class="video-card ${v.premium?'premium-video':''}" data-id="${v.id}" data-premium="${v.premium}"><div class="thumb"><div class="thumb-fallback">${branchLabel(v.branch)}<br><small>${v.title}</small></div><img src="${thumbUrl(v.id)}" alt="${v.title}" loading="lazy" onerror="this.style.display='none'"><div class="play">▶</div><div class="duration">${v.duration||'—'}</div>${v.premium?'<div class="lock-chip">Plus</div>':''}</div><div class="video-body"><span class="mini-tag">${branchLabel(v.branch)} • ${v.level==='project'?'Proje rehberi':'Olimpiyat çözümü'}${v.premium?' • Plus içerik':''}</span><h3>${v.title}</h3><p>${v.level==='project'?'Başvuru, rapor ve hazırlık sürecini net adımlara bölen rehber video.':v.branch==='fizik'?'Model kurma ve sezgisel fizik yaklaşımıyla detaylı çözüm.':'Kavramsal analiz ve hesaplama stratejisiyle detaylı çözüm.'}</p><div class="video-meta">${v.views||0} görüntülenme • ${v.premium?'kilitli içerik':'ücretsiz izleme'}</div></div></article>`).join('');
-    grid.querySelectorAll('.video-card').forEach(card=>card.addEventListener('click',()=>{const id=card.dataset.id; if(card.dataset.premium==='true') openPremiumModal(); else window.location.href=`video-watch.html?id=${id}`;}));
+    grid.querySelectorAll('.video-card').forEach(card=>card.addEventListener('click',()=>{const id=card.dataset.id; if(card.dataset.premium==='true') openPremiumModal(); else window.location.href=`/video-izle?id=${id}`;}));
     if(!items.length) grid.innerHTML='<div class="app-panel" style="grid-column:1/-1;text-align:center"><h3>Video bulunamadı</h3><p>Arama veya filtreyi değiştir.</p></div>';
   }
   document.querySelectorAll('.tab').forEach(tab=>tab.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');activeFilter=tab.dataset.filter||'all';renderVideos();}));
   searchInput?.addEventListener('input',renderVideos);sortSelect?.addEventListener('change',renderVideos);renderVideos();
   if(grid){fetch('data/videos.json').then(r=>r.ok?r.json():null).then(data=>{if(Array.isArray(data)&&data.length){OLYMPION_VIDEOS=data;renderVideos();}}).catch(()=>{});}
-  const dashGrid=document.getElementById('dashVideoGrid'); if(dashGrid){dashGrid.innerHTML=OLYMPION_VIDEOS.slice(3,5).map(v=>`<a class="video-card" href="video-watch.html?id=${v.id}"><div class="thumb"><div class="thumb-fallback">${branchLabel(v.branch)}</div><img src="${thumbUrl(v.id)}" alt="${v.title}" onerror="this.style.display='none'"><div class="play">▶</div><div class="duration">${v.duration}</div></div><div class="video-body"><span class="mini-tag">Sıradaki ders</span><h3>${v.title}</h3><p>Rotandaki önerilen video.</p></div></a>`).join('');}
+  const dashGrid=document.getElementById('dashVideoGrid'); if(dashGrid){dashGrid.innerHTML=OLYMPION_VIDEOS.slice(3,5).map(v=>`<a class="video-card" href="/video-izle?id=${v.id}"><div class="thumb"><div class="thumb-fallback">${branchLabel(v.branch)}</div><img src="${thumbUrl(v.id)}" alt="${v.title}" onerror="this.style.display='none'"><div class="play">▶</div><div class="duration">${v.duration}</div></div><div class="video-body"><span class="mini-tag">Sıradaki ders</span><h3>${v.title}</h3><p>Rotandaki önerilen video.</p></div></a>`).join('');}
 
   // FAQ accordion
   document.querySelectorAll('.faq-question').forEach(btn=>btn.addEventListener('click',()=>{const item=btn.closest('.faq-accordion-item'); item.classList.toggle('open'); btn.querySelector('b').textContent=item.classList.contains('open')?'−':'+';}));
@@ -331,7 +331,7 @@ let OLYMPION_VIDEOS = [
   if(loader){window.addEventListener('load',()=>{setTimeout(()=>loader.classList.add('hide'),650);});}
 
   // Google demo login
-  document.getElementById('googleLoginBtn')?.addEventListener('click',()=>{window.location.href='dashboard.html';});
+  document.getElementById('googleLoginBtn')?.addEventListener('click',()=>{window.location.href='/panel';});
 
   // Watch page
   const watchFrame=document.getElementById('watchFrame');
@@ -354,7 +354,7 @@ let OLYMPION_VIDEOS = [
     watchNotes.value=localStorage.getItem(noteKey)||'';
     saveWatchNotes?.addEventListener('click',()=>{localStorage.setItem(noteKey,watchNotes.value); if(noteStatus) noteStatus.textContent='Not kaydedildi. Gerçek üyelikte Supabase profiline yazılacak.';});
     const rec=document.getElementById('watchRecommended');
-    if(rec){rec.innerHTML=OLYMPION_VIDEOS.slice(3,7).map(v=>`<a class="rec-video" href="video-watch.html?id=${v.id}"><img src="${thumbUrl(v.id)}" onerror="this.style.display='none'" alt="${v.title}"><span>${v.title}</span><small>${v.duration||'—'}</small></a>`).join('');}
+    if(rec){rec.innerHTML=OLYMPION_VIDEOS.slice(3,7).map(v=>`<a class="rec-video" href="/video-izle?id=${v.id}"><img src="${thumbUrl(v.id)}" onerror="this.style.display='none'" alt="${v.title}"><span>${v.title}</span><small>${v.duration||'—'}</small></a>`).join('');}
     document.querySelectorAll('[data-checkpoint]').forEach(btn=>btn.addEventListener('click',()=>{btn.classList.toggle('done');btn.textContent=btn.classList.contains('done')?'✓ Tamamlandı':btn.dataset.checkpoint;}));
   }
 
@@ -368,7 +368,7 @@ let OLYMPION_VIDEOS = [
     const plans={free:['Free','₺0','Temel keşif planı'],plus:['Plus','₺149 / ay','Soru çözüm arşivi + PDF notları'],pro:['Pro','₺299 / ay','Tüm platform + Labs + gelişmiş panel']};
     const p=new URLSearchParams(location.search).get('plan')||'plus'; const chosen=plans[p]||plans.plus;
     checkoutPlan.textContent=chosen[0]; document.getElementById('checkoutPrice').textContent=chosen[1]; document.getElementById('checkoutDesc').textContent=chosen[2];
-    document.getElementById('checkoutContinue')?.setAttribute('href',`login.html?mode=register&plan=${p}`);
+    document.getElementById('checkoutContinue')?.setAttribute('href',`/giris?mode=register&plan=${p}`);
   }
 
   // Selected plan hint on login/register
@@ -441,7 +441,7 @@ let OLYMPION_VIDEOS = [
       lessonRoot.innerHTML=`<iframe src="https://www.youtube.com/embed/${v.id}?rel=0&enablejsapi=1" title="${v.title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
     }
     renderPlaylist();
-    history.replaceState(null,'',`lesson.html?course=${encodeURIComponent(course)}&id=${encodeURIComponent(v.id)}`);
+    history.replaceState(null,'',`/ders?course=${encodeURIComponent(course)}&id=${encodeURIComponent(v.id)}`);
   }
   function markDone(autoNext=false){const v=videos[currentIndex]; if(!v) return; completed.add(v.id); save(); renderPlaylist(); if(autoNext && currentIndex<videos.length-1){setTimeout(()=>loadVideo(currentIndex+1),700);} }
   $('lessonDoneBtn')?.addEventListener('click',()=>markDone(false));
@@ -513,7 +513,7 @@ let OLYMPION_VIDEOS = [
   if(!grid) return;
   setTimeout(()=>{
     if(!grid.children.length){
-      grid.innerHTML='<a class="video-card" href="video-watch.html?id=XhkWD_GmVSQ"><div class="thumb"><img src="https://img.youtube.com/vi/XhkWD_GmVSQ/hqdefault.jpg" alt="TÜBİTAK proje rehberi"><div class="play">▶</div><div class="duration">23:06</div></div><div class="video-body"><span class="mini-tag">TÜBİTAK Proje</span><h3>TÜBİTAK 2209-A Projesi Nasıl Yazılır?</h3><p>Proje hazırlığı için adım adım rehber.</p></div></a><a class="video-card" href="video-watch.html?id=QYXfaRyjdws"><div class="thumb"><img src="https://img.youtube.com/vi/QYXfaRyjdws/hqdefault.jpg" alt="Fizik olimpiyatı"><div class="play">▶</div><div class="duration">10:31</div></div><div class="video-body"><span class="mini-tag">Fizik • Olimpiyat</span><h3>TÜBİTAK Fizik Olimpiyatı 2025 Soru 1</h3><p>Kavramsal analiz ve detaylı çözüm.</p></div></a>';
+      grid.innerHTML='<a class="video-card" href="/video-izle?id=XhkWD_GmVSQ"><div class="thumb"><img src="https://img.youtube.com/vi/XhkWD_GmVSQ/hqdefault.jpg" alt="TÜBİTAK proje rehberi"><div class="play">▶</div><div class="duration">23:06</div></div><div class="video-body"><span class="mini-tag">TÜBİTAK Proje</span><h3>TÜBİTAK 2209-A Projesi Nasıl Yazılır?</h3><p>Proje hazırlığı için adım adım rehber.</p></div></a><a class="video-card" href="/video-izle?id=QYXfaRyjdws"><div class="thumb"><img src="https://img.youtube.com/vi/QYXfaRyjdws/hqdefault.jpg" alt="Fizik olimpiyatı"><div class="play">▶</div><div class="duration">10:31</div></div><div class="video-body"><span class="mini-tag">Fizik • Olimpiyat</span><h3>TÜBİTAK Fizik Olimpiyatı 2025 Soru 1</h3><p>Kavramsal analiz ve detaylı çözüm.</p></div></a>';
     }
   },650);
 })();
@@ -536,7 +536,7 @@ let OLYMPION_VIDEOS = [
   document.querySelectorAll('[data-reset-password="true"], .forgot-link, .forgot-big').forEach(function(a){
     a.addEventListener('click', function(e){
       e.preventDefault();
-      window.location.href = 'reset-password.html';
+      window.location.href = '/reset-password';
     });
   });
 
@@ -565,7 +565,7 @@ let OLYMPION_VIDEOS = [
       toast.innerHTML = '<span class="logout-spinner"></span>Çıkış yapılıyor...';
       document.body.appendChild(toast);
       requestAnimationFrame(function(){ toast.classList.add('open'); });
-      setTimeout(function(){ window.location.href = 'index.html'; }, 2600);
+      setTimeout(function(){ window.location.href = '/'; }, 2600);
     });
   }
 })();
@@ -581,7 +581,7 @@ let OLYMPION_VIDEOS = [
       toast.innerHTML = '<span class="logout-spinner"></span>Çıkış yapılıyor...';
       document.body.appendChild(toast);
       requestAnimationFrame(()=>toast.classList.add('open'));
-      setTimeout(()=>{ window.location.href='index.html'; }, 2600);
+      setTimeout(()=>{ window.location.href='/'; }, 2600);
     });
   }
 
@@ -655,12 +655,12 @@ let OLYMPION_VIDEOS = [
         try{ choices = JSON.parse(localStorage.getItem('olympion_onboarding_choices') || '{}'); }catch(e){}
         const branch = (choices.branch || 'Fizik').toLowerCase();
         const map = {
-          'fizik':'fizik-dashboard.html',
-          'kimya':'kimya-dashboard.html',
-          'matematik':'matematik-dashboard.html',
-          'biyoloji':'biyoloji-dashboard.html'
+          'fizik':'/fizik-dashboard',
+          'kimya':'/kimya-dashboard',
+          'matematik':'/matematik-dashboard',
+          'biyoloji':'/biyoloji-dashboard'
         };
-        window.location.href = map[branch] || 'dashboard.html';
+        window.location.href = map[branch] || '/panel';
       }, 260);
     }, {once:true});
   }

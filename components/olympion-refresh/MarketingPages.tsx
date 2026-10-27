@@ -83,7 +83,7 @@ export function PricingPage({ embedded = false }: { embedded?: boolean }) {
    <Link href={mobilePlan.href} className={s.mobilePlanButton}>{mobilePlan.action}<Arrow /></Link>
    <p className={s.mobilePayNote}>{selected === "free" ? "Ücretsiz içerikler için kayıt ekranına geçersin." : "Ödeme sistemi henüz aktif değil. Bu sayfada ücret tahsil edilmiyor."}</p>
   </article>
- </section><p className={s.pricingDisclaimer}>* Belirtilen modüllerin kullanılabilirliği hesabına ve geliştirme aşamasına bağlıdır. Ödeme altyapısı şu anda aktif değildir; plan seçimi ücret tahsil etmez. Plus konu kartları henüz çekilmemiş içerik fikirleridir.</p>
+ </section>
  </div></Shell>
 }
 

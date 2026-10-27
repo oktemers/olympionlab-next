@@ -226,6 +226,9 @@
       }
     }
   </style>
+<style id="olympion-branch-v4">
+.branch-v4-hero{padding:76px 0 48px}.branch-v4-hero h1{font-size:clamp(42px,6vw,76px);line-height:1.05;letter-spacing:-.06em;margin:22px 0 18px;max-width:900px}.branch-v4-gradient{background:linear-gradient(100deg,#7cf2ff,#7aa7ff);color:transparent;background-clip:text}.branch-v4-hero p{font-size:clamp(16px,1.5vw,19px);line-height:1.75;color:#aebfd1;max-width:680px;margin:0 0 27px}.branch-v4-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;padding-bottom:70px}.branch-v4-card{display:flex;flex-direction:column;min-height:248px;padding:29px;border:1px solid rgba(124,242,255,.14);border-radius:24px;background:radial-gradient(circle at 95% 8%,rgba(124,242,255,.095),transparent 44%),linear-gradient(130deg,#102034,#09101d);transition:transform .22s,border-color .22s}.branch-v4-card:hover{transform:translateY(-4px);border-color:rgba(124,242,255,.5)}.branch-v4-card>span{color:#7cf2ff;font-size:12px;font-weight:850;letter-spacing:.1em}.branch-v4-card h2{font-size:clamp(26px,3vw,36px);letter-spacing:-.05em;margin:22px 0 6px}.branch-v4-card p{font-size:16px;line-height:1.6;color:#a6b9ce;max-width:370px}.branch-v4-card small{margin-top:auto;color:#82eaf6;font-size:14px;font-weight:750}.branch-v4-last{display:flex;justify-content:space-between;align-items:center;gap:32px;padding-bottom:70px}.branch-v4-last h2{font-size:28px;margin:0 0 8px}.branch-v4-last p{max-width:660px;color:#a5b8cb;line-height:1.65;margin:0}@media(max-width:700px){.branch-v4-hero{padding:42px 0 30px}.branch-v4-grid{grid-template-columns:1fr;gap:12px;padding-bottom:42px}.branch-v4-card{min-height:180px;padding:22px}.branch-v4-card h2{margin-top:12px;font-size:27px}.branch-v4-card p{font-size:14px}.branch-v4-last{display:block;padding-bottom:45px}.branch-v4-last .btn{margin-top:20px}}@media(prefers-reduced-motion:reduce){.branch-v4-card{transition:none}.branch-v4-card:hover{transform:none}}
+</style>
 </head>
 
 <body class="public-page">
@@ -279,7 +282,9 @@
         <a href="/giris" class="login-bubble">Giriş Yap <span>→</span></a>
       </div>
 
-      <button class="menu-btn" id="menuBtn" aria-label="Menüyü aç/kapat">☰</button>
+      <button class="menu-btn" id="menuBtn" aria-label="Menüyü aç/kapat">
+        <span></span>
+      </button>
     </div>
 
     <div class="container mobile-menu" id="mobileMenu">
@@ -295,204 +300,114 @@
   </header>
 
   <main class="site-main">
-    <section class="page-hero compact branches-soon-hero">
-      <div class="container reveal">
-        <div class="badge cyan">Branşlar</div>
+<section class="branch-v4-hero"><div class="container">
+  <span class="badge cyan">BİLİM OLİMPİYATLARI</span>
+  <h1>Dört disiplin.<br><span class="branch-v4-gradient">Sınırsız düşünme alanı.</span></h1>
+  <p>Güçlü bir olimpiyat temeli; kavramları anlamak, modeller kurmak ve çözüm stratejilerini geliştirmekle başlar.</p>
+  <a class="btn btn-primary" href="/video-kutuphanesi">Video kütüphanesini keşfet →</a>
+</div></section>
+<section class="container branch-v4-grid" aria-label="Olimpiyat branşları">
+  <a id="fizik" href="/video-kutuphanesi" class="branch-v4-card"><span>01 · FİZİK</span><h2>Evreni modelle.</h2><p>Mekanik, elektrik ve manyetizma, dalgalar ve termodinamik.</p><small>Konuları keşfet ↗</small></a>
+  <a id="kimya" href="/video-kutuphanesi" class="branch-v4-card"><span>02 · KİMYA</span><h2>Maddeyi anla.</h2><p>Fizikokimya, organik tepkimeler, denge ve analitik düşünme.</p><small>Konuları keşfet ↗</small></a>
+  <a id="matematik" href="/video-kutuphanesi" class="branch-v4-card"><span>03 · MATEMATİK</span><h2>İspatla ve çöz.</h2><p>Sayı teorisi, kombinatorik, cebir ve geometri problemleri.</p><small>Planlanan içerikleri gör ↗</small></a>
+  <a id="biyoloji" href="/video-kutuphanesi" class="branch-v4-card"><span>04 · BİYOLOJİ</span><h2>Sistemleri keşfet.</h2><p>Genetik, hücre biyolojisi, biyokimya ve veri yorumlama.</p><small>Planlanan içerikleri gör ↗</small></a>
+</section>
+<section class="container branch-v4-last"><div><h2>Bir konudan fazlası.</h2><p>Olimpiyat hazırlığı sorulara farklı açıdan bakma becerisidir. Öğren, uygula, yeni soruya taşı.</p></div><a class="btn btn-secondary" href="/fiyatlandirma">Hazırlık planlarına bak →</a></section>
+</main>
 
-        <h1>Olimpiyat branşları için video içerikler hazırlanıyor.</h1>
-
-        <p>
-          Matematik, fizik, kimya ve biyoloji alanlarında olimpiyat seviyesine uygun
-          video dersler, soru çözüm serileri, PDF notları ve çalışma rotaları kademeli
-          olarak yayına alınacaktır.
-        </p>
-
-        <div class="branches-launch-note">
-          <strong>Çok yakında:</strong>
-          Branş içerikleri şu anda hazırlanıyor. İlk yayın döneminde seçili video dersler,
-          temel problem setleri ve örnek PDF notları erişime açılacak.
+  <footer class="site-footer olympion-mobile-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand-block">
+      <a href="/" class="brand footer-brand">
+        <div class="brand-mark">
+          <img class="brand-logo-img" src="/logo-icon.svg" alt="Olympion logosu" width="42" height="42" />
         </div>
-      </div>
-    </section>
 
-    <section>
-      <div class="container deep-grid branch-deep-grid">
-        <article id="fizik" class="deep-card branch-coming-card status-loading reveal">
-          <div class="branch-status-pill loading">Videolar yükleniyor</div>
+        <div>
+          Olympion
+          <small>Premium olimpiyat öğrenme platformu</small>
+        </div>
+      </a>
 
-          <span>Fizik</span>
+      <p>
+        Olympion; olimpiyat öğrencileri için video, çalışma rotası, PDF notları,
+        günlük problem ve deneysel öğrenme araçlarını tek çatı altında birleştiren
+        premium öğrenme platformudur.
+      </p>
 
-          <h2>Model kur, vektörü gör, sonucu tahmin et.</h2>
-
-          <p>
-            Mekanikten elektromanyetizmaya olimpiyat sorularını modelleme mantığıyla
-            çözmeye yönelik içerikler yayına hazırlanıyor.
-          </p>
-
-          <ul>
-            <li>Vektör sezgisi</li>
-            <li>Korunum yasaları</li>
-            <li>Kavramsal analiz</li>
-          </ul>
-
-          <div class="branch-soon-note">
-            <strong>Yükleniyor:</strong> Fizik video dersleri, soru çözüm serileri ve
-            görsel model anlatımları yakında erişime açılacak.
-          </div>
-        </article>
-
-        <article id="kimya" class="deep-card branch-coming-card status-loading reveal">
-          <div class="branch-status-pill loading">Videolar yükleniyor</div>
-
-          <span>Kimya</span>
-
-          <h2>Denge, yapı ve hesaplama.</h2>
-
-          <p>
-            Fizikokimya, organik, analitik ve inorganik kimyayı olimpiyat problem stratejisiyle
-            ele alan ders içerikleri hazırlanıyor.
-          </p>
-
-          <ul>
-            <li>Denge mantığı</li>
-            <li>Mol ve stokiyometri</li>
-            <li>Reaksiyon sezgisi</li>
-          </ul>
-
-          <div class="branch-soon-note">
-            <strong>Yükleniyor:</strong> Kimya video içerikleri, PDF notları ve problem
-            çözüm akışları yayına hazırlanıyor.
-          </div>
-        </article>
-
-        <article id="matematik" class="deep-card branch-coming-card status-soon reveal">
-          <div class="branch-status-pill soon">Çok yakında</div>
-
-          <span>Matematik</span>
-
-          <h2>İspat, yapı ve strateji.</h2>
-
-          <p>
-            Sayı teorisi, kombinatorik, geometri ve cebir problemlerinde sezgisel örüntü
-            kurmaya yönelik içerikler planlanıyor.
-          </p>
-
-          <ul>
-            <li>İspat teknikleri</li>
-            <li>Problem parçalama</li>
-            <li>Zihin haritası yaklaşımı</li>
-          </ul>
-
-          <div class="branch-soon-note">
-            <strong>Çok yakında:</strong> Matematik olimpiyatı için konu anlatımları,
-            örnek çözümler ve problem serileri planlama aşamasında.
-          </div>
-        </article>
-
-        <article id="biyoloji" class="deep-card branch-coming-card status-soon reveal">
-          <div class="branch-status-pill soon">Çok yakında</div>
-
-          <span>Biyoloji</span>
-
-          <h2>Sistemleri veriyle oku.</h2>
-
-          <p>
-            Genetik, hücresel sistemler, biyokimya ve ekoloji konularında yorum gücü
-            geliştirmeye yönelik içerikler planlanıyor.
-          </p>
-
-          <ul>
-            <li>Veri yorumlama</li>
-            <li>Genetik olasılık</li>
-            <li>Sistem düşüncesi</li>
-          </ul>
-
-          <div class="branch-soon-note">
-            <strong>Çok yakında:</strong> Biyoloji olimpiyatı için konu haritaları,
-            görsel anlatımlar ve problem setleri kademeli olarak açılacak.
-          </div>
-        </article>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <a href="/" class="brand footer-brand">
-          <div class="brand-mark">
-            <img class="brand-logo-img" src="/logo-icon.svg" alt="Olympion logosu" width="42" height="42" />
-          </div>
-
-          <div>
-            Olympion
-            <small>Görsel sezgiyle olimpiyat hazırlığı</small>
-          </div>
+      <div class="footer-socials" aria-label="Sosyal medya hesapları">
+        <a href="https://www.instagram.com/olympionlabs" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="4" y="4" width="16" height="16" rx="5" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="2"/>
+            <circle cx="17" cy="7" r="1.2" fill="currentColor"/>
+          </svg>
         </a>
 
-        <p>
-          Olympion; olimpiyat öğrencileri için video, çalışma rotası, PDF notları,
-          günlük problem ve deneysel öğrenme araçlarını tek çatı altında birleştiren
-          premium öğrenme platformudur.
-        </p>
-
-        <div class="payment-logos" aria-label="Ödeme yöntemleri">
-          <span class="pay-logo visa">
-            <svg viewBox="0 0 96 32" role="img" aria-label="Visa">
-              <text x="48" y="18" text-anchor="middle">VISA</text>
-            </svg>
-          </span>
-
-          <span class="pay-logo mc">
-            <svg viewBox="0 0 96 32" role="img" aria-label="Mastercard">
-              <circle cx="40" cy="16" r="10"></circle>
-              <circle cx="56" cy="16" r="10"></circle>
-            </svg>
-          </span>
-
-          <span class="pay-logo troy">
-            <svg viewBox="0 0 96 32" role="img" aria-label="TROY">
-              <text x="48" y="18" text-anchor="middle">TROY</text>
-            </svg>
-          </span>
-
-          <span class="pay-logo iyzico">
-            <svg viewBox="0 0 110 32" role="img" aria-label="iyzico">
-              <text x="55" y="18" text-anchor="middle">iyzico</text>
-            </svg>
-          </span>
-        </div>
-      </div>
-
-      <div>
-        <h4>Platform</h4>
-        <a href="/video-kutuphanesi">Video Kütüphanesi</a>
-        <a href="/laboratuvarlar">Olympion Labs</a>
-        <a href="/fiyatlandirma">Fiyatlandırma</a>
-        <a href="/soru">Günün Problemi</a>
-      </div>
-
-      <div>
-        <h4>Kurumsal</h4>
-        <a href="/hakkimizda">Hakkımızda</a>
-        <a href="/sikca-sorulan-sorular">SSS</a>
-        <a href="mailto:oktemerozan@gmail.com">İletişim</a>
-        <a href="/mentorluk-basvurusu">Mentörlük Başvurusu</a>
-      </div>
-
-      <div>
-        <h4>Yasal</h4>
-        <a href="/gizlilik-politikasi">Gizlilik Politikası</a>
-        <a href="/kullanim-kosullari">Kullanım Şartları</a>
-        <a href="/kvkk">KVKK Aydınlatma Metni</a>
+        <a href="https://www.youtube.com/@oktemer" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="6" width="18" height="12" rx="4" stroke="currentColor" stroke-width="2"/>
+            <path d="M10 9.5L15 12L10 14.5V9.5Z" fill="currentColor"/>
+          </svg>
+        </a>
       </div>
     </div>
 
-    <div class="container footer-bottom">
-      <span>© Olympion 2026. Tüm hakları saklıdır.</span>
-      <span>Premium olimpiyat öğrenme deneyimi</span>
+    <div class="footer-column">
+      <h4>Platform</h4>
+      <a href="/video-kutuphanesi">Video Kütüphanesi</a>
+      <a href="/branslar">Branşlar</a>
+      <a href="/laboratuvarlar">Olympion Labs</a>
+      <a href="/fiyatlandirma">Fiyatlandırma</a>
     </div>
-  </footer>
+
+    <div class="footer-column">
+      <h4>Kurumsal</h4>
+      <a href="/hakkimizda">Hakkımızda</a>
+      <a href="/biz-kimiz">Biz Kimiz?</a>
+      <a href="/yonetim-kurulu">Yönetim Kurulu</a>
+      <a href="/organizasyon-semasi">Organizasyon Şeması</a>
+    </div>
+
+    <div class="footer-column">
+      <h4>Destek</h4>
+      <a href="/sikca-sorulan-sorular">SSS</a>
+      <a href="mailto:oktemerozan@gmail.com">İletişim</a>
+      <a href="/mentorluk-basvurusu">Mentörlük Başvurusu</a>
+      <a href="/giris">Giriş Yap</a>
+    </div>
+<div class="footer-column footer-legal-mobile">
+  <h4>Yasal</h4>
+  <a href="/kullanim-kosullari">Kullanım Şartları</a>
+  <a href="/gizlilik-politikasi">Gizlilik Politikası</a>
+  <a href="/kvkk">KVKK</a>
+  <a href="sitemap.xml">Site Haritası</a>
+</div>
+    
+  </div>
+
+  <div class="container footer-legal-row">
+    <a href="/kullanim-kosullari">Kullanım Şartları</a>
+    <a href="/gizlilik-politikasi">Gizlilik Politikası</a>
+    <a href="/kvkk">KVKK</a>
+    <a href="sitemap.xml">Site Haritası</a>
+  </div>
+
+  <div class="container footer-payment-row" aria-label="Ödeme yöntemleri">
+    <span class="payment-mini visa">VISA</span>
+    <span class="payment-mini mastercard">
+      <i></i><i></i>
+    </span>
+    <span class="payment-mini troy">troy</span>
+    <span class="payment-mini secure">3D SECURE</span>
+    <span class="payment-mini iyzico">iyzico</span>
+  </div>
+
+  <div class="container footer-bottom">
+    <span>© 2026 Olympion. Tüm hakları saklıdır.</span>
+    <span>Premium olimpiyat öğrenme deneyimi</span>
+  </div>
+</footer>
 
   <script src="script.js"></script>
 </body>

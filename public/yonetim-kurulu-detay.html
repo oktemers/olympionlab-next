@@ -336,10 +336,18 @@
     }
 
     const params = new URLSearchParams(window.location.search);
-    const key = params.get("member") || "kurucu";
+    const key = window.location.pathname === "/ozan-oktemer"
+      ? "kurucu" : (params.get("member") || "kurucu");
     const selected = members[key] || members.kurucu;
 
     const isFounder = selected === members.kurucu;
+    const canonical = document.createElement("link");
+    canonical.rel = "canonical";
+    canonical.href = isFounder
+      ? "https://www.olympionlab.com/ozan-oktemer"
+      : "https://www.olympionlab.com/yonetim-kurulu-detay.html?member=" + encodeURIComponent(key);
+    document.head.appendChild(canonical);
+
     document.title = isFounder
       ? "Ozan ÖKTEMER | Olympion Lab Kurucusu"
       : selected.title + " | " + selected.role + " | Olympion Lab";

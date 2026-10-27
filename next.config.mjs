@@ -13,6 +13,10 @@ const nextConfig = {
   async rewrites() {
     return [
       {
+        source: '/ozan-oktemer',
+        destination: '/yonetim-kurulu-detay.html?member=kurucu',
+      },
+      {
         source: '/yonetim-kurulu',
         destination: '/yonetim-kurulu.html',
       },

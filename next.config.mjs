@@ -1,3 +1,4 @@
+import { augmentNextConfig as OLYMPION_CLEAN_URL_KIT } from './olympion-clean-url-routes.mjs';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   async redirects() {
@@ -24,4 +25,6 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+const __olympion_original_next_config = nextConfig;
+
+export default OLYMPION_CLEAN_URL_KIT(__olympion_original_next_config);

@@ -18,7 +18,7 @@ function homepageChrome(active: string) {
 
 export function HomeChrome({ active, children }: { active: string; children: ReactNode }) {
   const { header, footer, inlineCss } = homepageChrome(active);
-  const homepageStyles = '@import url("/style.css") layer(olympion-public);\n@layer olympion-public {\n' + inlineCss + '\n}';
+  const homepageStyles = '@import url("/style.css");\n' + inlineCss;
   return (
     <>
       <style>{homepageStyles}</style>

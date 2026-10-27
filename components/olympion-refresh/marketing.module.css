@@ -27,3 +27,43 @@
 @media(max-width:760px){.navigation{display:none}.menuToggle{display:flex}.headerInner{padding:0 18px;min-height:68px}.headerActions .login{display:none}.mobileNav{display:flex;flex-direction:column;gap:3px;padding:0 18px 18px;border-top:1px solid #213247;background:#0b1625}.mobileNav a{font-size:13px;font-weight:700;display:flex;justify-content:space-between;align-items:center;padding:12px 10px;border-radius:9px;color:#b0c3d4!important}.mobileNav .mobileActive{background:#1a3144;color:#e9faff!important}.container{width:calc(100% - 34px)}.homeHero{padding:52px 0;grid-template-columns:1fr;gap:28px}.heroCopy h1{font-size:clamp(45px,11vw,65px)}.heroCopy>p{font-size:14px}.heroMiniLine{margin-top:27px;gap:16px}.heroVisual{max-width:560px;width:100%;margin:0 auto}.featureGrid,.videoGrid,.pricingGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.homeFeatures{padding-bottom:10px}.slimCTA{padding:25px;flex-direction:column;align-items:flex-start}.pageHero{padding:48px 0 31px}.pageHero h1,.centerHero h1{font-size:clamp(42px,9vw,60px)}.heroSideNote{display:none}.featuredVideo{grid-template-columns:1fr}.featuredVideo>a{min-height:0}.thumbLarge{aspect-ratio:16/9;min-height:0}.featuredText{padding:24px}.libraryHeading{align-items:flex-start;flex-direction:column}.searchBox{width:100%}.filterRow{align-items:flex-start}.centerHero{padding:46px 0 31px}.priceFeatured{order:-1}.faqMini{grid-template-columns:1fr;gap:20px;padding-top:43px}.checkoutHero{grid-template-columns:1fr;min-height:0;padding:48px 0;gap:35px}.footerInner{flex-wrap:wrap;gap:17px}.footerNote{margin-left:auto}}
 @media(max-width:520px){.brand strong{font-size:17px}.mark{width:36px;height:36px}.brand small{display:block;font-size:9px}.pageHero h1,.centerHero h1,.checkoutHero h1{font-size:42px}.pageHero p,.centerHero p{font-size:13px}.homeHero{padding:45px 0 44px}.featureGrid,.videoGrid,.pricingGrid{grid-template-columns:1fr}.featureCard{min-height:180px}.featuredArea{margin-bottom:42px}.videoBody h3{min-height:0}.priceCard{min-height:0;padding:25px}.priceFeatured{order:0}.priceDescription{min-height:0}.checkoutHero h1{font-size:40px}.checkoutButtons,.actions{align-items:stretch}.checkoutButtons>a,.actions>a{width:100%}.footerInner{align-items:flex-start}.footerLinks{width:100%;gap:15px}.footerNote{margin:0}.homeFeatures .sectionIntro h2{font-size:29px}.slimCTA h2{font-size:23px}.filterRow{gap:10px}.thumbLarge{min-height:0}}
 @media(prefers-reduced-motion:reduce){.root *{transition:none!important;animation:none!important}}
+
+/* --- Olympion UI v2: shared visual scale and responsive motion --- */
+.root{font-family:Inter,"Segoe UI",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Arial,sans-serif;font-size:16px;line-height:1.6;letter-spacing:-.012em}
+.brand strong{font-size:20px;letter-spacing:-.05em}.brand small{font-size:11px}
+.navLink{font-size:14px}.login{font-size:14px}.mobileNav a{font-size:15px}
+.pill{font-size:12px;letter-spacing:.09em}.overline{font-size:12px;letter-spacing:.11em}
+.primaryButton,.secondaryButton,.priceButton{font-size:15px;min-height:48px}
+.pageHero p,.centerHero p,.checkoutHero>div:first-child>p{font-size:16px;line-height:1.75}
+.videoBody{padding:20px 20px 18px}.videoBody h3{font-size:17px;line-height:1.42;min-height:72px;letter-spacing:-.02em}
+.videoMeta{font-size:11px;letter-spacing:.035em}.videoFooter{font-size:13px}
+.featuredText p{font-size:15px}.featuredText h2{font-size:clamp(25px,2.7vw,34px)}
+.searchBox{height:49px}.searchBox input{font-size:15px}.chip{font-size:13px;padding:11px 15px;min-height:43px}.emptyState p{font-size:15px}
+.planEyebrow{font-size:12px}.priceTop h2{font-size:29px}.popularBadge{font-size:11px}
+.priceDescription{font-size:15px;min-height:64px}.amount span{font-size:15px}.featureCaption{font-size:12px}
+.featureList li{font-size:15px;line-height:1.55}.featureList{gap:13px}
+.pricingDisclaimer{font-size:13px}.faqItems summary{font-size:15px}.faqItems p{font-size:14px}
+.checkoutHero{min-height:0;padding:76px 0 82px;gap:56px}.checkoutHero h1{font-size:clamp(42px,3.8vw,60px);line-height:1.14}
+.checkoutCard{padding:34px}.checkoutHeading{font-size:12px;letter-spacing:.055em}.statusTag{font-size:12px}
+.checkoutName h2{font-size:36px}.checkoutName>div{font-size:34px}.checkoutName>div span{font-size:14px}
+.checkoutCard>p{font-size:15px}.checkoutCard .featureList li{font-size:15px}
+.trialNote{font-size:14px}.secureNotice{padding:20px}.secureNotice>span{font-size:21px}.secureNotice strong{font-size:15px}.secureNotice p{font-size:14px}
+.footerInner{flex-wrap:wrap}.footerBrand strong{font-size:17px}.footerBrand span{font-size:12px}.footerLinks{font-size:13px}
+.footerNote{font-size:12px}.paymentMethods{display:flex;align-items:center;gap:10px;color:#b1d6e7;border:1px solid #29475a;border-radius:12px;padding:10px 13px;background:rgba(34,85,113,.13)}
+.paymentMethods>span:last-child{display:flex;flex-direction:column;gap:2px}.paymentMethods strong{font-size:12px;line-height:1.2}.paymentMethods small{font-size:11px;color:#859fb0;line-height:1.35}
+.paymentIcon{font-size:22px;line-height:1;color:#88dae7}
+.plannedCard{cursor:default}.plannedCard .videoFooter{color:#a9c7e1}.plannedCard .thumb{background:radial-gradient(circle at 22% 25%,#304b70,#0b1a30 75%)!important}
+.videoCard{position:relative;box-shadow:0 10px 30px rgba(0,0,0,.08);animation:ol-card-appear .55s both;will-change:transform}
+.videoGrid>.videoCard:nth-child(3n + 2){animation-delay:.06s}.videoGrid>.videoCard:nth-child(3n){animation-delay:.12s}
+.thumb{overflow:hidden;transition:filter .24s}.thumb:after{content:"";pointer-events:none;position:absolute;inset:0;background:linear-gradient(118deg,transparent 17%,rgba(205,245,255,.08) 50%,transparent 78%);transform:translateX(-120%);transition:transform .55s ease}
+.videoCard:hover .thumb:after{transform:translateX(120%)}
+.videoCard:hover{transform:translateY(-5px);border-color:#65aac9;box-shadow:0 20px 45px rgba(0,0,0,.18)}
+.videoCard:focus-visible{outline:3px solid #85edf2;outline-offset:3px}
+@keyframes ol-card-appear{from{opacity:.3;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:761px) and (max-width:1000px){.checkoutHero{gap:30px}.checkoutCard{padding:25px}}
+@media(max-width:760px){.pageHero p,.centerHero p,.checkoutHero>div:first-child>p{font-size:15px}.chipGroup{max-width:100%;flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:5px;scrollbar-width:none}.chipGroup::-webkit-scrollbar{display:none}.chip{flex:0 0 auto;scroll-snap-align:start}.filterRow{display:block}.filterRow .chipGroup{margin-bottom:11px}.checkoutHero{padding:44px 0 54px}.footerInner{justify-content:flex-start}.paymentMethods{width:100%;max-width:450px}}
+@media(max-width:520px){.brand strong{font-size:18px}.brand small{font-size:10px}.pageHero p,.centerHero p{font-size:15px}.videoBody h3{font-size:17px;min-height:0}.videoMeta{font-size:10px}.videoFooter{font-size:13px}.priceDescription{font-size:15px;min-height:0}.checkoutCard{padding:24px 20px}.checkoutHero h1{font-size:clamp(36px,9.5vw,44px)}.checkoutName h2{font-size:33px}.checkoutName>div{font-size:29px}.checkoutHeading{align-items:flex-start;flex-wrap:wrap}.statusTag{font-size:11px}.footerLinks{gap:14px;font-size:13px}.videoCard:active{transform:scale(.99)}.paymentMethods{padding:11px}}
+@media(prefers-reduced-motion:reduce){.root *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+.mobileCount{display:none}
+@media(max-width:760px){.mobileCount{display:inline-flex;align-items:center;font-size:13px;font-weight:700;color:#b6eefa;border:1px solid #2a5665;border-radius:999px;padding:9px 13px;margin-top:6px}}

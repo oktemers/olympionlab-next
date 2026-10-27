@@ -1,0 +1,104 @@
+"use client";
+
+import React, { useMemo, useState } from "react";
+import Link from "next/link";
+import s from "./marketing.module.css";
+import { VIDEOS, type VideoItem } from "./video-data";
+
+const NAV = [
+  { href: "/", label: "Ana Sayfa" },
+  { href: "/video-kutuphanesi", label: "Video Kütüphanesi" },
+  { href: "/branslar", label: "Branşlar" },
+  { href: "/fiyatlandirma", label: "Fiyatlandırma" },
+  { href: "/hakkimizda", label: "Hakkımızda" },
+];
+
+function Arrow({ diagonal = false }: { diagonal?: boolean }) {
+  return <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d={diagonal ? "M7 17 17 7M8 7h9v9" : "M4 12h16m-7-7 7 7-7 7"}/></svg>;
+}
+function Mark({ small = false }: { small?: boolean }) {
+  return <span className={small ? s.markSmall : s.mark} aria-hidden="true"><span /></span>;
+}
+function SiteHeader({ active }: { active: string }) {
+  const [open, setOpen] = useState(false);
+  return <header className={s.header}>
+    <div className={s.headerInner}>
+      <Link className={s.brand} href="/" aria-label="Olympion Lab ana sayfa"><Mark/><span><strong>olympion<span className={s.brandAccent}>lab</span></strong><small>Bilim olimpiyatları platformu</small></span></Link>
+      <nav className={s.navigation} aria-label="Ana gezinme">{NAV.map(n => <Link key={n.href} className={`${s.navLink} ${active === n.href ? s.navActive : ""}`} href={n.href}>{n.label}</Link>)}</nav>
+      <div className={s.headerActions}><Link className={s.login} href="/giris">Giriş Yap <Arrow /></Link><button className={s.menuToggle} type="button" aria-label={open ? "Menüyü kapat" : "Menüyü aç"} aria-expanded={open} onClick={() => setOpen(!open)}><span/><span/><span/></button></div>
+    </div>
+    {open && <nav className={s.mobileNav} aria-label="Mobil gezinme">{NAV.map(n => <Link onClick={() => setOpen(false)} key={n.href} href={n.href} className={active === n.href ? s.mobileActive : ""}>{n.label}<Arrow/></Link>)}<Link onClick={() => setOpen(false)} href="/giris">Giriş Yap <Arrow/></Link></nav>}
+  </header>;
+}
+function SiteFooter() {
+  return <footer className={s.footer}><div className={s.footerInner}><div className={s.footerBrand}><Mark small/><div><strong>olympionlab</strong><span>Ezberleme. Anla. Çöz.</span></div></div><div className={s.footerLinks}><Link href="/video-kutuphanesi">Kütüphane</Link><Link href="/fiyatlandirma">Planlar</Link><Link href="/sikca-sorulan-sorular">SSS</Link><Link href="/gizlilik-politikasi">Gizlilik</Link></div><div className={s.footerNote}>© {new Date().getFullYear()} Olympion Lab</div></div></footer>;
+}
+function Shell({ active, children, embedded = false }: { active: string, children: React.ReactNode, embedded?: boolean }) {
+  return <div className={s.root}>{!embedded && <SiteHeader active={active}/>}<main className={s.main}>{children}</main>{!embedded && <SiteFooter/>}</div>;
+}
+function Pill({ children }: { children: React.ReactNode }) {return <span className={s.pill}><span className={s.pillDot}/>{children}</span>}
+function SectionTitle({ kicker, title, body }: { kicker: string, title: string, body?: string }) {return <div className={s.sectionIntro}><span className={s.overline}>{kicker}</span><h2>{title}</h2>{body && <p>{body}</p>}</div>}
+
+export function HomePage({ embedded = false }: { embedded?: boolean }) {
+  return <Shell active="/" embedded={embedded}><div className={s.container}>
+    <section className={s.homeHero}>
+      <div className={s.heroCopy}><Pill>Bilim olimpiyatlarına yeni yaklaşım</Pill><h1>Derin düşün.<br/><span className={s.gradientText}>Gerçekten öğren.</span></h1><p>Fizik, matematik ve diğer bilim olimpiyatları için video çözümlerini, konuları ve hazırlık yolunu tek bir yerde keşfet.</p><div className={s.actions}><Link className={s.primaryButton} href="/video-kutuphanesi">Video kütüphanesini keşfet <Arrow/></Link><Link className={s.secondaryButton} href="/branslar">Branşları incele <Arrow/></Link></div><div className={s.heroMiniLine}><span>01 / Keşfet</span><span>02 / Anla</span><span>03 / Çöz</span></div></div>
+      <div className={s.heroVisual} aria-label="Öğrenme yol haritası örneği"><div className={s.visualTop}><span className={s.visualDot}/><span>ÖĞRENME ROTASI</span><span>OL / 2026</span></div><div className={s.visualStage}><span className={s.visualStep}>01</span><div><small>Başlangıç</small><strong>Temel kavramlar</strong><p>Önce sağlam bir anlayış oluştur.</p></div><span className={s.visualCheck}>✓</span></div><div className={`${s.visualStage} ${s.visualStageActive}`}><span className={s.visualStep}>02</span><div><small>Odak</small><strong>Olimpiyat soruları</strong><p>Yaklaşımı adım adım öğren.</p></div><span className={s.visualLive}>Aktif</span></div><div className={s.visualStage}><span className={s.visualStep}>03</span><div><small>İleri seviye</small><strong>Analitik düşünme</strong><p>Bilgini yeni problemlere aktar.</p></div><span className={s.visualLock}>↗</span></div><div className={s.visualBottom}>Φ(x) <span>Her soruda bir adım ileri</span><span>↗</span></div></div>
+    </section>
+    <section className={s.homeFeatures}><SectionTitle kicker="PLATFORMU KEŞFET" title="Az karmaşa. Daha fazla odak." body="İhtiyacın olan yere hızlıca ulaş; konu, çözüm ve kaynaklar bir arada."/><div className={s.featureGrid}><Link href="/video-kutuphanesi" className={s.featureCard}><span className={s.featureIcon}>▶</span><strong>Video kütüphanesi</strong><p>Ücretsiz içerikler ve Plus çözüm arşivi.</p><span className={s.featureLink}>İçeriklere git <Arrow/></span></Link><Link href="/branslar" className={s.featureCard}><span className={s.featureIcon}>∑</span><strong>Branşları keşfet</strong><p>Bilim alanlarına göre öğrenme rotaları.</p><span className={s.featureLink}>Branşları gör <Arrow/></span></Link><Link href="/fiyatlandirma" className={s.featureCard}><span className={s.featureIcon}>✦</span><strong>Planını belirle</strong><p>Free ile başla, ihtiyaç duydukça genişlet.</p><span className={s.featureLink}>Planları karşılaştır <Arrow/></span></Link></div></section>
+    <section className={s.slimCTA}><div><span className={s.overline}>HAZIRSAN BAŞLAYALIM</span><h2>Bir sonraki soruyu daha iyi çöz.</h2></div><Link className={s.primaryButton} href="/video-kutuphanesi">Kütüphaneye gir <Arrow/></Link></section>
+  </div></Shell>
+}
+
+const FILTERS = ["Tümü", "Fizik", "Kimya", "Proje"] as const;
+type Filter = typeof FILTERS[number];
+type Access = "Tümü" | "Ücretsiz" | "Plus";
+function Thumb({ v, large = false }: { v: VideoItem, large?: boolean }) {
+ const image = v.premium ? "" : `https://i.ytimg.com/vi/${encodeURIComponent(v.id)}/hqdefault.jpg`;
+ return <div className={`${s.thumb} ${large ? s.thumbLarge : ""}`} style={{backgroundImage: v.premium ? "linear-gradient(145deg,#263d63,#0c1c34)" : `linear-gradient(180deg, rgba(4,12,25,.12),rgba(4,12,25,.75)), url("${image}")`}}>
+  {v.premium ? <><span className={s.thumbBlur}/><span className={s.thumbPremium}>✦ PLUS</span><span className={s.thumbLock}>⌁</span></> : <span className={s.playBubble}>▶</span>}
+  <span className={s.thumbDuration}>{v.duration}</span>
+ </div>
+}
+function VideoCard({ v }: { v: VideoItem }) {
+ const content = <><Thumb v={v}/><div className={s.videoBody}><div className={s.videoMeta}><span>{v.branch === "proje" ? "PROJE GELİŞTİRME" : `${v.branch.toUpperCase()} OLİMPİYATI`}</span><span>{v.premium ? "Plus içerik" : "Ücretsiz"}</span></div><h3>{v.title}</h3><div className={s.videoFooter}><span>{v.premium ? "Plus ile keşfet" : "YouTube'da izle"}</span><Arrow diagonal/></div></div></>;
+ return v.premium ? <Link className={s.videoCard} href="/fiyatlandirma" aria-label={`${v.title}, Plus içeriği`}>{content}</Link> : <a className={s.videoCard} href={`https://www.youtube.com/watch?v=${encodeURIComponent(v.id)}`} rel="noopener noreferrer" target="_blank" aria-label={`${v.title}, YouTube'da aç`}>{content}</a>;
+}
+export function VideoLibraryPage({ embedded = false }: { embedded?: boolean }) {
+ const [filter, setFilter] = useState<Filter>("Tümü");
+ const [access, setAccess] = useState<Access>("Tümü");
+ const [query, setQuery] = useState("");
+ const [showAll, setShowAll] = useState(false);
+ const normalized = query.toLocaleLowerCase("tr-TR").trim();
+ const found = useMemo(() => VIDEOS.filter(v => (filter === "Tümü" || v.branch === filter.toLocaleLowerCase("tr-TR")) && (access === "Tümü" || (access === "Plus" ? v.premium : !v.premium)) && (!normalized || v.title.toLocaleLowerCase("tr-TR").includes(normalized))),[filter,access,normalized]);
+ const featured = VIDEOS.find(v => !v.premium) ?? VIDEOS[0];
+ const list = (filter === "Tümü" && access === "Tümü" && !query.trim()) ? found.filter(v=>v.id !== featured.id) : found;
+ const shown = showAll ? list : list.slice(0,6);
+ return <Shell active="/video-kutuphanesi" embedded={embedded}><div className={s.container}>
+  <section className={s.pageHero}><div><Pill>VIDEO KÜTÜPHANESİ</Pill><h1>İzlemenin ötesinde.<br/><span className={s.gradientText}>Anlayarak ilerle.</span></h1><p>Bilim olimpiyatlarına hazırlık, adım adım çözümler ve proje rehberleri. Bir sonraki konuna buradan başla.</p></div><div className={s.heroSideNote}><span>OL / ARŞİV</span><strong>{VIDEOS.length.toString().padStart(2,"0")}</strong><small>Seçili içerik</small><span className={s.sideSmall}>Ücretsiz + Plus</span></div></section>
+  {featured && <section className={s.featuredArea}><div className={s.featuredTop}><span className={s.overline}>ÖNE ÇIKAN</span><span>Başlamak için bir öneri</span></div><div className={s.featuredVideo}><a href={`https://www.youtube.com/watch?v=${featured.id}`} rel="noopener noreferrer" target="_blank" aria-label="Öne çıkan videoyu YouTube'da aç"><Thumb v={featured} large/></a><div className={s.featuredText}><span className={s.categoryTag}>ÜCRETSİZ İÇERİK</span><h2>{featured.title}</h2><p>Olimpiyat hazırlığında ve bilimsel çalışmalarda sağlam bir başlangıç. Videoyu doğrudan YouTube'da izleyebilirsin.</p><a href={`https://www.youtube.com/watch?v=${featured.id}`} className={s.primaryButton} rel="noopener noreferrer" target="_blank">Hemen izle <Arrow diagonal/></a></div></div></section>}
+  <section className={s.librarySection}><div className={s.libraryHeading}><SectionTitle kicker="TÜM İÇERİKLER" title="Arşivi keşfet" body="Konuya veya erişim türüne göre filtrele."/><div className={s.searchBox}><span aria-hidden="true">⌕</span><input value={query} onChange={e=>{setQuery(e.target.value);setShowAll(false);}} placeholder="Video veya konu ara..." aria-label="Video ara"/></div></div><div className={s.filterRow}><div className={s.chipGroup}>{FILTERS.map(f=><button type="button" key={f} className={`${s.chip} ${filter===f ? s.chipSelected : ""}`} onClick={()=>{setFilter(f);setShowAll(false)}}>{f}</button>)}</div><div className={s.chipGroup}>{(["Tümü","Ücretsiz","Plus"] as Access[]).map(f=><button type="button" key={f} className={`${s.chip} ${access===f ? s.chipSelected : ""}`} onClick={()=>{setAccess(f);setShowAll(false)}}>{f === "Plus" ? "✦ Plus" : f}</button>)}</div></div>
+  {shown.length ? <div className={s.videoGrid}>{shown.map((v,i)=><VideoCard key={`${v.title}-${i}`} v={v}/>)}</div> : <div className={s.emptyState}><strong>Bu filtrede video bulunamadı.</strong><p>Başka bir branş veya arama terimi deneyebilirsin.</p><button className={s.secondaryButton} type="button" onClick={()=>{setFilter("Tümü");setAccess("Tümü");setQuery("")}}>Filtreleri temizle</button></div>}
+  {list.length > 6 && <div className={s.moreWrapper}><button type="button" className={s.secondaryButton} onClick={()=>setShowAll(!showAll)}>{showAll ? "Daha az göster" : `Diğer ${list.length - 6} videoyu göster`} <Arrow/></button></div>}
+  </section><section className={s.slimCTA}><div><span className={s.overline}>BİR ADIM İLERİ</span><h2>Plus arşiviyle çalışmanı derinleştir.</h2><p>Plus içerikleri önizlenebilir; erişim için aktif abonelik gerekecektir.</p></div><Link className={s.primaryButton} href="/fiyatlandirma">Planları gör <Arrow/></Link></section>
+ </div></Shell>
+}
+
+const PLANS = [
+ {key:"free", name:"Free", amount:"0", tag:"Başlangıç", description:"Platformu keşfet ve ücretsiz içeriklerden yararlan.", features:["Seçili ücretsiz videolar", "Açık kaynak içerik önizlemeleri", "Branşları keşfet"], href:"/giris?mode=register&plan=free", action:"Ücretsiz başla"},
+ {key:"plus", name:"Plus", amount:"199", tag:"Düzenli hazırlık", description:"Daha kapsamlı video ve çözüm arşiviyle ilerle.", features:["Free planındaki tüm içerikler", "Plus video çözüm arşivi", "PDF notları ve çalışma kaynakları", "Konu odaklı hazırlık"], href:"/odeme?plan=plus", action:"Plus'ı incele"},
+ {key:"pro", name:"Pro", amount:"349", tag:"Derinlemesine", description:"Tüm platform modüllerini tek planda keşfet.", features:["Plus planındaki tüm içerikler", "AI Koç modülü*", "Laboratuvar modülleri*", "Genişletilmiş platform erişimi*"], href:"/odeme?plan=pro", action:"Pro'yu incele"}
+] as const;
+export function PricingPage({ embedded = false }: { embedded?: boolean }) {
+ return <Shell active="/fiyatlandirma" embedded={embedded}><div className={s.container}><section className={s.centerHero}><Pill>FİYATLANDIRMA</Pill><h1>Hedefine uygun<br/><span className={s.gradientText}>planı seç.</span></h1><p>İhtiyacın kadar özellik, anlaşılır planlar. Ücretsiz başla; hazır olduğunda daha fazlasını keşfet.</p></section>
+ <section className={s.pricingGrid}>{PLANS.map(plan=><article key={plan.key} className={`${s.priceCard} ${plan.key==='plus' ? s.priceFeatured : ''}`}>
+ <div className={s.priceTop}><div><span className={s.planEyebrow}>{plan.tag}</span><h2>{plan.name}</h2></div>{plan.key==='plus' && <span className={s.popularBadge}>ÖNE ÇIKAN</span>}</div><p className={s.priceDescription}>{plan.description}</p><div className={s.amount}>₺{plan.amount}<span>/ ay</span></div><Link href={plan.href} className={plan.key==='plus' ? s.primaryButton : s.priceButton}>{plan.action}<Arrow/></Link><div className={s.featureDivider}/><span className={s.featureCaption}>PLANIN İÇERDİKLERİ</span><ul className={s.featureList}>{plan.features.map(f=><li key={f}><span>✓</span>{f}</li>)}</ul>
+ </article>)}</section><p className={s.pricingDisclaimer}>* Belirtilen modüllerin kullanılabilirliği hesabına ve geliştirme aşamasına bağlıdır. Ödeme altyapısı şu anda aktif değildir; plan seçimi ücret tahsil etmez.</p>
+ <section className={s.faqMini}><SectionTitle kicker="MERAK EDİLENLER" title="Kısa cevaplar."/><div className={s.faqItems}><details><summary>Ücretsiz olarak başlayabilir miyim? <span>+</span></summary><p>Evet. Free planı, seçili açık içeriklere ulaşmak için tasarlandı.</p></details><details><summary>Plus ve Pro için hemen ödeme yapabilir miyim? <span>+</span></summary><p>Hayır. Ödeme altyapısı henüz etkinleştirilmedi. Ücretli planlar şu an bilgilendirme amaçlı gösteriliyor.</p></details><details><summary>Planlar arasındaki fark nedir? <span>+</span></summary><p>Plus video ve çalışma arşivine odaklanır. Pro ise geliştirilmekte olan ek platform modüllerini de kapsamak üzere tasarlanmıştır.</p></details></div></section>
+ </div></Shell>
+}
+
+export function CheckoutPage({ plan = "plus", trial = false, embedded = false }: { plan?: string, trial?: boolean, embedded?: boolean }) {
+ const chosen = plan === "pro" ? PLANS[2] : PLANS[1];
+ return <Shell active="/fiyatlandirma" embedded={embedded}><div className={s.container}><section className={s.checkoutHero}><div><Pill>PLAN ÖNİZLEMESİ</Pill><h1>Her şey hazır olduğunda<br/><span className={s.gradientText}>burada buluşacağız.</span></h1><p>Seçtiğin planın ayrıntılarını görebilirsin. Online ödeme sistemi şu anda etkin değil.</p><div className={s.checkoutButtons}><Link href="/fiyatlandirma" className={s.primaryButton}>Planlara dön <Arrow/></Link><Link href="/video-kutuphanesi" className={s.secondaryButton}>Ücretsiz içerikleri keşfet <Arrow/></Link></div></div><div className={s.checkoutCard}><div className={s.checkoutHeading}><span>SEÇİLEN PLAN</span><span className={s.statusTag}>Demo / Ödeme kapalı</span></div><div className={s.checkoutName}><h2>{chosen.name}</h2><div>₺{chosen.amount}<span>/ ay</span></div></div><p>{chosen.description}</p>{trial && <div className={s.trialNote}>7 günlük deneme parametresi algılandı; deneme süresi henüz etkin değil.</div>}<div className={s.featureDivider}/><ul className={s.featureList}>{chosen.features.map(f=><li key={f}><span>✓</span>{f}</li>)}</ul><div className={s.secureNotice}><span>ⓘ</span><div><strong>Şu anda ödeme alınmıyor.</strong><p>Kart bilgisi girişi ve abonelik başlatma bu sayfada kapalıdır.</p></div></div></div></section></div></Shell>
+}

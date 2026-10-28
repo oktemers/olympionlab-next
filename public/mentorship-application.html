@@ -206,16 +206,19 @@
         <a href="/video-kutuphanesi">Video Kütüphanesi</a>
         <a href="/branslar">Branşlar</a>
         <a href="/laboratuvarlar">Olympion Labs</a>
-        <a href="/fiyatlandirma" class="active">Fiyatlandırma</a>
+        <a href="/fiyatlandirma">Fiyatlandırma</a>
         <a href="/sikca-sorulan-sorular">SSS</a>
         <a href="/hakkimizda">Hakkımızda</a>
       </nav>
 
-      <div class="nav-right">
-        <a href="/giris" class="login-bubble">Giriş Yap <span>→</span></a>
+      <div class="nav-right auth-actions">
+        <a href="/giris?mode=register" class="header-register">Kayıt Ol</a>
+        <a href="/giris" class="header-login">Giriş Yap <span aria-hidden="true">→</span></a>
       </div>
 
-      <button class="menu-btn" id="menuBtn" aria-label="Menüyü aç/kapat">☰</button>
+      <button class="menu-btn" id="menuBtn" aria-label="Menüyü aç/kapat">
+        <span></span>
+      </button>
     </div>
 
     <div class="container mobile-menu" id="mobileMenu">
@@ -226,28 +229,28 @@
       <a href="/fiyatlandirma">Fiyatlandırma</a>
       <a href="/sikca-sorulan-sorular">SSS</a>
       <a href="/hakkimizda">Hakkımızda</a>
-      <a href="/giris" class="login-bubble mobile-login">Giriş Yap →</a>
+      <a href="/giris?mode=register" class="mobile-auth-register">Kayıt Ol</a>
+      <a href="/giris" class="mobile-auth-login">Giriş Yap →</a>
     </div>
   </header>
 
   <main class="site-main">
     <section class="page-hero compact">
-      <div class="container narrow-head reveal">
+      <div class="container narrow-head reveal mentor-v5-intro">
         <div class="badge gold">Kişisel Mentörlük</div>
 
         <h1>Hedefine göre çalışma planı oluşturalım.</h1>
 
         <p>
-          Bu form, öğrencinin seviyesini, okul durumunu, hedef branşını ve iletişim bilgilerini
-          toplamak için hazırlanmıştır. Başvurun bize ulaştıktan sonra uygunluk değerlendirmesi yapılır.
+          Bilim olimpiyatları hedefini birlikte planlayalım. Kısaca kendinden ve hedeflerinden bahset; başvurunu inceleyip sana geri dönelim.
         </p>
       </div>
     </section>
 
     <section class="form-section">
-      <div class="container">
+      <div class="container mentor-v5-layout"><aside class="mentor-v5-aside"><span class="badge cyan">NASIL İLERLİYORUZ?</span><h2>Hedefine uygun bir rota.</h2><p>İlk adımda seviyeni ve hedefini öğreniyoruz. Ardından çalışma düzenin için uygun seçenekleri değerlendiriyoruz.</p><div class="mentor-v5-step"><b>01</b><span>Başvurunu paylaş</span></div><div class="mentor-v5-step"><b>02</b><span>Hedef ve seviye değerlendirmesi</span></div><div class="mentor-v5-step"><b>03</b><span>Uygun çalışma planını görüşelim</span></div></aside>
         <form
-          class="mentor-form reveal"
+          class="mentor-form reveal mentor-v5-form"
           id="mentorEmailForm"
           action="https://formsubmit.co/oktemerozan@gmail.com"
           method="POST"
@@ -365,90 +368,106 @@
           </label>
 
           <button class="btn btn-primary" type="submit">
-            Başvuruyu Gönder
+            Başvurumu Gönder →
           </button>
         </form>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <a href="/" class="brand footer-brand">
-          <div class="brand-mark">
-            <img class="brand-logo-img" src="/logo-icon.svg" alt="Olympion logosu" width="42" height="42" />
-          </div>
+  <footer class="site-footer olympion-mobile-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand-block">
+      <a href="/" class="brand footer-brand">
+        <div class="brand-mark">
+          <img class="brand-logo-img" src="/logo-icon.svg" alt="Olympion logosu" width="42" height="42" />
+        </div>
 
-          <div>
-            Olympion
-            <small>Görsel sezgiyle olimpiyat hazırlığı</small>
-          </div>
+        <div>
+          Olympion
+          <small>Premium olimpiyat öğrenme platformu</small>
+        </div>
+      </a>
+
+      <p>
+        Olympion; olimpiyat öğrencileri için video, çalışma rotası, PDF notları,
+        günlük problem ve deneysel öğrenme araçlarını tek çatı altında birleştiren
+        premium öğrenme platformudur.
+      </p>
+
+      <div class="footer-socials" aria-label="Sosyal medya hesapları">
+        <a href="https://www.instagram.com/olympionlabs" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="4" y="4" width="16" height="16" rx="5" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="2"/>
+            <circle cx="17" cy="7" r="1.2" fill="currentColor"/>
+          </svg>
         </a>
 
-        <p>
-          Olympion; olimpiyat öğrencileri için video, çalışma rotası, PDF notları,
-          günlük problem ve deneysel öğrenme araçlarını tek çatı altında birleştiren
-          premium öğrenme platformudur.
-        </p>
-
-        <div class="payment-logos" aria-label="Ödeme yöntemleri">
-          <span class="pay-logo visa">
-            <svg viewBox="0 0 96 32" role="img" aria-label="Visa">
-              <text x="48" y="18" text-anchor="middle">VISA</text>
-            </svg>
-          </span>
-
-          <span class="pay-logo mc">
-            <svg viewBox="0 0 96 32" role="img" aria-label="Mastercard">
-              <circle cx="40" cy="16" r="10"></circle>
-              <circle cx="56" cy="16" r="10"></circle>
-            </svg>
-          </span>
-
-          <span class="pay-logo troy">
-            <svg viewBox="0 0 96 32" role="img" aria-label="TROY">
-              <text x="48" y="18" text-anchor="middle">TROY</text>
-            </svg>
-          </span>
-
-          <span class="pay-logo iyzico">
-            <svg viewBox="0 0 110 32" role="img" aria-label="iyzico">
-              <text x="55" y="18" text-anchor="middle">iyzico</text>
-            </svg>
-          </span>
-        </div>
-      </div>
-
-      <div>
-        <h4>Platform</h4>
-        <a href="/video-kutuphanesi">Video Kütüphanesi</a>
-        <a href="/laboratuvarlar">Olympion Labs</a>
-        <a href="/fiyatlandirma">Fiyatlandırma</a>
-        <a href="/soru">Günün Problemi</a>
-      </div>
-
-      <div>
-        <h4>Kurumsal</h4>
-        <a href="/hakkimizda">Hakkımızda</a>
-        <a href="/sikca-sorulan-sorular">SSS</a>
-        <a href="mailto:oktemerozan@gmail.com">İletişim</a>
-        <a href="/mentorluk-basvurusu">Mentörlük Başvurusu</a>
-      </div>
-
-      <div>
-        <h4>Yasal</h4>
-        <a href="/gizlilik-politikasi">Gizlilik Politikası</a>
-        <a href="/kullanim-kosullari">Kullanım Şartları</a>
-        <a href="/kvkk">KVKK Aydınlatma Metni</a>
+        <a href="https://www.youtube.com/@oktemer" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="6" width="18" height="12" rx="4" stroke="currentColor" stroke-width="2"/>
+            <path d="M10 9.5L15 12L10 14.5V9.5Z" fill="currentColor"/>
+          </svg>
+        </a>
       </div>
     </div>
 
-    <div class="container footer-bottom">
-      <span>© Olympion 2026. Tüm hakları saklıdır.</span>
-      <span>Premium olimpiyat öğrenme deneyimi</span>
+    <div class="footer-column">
+      <h4>Platform</h4>
+      <a href="/video-kutuphanesi">Video Kütüphanesi</a>
+      <a href="/branslar">Branşlar</a>
+      <a href="/laboratuvarlar">Olympion Labs</a>
+      <a href="/fiyatlandirma">Fiyatlandırma</a>
     </div>
-  </footer>
+
+    <div class="footer-column">
+      <h4>Kurumsal</h4>
+      <a href="/hakkimizda">Hakkımızda</a>
+      <a href="/biz-kimiz">Biz Kimiz?</a>
+      <a href="/yonetim-kurulu">Yönetim Kurulu</a>
+      <a href="/organizasyon-semasi">Organizasyon Şeması</a>
+    </div>
+
+    <div class="footer-column">
+      <h4>Destek</h4>
+      <a href="/sikca-sorulan-sorular">SSS</a>
+      <a href="mailto:oktemerozan@gmail.com">İletişim</a>
+      <a href="/mentorluk-basvurusu">Mentörlük Başvurusu</a>
+      <a href="/giris">Giriş Yap</a>
+    </div>
+<div class="footer-column footer-legal-mobile">
+  <h4>Yasal</h4>
+  <a href="/kullanim-kosullari">Kullanım Şartları</a>
+  <a href="/gizlilik-politikasi">Gizlilik Politikası</a>
+  <a href="/kvkk">KVKK</a>
+  <a href="sitemap.xml">Site Haritası</a>
+</div>
+    
+  </div>
+
+  <div class="container footer-legal-row">
+    <a href="/kullanim-kosullari">Kullanım Şartları</a>
+    <a href="/gizlilik-politikasi">Gizlilik Politikası</a>
+    <a href="/kvkk">KVKK</a>
+    <a href="sitemap.xml">Site Haritası</a>
+  </div>
+
+  <div class="container footer-payment-row" aria-label="Ödeme yöntemleri">
+    <span class="payment-mini visa">VISA</span>
+    <span class="payment-mini mastercard">
+      <i></i><i></i>
+    </span>
+    <span class="payment-mini troy">troy</span>
+    <span class="payment-mini secure">3D SECURE</span>
+    <span class="payment-mini iyzico">iyzico</span>
+  </div>
+
+  <div class="container footer-bottom">
+    <span>© 2026 Olympion. Tüm hakları saklıdır.</span>
+    <span>Premium olimpiyat öğrenme deneyimi</span>
+  </div>
+</footer>
 
   <script>
     document.addEventListener(

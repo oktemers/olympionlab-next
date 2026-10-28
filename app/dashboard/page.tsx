@@ -456,8 +456,8 @@ export default async function DashboardPage() {
               </div>
             </div>
 
-            <div className="app-grid">
-              <section className="app-panel wide activity-panel">
+            <div className="app-grid dashboard-v9-grid">
+              <section className="app-panel wide activity-panel dashboard-v9-activity">
                 <div className="panel-head">
                   <div>
                     <h2>Haftalık çalışma ritmi</h2>
@@ -526,7 +526,7 @@ export default async function DashboardPage() {
                 </div>
               </section>
 
-              <section className="app-panel">
+              <section className="app-panel dashboard-v9-problem">
                 <div className="panel-head">
                   <h2>Günün Problemi</h2>
                   <a href="/daily-problem.html">Aç</a>
@@ -543,9 +543,9 @@ export default async function DashboardPage() {
                 </div>
               </section>
 
-              <section className="app-panel">
+              <section className="app-panel dashboard-v9-pdf">
                 <div className="panel-head">
-                  <h2>PDF</h2>
+                  <h2>PDF Notları</h2>
                   <a href="/notes.html">Tüm notlar</a>
                 </div>
 
@@ -568,66 +568,32 @@ export default async function DashboardPage() {
                 )}
               </section>
 
-              <section className="app-panel wide">
+              <section className="app-panel wide dashboard-v9-lessons-panel">
                 <div className="panel-head">
                   <h2>Devam etmen gereken dersler</h2>
                   <a href="/courses">Dersler</a>
                 </div>
 
-                <div id="dashVideoGrid" className="video-grid mini-video-grid">
+                <div id="dashVideoGrid" className="dashboard-v9-lesson-list">
                   {recommendedModules.length > 0 ? (
                     recommendedModules.map((module) => {
                       const progress = progressMap.get(module.id);
                       const percent = Number(progress?.progress_percent || 0);
-
-                      return (
-                        <a
-                          key={module.id}
-                          className="video-card"
-                          href="/courses"
-                        >
-                          <div className="thumb">
-                            <div className="thumb-fallback">
-                              {getModuleIcon(module.type)}
-                              <br />
-                              <small>{moduleTypeLabels[module.type]}</small>
-                            </div>
-
-                            <div className="play">▶</div>
-
-                            <div className="duration">
-                              {module.estimated_minutes} dk
-                            </div>
-                          </div>
-
-                          <div className="video-body">
-                            <span className="mini-tag">
-                              {branch} • {moduleTypeLabels[module.type]} • %
-                              {percent}
-                            </span>
-
-                            <h3>{module.title}</h3>
-
-                            <p>
-                              {module.description ||
-                                "Bu modül rotana göre önerildi."}
-                            </p>
-                          </div>
-                        </a>
-                      );
+                      return <a href={module.href?.startsWith("/")&&!module.href.startsWith("//")?module.href:"/kurslar"} key={module.id} className="dashboard-v9-lesson-item">
+                        <span className="dashboard-v9-lesson-icon" aria-hidden="true">{getModuleIcon(module.type)}</span>
+                        <span className="dashboard-v9-lesson-text">
+                          <small>{branch} · {moduleTypeLabels[module.type]} · {module.estimated_minutes} dk</small>
+                          <strong>{module.title}</strong>
+                          <span className="dashboard-v9-lesson-progress"><i style={{width:Math.min(100,Math.max(0,percent))+"%"}} /></span>
+                        </span>
+                        <span className="dashboard-v9-lesson-arrow" aria-hidden="true">↗</span>
+                      </a>;
                     })
                   ) : (
                     <div className="empty-dashboard-state">
-                      <strong>
-                        {hasRouteSetup
-                          ? "Henüz bu branş için rota içeriği yok."
-                          : "Önce kişisel rotanı oluştur."}
-                      </strong>
-                      <p>
-                        {hasRouteSetup
-                          ? "Supabase course_sections ve lesson_videos tablolarına bu branş için içerik ekle."
-                          : "Branşını seçince derslerin burada listelenecek."}
-                      </p>
+                      <strong>{hasRouteSetup?"Bu branşta henüz önerilen modül yok.":"Önce kişisel rotanı oluştur."}</strong>
+                      <p>{hasRouteSetup?"Dersler sayfasından mevcut içerikleri keşfedebilirsin.":"Branşını seçince derslerin burada listelenecek."}</p>
+                      <a href={hasRouteSetup?"/kurslar":"/rota/adim/1"}>Devam et →</a>
                     </div>
                   )}
                 </div>

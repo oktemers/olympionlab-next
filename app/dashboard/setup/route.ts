@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
   if (!supabaseUrl || !serviceRoleKey) {
     return NextResponse.redirect(
       new URL(
-        "/dashboard?setup_error=SUPABASE_SERVICE_ROLE_KEY%20veya%20NEXT_PUBLIC_SUPABASE_URL%20eksik.",
+        "/rota/adim/1?error=Sunucu%20yap%C4%B1land%C4%B1rmas%C4%B1%20eksik.",
         request.url
       ),
       { status: 303 }
@@ -43,6 +43,9 @@ export async function POST(request: NextRequest) {
     formData.get("goal") || "Bilim olimpiyatlarına düzenli hazırlanmak"
   );
 
+  // Only the trusted roadmap step-2 destination can override the default dashboard redirect.
+  const redirectToStepTwo = formData.get("next") === "/rota/adim/2";
+  const failureDestination = redirectToStepTwo ? "/rota/adim/1" : "/dashboard";
   const allowedBranches = ["math", "physics", "chemistry", "biology"];
   const allowedLevels = ["beginner", "intermediate", "advanced"];
 
@@ -80,7 +83,7 @@ export async function POST(request: NextRequest) {
   if (profileError) {
     return NextResponse.redirect(
       new URL(
-        `/dashboard?setup_error=${encodeURIComponent(profileError.message)}`,
+        `${failureDestination}?${redirectToStepTwo ? "error" : "setup_error"}=${encodeURIComponent(profileError.message)}`,
         request.url
       ),
       { status: 303 }
@@ -113,14 +116,14 @@ export async function POST(request: NextRequest) {
   if (routeError) {
     return NextResponse.redirect(
       new URL(
-        `/dashboard?setup_error=${encodeURIComponent(routeError.message)}`,
+        `${failureDestination}?${redirectToStepTwo ? "error" : "setup_error"}=${encodeURIComponent(routeError.message)}`,
         request.url
       ),
       { status: 303 }
     );
   }
 
-  return NextResponse.redirect(new URL("/dashboard?setup=success", request.url), {
+  return NextResponse.redirect(new URL(redirectToStepTwo ? "/rota/adim/2?saved=1" : "/dashboard?setup=success", request.url), {
     status: 303,
   });
 }

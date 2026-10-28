@@ -9,7 +9,7 @@ export default async function AdminPage() {
   const { data: videos } = await supabase.from("videos").select("*").order("created_at", { ascending: false }).limit(20);
 
   return (
-    <div className="app-shell">
+    <><link rel="stylesheet" href="/style.css"/><div className="app-page"><div className="app-shell">
       <Sidebar active="admin" />
       <main className="main">
         <span className="badge">Admin</span>
@@ -40,6 +40,6 @@ export default async function AdminPage() {
           </section>
         </div>
       </main>
-    </div>
+    </div></div></>
   );
 }

@@ -533,6 +533,7 @@
 
   </style>
 <link rel="stylesheet" href="/home-v10.css" />
+<link rel="stylesheet" href="/home-v11-mobile.css" />
 </head>
 
 <body class="public-page">
@@ -698,10 +699,15 @@
     <section class="h10-section h10-pricing" id="planlar">
       <div class="container">
         <div class="h10-section-head reveal"><div><span class="h10-kicker">ÇALIŞMANA UYGUN PLAN</span><h2>İhtiyacın kadar içerik, <em>hedefin kadar ilerleme.</em></h2></div><p>Önce ücretsiz içerikleri keşfet, hazırlığın ilerledikçe sana uygun üyeliği seç.</p></div>
+        <div class="h11-mobile-pricing-tabs" role="tablist" aria-label="Üyelik planını seç">
+          <button type="button" role="tab" id="h11-tab-free" aria-controls="h11-plan-free" aria-selected="false" tabindex="-1" data-h11-choice="free"><span>Free</span><small>₺0</small></button>
+          <button type="button" role="tab" id="h11-tab-plus" aria-controls="h11-plan-plus" aria-selected="true" tabindex="0" class="is-active" data-h11-choice="plus"><span>Plus</span><small>₺349</small></button>
+          <button type="button" role="tab" id="h11-tab-pro" aria-controls="h11-plan-pro" aria-selected="false" tabindex="-1" data-h11-choice="pro"><span>Pro</span><small>₺649</small></button>
+        </div>
         <div class="h10-price-grid">
-          <article class="h10-price reveal"><span class="h10-price-label">BAŞLANGIÇ</span><h3>Free</h3><div class="h10-price-amount">₺0 <small>/ay</small></div><p>Platformu tanımak ve hazırlığa ilk adımı atmak için.</p><ul><li>Ücretsiz video seçkisi</li><li>Temel çalışma araçları</li><li>Branşlara giriş</li></ul><a href="/odeme?plan=free" class="h10-btn h10-btn-outline">Ücretsiz başla →</a></article>
-          <article class="h10-price h10-featured reveal"><span class="h10-price-popular">EN ÇOK KEŞFEDİLEN</span><span class="h10-price-label">DERİNLEŞME</span><h3>Plus</h3><div class="h10-price-amount">₺349 <small>/ay</small></div><p>Olimpiyat soru çözümleri ve daha kapsamlı çalışma kaynakları.</p><ul><li>Ücretsiz içeriklerin tamamı</li><li>Plus video çözüm arşivi</li><li>PDF notları ve kaynaklar</li></ul><a href="/odeme?plan=plus&trial=1" class="h10-btn h10-btn-primary">Plus'ı incele →</a></article>
-          <article class="h10-price reveal"><span class="h10-price-label">TAM DENEYİM</span><h3>Pro</h3><div class="h10-price-amount">₺649 <small>/ay</small></div><p>Premium içeriklere ve ileri araçlara bütüncül erişim için.</p><ul><li>Plus planının tamamı</li><li>Gelişmiş Labs önizlemeleri</li><li>AI Koç ve ek çalışma araçları</li></ul><a href="/odeme?plan=pro&trial=1" class="h10-btn h10-btn-outline">Pro'yu incele →</a></article>
+          <article class="h10-price reveal" id="h11-plan-free" data-h11-plan="free" role="tabpanel" aria-labelledby="h11-tab-free"><span class="h10-price-label">BAŞLANGIÇ</span><h3>Free</h3><div class="h10-price-amount">₺0 <small>/ay</small></div><p>Platformu tanımak ve hazırlığa ilk adımı atmak için.</p><ul><li>Ücretsiz video seçkisi</li><li>Temel çalışma araçları</li><li>Branşlara giriş</li></ul><a href="/odeme?plan=free" class="h10-btn h10-btn-outline">Ücretsiz başla →</a></article>
+          <article class="h10-price h10-featured reveal is-active-mobile" id="h11-plan-plus" data-h11-plan="plus" role="tabpanel" aria-labelledby="h11-tab-plus"><span class="h10-price-popular">EN ÇOK KEŞFEDİLEN</span><span class="h10-price-label">DERİNLEŞME</span><h3>Plus</h3><div class="h10-price-amount">₺349 <small>/ay</small></div><p>Olimpiyat soru çözümleri ve daha kapsamlı çalışma kaynakları.</p><ul><li>Ücretsiz içeriklerin tamamı</li><li>Plus video çözüm arşivi</li><li>PDF notları ve kaynaklar</li></ul><a href="/odeme?plan=plus&trial=1" class="h10-btn h10-btn-primary">Plus'ı incele →</a></article>
+          <article class="h10-price reveal" id="h11-plan-pro" data-h11-plan="pro" role="tabpanel" aria-labelledby="h11-tab-pro"><span class="h10-price-label">TAM DENEYİM</span><h3>Pro</h3><div class="h10-price-amount">₺649 <small>/ay</small></div><p>Premium içeriklere ve ileri araçlara bütüncül erişim için.</p><ul><li>Plus planının tamamı</li><li>Gelişmiş Labs önizlemeleri</li><li>AI Koç ve ek çalışma araçları</li></ul><a href="/odeme?plan=pro&trial=1" class="h10-btn h10-btn-outline">Pro'yu incele →</a></article>
         </div>
         <p class="h10-pricing-footnote">Plus ve Pro planlarının 1 günlük deneme seçeneğiyle ilgili ayrıntıları plan sayfasında görebilirsin.</p>
       </div>
@@ -812,5 +818,6 @@
 
   <script src="script.js"></script>
 <script src="/home-v10.js" defer></script>
+<script src="/home-v11-mobile.js" defer></script>
 </body>
 </html>

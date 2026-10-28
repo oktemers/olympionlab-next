@@ -1,0 +1,47 @@
+/* Olympion V11 — smartphone/tablet homepage changes ONLY.
+   Desktop ≥961px intentionally untouched. */
+.h11-mobile-pricing-tabs{display:none}
+@media(max-width:960px){
+  /* Make the scientific illustration the first thing students see on phones. */
+  .home-v10 .h10-hero-grid{display:flex!important;flex-direction:column!important;gap:19px!important;align-items:stretch!important}
+  .home-v10 .h10-hero-display{order:0!important;width:100%!important;max-width:560px!important;align-self:center!important;opacity:1!important;transform:none!important;visibility:visible!important}
+  .home-v10 .h10-hero-copy{order:1!important;width:100%!important}
+  .home-v10 .h10-display-scene{min-height:0!important}
+  .home-v10 .h10-hero{padding-top:22px!important}
+}
+@media(max-width:600px){
+  .home-v10 .h10-hero{padding:17px 0 27px!important}
+  .home-v10 .h10-hero-grid{gap:18px!important}
+  .home-v10 .h10-hero-display{max-width:100%!important;min-height:0!important;border-radius:19px!important;box-shadow:0 18px 46px rgba(3,11,24,.23)!important}
+  .home-v10 .h10-display-top{height:37px!important;padding:0 13px!important}
+  .home-v10 .h10-orbit-svg{width:100%!important;height:auto!important;max-height:248px!important;min-height:0!important}
+  .home-v10 .h10-display-bottom{padding:10px 14px!important;font-size:9px!important}
+  .home-v10 .h10-floating-chip{font-size:9px!important;padding:7px 8px!important}
+  .home-v10 .h10-hero h1{margin:13px 0 13px!important;font-size:clamp(35px,9.6vw,44px)!important;line-height:1.085!important;letter-spacing:-.056em!important}
+  .home-v10 .h10-eyebrow{font-size:9px!important;padding:7px 10px!important}
+  .home-v10 .h10-hero-copy>p{font-size:14px!important;line-height:1.64!important}
+  .home-v10 .h10-actions{margin:18px 0 15px!important}
+  .home-v10 .h10-hero-proof{gap:7px!important}
+  /* One-price-card selector: the existing cards remain untouched on desktop. */
+  .home-v10 .h11-mobile-pricing-tabs{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:5px!important;background:#0a1d2f!important;padding:5px!important;border-radius:15px!important;border:1px solid rgba(124,242,255,.16)!important;margin:0 0 13px!important;max-width:100%!important}
+  .home-v10 .h11-mobile-pricing-tabs button{display:flex!important;align-items:center!important;justify-content:center!important;gap:4px!important;flex-direction:column!important;min-height:55px!important;border-radius:11px!important;color:#c5dbee!important;font-family:inherit!important;background:transparent!important;border:1px solid transparent!important;cursor:pointer!important;padding:8px 6px!important;transition:background .2s ease,color .2s ease,border-color .2s ease!important}
+  .home-v10 .h11-mobile-pricing-tabs button span{font-weight:850!important;font-size:14px!important;line-height:1.2!important}
+  .home-v10 .h11-mobile-pricing-tabs button small{color:#8facbd!important;font-size:10px!important;font-weight:750!important;line-height:1.2!important}
+  .home-v10 .h11-mobile-pricing-tabs button.is-active{background:linear-gradient(120deg,#76e7f2,#85b7ff)!important;border-color:rgba(188,239,255,.44)!important;color:#071b2c!important;box-shadow:0 6px 18px rgba(88,165,224,.15)!important}
+  .home-v10 .h11-mobile-pricing-tabs button.is-active small{color:#11324a!important}
+  .home-v10 .h11-mobile-pricing-tabs button:focus-visible{outline:2px solid #fff!important;outline-offset:2px!important}
+  .home-v10 .h10-pricing .h10-price-grid{display:block!important;grid-template-columns:none!important;width:100%!important}
+  .home-v10 .h10-pricing .h10-price-grid>.h10-price{display:none!important;max-width:100%!important;min-height:0!important}
+  .home-v10 .h10-pricing .h10-price-grid>.h10-price.is-active-mobile{display:flex!important;opacity:1!important;visibility:visible!important;transform:none!important;animation:h11CardIn .28s ease-out both!important}
+  .home-v10 .h10-pricing .h10-price-grid>.h10-price h3{margin:12px 0 3px!important}
+  .home-v10 .h10-pricing .h10-price-grid>.h10-price ul{padding:13px 0 17px!important;margin:0 0 13px!important}
+  .home-v10 .h10-pricing .h10-price-grid>.h10-price>p{margin:7px 0 12px!important}
+  .home-v10 .h10-pricing .h10-price-grid>.h10-price{padding:23px 22px!important;border-radius:19px!important}
+  .home-v10 .h10-pricing .h10-price-grid>.h10-price .h10-btn{min-height:49px!important}
+  .home-v10 .h10-pricing-footnote{font-size:11px!important;line-height:1.5!important}
+}
+@keyframes h11CardIn{from{opacity:.35;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){
+  .home-v10 .h10-pricing .h10-price-grid>.h10-price.is-active-mobile{animation:none!important}
+  .home-v10 .h11-mobile-pricing-tabs button{transition:none!important}
+}

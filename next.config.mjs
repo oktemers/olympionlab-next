@@ -13,6 +13,10 @@ const nextConfig = {
 
   async rewrites() {
     return [
+      { source: '/branslar/fizik', destination: '/branslar/fizik.html' },
+      { source: '/branslar/kimya', destination: '/branslar/kimya.html' },
+      { source: '/branslar/matematik', destination: '/branslar/matematik.html' },
+      { source: '/branslar/biyoloji', destination: '/branslar/biyoloji.html' },
       {
         source: '/ozan-oktemer',
         destination: '/yonetim-kurulu-detay.html?member=kurucu',

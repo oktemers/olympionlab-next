@@ -4261,30 +4261,56 @@ body.public-page .home-mentor-section{padding:16px 0 44px}
 
 
 /* Olympion V9 — balanced student dashboard, no empty PDF column */
-body.app-page .dashboard-v9-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-areas:"activity activity" "problem pdf" "lessons lessons"!important;grid-auto-rows:min-content!important;align-items:start!important;gap:14px!important;min-width:0!important}
-body.app-page .dashboard-v9-grid>section{grid-column:auto!important;grid-row:auto!important;min-width:0!important;height:auto!important;min-height:0!important;align-self:start!important;margin:0!important}
-body.app-page .dashboard-v9-grid .dashboard-v9-activity{grid-area:activity!important}
-body.app-page .dashboard-v9-grid .dashboard-v9-problem{grid-area:problem!important}
-body.app-page .dashboard-v9-grid .dashboard-v9-pdf{grid-area:pdf!important}
-body.app-page .dashboard-v9-grid .dashboard-v9-lessons-panel{grid-area:lessons!important}
-body.app-page .dashboard-v9-grid .dashboard-v9-problem,body.app-page .dashboard-v9-grid .dashboard-v9-pdf{padding:22px 24px!important;min-height:0!important}
-body.app-page .dashboard-v9-grid .dashboard-v9-pdf .note-mini{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;padding:14px!important;border-radius:12px!important;margin:8px 0 0!important;background:rgba(124,242,255,.04)!important;min-height:0!important}
-body.app-page .dashboard-v9-grid .dashboard-v9-pdf .note-mini span{font-size:12px;color:#9db5c8;white-space:nowrap}
-body.app-page .dashboard-v9-grid .dashboard-v9-pdf .note-mini strong{font-size:13px!important;text-align:right;overflow-wrap:anywhere}
-body.app-page .dashboard-v9-grid .dashboard-v9-lessons-panel{padding:24px!important}
-body.app-page .dashboard-v9-lesson-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;min-width:0!important}
-body.app-page .dashboard-v9-lesson-list .dashboard-v9-lesson-item{display:flex!important;align-items:center!important;gap:15px!important;min-width:0!important;min-height:104px!important;padding:16px!important;border:1px solid rgba(124,242,255,.16)!important;border-radius:16px!important;background:linear-gradient(125deg,#13293e,#0d1b2e)!important;color:#effbff!important;text-decoration:none!important;transition:transform .18s,border-color .18s!important}
-body.app-page .dashboard-v9-lesson-item:hover{transform:translateY(-2px)!important;border-color:rgba(124,242,255,.46)!important}
-body.app-page .dashboard-v9-lesson-icon{display:grid;place-items:center;flex:0 0 58px;width:58px;height:63px;border-radius:13px;background:radial-gradient(circle at 40% 25%,rgba(124,242,255,.2),rgba(78,123,197,.08));border:1px solid rgba(124,242,255,.15);font-size:23px}
-body.app-page .dashboard-v9-lesson-text{display:flex;flex:1;min-width:0;flex-direction:column;gap:6px!important}
-body.app-page .dashboard-v9-lesson-text small{font-size:11px!important;line-height:1.4!important;color:#83d9eb!important;letter-spacing:.02em}
-body.app-page .dashboard-v9-lesson-text strong{font-size:15px!important;line-height:1.35!important;color:#f1faff!important;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden}
-body.app-page .dashboard-v9-lesson-progress{height:5px!important;background:rgba(124,242,255,.11)!important;border-radius:99px!important;overflow:hidden!important;margin:2px 0 0!important}
-body.app-page .dashboard-v9-lesson-progress i{display:block;height:100%;background:linear-gradient(90deg,#72e8f2,#90aaff);border-radius:99px}
-body.app-page .dashboard-v9-lesson-arrow{flex:0 0 auto;align-self:center;font-size:17px;color:#8fe7f3}
-body.app-page .dashboard-v9-lessons-panel .panel-head{margin-bottom:17px!important}
-body.app-page .dashboard-v9-lessons-panel .panel-head h2{font-size:21px!important}
-body.app-page .dashboard-v9-grid .activity-panel{min-height:0!important}
-@media(max-width:920px){body.app-page .dashboard-v9-lesson-list{grid-template-columns:1fr!important}}
-@media(max-width:700px){body.app-page .dashboard-v9-grid{grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"activity" "problem" "pdf" "lessons"!important;gap:11px!important}body.app-page .dashboard-v9-grid .dashboard-v9-lessons-panel,body.app-page .dashboard-v9-grid .dashboard-v9-pdf,body.app-page .dashboard-v9-grid .dashboard-v9-problem{padding:18px!important}body.app-page .dashboard-v9-lesson-list{grid-template-columns:1fr!important}body.app-page .dashboard-v9-lesson-list .dashboard-v9-lesson-item{min-height:90px!important;padding:13px!important;gap:12px!important}body.app-page .dashboard-v9-lesson-icon{flex-basis:48px;width:48px;height:54px}body.app-page .dashboard-v9-lesson-text strong{font-size:14px!important}}
-@media(prefers-reduced-motion:reduce){body.app-page .dashboard-v9-lesson-item{transition:none!important}body.app-page .dashboard-v9-lesson-item:hover{transform:none!important}}
+.app-page .dashboard-v9-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-areas:"activity activity" "problem pdf" "lessons lessons"!important;grid-auto-rows:min-content!important;align-items:start!important;gap:14px!important;min-width:0!important}
+.app-page .dashboard-v9-grid>section{grid-column:auto!important;grid-row:auto!important;min-width:0!important;height:auto!important;min-height:0!important;align-self:start!important;margin:0!important}
+.app-page .dashboard-v9-grid .dashboard-v9-activity{grid-area:activity!important}
+.app-page .dashboard-v9-grid .dashboard-v9-problem{grid-area:problem!important}
+.app-page .dashboard-v9-grid .dashboard-v9-pdf{grid-area:pdf!important}
+.app-page .dashboard-v9-grid .dashboard-v9-lessons-panel{grid-area:lessons!important}
+.app-page .dashboard-v9-grid .dashboard-v9-problem,.app-page .dashboard-v9-grid .dashboard-v9-pdf{padding:22px 24px!important;min-height:0!important}
+.app-page .dashboard-v9-grid .dashboard-v9-pdf .note-mini{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;padding:14px!important;border-radius:12px!important;margin:8px 0 0!important;background:rgba(124,242,255,.04)!important;min-height:0!important}
+.app-page .dashboard-v9-grid .dashboard-v9-pdf .note-mini span{font-size:12px;color:#9db5c8;white-space:nowrap}
+.app-page .dashboard-v9-grid .dashboard-v9-pdf .note-mini strong{font-size:13px!important;text-align:right;overflow-wrap:anywhere}
+.app-page .dashboard-v9-grid .dashboard-v9-lessons-panel{padding:24px!important}
+.app-page .dashboard-v9-lesson-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;min-width:0!important}
+.app-page .dashboard-v9-lesson-list .dashboard-v9-lesson-item{display:flex!important;align-items:center!important;gap:15px!important;min-width:0!important;min-height:104px!important;padding:16px!important;border:1px solid rgba(124,242,255,.16)!important;border-radius:16px!important;background:linear-gradient(125deg,#13293e,#0d1b2e)!important;color:#effbff!important;text-decoration:none!important;transition:transform .18s,border-color .18s!important}
+.app-page .dashboard-v9-lesson-item:hover{transform:translateY(-2px)!important;border-color:rgba(124,242,255,.46)!important}
+.app-page .dashboard-v9-lesson-icon{display:grid;place-items:center;flex:0 0 58px;width:58px;height:63px;border-radius:13px;background:radial-gradient(circle at 40% 25%,rgba(124,242,255,.2),rgba(78,123,197,.08));border:1px solid rgba(124,242,255,.15);font-size:23px}
+.app-page .dashboard-v9-lesson-text{display:flex;flex:1;min-width:0;flex-direction:column;gap:6px!important}
+.app-page .dashboard-v9-lesson-text small{font-size:11px!important;line-height:1.4!important;color:#83d9eb!important;letter-spacing:.02em}
+.app-page .dashboard-v9-lesson-text strong{font-size:15px!important;line-height:1.35!important;color:#f1faff!important;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden}
+.app-page .dashboard-v9-lesson-progress{height:5px!important;background:rgba(124,242,255,.11)!important;border-radius:99px!important;overflow:hidden!important;margin:2px 0 0!important}
+.app-page .dashboard-v9-lesson-progress i{display:block;height:100%;background:linear-gradient(90deg,#72e8f2,#90aaff);border-radius:99px}
+.app-page .dashboard-v9-lesson-arrow{flex:0 0 auto;align-self:center;font-size:17px;color:#8fe7f3}
+.app-page .dashboard-v9-lessons-panel .panel-head{margin-bottom:17px!important}
+.app-page .dashboard-v9-lessons-panel .panel-head h2{font-size:21px!important}
+.app-page .dashboard-v9-grid .activity-panel{min-height:0!important}
+@media(max-width:920px){.app-page .dashboard-v9-lesson-list{grid-template-columns:1fr!important}}
+@media(max-width:700px){.app-page .dashboard-v9-grid{grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"activity" "problem" "pdf" "lessons"!important;gap:11px!important}.app-page .dashboard-v9-grid .dashboard-v9-lessons-panel,.app-page .dashboard-v9-grid .dashboard-v9-pdf,.app-page .dashboard-v9-grid .dashboard-v9-problem{padding:18px!important}.app-page .dashboard-v9-lesson-list{grid-template-columns:1fr!important}.app-page .dashboard-v9-lesson-list .dashboard-v9-lesson-item{min-height:90px!important;padding:13px!important;gap:12px!important}.app-page .dashboard-v9-lesson-icon{flex-basis:48px;width:48px;height:54px}.app-page .dashboard-v9-lesson-text strong{font-size:14px!important}}
+@media(prefers-reduced-motion:reduce){.app-page .dashboard-v9-lesson-item{transition:none!important}.app-page .dashboard-v9-lesson-item:hover{transform:none!important}}
+
+
+/* V10 — scope dashboard styles to Next's <div class="app-page"> as well as HTML body */
+.app-page .dashboard-v9-grid{display:grid!important;grid-template-areas:"activity activity" "problem pdf" "lessons lessons"!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-rows:max-content!important;align-items:start!important}
+.app-page .dashboard-v9-grid .dashboard-v9-lessons-panel{grid-area:lessons!important;min-height:0!important;height:auto!important}
+.app-page .dashboard-v9-lesson-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;width:100%!important;min-width:0!important;max-width:100%!important;align-items:stretch!important}
+.app-page .dashboard-v9-lesson-list>a.dashboard-v9-lesson-item{display:flex!important;align-items:center!important;gap:14px!important;min-width:0!important;width:100%!important;min-height:99px!important;max-width:none!important;padding:15px!important;white-space:normal!important;overflow:hidden!important;border-radius:16px!important;border:1px solid rgba(124,242,255,.16)!important;background:linear-gradient(130deg,#12293e,#0c1a2e)!important}
+.app-page .dashboard-v9-lesson-list .dashboard-v9-lesson-text{display:flex!important;min-width:0!important;flex:1 1 auto!important;flex-direction:column!important;align-items:stretch!important;gap:6px!important;overflow:hidden!important}
+.app-page .dashboard-v9-lesson-list .dashboard-v9-lesson-text strong{display:-webkit-box!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:2!important;line-clamp:2!important;overflow:hidden!important;white-space:normal!important;line-height:1.35!important;font-size:14px!important;overflow-wrap:anywhere!important}
+.app-page .dashboard-v9-lesson-list .dashboard-v9-lesson-text small{display:block!important;white-space:normal!important;font-size:11px!important;line-height:1.35!important;color:#8bddf1!important;overflow-wrap:anywhere!important}
+.app-page .dashboard-v9-lesson-list .dashboard-v9-lesson-icon{flex:0 0 54px!important;width:54px!important;height:58px!important;font-size:21px!important}
+.app-page .dashboard-v9-lesson-list .dashboard-v9-lesson-progress{display:block!important;width:100%!important;flex:0 0 5px!important;margin-top:2px!important}
+.app-page .dashboard-v9-lesson-list .dashboard-v9-lesson-arrow{flex:0 0 auto!important;color:#92e8f4!important}
+.app-page .dashboard-v9-grid .dashboard-v9-pdf,.app-page .dashboard-v9-grid .dashboard-v9-problem{min-height:0!important;height:auto!important}
+@media(max-width:960px){.app-page .dashboard-v9-lesson-list{grid-template-columns:minmax(0,1fr)!important}}
+@media(max-width:700px){.app-page .dashboard-v9-grid{grid-template-areas:"activity" "problem" "pdf" "lessons"!important;grid-template-columns:minmax(0,1fr)!important}}
+/* Student Labs — use available desktop panel width, keep stacked mobile cards */
+@media(min-width:851px){
+ body.app-page .app-shell:has(.student-labs-main){grid-template-columns:264px minmax(0,1fr)!important}
+ body.app-page .student-labs-main{box-sizing:border-box;width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;padding:32px clamp(22px,3vw,48px) 70px!important}
+ body.app-page .student-labs-main .student-experiment-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;width:100%!important;max-width:none!important;min-width:0!important;gap:18px!important}
+ body.app-page .student-labs-main .student-experiment-grid>.lab-card{min-width:0!important;width:100%!important;max-width:none!important}
+ body.app-page .student-labs-main .lab-canvas{display:block!important;width:100%!important;min-width:0!important;height:220px!important}
+}
+@media(min-width:851px) and (max-width:1100px){body.app-page .student-labs-main .student-experiment-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}body.app-page .student-labs-main{padding:24px 18px 55px!important}}
+@media(max-width:850px){body.app-page .student-labs-main .student-experiment-grid{display:grid!important;grid-template-columns:minmax(0,1fr)!important;width:100%!important;min-width:0!important}body.app-page .student-labs-main .lab-card{min-width:0!important;max-width:100%!important}}

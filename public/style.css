@@ -4087,3 +4087,34 @@ body.public-page .home-mentor-section{padding:16px 0 44px}
 }
 @media(max-width:370px){.site-header .auth-actions .header-register{display:none!important}.promo-strip .promo-message{font-size:12px!important}}
 @media(prefers-reduced-motion:reduce){.promo-strip *,.home-mentor-bar *{transition:none!important;animation:none!important}}
+
+/* Olympion visual polish v5 */
+.site-header .nav-right.auth-actions{display:flex!important;align-items:center!important;gap:8px!important}
+.site-header .auth-actions .header-register,.site-header .auth-actions .header-login{min-width:102px!important;min-height:43px!important;padding:11px 15px!important;border-radius:13px!important;font-size:13px!important;font-weight:850!important;transition:transform .18s,box-shadow .18s,background .18s}
+.site-header .auth-actions .header-register{color:#eaf6ff!important;background:rgba(255,255,255,.085)!important;border:1px solid rgba(160,190,225,.18)!important}
+.site-header .auth-actions .header-login{background:linear-gradient(135deg,#7cf2ff,#7aa7ff)!important;color:#061625!important}
+.site-header .auth-actions a:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(71,155,245,.2)!important}
+.branch-v5-grid{gap:18px}
+.branch-v5-card{position:relative;display:block;overflow:hidden;min-height:290px;border-radius:24px;border:1px solid rgba(160,210,240,.2);background:#081425;isolation:isolate}
+.branch-v5-card>img{position:absolute;width:100%;height:100%;object-fit:cover;inset:0;transition:transform .55s ease,filter .55s ease}
+.branch-v5-card:hover>img{transform:scale(1.07);filter:saturate(1.28)}
+.branch-v5-shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(2,8,20,.94),rgba(2,8,20,.25) 85%);z-index:1}
+.branch-v5-copy{position:absolute;inset:auto 26px 26px;display:grid;gap:9px;z-index:2}
+.branch-v5-copy small{font-size:11px;font-weight:850;letter-spacing:.12em;color:#8eefff}
+.branch-v5-copy strong{font-size:clamp(27px,3vw,38px);line-height:1.1;letter-spacing:-.04em;color:#fff}
+.branch-v5-copy>span{color:#d1dfef;max-width:430px;line-height:1.5;font-size:15px}
+.branch-v5-copy em{font-style:normal;font-weight:800;color:#81e8ff;margin-top:6px}
+.mentor-v5-intro{max-width:900px!important;text-align:left!important;margin-inline:auto}
+.mentor-v5-intro h1{max-width:800px;font-size:clamp(38px,5vw,60px);letter-spacing:-.055em;line-height:1.1}
+.mentor-v5-intro p{font-size:17px;line-height:1.7;max-width:750px}
+.mentor-v5-layout{display:grid;grid-template-columns:minmax(280px,.8fr) minmax(0,1.3fr);align-items:start;gap:25px}
+.mentor-v5-aside{position:sticky;top:110px;padding:30px;border:1px solid rgba(124,242,255,.19);border-radius:25px;background:linear-gradient(145deg,#102238,#091421)}
+.mentor-v5-aside h2{font-size:32px;letter-spacing:-.04em}.mentor-v5-aside p{color:#adbed2;line-height:1.7}.mentor-v5-step{display:flex;align-items:center;gap:15px;border-top:1px solid rgba(255,255,255,.1);padding:17px 0}.mentor-v5-step b{color:#78eaff}.mentor-v5-form{width:100%!important;max-width:none!important;margin:0!important;padding:32px!important;border-radius:26px!important;background:linear-gradient(140deg,#102034,#091321)!important;border:1px solid rgba(124,242,255,.17)!important}
+.mentor-v5-form label{color:#d9e9f9;font-weight:700;font-size:14px}.mentor-v5-form :is(input:not([type=hidden]),select,textarea){background:#0a1728!important;color:#f1f8ff!important;border:1px solid rgba(170,200,230,.22)!important;border-radius:12px!important;min-height:47px;padding:12px 14px!important;width:100%;font-size:15px}.mentor-v5-form textarea{min-height:130px}.mentor-v5-form :is(input,select,textarea):focus{outline:2px solid #7cf2ff!important;outline-offset:1px}
+.biz-v5-hero{padding:55px 0 24px}.biz-v5-hero .corporate-hero-card{max-width:1180px;margin:0 auto;padding:48px!important;text-align:left;background:radial-gradient(circle at 95% 10%,rgba(124,242,255,.14),transparent 45%),#0b1728;border:1px solid rgba(124,242,255,.15);border-radius:28px}.biz-v5-hero h1{max-width:840px;font-size:clamp(38px,5vw,64px);line-height:1.1;letter-spacing:-.055em}.biz-v5-hero p{max-width:780px;font-size:17px;line-height:1.75}.biz-v5-split{align-items:stretch;gap:20px}.biz-v5-panel{height:100%;padding:35px!important;border-radius:25px!important}.biz-v5-panel h2{font-size:29px}.biz-v5-panel p,.biz-v5-panel li{font-size:16px;line-height:1.75}
+.chem-v5-card{background:linear-gradient(145deg,#0b2230,#0a1324)!important}.chem-v5-visual{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;padding:18px 10px;margin:17px 0 20px;min-height:180px;border:1px solid rgba(124,242,255,.16);border-radius:19px;background:radial-gradient(circle at 50% 50%,rgba(124,242,255,.1),transparent 65%),#071322}.chem-v5-half{min-width:0;text-align:center}.chem-v5-half>span{color:#a9c3d8;font-size:11px;font-weight:850;letter-spacing:.08em}.chem-v5-molecules{min-height:96px;display:flex;flex-wrap:wrap;justify-content:center;align-content:center;gap:8px;margin-top:10px}.chem-v5-molecules i{display:block;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#d9fcff,#39c5e3 70%);box-shadow:0 0 15px rgba(53,224,255,.18);animation:chemV5Pop .3s both}.chem-v5-half:last-child i{background:radial-gradient(circle at 30% 30%,#fff0d6,#f5a854 75%)}.chem-v5-arrows{font-size:33px;color:#7cf2ff;animation:chemV5Glow 2.5s ease-in-out infinite}.chem-v5-control{display:grid;gap:9px;color:#d9e9fa;font-weight:750}.chem-v5-control input{width:100%;accent-color:#7cf2ff}.chem-v5-values{display:flex;justify-content:space-between;margin:12px 0;color:#9ceafe;font-weight:850}
+.locked-lab{position:relative;background:linear-gradient(140deg,rgba(17,40,58,.95),rgba(11,20,37,.94))!important;border:1px solid rgba(124,242,255,.2)!important}.locked-lab:before{content:'◌';position:absolute;right:22px;top:4px;color:rgba(124,242,255,.24);font-size:110px;pointer-events:none}.locked-lab .lock-overlay{position:relative!important;inset:auto!important;background:rgba(7,15,25,.44)!important;backdrop-filter:blur(2px)!important;min-height:200px;padding:23px!important}
+@keyframes chemV5Pop{from{opacity:.2;transform:scale(.6)}to{opacity:1;transform:scale(1)}}@keyframes chemV5Glow{50%{opacity:.45;transform:scale(1.08)}}
+@media(max-width:800px){.mentor-v5-layout{grid-template-columns:1fr}.mentor-v5-aside{position:static}.mentor-v5-form{padding:22px!important}.biz-v5-hero .corporate-hero-card{padding:26px!important}.branch-v5-card{min-height:260px}}
+@media(max-width:700px){.site-header .auth-actions .header-register,.site-header .auth-actions .header-login{min-width:75px!important;min-height:35px!important;padding:7px 8px!important;font-size:11px!important}.chem-v5-visual{min-height:150px}.chem-v5-molecules i{width:12px;height:12px}.mentor-v5-intro p{font-size:15px}}
+@media(prefers-reduced-motion:reduce){.chem-v5-arrows,.chem-v5-molecules i{animation:none!important}.branch-v5-card>img{transition:none!important}}

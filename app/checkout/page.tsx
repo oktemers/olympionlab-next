@@ -1,8 +1,11 @@
+import { redirect } from "next/navigation";
 import { CheckoutPage } from "../../components/olympion-refresh/MarketingPages";
 import { HomeChrome } from "../../components/olympion-refresh/HomeChrome";
-export const metadata = { title: "Plan Önizlemesi | Olympion Lab", description: "Plan özeti ve ödeme durumu." };
+export const metadata = { title: "Üyelik Planını Seç | Olympion Lab", description: "Olympion Lab üyelik planlarını incele ve hesabını oluştur." };
 type Search = { plan?: string; trial?: string };
 export default async function Page({ searchParams }: { searchParams: Promise<Search> }) {
   const search = await searchParams;
-  return <HomeChrome active="/fiyatlandirma"><CheckoutPage embedded plan={search?.plan === "pro" ? "pro" : "plus"} trial={search?.trial === "1"} /></HomeChrome>;
+  if (search?.plan === "mentor") redirect("/mentorluk-basvurusu");
+  const plan = search?.plan === "free" ? "free" : search?.plan === "pro" ? "pro" : "plus";
+  return <HomeChrome active="/fiyatlandirma"><CheckoutPage embedded plan={plan} trial={search?.trial === "1"} /></HomeChrome>;
 }

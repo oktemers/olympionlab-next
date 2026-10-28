@@ -4258,3 +4258,33 @@ body.public-page .home-mentor-section{padding:16px 0 44px}
 @media(max-width:850px){.app-page:has(.student-dashboard-title) .app-top{display:block!important;padding:0 0 15px!important}.app-page:has(.student-dashboard-title) .app-top>a{margin-top:15px!important;display:inline-flex!important}.app-page:has(.student-dashboard-title) .continue-card{padding:20px!important}.app-page .app-top a.course-top-action{display:inline-flex!important;max-width:195px!important;margin-top:15px!important;width:auto!important}.app-page .app-top{align-items:flex-start!important;gap:12px!important}}
 @media(max-width:510px){.app-page:has(.student-dashboard-title) .metric-grid{gap:9px!important}.app-page:has(.student-dashboard-title) .metric-card{padding:15px!important}.app-page:has(.student-dashboard-title) .metric-card strong{font-size:26px!important}.app-page:has(.student-dashboard-title) .app-grid{grid-template-columns:1fr!important}.app-page:has(.student-dashboard-title) .continue-card{display:block!important}.app-page:has(.student-dashboard-title) .continue-card>a{margin-top:16px!important}.app-page .app-top a.course-top-action{max-width:175px!important;font-size:11px!important;padding:9px 11px!important}.course-stage-grid{grid-template-columns:1fr!important}}
 @media(prefers-reduced-motion:reduce){.student-dashboard-title span{animation:none}.app-page:has(.student-dashboard-title) .continue-card,.app-page:has(.student-dashboard-title) .metric-card{transition:none!important}.app-page:has(.student-dashboard-title) .continue-card:hover,.app-page:has(.student-dashboard-title) .metric-card:hover{transform:none!important}}
+
+
+/* Olympion V9 — balanced student dashboard, no empty PDF column */
+body.app-page .dashboard-v9-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-areas:"activity activity" "problem pdf" "lessons lessons"!important;grid-auto-rows:min-content!important;align-items:start!important;gap:14px!important;min-width:0!important}
+body.app-page .dashboard-v9-grid>section{grid-column:auto!important;grid-row:auto!important;min-width:0!important;height:auto!important;min-height:0!important;align-self:start!important;margin:0!important}
+body.app-page .dashboard-v9-grid .dashboard-v9-activity{grid-area:activity!important}
+body.app-page .dashboard-v9-grid .dashboard-v9-problem{grid-area:problem!important}
+body.app-page .dashboard-v9-grid .dashboard-v9-pdf{grid-area:pdf!important}
+body.app-page .dashboard-v9-grid .dashboard-v9-lessons-panel{grid-area:lessons!important}
+body.app-page .dashboard-v9-grid .dashboard-v9-problem,body.app-page .dashboard-v9-grid .dashboard-v9-pdf{padding:22px 24px!important;min-height:0!important}
+body.app-page .dashboard-v9-grid .dashboard-v9-pdf .note-mini{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;padding:14px!important;border-radius:12px!important;margin:8px 0 0!important;background:rgba(124,242,255,.04)!important;min-height:0!important}
+body.app-page .dashboard-v9-grid .dashboard-v9-pdf .note-mini span{font-size:12px;color:#9db5c8;white-space:nowrap}
+body.app-page .dashboard-v9-grid .dashboard-v9-pdf .note-mini strong{font-size:13px!important;text-align:right;overflow-wrap:anywhere}
+body.app-page .dashboard-v9-grid .dashboard-v9-lessons-panel{padding:24px!important}
+body.app-page .dashboard-v9-lesson-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;min-width:0!important}
+body.app-page .dashboard-v9-lesson-list .dashboard-v9-lesson-item{display:flex!important;align-items:center!important;gap:15px!important;min-width:0!important;min-height:104px!important;padding:16px!important;border:1px solid rgba(124,242,255,.16)!important;border-radius:16px!important;background:linear-gradient(125deg,#13293e,#0d1b2e)!important;color:#effbff!important;text-decoration:none!important;transition:transform .18s,border-color .18s!important}
+body.app-page .dashboard-v9-lesson-item:hover{transform:translateY(-2px)!important;border-color:rgba(124,242,255,.46)!important}
+body.app-page .dashboard-v9-lesson-icon{display:grid;place-items:center;flex:0 0 58px;width:58px;height:63px;border-radius:13px;background:radial-gradient(circle at 40% 25%,rgba(124,242,255,.2),rgba(78,123,197,.08));border:1px solid rgba(124,242,255,.15);font-size:23px}
+body.app-page .dashboard-v9-lesson-text{display:flex;flex:1;min-width:0;flex-direction:column;gap:6px!important}
+body.app-page .dashboard-v9-lesson-text small{font-size:11px!important;line-height:1.4!important;color:#83d9eb!important;letter-spacing:.02em}
+body.app-page .dashboard-v9-lesson-text strong{font-size:15px!important;line-height:1.35!important;color:#f1faff!important;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden}
+body.app-page .dashboard-v9-lesson-progress{height:5px!important;background:rgba(124,242,255,.11)!important;border-radius:99px!important;overflow:hidden!important;margin:2px 0 0!important}
+body.app-page .dashboard-v9-lesson-progress i{display:block;height:100%;background:linear-gradient(90deg,#72e8f2,#90aaff);border-radius:99px}
+body.app-page .dashboard-v9-lesson-arrow{flex:0 0 auto;align-self:center;font-size:17px;color:#8fe7f3}
+body.app-page .dashboard-v9-lessons-panel .panel-head{margin-bottom:17px!important}
+body.app-page .dashboard-v9-lessons-panel .panel-head h2{font-size:21px!important}
+body.app-page .dashboard-v9-grid .activity-panel{min-height:0!important}
+@media(max-width:920px){body.app-page .dashboard-v9-lesson-list{grid-template-columns:1fr!important}}
+@media(max-width:700px){body.app-page .dashboard-v9-grid{grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"activity" "problem" "pdf" "lessons"!important;gap:11px!important}body.app-page .dashboard-v9-grid .dashboard-v9-lessons-panel,body.app-page .dashboard-v9-grid .dashboard-v9-pdf,body.app-page .dashboard-v9-grid .dashboard-v9-problem{padding:18px!important}body.app-page .dashboard-v9-lesson-list{grid-template-columns:1fr!important}body.app-page .dashboard-v9-lesson-list .dashboard-v9-lesson-item{min-height:90px!important;padding:13px!important;gap:12px!important}body.app-page .dashboard-v9-lesson-icon{flex-basis:48px;width:48px;height:54px}body.app-page .dashboard-v9-lesson-text strong{font-size:14px!important}}
+@media(prefers-reduced-motion:reduce){body.app-page .dashboard-v9-lesson-item{transition:none!important}body.app-page .dashboard-v9-lesson-item:hover{transform:none!important}}

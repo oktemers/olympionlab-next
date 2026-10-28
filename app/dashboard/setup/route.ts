@@ -10,18 +10,20 @@ export async function POST(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.redirect(new URL("/login", request.url), {
+    return NextResponse.redirect(new URL("/giris", request.url), {
       status: 303,
     });
   }
 
+  const formData = await request.formData();
+  const redirectToStepTwo = formData.get("next") === "/rota/adim/2";
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!supabaseUrl || !serviceRoleKey) {
     return NextResponse.redirect(
       new URL(
-        "/dashboard?setup_error=SUPABASE_SERVICE_ROLE_KEY%20veya%20NEXT_PUBLIC_SUPABASE_URL%20eksik.",
+        redirectToStepTwo ? "/rota/adim/1?error=Sunucu%20yap%C4%B1land%C4%B1rmas%C4%B1%20eksik." : "/dashboard?setup_error=SUPABASE_SERVICE_ROLE_KEY%20veya%20NEXT_PUBLIC_SUPABASE_URL%20eksik.",
         request.url
       ),
       { status: 303 }
@@ -35,7 +37,7 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  const formData = await request.formData();
+
 
   const branch = String(formData.get("branch") || "");
   const level = String(formData.get("level") || "beginner");
@@ -43,6 +45,9 @@ export async function POST(request: NextRequest) {
     formData.get("goal") || "Bilim olimpiyatlarına düzenli hazırlanmak"
   );
 
+  // Only the trusted roadmap step-2 destination can override the default dashboard redirect.
+
+  const failureDestination = redirectToStepTwo ? "/rota/adim/1" : "/dashboard";
   const allowedBranches = ["math", "physics", "chemistry", "biology"];
   const allowedLevels = ["beginner", "intermediate", "advanced"];
 
@@ -80,7 +85,7 @@ export async function POST(request: NextRequest) {
   if (profileError) {
     return NextResponse.redirect(
       new URL(
-        `/dashboard?setup_error=${encodeURIComponent(profileError.message)}`,
+        `${failureDestination}?${redirectToStepTwo ? "error" : "setup_error"}=${encodeURIComponent(profileError.message)}`,
         request.url
       ),
       { status: 303 }
@@ -113,14 +118,14 @@ export async function POST(request: NextRequest) {
   if (routeError) {
     return NextResponse.redirect(
       new URL(
-        `/dashboard?setup_error=${encodeURIComponent(routeError.message)}`,
+        `${failureDestination}?${redirectToStepTwo ? "error" : "setup_error"}=${encodeURIComponent(routeError.message)}`,
         request.url
       ),
       { status: 303 }
     );
   }
 
-  return NextResponse.redirect(new URL("/dashboard?setup=success", request.url), {
+  return NextResponse.redirect(new URL(redirectToStepTwo ? "/rota/adim/2?saved=1" : "/dashboard?setup=success", request.url), {
     status: 303,
   });
 }

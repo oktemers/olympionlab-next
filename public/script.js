@@ -245,7 +245,18 @@ let OLYMPION_VIDEOS = [
 (function(){
   const menuBtn=document.getElementById('menuBtn');
   const mobileMenu=document.getElementById('mobileMenu');
-  if(menuBtn&&mobileMenu){menuBtn.addEventListener('click',()=>{mobileMenu.classList.toggle('open');menuBtn.textContent=mobileMenu.classList.contains('open')?'×':'☰'});mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mobileMenu.classList.remove('open');menuBtn.textContent='☰'}));}
+  if(menuBtn&&mobileMenu){
+    menuBtn.setAttribute('aria-controls','mobileMenu');
+    menuBtn.setAttribute('aria-expanded','false');
+    menuBtn.setAttribute('type','button');
+    const closeMenu=()=>{mobileMenu.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');menuBtn.setAttribute('aria-label','Menüyü aç');};
+    const toggleMenu=()=>{const open=mobileMenu.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(open));menuBtn.setAttribute('aria-label',open?'Menüyü kapat':'Menüyü aç');};
+    menuBtn.addEventListener('click',toggleMenu);
+    mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&mobileMenu.classList.contains('open')){closeMenu();menuBtn.focus();}});
+    document.addEventListener('pointerdown',e=>{if(mobileMenu.classList.contains('open')&&!menuBtn.contains(e.target)&&!mobileMenu.contains(e.target)){closeMenu();}});
+    window.addEventListener('resize',()=>{if(window.innerWidth>960&&mobileMenu.classList.contains('open'))closeMenu();});
+  }
 
   const reveals=document.querySelectorAll('.reveal');
   if('IntersectionObserver' in window){const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:.12});reveals.forEach((el,i)=>{el.style.transitionDelay=`${Math.min(i*35,220)}ms`;io.observe(el);});}else{reveals.forEach(el=>el.classList.add('visible'));}

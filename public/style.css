@@ -4229,3 +4229,32 @@ body.public-page .home-mentor-section{padding:16px 0 44px}
  .student-unified-sidebar .sidebar-upgrade,.student-unified-sidebar .back-site:not(.student-menu-bottom .back-site){display:none!important}
 }
 @media(prefers-reduced-motion:reduce){.app-page .student-unified-sidebar{transition:none!important}}
+
+
+/* V8 dashboard & courses visual refinement */
+.app-page:has(.student-dashboard-title) .app-main{max-width:1500px;margin:auto}
+.app-page .student-dashboard-title{font-size:clamp(32px,3.5vw,46px)!important;line-height:1.1!important;letter-spacing:-.05em!important;margin:8px 0 12px!important;color:#f4faff!important}
+.student-dashboard-title span{display:inline-block;color:#7cebf6;font-size:.65em;vertical-align:middle;animation:studentStar 4s ease-in-out infinite}
+@keyframes studentStar{50%{opacity:.6;transform:rotate(20deg) scale(1.15)}}
+.app-page:has(.student-dashboard-title) .app-top{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:20px!important;padding:14px 0 24px!important}
+.app-page:has(.student-dashboard-title) .app-top p{color:#acc3d4!important;font-size:14px!important;line-height:1.6!important;max-width:650px!important}
+.app-page:has(.student-dashboard-title) .continue-card{padding:24px 27px!important;border-radius:23px!important;background:radial-gradient(circle at 90% 5%,rgba(124,242,255,.13),transparent 38%),linear-gradient(125deg,#122b43,#0b1a2d)!important;border:1px solid rgba(124,242,255,.18)!important;transition:border-color .2s ease,transform .2s ease!important}
+.app-page:has(.student-dashboard-title) .continue-card:hover{transform:translateY(-2px)!important;border-color:rgba(124,242,255,.4)!important}
+.app-page:has(.student-dashboard-title) .continue-card h2{font-size:clamp(20px,2.1vw,28px)!important;letter-spacing:-.035em}
+.app-page:has(.student-dashboard-title) .personal-route-summary{padding:17px 22px!important;border-radius:17px!important;background:rgba(124,242,255,.045)!important;border:1px solid rgba(124,242,255,.12)!important;margin-bottom:18px!important}
+.app-page:has(.student-dashboard-title) .personal-route-summary p{margin:8px 0 0!important;color:#9cb5c9!important;font-size:13px!important}
+.app-page:has(.student-dashboard-title) .metric-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important}
+.app-page:has(.student-dashboard-title) .metric-card{padding:22px!important;background:linear-gradient(140deg,#102236,#0b1728)!important;border:1px solid rgba(124,242,255,.12)!important;border-radius:19px!important;transition:transform .2s ease,border-color .2s ease!important}
+.app-page:has(.student-dashboard-title) .metric-card:hover{transform:translateY(-3px)!important;border-color:rgba(124,242,255,.37)!important}
+.app-page:has(.student-dashboard-title) .metric-card span{font-size:12px!important;color:#a5c4d8!important}
+.app-page:has(.student-dashboard-title) .metric-card strong{font-size:clamp(26px,2.5vw,35px)!important}
+.app-page:has(.student-dashboard-title) .metric-card p{font-size:12px!important;line-height:1.45!important;color:#9db5c8!important}
+.app-page:has(.student-dashboard-title) .app-panel{border-radius:20px!important;border-color:rgba(124,242,255,.12)!important}
+.app-page:has(.student-dashboard-title) .app-grid{gap:13px!important}
+.app-page:has(.student-dashboard-title) .app-bg-formulas{opacity:.08!important}
+.app-page:has(.student-dashboard-title) .cursor-formula-layer{opacity:.1!important;pointer-events:none!important}
+.app-page .app-top a.course-top-action{white-space:normal!important;text-align:center!important;max-width:200px!important;min-height:40px!important;padding:9px 12px!important;font-size:12px!important;line-height:1.3!important;flex:0 0 auto!important;border-radius:12px!important;box-shadow:none!important}
+@media(max-width:1150px){.app-page:has(.student-dashboard-title) .metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:850px){.app-page:has(.student-dashboard-title) .app-top{display:block!important;padding:0 0 15px!important}.app-page:has(.student-dashboard-title) .app-top>a{margin-top:15px!important;display:inline-flex!important}.app-page:has(.student-dashboard-title) .continue-card{padding:20px!important}.app-page .app-top a.course-top-action{display:inline-flex!important;max-width:195px!important;margin-top:15px!important;width:auto!important}.app-page .app-top{align-items:flex-start!important;gap:12px!important}}
+@media(max-width:510px){.app-page:has(.student-dashboard-title) .metric-grid{gap:9px!important}.app-page:has(.student-dashboard-title) .metric-card{padding:15px!important}.app-page:has(.student-dashboard-title) .metric-card strong{font-size:26px!important}.app-page:has(.student-dashboard-title) .app-grid{grid-template-columns:1fr!important}.app-page:has(.student-dashboard-title) .continue-card{display:block!important}.app-page:has(.student-dashboard-title) .continue-card>a{margin-top:16px!important}.app-page .app-top a.course-top-action{max-width:175px!important;font-size:11px!important;padding:9px 11px!important}.course-stage-grid{grid-template-columns:1fr!important}}
+@media(prefers-reduced-motion:reduce){.student-dashboard-title span{animation:none}.app-page:has(.student-dashboard-title) .continue-card,.app-page:has(.student-dashboard-title) .metric-card{transition:none!important}.app-page:has(.student-dashboard-title) .continue-card:hover,.app-page:has(.student-dashboard-title) .metric-card:hover{transform:none!important}}

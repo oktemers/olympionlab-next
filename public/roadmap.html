@@ -8,6 +8,42 @@
   <meta name="description" content="Olympion çalışma rotası; öğrencinin seviyesine ve hedeflerine göre video, PDF, problem ve tekrar akışını düzenler." />
 
   <link rel="stylesheet" href="style.css" />
+<style id="student-roadmap-v8">
+.student-roadmap-main{max-width:1320px;margin:auto}
+.student-roadmap-hero{display:grid;grid-template-columns:1fr .88fr;align-items:center;gap:35px;padding:30px 0 45px}
+.student-roadmap-label,.student-roadmap-section-heading>span{font-size:11px;letter-spacing:.12em;color:#79e7ef;font-weight:900}
+.student-roadmap-lead h1{font-size:clamp(38px,4.7vw,62px);letter-spacing:-.055em;line-height:1.07;margin:16px 0}
+.student-roadmap-lead h1 em{font-style:normal;background:linear-gradient(100deg,#71e9f0,#91aaff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.student-roadmap-lead p{color:#a9c0d3;font-size:16px;line-height:1.7;max-width:650px}
+.student-roadmap-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}
+.student-roadmap-illustration{min-width:0;background:linear-gradient(145deg,#102942,#081628);border:1px solid rgba(124,242,255,.2);border-radius:24px;overflow:hidden}
+.student-roadmap-illustration svg{display:block;width:100%;height:auto;max-height:325px}
+.roadmap-dash{animation:dashFlow 16s linear infinite}
+@keyframes dashFlow{to{stroke-dashoffset:-240}}
+.student-roadmap-steps{padding:0 0 34px}
+.student-roadmap-section-heading h2{font-size:clamp(27px,3vw,36px);letter-spacing:-.04em;margin:10px 0}
+.student-roadmap-section-heading p{color:#a6bbd0;margin:0 0 20px;font-size:15px}
+.student-roadmap-stage-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:17px}
+.student-roadmap-tab{text-align:left;display:flex;flex-direction:column;gap:8px;border:1px solid rgba(124,242,255,.13);background:linear-gradient(140deg,#112238,#0a182a);color:#e2edf8;padding:20px;border-radius:19px;min-width:0;cursor:pointer;transition:transform .2s,border-color .2s}
+.student-roadmap-tab:hover{transform:translateY(-3px);border-color:rgba(124,242,255,.48)}
+.student-roadmap-tab.active{border-color:#73daef;background:linear-gradient(145deg,#174355,#102338)}
+.student-roadmap-tab b{font-size:12px;color:#7cecf8}
+.student-roadmap-tab strong{font-size:17px;line-height:1.3}
+.student-roadmap-tab small{font-size:12px;color:#9eb7cb}
+.student-roadmap-detail{display:flex;flex-direction:column;align-items:flex-start;gap:9px;padding:28px;border:1px solid rgba(124,242,255,.19);border-radius:22px;background:radial-gradient(circle at 100% 0%,rgba(123,190,242,.09),transparent 38%),#0c2034;animation:roadmapReveal .3s both}
+.student-roadmap-detail>span{font-size:11px;font-weight:900;color:#7febf5;letter-spacing:.1em}
+.student-roadmap-detail h3{font-size:26px;letter-spacing:-.04em;margin:4px 0}
+.student-roadmap-detail p{font-size:15px;line-height:1.65;color:#b5c9da;max-width:770px;margin:0 0 12px}
+.student-roadmap-tools{display:flex;flex-wrap:wrap;gap:25px;align-items:flex-start;padding:14px 0 65px}
+.student-roadmap-tools h2{font-size:25px;letter-spacing:-.04em;margin:8px 0}
+.student-roadmap-links{flex:1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;min-width:280px}
+.student-roadmap-links a{display:grid;grid-template-columns:30px 1fr;align-items:center;gap:3px 10px;text-decoration:none;padding:16px;border-radius:15px;border:1px solid rgba(124,242,255,.14);background:rgba(124,242,255,.045)}
+.student-roadmap-links a>span{grid-row:1/3;color:#7ceaf7;font-size:21px}.student-roadmap-links a strong{color:#effaff;font-size:14px}.student-roadmap-links a small{color:#9fbbce;font-size:12px}
+@keyframes roadmapReveal{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media(max-width:900px){.student-roadmap-hero{grid-template-columns:1fr}.student-roadmap-illustration{max-width:550px}.student-roadmap-stage-tabs{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:550px){.student-roadmap-hero{padding:7px 0 24px;gap:18px}.student-roadmap-lead h1{font-size:37px}.student-roadmap-lead p{font-size:14px}.student-roadmap-tab{padding:14px;border-radius:15px}.student-roadmap-tab strong{font-size:14px}.student-roadmap-tab small{font-size:11px}.student-roadmap-detail{padding:20px}.student-roadmap-detail h3{font-size:22px}.student-roadmap-links{min-width:0;width:100%;grid-template-columns:1fr 1fr}.student-roadmap-links a{padding:12px}.student-roadmap-tools{padding-bottom:45px}}
+@media(prefers-reduced-motion:reduce){.roadmap-dash,.student-roadmap-detail{animation:none}.student-roadmap-tab{transition:none}.student-roadmap-tab:hover{transform:none}}
+</style>
 </head>
 
 <body class="app-page">
@@ -58,129 +94,44 @@
       <a href="/" class="back-site">← Ana siteye dön</a>
     </aside>
 
-    <main class="app-main">
-      <div class="app-top">
-        <div>
-          <span class="eyebrow">Rota</span>
-          <h1>Çalışma planını tek akışta yönet.</h1>
-          <p>
-            Olympion, video dersleri, PDF notlarını, günlük problemleri ve tekrar görevlerini
-            seviyene göre düzenleyerek ne çalışacağını daha net hale getirir.
-          </p>
-        </div>
-      </div>
-
-      <section class="roadmap-system-section app-roadmap-system-section">
-        <div class="roadmap-system-card app-roadmap-system-card">
-          <div class="roadmap-system-copy">
-            <div class="badge cyan">Çalışma rotası</div>
-
-            <h1>Olimpiyat hazırlığını haftalık plana dönüştür.</h1>
-
-            <p>
-              Rota sistemi, öğrencinin branşını ve hedefini merkeze alarak çalışmayı
-              daha düzenli hale getirir. Amaç sadece konu listesi göstermek değil;
-              hangi videonun izleneceğini, hangi PDF’in okunacağını, hangi problemle
-              pekiştirileceğini ve ne zaman tekrar yapılacağını netleştirmektir.
-            </p>
-
-            <div class="roadmap-summary-grid">
-              <div>
-                <strong>Video</strong>
-                <span>Konu anlatımı ve soru çözümü</span>
-              </div>
-
-              <div>
-                <strong>PDF</strong>
-                <span>Not, formül ve kısa tekrar</span>
-              </div>
-
-              <div>
-                <strong>Problem</strong>
-                <span>Günlük soru ve pekiştirme</span>
-              </div>
-
-              <div>
-                <strong>Koç</strong>
-                <span>Yapay zeka destekli yönlendirme</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="roadmap-plan-flow" aria-label="Olympion çalışma planı">
-            <div class="roadmap-plan-step">
-              <span>01</span>
-              <div>
-                <strong>Seviye ve hedef belirlenir</strong>
-                <p>Öğrencinin branşı, mevcut seviyesi ve olimpiyat hedefi netleştirilir.</p>
-              </div>
-            </div>
-
-            <div class="roadmap-plan-step">
-              <span>02</span>
-              <div>
-                <strong>Haftalık rota oluşturulur</strong>
-                <p>Video dersler, PDF notları ve problem setleri doğru sıraya yerleştirilir.</p>
-              </div>
-            </div>
-
-            <div class="roadmap-plan-step">
-              <span>03</span>
-              <div>
-                <strong>Öğrenme döngüsü kurulur</strong>
-                <p>Öğrenci önce konuyu görür, sonra notla toparlar ve problemle pekiştirir.</p>
-              </div>
-            </div>
-
-            <div class="roadmap-plan-step">
-              <span>04</span>
-              <div>
-                <strong>Takip ve tekrar yapılır</strong>
-                <p>Tamamlanan dersler, eksik kalan konular ve tekrar ihtiyacı düzenli izlenir.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="roadmap-week-section">
-        <div class="roadmap-week-title">
-          <span class="eyebrow">Örnek haftalık akış</span>
-          <h2>Rota, çalışmayı parçalara böler.</h2>
-          <p>
-            Her hafta; video, PDF, problem ve tekrar görevlerinden oluşan sade bir çalışma paketiyle ilerler.
-          </p>
-        </div>
-
-        <div class="timeline roadmap-clean-timeline">
-          <div class="timeline-item done">
-            <span>Hafta 1</span>
-            <h3>Temel kavramları oturt</h3>
-            <p>Başlangıç videoları, kısa PDF notları ve giriş seviyesi problem seti.</p>
-          </div>
-
-          <div class="timeline-item active">
-            <span>Hafta 2</span>
-            <h3>Problem çözme ritmi kazan</h3>
-            <p>Video sonrası hedefli soru çözümü, yanlış analizi ve yapay zeka destekli ipuçları.</p>
-          </div>
-
-          <div class="timeline-item">
-            <span>Hafta 3</span>
-            <h3>Zayıf konuları güçlendir</h3>
-            <p>Eksik kalan başlıklar için tekrar görevleri, PDF özetleri ve karma problemler.</p>
-          </div>
-
-          <div class="timeline-item">
-            <span>Hafta 4</span>
-            <h3>Karma deneme ile ölç</h3>
-            <p>Mini deneme, çözüm analizi ve sonraki ayın çalışma rotasına hazırlık.</p>
-          </div>
-        </div>
-      </section>
-    </main>
+    <main class="app-main student-roadmap-main">
+  <section class="student-roadmap-hero">
+   <div class="student-roadmap-lead"><span class="student-roadmap-label">KİŞİSEL YOL HARİTASI</span><h1>Büyük hedefler,<br><em>küçük adımlarla.</em></h1><p>Bilim olimpiyatlarına hazırlığını dört temel adıma böl. Her aşamada ne yapacağını gör, bir sonrakine hazır olduğunda ilerle.</p><div class="student-roadmap-cta"><a href="/kurslar" class="btn btn-primary">Derslere göz at →</a><a href="/ayarlar" class="btn btn-secondary">Hedefini düzenle</a></div></div>
+   <div class="student-roadmap-illustration" aria-label="Dört basamaklı öğrenme rotası"><svg viewBox="0 0 490 320" aria-hidden="true"><defs><linearGradient id="sr" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#6ae9f1"/><stop offset="1" stop-color="#84a5ff"/></linearGradient></defs><g stroke="#7db9d2" opacity=".18"><path d="M0 0V320"/><path d="M64 0V320"/><path d="M128 0V320"/><path d="M192 0V320"/><path d="M256 0V320"/><path d="M320 0V320"/><path d="M384 0V320"/><path d="M448 0V320"/><path d="M512 0V320"/></g><path d="M45 248Q115 260 158 188T281 168Q370 170 433 53" fill="none" stroke="url(#sr)" stroke-width="4" stroke-linecap="round" stroke-dasharray="10 10" class="roadmap-dash"/><g fill="#0d2942" stroke="#a1f4ff" stroke-width="3"><circle cx="45" cy="248" r="22"/><circle cx="158" cy="188" r="23"/><circle cx="281" cy="168" r="25"/><circle cx="433" cy="53" r="28"/></g><g fill="#e2fdff" font-size="16" font-weight="800" text-anchor="middle"><text x="45" y="254">1</text><text x="158" y="194">2</text><text x="281" y="174">3</text><text x="433" y="59">4</text></g><g fill="#8fbdd3" font-size="12"><text x="20" y="291">HEDEF</text><text x="130" y="230">ÖĞREN</text><text x="252" y="208">UYGULA</text><text x="400" y="107">GELİŞ</text></g></svg></div>
+  </section>
+  <section class="student-roadmap-steps"><div class="student-roadmap-section-heading"><span>HAZIRLIK AKIŞIN</span><h2>Hangi adımdasın?</h2><p>Bir adıma dokunarak hangi araçları kullanacağını gör.</p></div>
+   <div class="student-roadmap-stage-tabs" role="group" aria-label="Çalışma adımları">
+    <button class="student-roadmap-tab active" type="button" aria-pressed="true" data-stage="0"><b>01</b><strong>Hedefini belirle</strong><small>Branş ve seviye</small></button>
+    <button class="student-roadmap-tab" type="button" aria-pressed="false" data-stage="1"><b>02</b><strong>Konuyu öğren</strong><small>Video ve PDF</small></button>
+    <button class="student-roadmap-tab" type="button" aria-pressed="false" data-stage="2"><b>03</b><strong>Soru çöz</strong><small>Pratik ve analiz</small></button>
+    <button class="student-roadmap-tab" type="button" aria-pressed="false" data-stage="3"><b>04</b><strong>Tekrar et</strong><small>Gelişimini ölç</small></button>
+   </div>
+   <article id="studentRoadmapDetail" class="student-roadmap-detail" aria-live="polite"><span id="roadmapStageLabel">ADIM 01 / 04</span><h3 id="roadmapStageTitle">Önce hedefini netleştir.</h3><p id="roadmapStageDescription">Hangi branşta, hangi aşamaya hazırlanacağını belirle. Çalışma süreni ve mevcut seviyeni gerçekçi biçimde değerlendir.</p><a id="roadmapStageLink" href="/ayarlar" class="btn btn-primary">Hedef ayarlarını aç →</a></article>
+  </section>
+  <section class="student-roadmap-tools"><div><span class="eyebrow">ARAÇLARIN</span><h2>Rotanın geri kalanı burada.</h2></div><div class="student-roadmap-links"><a href="/kurslar"><span>▶</span><strong>Dersler</strong><small>Konuyu öğren →</small></a><a href="/notlar"><span>▤</span><strong>PDF Notları</strong><small>Kısa tekrar →</small></a><a href="/gunun-sorusu"><span>✦</span><strong>Günün Problemi</strong><small>Pratik yap →</small></a><a href="/yapay-zeka-kocu"><span>✧</span><strong>AI Koç</strong><small>İpucu al →</small></a></div></section>
+</main>
   </div>
 
   <script src="script.js"></script>
+<script>
+(function(){
+ const steps=[
+ ["Önce hedefini netleştir.","Hangi branşta, hangi aşamaya hazırlanacağını belirle. Çalışma süreni ve mevcut seviyeni gerçekçi biçimde değerlendir.","/ayarlar","Hedef ayarlarını aç →"],
+ ["Konuyu anlayarak öğren.","Video anlatımlarını izle, temel formülleri ve kavramları kısa PDF notlarıyla pekiştir. Not almak için kendi cümlelerini kullan.","/kurslar","Derslere geç →"],
+ ["Bilgini problemlerle sınayalım.","Kolaydan zora ilerle; her yanlış için hangi kavramın eksik kaldığını bul. Düzenli soru çözümü olimpiyat refleksini güçlendirir.","/gunun-sorusu","Problem çöz →"],
+ ["Tekrarla, ölç ve yeniden başla.","Zorlandığın konulara dön, geçmiş soruları yeniden çöz ve sonraki haftanın çalışma hedefini güncelle.","/panel","İlerlemeni gör →"]
+ ];
+ const buttons=[...document.querySelectorAll(".student-roadmap-tab")],detail=document.getElementById("studentRoadmapDetail");
+ buttons.forEach(btn=>btn.addEventListener("click",()=>{
+  const i=Number(btn.dataset.stage),v=steps[i];if(!v)return;
+  buttons.forEach(b=>{const active=b===btn;b.classList.toggle("active",active);b.setAttribute("aria-pressed",String(active))});
+  detail.style.animation="none";void detail.offsetWidth;detail.style.animation="";
+  document.getElementById("roadmapStageLabel").textContent="ADIM 0"+(i+1)+" / 04";
+  document.getElementById("roadmapStageTitle").textContent=v[0];
+  document.getElementById("roadmapStageDescription").textContent=v[1];
+  const link=document.getElementById("roadmapStageLink");link.href=v[2];link.textContent=v[3];
+ }));
+})();
+</script>
 </body>
 </html>

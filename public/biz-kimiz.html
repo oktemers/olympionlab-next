@@ -9,6 +9,57 @@
 
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<style id="olympion-about-v6">
+.about-v6-page{overflow:hidden;color:#eef8ff}
+.about-v6-hero{padding:75px 0 55px}
+.about-v6-hero-grid{display:grid;grid-template-columns:1.06fr .94fr;align-items:center;gap:52px}
+.about-v6-copy{min-width:0}
+.about-v6-eyebrow{display:inline-flex;align-items:center;gap:9px;letter-spacing:.12em;font-size:11px;color:#89edff;font-weight:900}
+.about-v6-eyebrow i{width:8px;height:8px;background:#80edfa;border-radius:50%;box-shadow:0 0 14px rgba(124,242,255,.5)}
+.about-v6-copy h1{font-size:clamp(42px,5.1vw,70px);line-height:1.07;letter-spacing:-.058em;margin:21px 0;color:#eff9ff;font-weight:850}
+.about-v6-copy h1 em{font-style:normal;background:linear-gradient(100deg,#7cf2ff,#91adff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.about-v6-copy>p{font-size:17px;line-height:1.76;color:#adbed2;margin:0;max-width:690px}
+.about-v6-actions{display:flex;gap:11px;flex-wrap:wrap;margin-top:29px}
+.about-v6-actions .btn{border-radius:12px;font-size:14px;padding:13px 18px}
+.about-v6-art{position:relative;min-height:425px;border:1px solid rgba(124,242,255,.16);border-radius:28px;overflow:hidden;background:radial-gradient(circle at 50% 50%,rgba(77,173,216,.24),transparent 49%),linear-gradient(145deg,#10253d,#070e1c)}
+.about-v6-art:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(124,242,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(124,242,255,.04) 1px,transparent 1px);background-size:35px 35px}
+.about-v6-orbit{position:absolute;left:50%;top:50%;width:65%;height:38%;border:1px solid rgba(124,242,255,.29);border-radius:50%;transform:translate(-50%,-50%) rotate(25deg)}
+.about-v6-orbit.o2{transform:translate(-50%,-50%) rotate(-32deg)}
+.about-v6-orbit.o3{width:43%;height:72%;transform:translate(-50%,-50%) rotate(12deg)}
+.about-v6-core{position:absolute;inset:50% auto auto 50%;transform:translate(-50%,-50%);height:104px;width:104px;border:1px solid rgba(124,242,255,.4);border-radius:30px;display:grid;place-items:center;box-shadow:0 0 50px rgba(124,242,255,.13);background:linear-gradient(135deg,#71e7f5,#82a7ff)}
+.about-v6-core span{color:#061426;font-size:60px;font-weight:950}
+.about-v6-node{position:absolute;font-size:10px;letter-spacing:.09em;line-height:1.45;color:#9ec9dd;border:1px solid rgba(124,242,255,.24);border-radius:12px;padding:11px 14px;background:rgba(6,23,39,.93);box-shadow:0 18px 35px rgba(0,0,0,.13)}
+.about-v6-node strong{display:block;letter-spacing:0;font-size:18px;color:#e7fbff}
+.about-v6-node.n1{left:9%;top:12%}.about-v6-node.n2{right:8%;top:17%}.about-v6-node.n3{left:8%;bottom:12%}.about-v6-node.n4{right:10%;bottom:13%}
+.about-v6-principle{padding:33px 0 65px}
+.about-v6-section-intro>span,.about-v6-mission-copy>span,.about-v6-outro>div>span{color:#7cf2ff;font-size:11px;letter-spacing:.12em;font-weight:900}
+.about-v6-section-intro h2{font-size:clamp(29px,3.6vw,44px);line-height:1.18;letter-spacing:-.04em;margin:14px 0}
+.about-v6-section-intro p{color:#aebfd2;font-size:16px;line-height:1.7;max-width:700px}
+.about-v6-values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px;margin-top:26px}
+.about-v6-values article{padding:28px;border:1px solid rgba(124,242,255,.13);background:linear-gradient(150deg,#0f2033,#0a1424);border-radius:22px;transition:transform .22s ease,border-color .22s ease}
+.about-v6-values article:hover{transform:translateY(-4px);border-color:rgba(124,242,255,.36)}
+.about-v6-icon{display:grid;place-items:center;width:43px;height:43px;background:rgba(124,242,255,.1);border:1px solid rgba(124,242,255,.19);border-radius:13px;color:#8defff;font-weight:900}
+.about-v6-values h3{font-size:22px;margin:23px 0 11px;letter-spacing:-.035em;color:#f1f9ff}
+.about-v6-values p{font-size:15px;color:#aebfd2;line-height:1.68;margin:0}
+.about-v6-mission{padding:63px 0 70px;background:linear-gradient(120deg,rgba(31,59,81,.17),rgba(4,16,30,.42));border-top:1px solid rgba(124,242,255,.08);border-bottom:1px solid rgba(124,242,255,.08)}
+.about-v6-mission-grid{display:grid;grid-template-columns:1fr .85fr;gap:65px;align-items:center}
+.about-v6-mission-copy h2{font-size:clamp(28px,3.8vw,45px);line-height:1.2;letter-spacing:-.044em;margin:15px 0 21px;color:#f0f9ff}
+.about-v6-mission-copy p{font-size:16px;color:#adbed2;line-height:1.76;margin:0 0 15px}
+.about-v6-method{padding:30px;border:1px solid rgba(124,242,255,.16);background:linear-gradient(150deg,#10243a,#091629);border-radius:25px}
+.about-v6-method-label{color:#86eaff;font-size:11px;font-weight:900;letter-spacing:.08em}
+.about-v6-method>div{display:grid;grid-template-columns:45px 1fr;grid-template-rows:auto auto;gap:4px 13px;padding:19px 0;border-bottom:1px solid rgba(255,255,255,.085)}
+.about-v6-method>div:last-child{border:0;padding-bottom:0}
+.about-v6-method b{grid-row:1/3;display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:rgba(124,242,255,.11);color:#8eeaff;font-size:12px}
+.about-v6-method>div>span{font-weight:850;font-size:16px;color:#e9f6ff}
+.about-v6-method small{color:#a2b8cb;font-size:13px}
+.about-v6-outro{display:flex;gap:25px;align-items:center;justify-content:space-between;padding-top:60px;padding-bottom:79px}
+.about-v6-outro h2{font-size:clamp(26px,3vw,35px);letter-spacing:-.04em;line-height:1.2;margin:11px 0}
+.about-v6-outro p{margin:0;color:#a9bed0;font-size:15px;line-height:1.6;max-width:700px}
+.about-v6-outro .btn{flex:none;border-radius:13px}
+@media(max-width:960px){.about-v6-hero-grid,.about-v6-mission-grid{grid-template-columns:1fr;gap:30px}.about-v6-hero{padding:44px 0 35px}.about-v6-art{min-height:340px}.about-v6-mission{padding:45px 0}.about-v6-values{gap:12px}.about-v6-values article{padding:20px}}
+@media(max-width:680px){.about-v6-copy h1{font-size:clamp(36px,10vw,49px)}.about-v6-copy>p{font-size:15px}.about-v6-art{min-height:265px}.about-v6-node{padding:7px 9px;font-size:8px}.about-v6-node strong{font-size:14px}.about-v6-core{width:75px;height:75px;border-radius:24px}.about-v6-core span{font-size:45px}.about-v6-values{grid-template-columns:1fr}.about-v6-principle{padding-bottom:43px}.about-v6-outro{display:block;padding:43px 0 59px}.about-v6-outro .btn{display:flex;width:100%;margin-top:21px}}
+@media(prefers-reduced-motion:reduce){.about-v6-values article{transition:none}.about-v6-values article:hover{transform:none}}
+</style>
 </head>
 
 <body class="public-page">
@@ -60,55 +111,44 @@
     </div>
   </header>
 
-  <main class="site-main">
-    <section class="corporate-hero biz-v5-hero">
-      <div class="container">
-        <div class="corporate-hero-card reveal">
-          <div class="badge cyan">Biz Kimiz?</div>
-          <h1>Bilim olimpiyatlarına hazırlığın yanında, her adımda.</h1>
-          <p>
-            Olympion Lab; bilim olimpiyatlarına hazırlanan öğrenciler için tasarlanmış,
-            video içeriklerini problem çözümü, kişisel rota ve deneysel öğrenme araçlarıyla
-            birleştiren dijital bir eğitim platformudur.
-          </p>
-        </div>
+  <main class="site-main about-v6-page">
+  <section class="about-v6-hero">
+    <div class="container about-v6-hero-grid">
+      <div class="about-v6-copy reveal">
+        <span class="about-v6-eyebrow"><i></i> BİZ KİMİZ?</span>
+        <h1>Merakla başlayan yolculuk, <em>doğru yöntemle</em> ilerler.</h1>
+        <p>Olympion, bilim olimpiyatlarına hazırlanan öğrencilerin daha bilinçli, düzenli ve keyifli çalışabilmesi için geliştirilen bir öğrenme platformudur. Konuları anlamayı, soru çözmeyi ve kendi gelişimini takip etmeyi aynı yerde buluşturuyoruz.</p>
+        <div class="about-v6-actions"><a class="btn btn-primary" href="/video-kutuphanesi">Platformu keşfet →</a><a class="btn btn-secondary" href="/mentorluk-basvurusu">Mentörlüğe başvur</a></div>
       </div>
-    </section>
-
-    <section>
-      <div class="container corporate-split biz-v5-split">
-        <div class="corporate-panel reveal biz-v5-panel">
-          <h2>Misyonumuz</h2>
-          <p>
-            Zor konuları ezberletmek yerine görünür hale getiren, öğrenciyi pasif izleyiciden
-            aktif problem çözücüye dönüştüren bir öğrenme sistemi kurmak.
-          </p>
-        </div>
-
-        <div class="corporate-panel reveal">
-          <h2>Vizyonumuz</h2>
-          <p>
-            Türkiye’de ve dünyada bilim olimpiyatlarına hazırlanan öğrenciler için erişilebilir,
-            düzenli, premium ve teknoloji destekli bir hazırlık standardı oluşturmak.
-          </p>
-        </div>
+      <div class="about-v6-art reveal" aria-label="Olimpiyat bilimleri kavram ağını temsil eden görsel">
+        <div class="about-v6-orbit o1"></div><div class="about-v6-orbit o2"></div><div class="about-v6-orbit o3"></div>
+        <div class="about-v6-core"><span>O</span></div>
+        <div class="about-v6-node n1">FİZİK <strong>F = ma</strong></div>
+        <div class="about-v6-node n2">MATEMATİK <strong>Σ &amp; ∫</strong></div>
+        <div class="about-v6-node n3">KİMYA <strong>A ⇌ B</strong></div>
+        <div class="about-v6-node n4">BİYOLOJİ <strong>DNA</strong></div>
       </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <div class="corporate-panel reveal">
-          <h2>Ne yapıyoruz?</h2>
-          <ul class="corporate-list">
-            <li>Olimpiyat seviyesine uygun video dersler ve soru çözüm serileri hazırlıyoruz.</li>
-            <li>Öğrencinin seviyesine göre çalışma rotası ve tekrar düzeni oluşturuyoruz.</li>
-            <li>PDF notları, günlük problem ve gelişim takibiyle öğrenmeyi sürekli hale getiriyoruz.</li>
-            <li>Olympion Labs ile soyut konuları deneysel ve görsel hale getiriyoruz.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-  </main>
+    </div>
+  </section>
+  <section class="container about-v6-principle">
+    <div class="about-v6-section-intro reveal"><span>YAKLAŞIMIMIZ</span><h2>Öğrenmenin merkezinde öğrenci var.</h2><p>Bir problemi çözebilmek kadar, sonuca nasıl ulaştığını anlamak da önemli. Bu nedenle yalnızca içerik sunmayı değil, düşünme sürecini desteklemeyi amaçlıyoruz.</p></div>
+    <div class="about-v6-values">
+      <article class="reveal"><div class="about-v6-icon">01</div><h3>Temeli sağlam kur</h3><p>Kavramları ezberlemeden, mantığını anlayarak ilerle. Güçlü bir altyapı zor sorularda fark yaratır.</p></article>
+      <article class="reveal"><div class="about-v6-icon">02</div><h3>Sorularla derinleş</h3><p>Örneklerden olimpiyat seviyesindeki problemlere geçerken farklı çözüm yolları geliştir.</p></article>
+      <article class="reveal"><div class="about-v6-icon">03</div><h3>Gelişimini görünür kıl</h3><p>Çalışma rotaları, kaynaklar ve düzenli tekrarlarla hangi adımı attığını daha net gör.</p></article>
+    </div>
+  </section>
+  <section class="about-v6-mission">
+    <div class="container about-v6-mission-grid">
+      <div class="about-v6-mission-copy reveal"><span>AMACIMIZ</span><h2>Bilime duyulan ilgiyi kalıcı bir çalışma alışkanlığına dönüştürmek.</h2><p>Fizik, matematik, kimya ve biyoloji olimpiyatlarına hazırlık uzun soluklu bir süreç. Öğrencilerin güvenilir kaynaklarla çalışabildiği, soru çözümünü merkeze alan ve kendi hızlarına göre ilerleyebildiği bir ortam oluşturmak istiyoruz.</p><p>Olympion'u geliştirirken anlaşılır anlatımı, akademik özeni ve öğrencilerin gerçek ihtiyaçlarını önceliklendiriyoruz.</p></div>
+      <div class="about-v6-method reveal"><span class="about-v6-method-label">OLYMPION'DA ÇALIŞMA DÖNGÜSÜ</span><div><b>01</b><span>Konuyu anla</span><small>Video ve kavramsal anlatım</small></div><div><b>02</b><span>Problem çöz</span><small>Örnekler ve çözüm stratejileri</small></div><div><b>03</b><span>Tekrar et</span><small>Notlar ve çalışma rotası</small></div><div><b>04</b><span>Yeni soruya geç</span><small>Edindiğin bilgiyi uygula</small></div></div>
+    </div>
+  </section>
+  <section class="container about-v6-outro reveal">
+    <div><span>BİRLİKTE İLERLEYELİM</span><h2>Bir sonraki sorunun başlangıç noktası burada.</h2><p>İster hazırlığa yeni başla ister ileri düzey problemler üzerinde çalış: kendi yolunu oluşturman için buradayız.</p></div>
+    <a href="/branslar" class="btn btn-primary">Branşları keşfet →</a>
+  </section>
+</main>
 <footer class="site-footer olympion-mobile-footer">
   <div class="container footer-grid">
     <div class="footer-brand-block">

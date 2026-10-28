@@ -29,8 +29,8 @@ export default async function LessonPage({ params }: { params: { id: string } })
     .maybeSingle();
 
   return (
-    <div className="app-shell">
-      <Sidebar active="videos" />
+    <><link rel="stylesheet" href="/style.css"/><div className="app-page"><div className="app-shell">
+      <Sidebar active="courses" />
       <main className="main">
         <span className="badge">{video.branch}</span>
         <h1>{video.title}</h1>
@@ -51,6 +51,6 @@ export default async function LessonPage({ params }: { params: { id: string } })
           </form>
         </div>
       </main>
-    </div>
+    </div></div></>
   );
 }

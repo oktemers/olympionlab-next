@@ -1,3 +1,4 @@
+import { Sidebar } from "@/components/Sidebar";
 import Script from "next/script";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
@@ -257,75 +258,7 @@ export default async function CoursesPage() {
         </div>
 
         <div className="app-shell">
-          <aside className="app-sidebar">
-            <a href="/dashboard" className="app-brand">
-              <div className="brand-badge">O</div>
-              <div>
-                Olympion
-                <small>Öğrenci Paneli</small>
-              </div>
-            </a>
-
-            <nav className="app-nav" aria-label="Panel menüsü">
-              <a href="/dashboard" className="app-link">
-                <span>⌘</span>
-                Genel
-              </a>
-
-              <a href="/courses" className="app-link active">
-                <span>▶</span>
-                Dersler
-              </a>
-
-              <a href="/roadmap.html" className="app-link">
-                <span>🧭</span>
-                Rota
-              </a>
-
-              <a href="/notes.html" className="app-link">
-                <span>📚</span>
-                PDF
-              </a>
-
-              <a href="/daily-problem.html" className="app-link">
-                <span>🔥</span>
-                Problem
-              </a>
-
-              <a href="/ai-coach.html" className="app-link">
-                <span>✦</span>
-                Koç
-              </a>
-
-              <a href="/student-labs.html" className="app-link">
-                <span>🧪</span>
-                Labs
-              </a>
-
-              <a href="/settings" className="app-link">
-                <span>⚙</span>
-                Ayarlar
-              </a>
-
-              <form action={signOut} className="dashboard-logout-form">
-                <button className="app-link logout-sidebar" type="submit">
-                  <span>⏻</span>
-                  Çıkış
-                </button>
-              </form>
-            </nav>
-
-            <div className="sidebar-upgrade">
-              <span>{plan === "free" ? "Free" : plan}</span>
-              <strong>Rotanı adım adım tamamla.</strong>
-              <p>Rehberlikten başlayıp soru çözümlerine sırayla ilerle.</p>
-              <a href="/pricing.html">Planı yükselt →</a>
-            </div>
-
-            <a href="/" className="back-site">
-              ← Ana siteye dön
-            </a>
-          </aside>
+          <Sidebar active="courses" />
 
           <main className="app-main">
             <div className="app-top">
@@ -347,7 +280,7 @@ export default async function CoursesPage() {
                   "Önce önceki bölümü tamamlaman gerekiyor."
                 }
               >
-                Sıradaki Derse Git
+                Sıradaki ders →
               </a>
             </div>
 

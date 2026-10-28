@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 740" role="img" aria-labelledby="title desc">
+<title id="title">Olympion mentörlük - bilimsel çalışma ve gelişim görselleştirmesi</title>
+<desc id="desc">Koyu lacivert zeminde parlayan turkuaz çizgiler, öğrenme yolunu temsil eden düğümler ve fizik matematik sembolleri.</desc>
+<defs>
+ <linearGradient id="base" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#102640"/><stop offset=".56" stop-color="#0b1830"/><stop offset="1" stop-color="#060e20"/></linearGradient>
+ <radialGradient id="glow"><stop stop-color="#7cf2ff" stop-opacity=".28"/><stop offset="1" stop-color="#7cf2ff" stop-opacity="0"/></radialGradient>
+ <linearGradient id="route" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a5fbff"/><stop offset="1" stop-color="#8da5ff"/></linearGradient>
+ <pattern id="grid" width="38" height="38" patternUnits="userSpaceOnUse"><path d="M38 0H0V38" fill="none" stroke="#85b6e4" stroke-opacity=".09"/></pattern>
+ <filter id="blur"><feGaussianBlur stdDeviation="17"/></filter>
+</defs>
+<rect width="1200" height="740" rx="38" fill="url(#base)"/><rect width="1200" height="740" rx="38" fill="url(#grid)"/>
+<ellipse cx="750" cy="342" rx="510" ry="420" fill="url(#glow)"/>
+<path d="M175 566C290 536 335 392 463 414S636 524 771 372 934 242 1080 175" stroke="#7cf2ff" stroke-width="30" opacity=".15" fill="none" filter="url(#blur)"/>
+<path d="M175 566C290 536 335 392 463 414S636 524 771 372 934 242 1080 175" fill="none" stroke="url(#route)" stroke-width="5" stroke-linecap="round" stroke-dasharray="13 15"/>
+<g stroke="#9feaff" stroke-width="3" fill="#0c2741">
+<circle cx="175" cy="566" r="23"/><circle cx="464" cy="414" r="24"/><circle cx="772" cy="372" r="24"/><circle cx="1080" cy="175" r="29"/>
+</g><g fill="#b7faff"><circle cx="175" cy="566" r="8"/><circle cx="464" cy="414" r="9"/><circle cx="772" cy="372" r="9"/><circle cx="1080" cy="175" r="11"/></g>
+<g stroke="#7ab9dd" stroke-opacity=".28" fill="none" stroke-width="2"><circle cx="772" cy="372" r="124"/><ellipse cx="772" cy="372" rx="220" ry="83" transform="rotate(-31 772 372)"/><ellipse cx="772" cy="372" rx="220" ry="83" transform="rotate(41 772 372)"/></g>
+<g fill="#d9f7ff" font-family="Arial,sans-serif"><text x="134" y="634" font-size="24">HEDEF</text><text x="423" y="475" font-size="24">PLAN</text><text x="735" y="430" font-size="24">PRATİK</text><text x="1000" y="242" font-size="24">GELİŞİM</text></g>
+<g fill="#8bdcf0" opacity=".48" font-family="Georgia,serif"><text x="220" y="205" font-size="60">∑</text><text x="400" y="156" font-size="32">F = ma</text><text x="949" y="564" font-size="49">∫</text><text x="550" y="640" font-size="34">E = mc²</text><text x="1036" y="388" font-size="28">λ</text></g>
+<g fill="none" stroke="#a5bdff" stroke-width="4" stroke-opacity=".48"><path d="M180 320L268 245 345 310 422 230"/><path d="M903 628l60-56 47 39 55-76"/><path d="M1008 534l55 0m-10-11 10 11-10 11"/></g>
+</svg>

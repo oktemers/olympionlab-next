@@ -24,6 +24,17 @@ export async function updateSession(request: NextRequest) {
     }
   });
 
-  await supabase.auth.getUser();
+  const { data: { user } } = await supabase.auth.getUser();
+  const protectedStudentPages = new Set([
+    "/student-labs", "/student-labs.html",
+    "/uygulama-laboratuvarlari", "/app-labs.html",
+    "/yol-haritasi", "/roadmap.html"
+  ]);
+  const pathname = request.nextUrl.pathname.replace(/\\/$/, "");
+  if (!user && protectedStudentPages.has(pathname)) {
+    const loginUrl = new URL("/giris", request.url);
+    loginUrl.searchParams.set("next", pathname);
+    return NextResponse.redirect(loginUrl);
+  }
   return response;
 }

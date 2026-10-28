@@ -4152,3 +4152,39 @@ body.public-page .home-mentor-section{padding:16px 0 44px}
  .site-header .brand-mark,.site-header .brand-logo-img{width:35px!important;height:35px!important;min-width:35px!important}
 }
 @media(prefers-reduced-motion:reduce){.site-header .nav-right.auth-actions>a{transition:none!important}.site-header .nav-right.auth-actions>a:hover{transform:none!important}}
+
+
+/* Olympion V7 - one unified, compact authentication navigation */
+.site-header .nav-right.auth-actions{display:flex!important;align-items:center!important;gap:7px!important;flex-shrink:0!important}
+.site-header .nav-right.auth-actions>a.header-register,
+.site-header .nav-right.auth-actions>a.header-login{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  box-sizing:border-box!important;width:98px!important;min-width:98px!important;max-width:98px!important;
+  height:37px!important;min-height:37px!important;max-height:37px!important;
+  padding:0 8px!important;margin:0!important;border-radius:12px!important;
+  font-size:12px!important;font-weight:750!important;line-height:1!important;letter-spacing:0!important;
+  white-space:nowrap!important;text-align:center!important;text-decoration:none!important;
+  transform:none;box-shadow:none!important;transition:background .18s,transform .18s,border-color .18s!important
+}
+.site-header .nav-right.auth-actions>a.header-register{background:rgba(140,177,210,.07)!important;color:#d9edff!important;border:1px solid rgba(162,200,232,.22)!important}
+.site-header .nav-right.auth-actions>a.header-login{background:rgba(117,228,250,.14)!important;color:#c7fbff!important;border:1px solid rgba(117,228,250,.43)!important}
+.site-header .nav-right.auth-actions>a.header-login span{margin-left:5px!important;font-size:12px!important;color:inherit!important}
+.site-header .nav-right.auth-actions>a:hover{transform:translateY(-1px)!important;border-color:rgba(124,242,255,.7)!important;background:rgba(117,228,250,.16)!important}
+.site-header .nav-right.auth-actions>a:focus-visible,.site-header .mobile-menu>a.mobile-auth-register:focus-visible,.site-header .mobile-menu>a.mobile-auth-login:focus-visible{outline:2px solid #a6f8ff!important;outline-offset:3px!important}
+@media(max-width:960px){
+ .site-header .nav-right.auth-actions{display:none!important}
+ .site-header .nav{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important}
+ .site-header .menu-btn{display:grid!important;place-items:center!important;flex:0 0 40px!important;width:40px!important;height:40px!important;margin-left:auto!important;position:relative!important;top:auto!important}
+ .site-header .mobile-menu{padding:8px 18px 19px!important}
+ .site-header .mobile-menu>a.mobile-auth-register,.site-header .mobile-menu>a.mobile-auth-login{
+   box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:center!important;
+   width:100%!important;max-width:none!important;min-height:44px!important;padding:10px 15px!important;
+   margin:9px 0 0!important;border-radius:13px!important;font-size:14px!important;font-weight:800!important;
+   text-align:center!important;letter-spacing:0!important;text-decoration:none!important
+ }
+ .site-header .mobile-menu>a.mobile-auth-register{color:#d9f2ff!important;background:rgba(127,167,205,.09)!important;border:1px solid rgba(162,200,232,.2)!important}
+ .site-header .mobile-menu>a.mobile-auth-login{color:#071727!important;background:linear-gradient(100deg,#7ce7f3,#83b7ff)!important;border:1px solid rgba(183,233,255,.42)!important}
+}
+@media(max-width:700px){.site-header .nav-right.auth-actions{display:none!important}}
+@media(max-width:370px){.site-header .nav-right.auth-actions{display:none!important}}
+@media(prefers-reduced-motion:reduce){.site-header .nav-right.auth-actions>a{transition:none!important}.site-header .nav-right.auth-actions>a:hover{transform:none!important}}

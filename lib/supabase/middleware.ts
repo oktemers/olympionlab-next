@@ -30,7 +30,7 @@ export async function updateSession(request: NextRequest) {
     "/uygulama-laboratuvarlari", "/app-labs.html",
     "/yol-haritasi", "/roadmap.html"
   ]);
-  const pathname = request.nextUrl.pathname.replace(/\\/$/, "");
+  const pathname = request.nextUrl.pathname.endsWith("/") ? request.nextUrl.pathname.slice(0, -1) : request.nextUrl.pathname;
   if (!user && protectedStudentPages.has(pathname)) {
     const loginUrl = new URL("/giris", request.url);
     loginUrl.searchParams.set("next", pathname);

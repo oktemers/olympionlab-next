@@ -57,7 +57,7 @@
     ctx.beginPath();ctx.moveTo(projectX(range),y0);ctx.lineTo(projectX(range),y0-usableH*.85);ctx.stroke();ctx.setLineDash([]);
     const elapsed=reduce?flight*.6:Math.max(0,(t-launchAt)/1000)*1.25;
     const phase=elapsed/flight;
-    const progress=reduce?.64:phase>1.55?0:Math.min(1,phase);
+    const progress=reduce ? 0.64 : (phase>1.55 ? 0 : Math.min(1,phase));
     if(!reduce&&phase>1.55)launchAt=t;
     const travel=(u)=>{const sec=u*flight;return {x:Math.max(0,v*Math.cos(rad)*sec),y:Math.max(0,v*Math.sin(rad)*sec-.5*g*sec*sec)}};
     ctx.lineWidth=2.7;ctx.strokeStyle="#79e9f6";ctx.beginPath();

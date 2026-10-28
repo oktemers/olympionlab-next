@@ -137,3 +137,59 @@
  .checkoutHero>div:first-child>p{font-size:15px}
 }
 @media(prefers-reduced-motion:reduce){.mobilePlanPanel{animation:none}}
+
+
+/* Olympion V7 — visual plan selection */
+.checkoutV7{position:relative;overflow:hidden;isolation:isolate;background:radial-gradient(ellipse at 8% 38%,rgba(22,99,149,.15),transparent 46%),linear-gradient(145deg,#07111f,#080e1c 85%);min-height:710px;padding:63px 0 22px}
+.checkoutV7Glow{pointer-events:none;position:absolute;inset:-150px -120px auto auto;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(112,162,249,.11),transparent 68%);z-index:-1}
+.checkoutV7Inner{width:min(1160px,calc(100% - 50px));margin:0 auto;display:grid;grid-template-columns:1.06fr .94fr;gap:70px;align-items:center}
+.checkoutV7Hero{min-width:0}
+.checkoutV7Eyebrow{display:inline-flex;align-items:center;gap:9px;padding:9px 13px;border-radius:999px;border:1px solid rgba(124,242,255,.2);background:rgba(124,242,255,.065);font-size:11px;font-weight:850;letter-spacing:.1em;color:#a1ebf8}
+.checkoutV7Dot{width:7px;height:7px;border-radius:50%;background:#7cf2ff;box-shadow:0 0 13px rgba(124,242,255,.65)}
+.checkoutV7Hero h1{margin:25px 0 17px;font-size:clamp(43px,4.9vw,68px);line-height:1.07;letter-spacing:-.058em;font-weight:850;color:#f1f9ff;max-width:660px}
+.checkoutV7Hero h1 span{display:block;background:linear-gradient(105deg,#7cf2ff,#92acff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.checkoutV7Hero>p{max-width:560px;margin:0;color:#b0c1d3;font-size:17px;line-height:1.74}
+.checkoutV7Artwork{overflow:hidden;position:relative;margin:28px 0 16px;max-width:560px;border-radius:23px;border:1px solid rgba(124,242,255,.17);background:radial-gradient(ellipse at 50% 40%,rgba(39,116,151,.18),transparent 70%),#0b1c2e;box-shadow:0 20px 55px rgba(0,0,0,.17)}
+.checkoutV7Artwork>svg{display:block;width:100%;height:auto;max-height:244px;transform-origin:center;animation:checkoutV7Enter 1s ease-out both}
+.checkoutV7ArtworkCaption{display:flex;gap:10px;justify-content:space-between;padding:0 20px 15px;color:#8cbdd0;font-size:10px;letter-spacing:.08em;font-weight:800}
+.checkoutV7Links{display:flex;flex-wrap:wrap;gap:20px;font-size:13px;font-weight:800;color:#bdeaf6}
+.checkoutV7Links a{display:inline-flex;align-items:center;gap:7px;transition:color .18s}
+.checkoutV7Links a:hover{color:#fff}
+.checkoutV7Panel{position:relative;min-width:0;border-radius:27px;border:1px solid rgba(133,199,236,.24);padding:29px 30px 23px;background:linear-gradient(135deg,#152c40,#0b1a2a 75%);box-shadow:0 32px 80px rgba(0,0,0,.20);overflow:hidden}
+.checkoutV7Panel:before{content:"";position:absolute;pointer-events:none;inset:0 0 auto;height:4px;background:linear-gradient(90deg,#69e5ed,#82adff,transparent)}
+.checkoutV7PanelTop{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.checkoutV7PanelTop>div>span{display:block;font-size:10px;letter-spacing:.13em;font-weight:900;color:#8bcde2}
+.checkoutV7PanelTop h2{font-size:clamp(21px,2vw,27px);line-height:1.2;letter-spacing:-.04em;color:#f1f8ff;margin:9px 0 0}
+.checkoutV7MiniMark{font-size:10px;white-space:nowrap;color:#90d9eb;font-weight:900;letter-spacing:.08em;padding-top:3px}
+.checkoutV7Tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:5px;border:1px solid rgba(124,242,255,.15);border-radius:14px;background:rgba(2,12,26,.52);margin:24px 0 26px}
+.checkoutV7Tab{min-width:0;border:1px solid transparent;background:transparent;color:#a0b7cc;min-height:43px;font-size:14px;font-weight:850;border-radius:10px;transition:background .2s,border-color .2s,color .2s,transform .2s;cursor:pointer}
+.checkoutV7Tab:hover{color:white;background:rgba(124,242,255,.06)}
+.checkoutV7TabActive{color:#061425!important;background:linear-gradient(110deg,#7ce9f5,#81b7ff)!important;border-color:rgba(172,233,255,.53)!important;box-shadow:0 5px 16px rgba(76,171,230,.14)}
+.checkoutV7Tab:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.checkoutV7Content{animation:checkoutV7Appear .3s ease-out both}
+.checkoutV7PlanHead{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.checkoutV7PlanHead>div>span{color:#8ac2dc;letter-spacing:.04em;font-size:12px;font-weight:750}
+.checkoutV7PlanHead h3{font-size:clamp(34px,3vw,44px);line-height:1.1;letter-spacing:-.06em;color:#f4fbff;margin:5px 0 0}
+.checkoutV7Price{font-size:clamp(34px,3.2vw,43px);font-weight:860;letter-spacing:-.045em;white-space:nowrap;color:#f2f9ff}
+.checkoutV7Price small{font-size:13px;letter-spacing:0;font-weight:700;color:#a3bad0;margin-left:4px}
+.checkoutV7Description{margin:13px 0 18px;color:#b7c9dc;font-size:15px;line-height:1.6}
+.checkoutV7Trial{display:flex;gap:13px;align-items:center;padding:13px 14px;background:rgba(124,242,255,.075);border:1px solid rgba(124,242,255,.18);border-radius:13px;margin-bottom:20px}
+.checkoutV7Trial>span{font-size:25px;color:#7cebf8}
+.checkoutV7Trial strong{display:block;color:#e6faff;font-size:14px;line-height:1.4}
+.checkoutV7Trial small{display:block;font-size:12px;line-height:1.5;margin-top:2px;color:#9fbed1}
+.checkoutV7FeaturesTitle{display:flex;justify-content:space-between;gap:10px;padding:19px 0 9px;border-top:1px solid rgba(170,214,235,.13);color:#8ed4e9;font-size:11px;font-weight:850;letter-spacing:.075em}
+.checkoutV7FeaturesTitle span{font-size:11px;letter-spacing:0;color:#8ca7bc;font-weight:750}
+.checkoutV7Features{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:0}
+.checkoutV7Features li{display:flex;align-items:flex-start;gap:10px;padding:8px 0;font-size:14px;line-height:1.45;color:#e2eef9}
+.checkoutV7Features li span{display:grid;place-items:center;flex:0 0 18px;width:18px;height:18px;border-radius:50%;font-size:11px;font-weight:950;color:#a8fff1;background:rgba(98,222,187,.095)}
+.checkoutV7Action{display:flex;justify-content:center;align-items:center;gap:11px;width:100%;min-height:52px;border-radius:13px;color:#071526!important;background:linear-gradient(105deg,#73e7f1,#88b0ff);font-size:15px;font-weight:900;transition:transform .22s,box-shadow .22s}
+.checkoutV7Action:hover{transform:translateY(-2px);box-shadow:0 11px 30px rgba(100,193,250,.19)}
+.checkoutV7Action:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.checkoutV7ActionNote{margin:12px auto 0;text-align:center;color:#8fa8bc;font-size:11.5px;line-height:1.6;max-width:350px}
+.checkoutV7Bottom{display:flex;justify-content:space-between;align-items:center;gap:20px;width:min(1160px,calc(100% - 50px));margin:26px auto 0;padding-top:21px;border-top:1px solid rgba(124,242,255,.11);font-size:12px;color:#8fb3c9}
+.checkoutV7Bottom a{display:inline-flex;align-items:center;gap:8px;color:#b3eff8;font-weight:750}
+@keyframes checkoutV7Appear{from{opacity:.2;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes checkoutV7Enter{from{opacity:.3;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:980px){.checkoutV7Inner{grid-template-columns:1fr;gap:26px;width:min(630px,calc(100% - 40px))}.checkoutV7{padding:46px 0 22px}.checkoutV7Hero h1{font-size:clamp(40px,6vw,58px)}.checkoutV7Artwork{max-width:100%}.checkoutV7Bottom{width:min(630px,calc(100% - 40px))}}
+@media(max-width:560px){.checkoutV7{padding:30px 0 19px;min-height:0}.checkoutV7Inner{width:calc(100% - 28px)}.checkoutV7Hero h1{font-size:clamp(36px,9vw,47px);margin:19px 0 13px}.checkoutV7Hero>p{font-size:15px;line-height:1.65}.checkoutV7Artwork{margin:21px 0 15px;border-radius:17px}.checkoutV7ArtworkCaption{padding:0 12px 12px;font-size:9px}.checkoutV7Links{font-size:12px;gap:15px}.checkoutV7Panel{padding:22px 18px 18px;border-radius:21px}.checkoutV7PanelTop h2{font-size:23px}.checkoutV7MiniMark{font-size:9px}.checkoutV7Tabs{margin:20px 0 22px}.checkoutV7Tab{min-height:42px}.checkoutV7PlanHead h3{font-size:36px}.checkoutV7Price{font-size:35px}.checkoutV7Features li{font-size:13.5px}.checkoutV7Bottom{width:calc(100% - 28px);font-size:11px;flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){.checkoutV7Content,.checkoutV7Artwork svg{animation:none!important}.checkoutV7Tab,.checkoutV7Action{transition:none!important}.checkoutV7Action:hover{transform:none}}

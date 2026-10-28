@@ -6,7 +6,7 @@ export default async function OnboardingPage() {
   await requireUser();
 
   return (
-    <div className="app-shell">
+    <><link rel="stylesheet" href="/style.css"/><div className="app-page"><div className="app-shell">
       <Sidebar active="onboarding" />
       <main className="main">
         <span className="badge">İlk Kurulum</span>
@@ -19,6 +19,6 @@ export default async function OnboardingPage() {
           <button className="btn btn-primary" type="submit">Rotamı Oluştur</button>
         </form>
       </main>
-    </div>
+    </div></div></>
   );
 }

@@ -1,3 +1,4 @@
+import { Sidebar } from "@/components/Sidebar";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "@/app/auth/actions";
@@ -128,7 +129,7 @@ export default async function DashboardPage() {
     : "Henüz seçilmedi";
 
   const goal =
-    profile?.goal || "Rotanı oluşturunca burada kişisel hedefin görünecek.";
+    profile?.goal || "Branşını seçerek başlayabilirsin.";
 
   let modules: LearningModule[] = [];
 
@@ -350,92 +351,14 @@ export default async function DashboardPage() {
         </div>
 
         <div className="app-shell">
-          <aside className="app-sidebar">
-            <a href="/dashboard" className="app-brand">
-              <div className="brand-badge">O</div>
-              <div>
-                Olympion
-                <small>Öğrenci Paneli</small>
-              </div>
-            </a>
-
-            <nav className="app-nav" aria-label="Panel menüsü">
-              <a href="/dashboard" className="app-link active">
-                <span>⌘</span>
-                Genel
-              </a>
-
-              <a href="/courses" className="app-link">
-                <span>▶</span>
-                Dersler
-              </a>
-
-              <a href="/roadmap.html" className="app-link">
-                <span>🧭</span>
-                Rota
-              </a>
-
-              <a href="/notes.html" className="app-link">
-                <span>📚</span>
-                PDF
-              </a>
-
-              <a href="/daily-problem.html" className="app-link">
-                <span>🔥</span>
-                Problem
-              </a>
-
-              <a href="/ai-coach.html" className="app-link">
-                <span>✦</span>
-                Koç
-              </a>
-
-              <a href="/student-labs.html" className="app-link">
-                <span>🧪</span>
-                Labs
-              </a>
-
-              <a href="/settings" className="app-link">
-                <span>⚙</span>
-                Ayarlar
-              </a>
-
-              <form action={signOut} className="dashboard-logout-form">
-                <button className="app-link logout-sidebar" type="submit">
-                  <span>⏻</span>
-                  Çıkış
-                </button>
-              </form>
-            </nav>
-
-            <div className="sidebar-upgrade">
-              <span>Pro</span>
-              <strong>Rotanı kilitsiz kullan.</strong>
-              <p>Premium dersler, PDF notları ve deney arşivi.</p>
-              <a href="/pricing.html">Planı yükselt →</a>
-            </div>
-
-            <a href="/" className="back-site">
-              ← Ana siteye dön
-            </a>
-          </aside>
+          <Sidebar active="dashboard" />
 
           <main className="app-main">
             <div className="app-top">
               <div>
                 <span className="eyebrow">Genel</span>
 
-                <h1
-                  className="greeting-rotator"
-                  aria-label={`Hoş geldin, ${firstName}.`}
-                >
-                  <span>Hoş geldin, {firstName}.</span>
-                  <span>Welcome, {firstName}.</span>
-                  <span>Bonjour, {firstName}.</span>
-                  <span>Hola, {firstName}.</span>
-                  <span>Ciao, {firstName}.</span>
-                  <span>Willkommen, {firstName}.</span>
-                </h1>
+                <h1 className="student-dashboard-title">Hoş geldin, {firstName} <span aria-hidden="true">✦</span></h1>
 
                 <p>
                   {hasRouteSetup
@@ -494,8 +417,8 @@ export default async function DashboardPage() {
 
               <p>
                 {hasRouteSetup
-                  ? "Bu alan Supabase profilindeki branş, seviye ve hedef bilgilerine göre güncellenir."
-                  : "Yeni üyeler için rota oluşturma popup’ı otomatik açılır."}
+                  ? "Seçtiğin hedef doğrultusunda adım adım ilerle."
+                  : "Çalışma yolunu oluşturmak için branşını seç."}
               </p>
             </div>
 

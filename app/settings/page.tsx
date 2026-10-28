@@ -1,3 +1,4 @@
+import { Sidebar } from "@/components/Sidebar";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "@/app/auth/actions";
@@ -33,7 +34,7 @@ export default async function SettingsPage({
   const email = profile?.email || user.email || "";
   const fullName = profile?.full_name || email.split("@")[0] || "Öğrenci";
   const plan = profile?.plan || "free";
-const role = profile?.role || "student";
+
 const branch = profile?.branch || "";
 const level = profile?.level || "";
 const goal = profile?.goal || "";
@@ -47,10 +48,7 @@ const displayPlan =
         ? "Pro"
         : plan;
 
-const displayRole =
-  role === "admin"
-    ? "Admin"
-    : "Öğrenci";
+
  
 
   return (
@@ -72,75 +70,7 @@ const displayRole =
         </div>
 
         <div className="app-shell">
-          <aside className="app-sidebar">
-            <a href="/dashboard" className="app-brand">
-              <div className="brand-badge">O</div>
-              <div>
-                Olympion
-                <small>Öğrenci Paneli</small>
-              </div>
-            </a>
-
-            <nav className="app-nav" aria-label="Panel menüsü">
-              <a href="/dashboard" className="app-link">
-                <span>⌘</span>
-                Genel
-              </a>
-
-              <a href="/courses.html" className="app-link">
-                <span>▶</span>
-                Dersler
-              </a>
-
-              <a href="/roadmap.html" className="app-link">
-                <span>🧭</span>
-                Rota
-              </a>
-
-              <a href="/notes.html" className="app-link">
-                <span>📚</span>
-                PDF
-              </a>
-
-              <a href="/daily-problem.html" className="app-link">
-                <span>🔥</span>
-                Problem
-              </a>
-
-              <a href="/ai-coach.html" className="app-link">
-                <span>✦</span>
-                Koç
-              </a>
-
-              <a href="/student-labs.html" className="app-link">
-                <span>🧪</span>
-                Labs
-              </a>
-
-              <a href="/settings" className="app-link active">
-                <span>⚙</span>
-                Ayarlar
-              </a>
-
-              <form action={signOut} className="settings-logout-form">
-                <button className="app-link logout-sidebar" type="submit">
-                  <span>⏻</span>
-                  Çıkış
-                </button>
-              </form>
-            </nav>
-
-            <div className="sidebar-upgrade">
-              <span>Pro</span>
-              <strong>Rotanı kilitsiz kullan.</strong>
-              <p>Premium dersler, PDF notları ve deney arşivi.</p>
-              <a href="/pricing.html">Planı yükselt →</a>
-            </div>
-
-            <a href="/" className="back-site">
-              ← Ana siteye dön
-            </a>
-          </aside>
+          <Sidebar active="settings" />
 
           <main className="app-main">
             <div className="app-top">
@@ -189,13 +119,10 @@ const displayRole =
   <input value={displayPlan} readOnly />
 </label>
 
-<label>
-  Rol
-  <input value={displayRole} readOnly />
-</label>
+
 
                 <p className="auth-note">
-                  E-posta, plan ve rol alanları güvenlik için kullanıcı tarafından
+                  E-posta ve plan alanları güvenlik için kullanıcı tarafından
                   değiştirilemez.
                 </p>
               </section>

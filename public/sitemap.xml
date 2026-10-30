@@ -1,57 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://olympionlab.com/</loc>
-    <priority>1.00</priority>
-  </url>
-
-  
-
-  <url>
-    <loc>https://olympionlab.com/branslar</loc>
-    <priority>0.90</priority>
-  </url>
-
-  <url>
-    <loc>https://olympionlab.com/video.html</loc>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://olympionlab.com/fiyatlandirma</loc>
-    <priority>0.80</priority>
-  </url>
-
-  <url>
-    <loc>https://olympionlab.com/gunun-sorusu</loc>
-    <priority>0.75</priority>
-  </url>
-
-  <url>
-    <loc>https://olympionlab.com/yapay-zeka-kocu</loc>
-    <priority>0.70</priority>
-  </url>
-
-  <url>
-    <loc>https://olympionlab.com/student-labs</loc>
-    <priority>0.70</priority>
-  </url>
-
-  <url>
-    <loc>https://olympionlab.com/gizlilik-politikasi</loc>
-    <priority>0.40</priority>
-  </url>
-
-  <url>
-    <loc>https://olympionlab.com/kullanim-kosullari</loc>
-    <priority>0.40</priority>
-  </url>
-
-  <url>
-    <loc>https://olympionlab.com/kvkk</loc>
-    <priority>0.40</priority>
-  </url>
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://olympionlab.com/</loc></url>
+  <url><loc>https://olympionlab.com/branslar</loc></url>
+  <url><loc>https://olympionlab.com/branslar/fizik</loc></url>
+  <url><loc>https://olympionlab.com/branslar/kimya</loc></url>
+  <url><loc>https://olympionlab.com/branslar/matematik</loc></url>
+  <url><loc>https://olympionlab.com/branslar/biyoloji</loc></url>
+  <url><loc>https://olympionlab.com/video-kutuphanesi</loc></url>
+  <url><loc>https://olympionlab.com/laboratuvarlar</loc></url>
+  <url><loc>https://olympionlab.com/fiyatlandirma</loc></url>
+  <url><loc>https://olympionlab.com/hakkimizda</loc></url>
+  <url><loc>https://olympionlab.com/biz-kimiz</loc></url>
+  <url><loc>https://olympionlab.com/mentorluk-basvurusu</loc></url>
+  <url><loc>https://olympionlab.com/sikca-sorulan-sorular</loc></url>
+  <url><loc>https://olympionlab.com/gizlilik-politikasi</loc></url>
+  <url><loc>https://olympionlab.com/kullanim-kosullari</loc></url>
+  <url><loc>https://olympionlab.com/kvkk</loc></url>
 </urlset>

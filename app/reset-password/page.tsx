@@ -19,12 +19,26 @@ export default function ResetPasswordPage() {
         // Compatibility with implicit-flow recovery links. PKCE links use /auth/callback.
         const search = new URLSearchParams(window.location.search);
         const code = search.get("code");
+        const tokenHash = search.get("token_hash");
+        const linkType = search.get("type");
+        const hashParameters = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+        // A regular signed-in session is NOT evidence of a password-recovery link.
+        // Never offer a one-click password reset without a fresh recovery token.
+        if (!code && !tokenHash && !hashParameters.get("access_token")) {
+          if (mounted) setStatus("invalid");
+          return;
+        }
+        if (tokenHash && linkType === "recovery") {
+          const { error: otpError } = await supabase.auth.verifyOtp({ token_hash: tokenHash, type: "recovery" });
+          window.history.replaceState({}, "", window.location.pathname);
+          if (otpError) throw otpError;
+        }
         if (code) {
           const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
           window.history.replaceState({}, "", window.location.pathname);
           if (exchangeError) throw exchangeError;
         }
-        const params = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+        const params = hashParameters;
         const access = params.get("access_token");
         const refresh = params.get("refresh_token");
         if (access && refresh) {

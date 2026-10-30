@@ -6,7 +6,7 @@ import { Sidebar } from "@/components/Sidebar";
 
 export default async function LessonPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const videoId = /^\\d+$/.test(id) ? Number(id) : NaN;
+  const videoId = /^[0-9]+$/.test(id) ? Number(id) : NaN;
   if (!Number.isSafeInteger(videoId) || videoId <= 0) notFound();
   const user = await requireUser();
   const profile = await getProfile(user.id);

@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
 
-  const pathname = request.nextUrl.pathname.replace(/\\/$/, "") || "/";
+  const pathname = request.nextUrl.pathname.endsWith("/") ? request.nextUrl.pathname.slice(0, -1) : request.nextUrl.pathname;
   const protectedStudentPages = new Set([
     "/student-labs", "/student-labs.html",
     "/uygulama-laboratuvarlari", "/app-labs.html",

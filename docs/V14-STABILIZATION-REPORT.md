@@ -50,3 +50,13 @@ Scope: Follow-up to merged V13; current draft PR V14.
 
 ## Rollback
 Revert the V14 PR if login/course routing regresses. SQL privilege revocation should **not** be casually reverted; fix affected legitimate profile updates using column-specific grants instead.
+
+## V14 hardening follow-up (30 Oct 2026)
+
+- Course page now treats **unknown video access tiers** as locked rather than public; the write API already failed closed.
+- Password reset UI refuses ordinary sessions without a recovery link; supports PKCE code and token-hash recovery.
+- `/dashboard/setup` now rejects cross-site form submissions, invalid/oversized payloads, unknown branch/level values and empty or oversized goals. It no longer writes privileged `role` or `plan` columns through the administrative client.
+- Added a PR/main GitHub Actions quality workflow (Node 24, `npm test`, `npm run build`, `npm run typecheck`). Tests guard against external redirects and unsafe post-login destinations. **Do not claim CI success before the run completes.**
+- Added `supabase/audits/V14-security-check.sql`, read-only checks for profile/payment write privileges and RLS on learning-progress tables. Run it in the correct Supabase SQL Editor after applying migration 0003.
+- Project currently has no committed npm lockfile and uses `latest` dependency declarations. Installation reproducibility is a separate follow-up; the quality workflow uses `npm install` rather than pretending a lockfile exists.
+- Preview compilation and static source checks do not establish real-account, e-mail recovery or production DB access behavior. Keep PR #13 unmerged pending required QA and migration.

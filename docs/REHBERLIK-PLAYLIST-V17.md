@@ -1,49 +1,56 @@
-# OlympionLab — Giriş Sonrası Rehberlik Oynatma Listesi
+# Rehberlik playlist bağlantısı — V18 düzeltmesi
 
-## Hedef
+## Kesin konum
 
-Giriş yapmış öğrenci `/kurslar` açtığında Rehberlik video spotu en üstte görünür.
-"İlk videoyu izle" düğmesi `/courses/rehberlik` sayfasını açar.
-Oynatıcı **playlist'in kendi sırasındaki ilk videodan** başlar; sonraki videolar YouTube oynatıcısından seçilebilir.
+**Giriş yaptıktan sonra → Dersler → Fizik → Rehberlik (slug `physics-guidance`).**
 
-### Kullanıcının gönderdiği oynatma listesi
+- Dersler sayfası: `/kurslar`
+- Mevcut kurs bölümü: `/courses/physics-guidance`
+- Playlist: `https://www.youtube.com/playlist?list=PLNo6NNl7MNAA`
+- Playlist ID: `PLNo6NNl7MNAA`
 
-- Bağlantı: `https://www.youtube.com/playlist?list=PLNo6NNl7MNAA`
-- Kimlik: `PLNo6NNl7MNAA`
-- **Bağlantı içeriği henüz doğrulanamadı.** YouTube bu kimliğin varlığını/erişimini doğrulamıyorsa, YouTube Studio'dan oynatma listesinin *Paylaş* → *Bağlantıyı kopyala* yoluyla tam URL'sini tekrar al.
+**Ayrı `/courses/rehberlik` sayfası ve Dersler ana ekranındaki ekstra Rehberlik kartı kaldırıldı.**
+**Herkese açık `/video-kutuphanesi` sayfası değiştirilmedi.**
 
-## Çalışma biçimi
+## Video aktarımı
 
-- Varsayılan kimlik koddaki `PLNo6NNl7MNAA`. Başka listede değiştirmek istersen sunucuda `YOUTUBE_PLAYLIST_REHBERLIK` ortam değişkenini tanımlayabilirsin.
-- Oynatma listesinin ilk videosu API erişimi olmasa da `youtube-nocookie.com/embed/videoseries?list=...` üzerinden açılır **(YouTube listenin erişimine izin veriyorsa)**.
-- Başlık, süre, ilk video görseli, ilk video sırası ve sağdaki liste için sunucu `playlistItems.list` + `videos.list` kullanır.
-- API sonuçları 10 dakikaya kadar önbellekte tutulur; yeni video ekledikten sonra tekrar kod değiştirmeye gerek yok.
-- API key/erişim yoksa YouTube playlist iframe'i ve playlist bağlantısı kalır, ama video başlığı ve süreleri otomatik listelenmeyebilir.
-- Bu içerikler **ücretsiz Rehberlik** videoları içindir. Liste dışı video, bağlantısını bilen kişilerce izlenebilir; premium ücretli video koruması değildir.
-- Mevcut `course_sections` veritabanı ve öğrencinin ilerleme kayıtları değiştirilmedi. Bu playlist videosunu izlemek **otomatik tamamlandı** kaydı oluşturmaz.
+Bu değişiklik, fizik rehberlik kursunun kendi oynatıcısında şu akışı kullanır:
 
-## Gerekli Vercel ortam değişkeni
+1. Oturum ve `course_sections.slug = physics-guidance` denetimi.
+2. Rehberlik için sunucuda playlist meta verisi çekme (`YOUTUBE_API_KEY` tanımlıysa).
+3. İlk video ve playlist sırasıyla diğer videoları mevcut kurs detayında gösterme.
+4. Bir videoya basınca aynı `/courses/physics-guidance?video=<youtube-id>` sayfasında oynatma.
+5. 10 dakikalık Next.js önbelleğiyle video sırasını ve yeni videoları yenileme.
 
-Vercel Project → Settings → Environment Variables:
+Sunucu API anahtarı yoksa, video oynatıcı doğrudan `youtube-nocookie.com/embed/videoseries?list=PLNo6NNl7MNAA` adresine bağlanır. Bu, **playlist geçerli ve YouTube embed izni açıksa** ilk videoyu oynatır; meta veri olmadığı için sağdaki özel ders listesi oluşturulamaz.
 
-| Key | Value | Type |
+## Vercel ayarları
+
+| Ad | Değer | Tip |
 | --- | --- | --- |
-| `YOUTUBE_API_KEY` | Google Cloud **YouTube Data API v3** API Key | Secret |
-| `YOUTUBE_PLAYLIST_REHBERLIK` | `PLNo6NNl7MNAA` | Config (optional; default is this ID) |
+| `YOUTUBE_API_KEY` | YouTube Data API v3 için Google Cloud API key | Secret |
+| `YOUTUBE_PLAYLIST_REHBERLIK` | `PLNo6NNl7MNAA` (isteğe bağlı, varsayılan bu) | Config |
 
-**Google OAuth Client ID bu API anahtarı değildir.** `NEXT_PUBLIC_GOOGLE_CLIENT_ID` yalnızca Google ile giriş içindir. YouTube API anahtarı **NEXT_PUBLIC_ ile başlamamalıdır**.
+**Google OAuth Client ID, YouTube API Key değildir.** YouTube API anahtarını `NEXT_PUBLIC_` ile başlatma.
 
-## Test planı
+## Kaynak ve hesap güvenliği
 
-1. Google Cloud'da YouTube Data API v3 etkin ve API key bu API'ye yetkili olsun.
-2. Playlist erişilebilir olsun; ilk video Liste Dışı ise **Özel** olarak bırakılmasın. YouTube oynatma listesi public/erişilebilir olmalı.
-3. En son commit'in Vercel build'i Ready olmalı ve oturum açılmış hesapla test edilmeli.
-4. `/kurslar` içinde ilk görünen Rehberlik spotunda doğru başlık ve thumbnail var mı?
-5. `/courses/rehberlik` içinde liste sırası/oynatıcı doğru mu? İkinci video eklenince otomatik geliyor mu?
-6. Ana sayfanın header/footer'u, masaüstü dersler ve mobil navbar değişmedi mi?
-7. `/courses/rehberlik` çıkış yapmış kullanıcıyı güvenli girişe gönderiyor mu?
-8. Yanlış/ulaşılamayan playlist durumunda diğer ders kartları çalışıyor mu?
+- Bu rota oturum açılmadan erişilemez; fizik dışında başka branş profili varsa `/kurslar` sayfasına geri yönlendirir.
+- YouTube'daki **Liste Dışı** videolar yalnızca bağlantı bilenler tarafından da izlenebilir, ücretli ders için koruma değildir.
+- Bu düzeltme veritabanındaki `lesson_videos` satırlarını otomatik olarak üretmez veya değiştirmez. **YouTube videolarının tamamlanma/XP kayıtları henüz DB ilerleme akışına otomatik entegre değil.** Ön koşula bağlı sonraki aşamalara geçiş için ayrıca ilerleme eşlemesi gerekir.
+- Playlist bağlantısının gerçek videolarını henüz YouTube üzerinden doğrulayamadım; bu sebeple hayalî video ID veya başlık eklemedim.
+- Dersler, panel, ortak navbar/header/footer ve herkese açık Video Kütüphanesi etkilenmez.
 
-## Yayın sırası
+## Kurulum testi
 
-Bu PR, henüz canlıya alınmamış **V14 (#13)** dalını temel alır; önce V14'ün Supabase güvenlik migration'ı ve giriş testleri tamamlanmalı. Ardından V17 `main` dalına entegre edilir. `V15 (#14)` herkese açık video kütüphanesine yönelik ayrı bir YouTube senkronizasyon PR'ıdır; onu da sonraki aşamada birleştirebilirsin.
+- [ ] Vercel son commit için **Ready**.
+- [ ] Kullanıcı fizikte ve oturum açık; `/kurslar` → mevcut `physics-guidance` kartı → `Derse Git`.
+- [ ] İlk oynatma listesi videosu doğru açılıyor.
+- [ ] API key tanımlandıysa video adları, kapaklar ve sıralama doğru.
+- [ ] Yeni bir video YouTube playlist'e eklenince yaklaşık 10 dakika sonra listede görünüyor.
+- [ ] Başka fizik/kimya kursları ve Video Kütüphanesi değişmemiş.
+- [ ] Öğrenci çıkış yaptığında korumalı kurs açılmıyor.
+
+## Birleştirme sırası
+
+PR #13 (V14 güvenlik ve ders sistemi) hâlâ `main` dalına alınmamış durumda. V18 düzeltmesi V14'ten dal almıştır. Önce Supabase migration ve V14 doğrulama testleri, sonra bu düzeltme birlikte üretime alınmalı.

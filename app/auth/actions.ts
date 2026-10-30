@@ -87,7 +87,7 @@ export async function resetPassword(formData: FormData) {
 
   const supabase = await createClient();
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: siteUrl() + "/auth/callback?next=%2Freset-password"
+    redirectTo: siteUrl() + "/reset-password"
   });
   if (error) redirect(errorUrl(trAuthError(error.message), "reset"));
   redirect("/giris?message=" + encodeURIComponent("Şifre sıfırlama bağlantısı için e-postanı kontrol et."));

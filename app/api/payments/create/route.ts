@@ -1,26 +1,18 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
 
-export async function GET(request: Request) {
-  const url = new URL(request.url);
-  const plan = url.searchParams.get("plan") || "plus";
-  const supabase = await createClient();
-  const { data } = await supabase.auth.getUser();
+// IMPORTANT: Keep this endpoint closed until a verified payment-provider integration
+// is implemented. Never create speculative payment rows or start a paid subscription
+// merely because a visitor selected a plan.
+const unavailable = () =>
+  NextResponse.json(
+    { error: "Ödeme alma işlemi şu anda kullanılamıyor.", code: "PAYMENTS_NOT_CONFIGURED" },
+    { status: 503, headers: { "Cache-Control": "no-store" } }
+  );
 
-  if (!data.user) {
-    return NextResponse.redirect(new URL("/login", request.url));
-  }
+export async function GET() {
+  return unavailable();
+}
 
-  // TODO: iyzico Checkout Form initialize endpoint burada çağrılacak.
-  // Şimdilik demo: payment kaydı oluşturup checkout sayfasına yönlendiriyoruz.
-  await supabase.from("payments").insert({
-    user_id: data.user.id,
-    provider: "iyzico",
-    plan,
-    amount_cents: plan === "pro" ? 29900 : 14900,
-    currency: "TRY",
-    status: "created"
-  });
-
-  return NextResponse.redirect(new URL(`/checkout?plan=${plan}`, request.url));
+export async function POST() {
+  return unavailable();
 }

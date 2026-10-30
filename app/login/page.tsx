@@ -1,3 +1,4 @@
+import { GoogleIdentityButton } from "@/components/auth/GoogleIdentityButton";
 import { safeAuthDestination } from "@/app/auth/redirects";
 import Link from "next/link";
 import { resetPassword, signIn, signInWithGoogle, signUp } from "@/app/auth/actions";
@@ -132,6 +133,12 @@ export default async function LoginPage({
 
           {mode !== "reset" && (
             <>
+              {process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ? (
+                <GoogleIdentityButton
+                  clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
+                  next={next}
+                />
+              ) : (
               <form action={signInWithGoogle}>
                 <input type="hidden" name="next" value={next} />
                 <button
@@ -160,6 +167,7 @@ export default async function LoginPage({
                   Google ile bağlan
                 </button>
               </form>
+              )}
 
               <div className="auth-separator">
                 <span>veya e-posta ile devam et</span>
@@ -286,7 +294,7 @@ export default async function LoginPage({
                 Şifre sıfırlama bağlantısı e-posta adresine gönderilecek.
               </p>
 
-              <Link href="/login" className="forgot-link">
+              <Link href="/giris" className="forgot-link">
                 Giriş ekranına dön
               </Link>
             </form>

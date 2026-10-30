@@ -1,4 +1,16 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /panel
+Disallow: /ayarlar
+Disallow: /kurslar
+Disallow: /notlar
+Disallow: /student-labs
+Disallow: /yol-haritasi
+Disallow: /rota/
+Disallow: /ders/
+Disallow: /giris
+Disallow: /odeme
+Disallow: /admin
 
 Sitemap: https://olympionlab.com/sitemap.xml

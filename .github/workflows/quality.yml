@@ -34,6 +34,8 @@ jobs:
           node-version: '24'
       - name: Install dependencies
         run: npm install --no-audit --no-fund
+      - name: Security unit tests
+        run: npm test
       - name: Production build
         run: npm run build
       - name: TypeScript check

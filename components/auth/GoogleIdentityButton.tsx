@@ -44,6 +44,7 @@ async function createNonce() {
 export function GoogleIdentityButton({ clientId, next }: { clientId: string; next: string }) {
   const buttonContainer = useRef<HTMLDivElement>(null);
   const initializing = useRef(false);
+  const processing = useRef(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
@@ -60,10 +61,12 @@ export function GoogleIdentityButton({ clientId, next }: { clientId: string; nex
         use_fedcm_for_prompt: true,
         auto_select: false,
         callback: async response => {
+          if (processing.current) return;
           if (!response.credential) {
             setError("Google doğrulama bilgisi alınamadı. Lütfen tekrar dene.");
             return;
           }
+          processing.current = true;
           setBusy(true);
           setError("");
           try {
@@ -80,6 +83,7 @@ export function GoogleIdentityButton({ clientId, next }: { clientId: string; nex
           } catch {
             setError("Google oturumu açılamadı. Google ve Supabase yapılandırmasını kontrol et.");
             setBusy(false);
+            processing.current = false;
           }
         }
       });
@@ -106,6 +110,7 @@ export function GoogleIdentityButton({ clientId, next }: { clientId: string; nex
         src="https://accounts.google.com/gsi/client"
         strategy="afterInteractive"
         onReady={() => { void initialize(); }}
+        onError={() => { setError("Google giriş bileşeni yüklenemedi. E-posta ile giriş yapabilirsin."); }}
       />
       <div
         ref={buttonContainer}

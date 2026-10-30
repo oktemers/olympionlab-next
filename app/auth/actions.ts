@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { safeAuthDestination } from "./redirects";
+import { syncSignupBranch } from "./profile-sync";
 
 const siteUrl = () => (process.env.NEXT_PUBLIC_SITE_URL || "https://olympionlab.com").replace(/\/$/, "");
 
@@ -32,6 +33,7 @@ export async function signIn(formData: FormData) {
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) redirect(errorUrl(trAuthError(error.message), "login", next));
+  await syncSignupBranch(supabase);
   redirect(next);
 }
 
@@ -59,6 +61,7 @@ export async function signUp(formData: FormData) {
   if (!data.session) {
     redirect("/giris?message=" + encodeURIComponent("Kayıt isteğin alındı. E-postana gelen doğrulama bağlantısını açıp giriş yap."));
   }
+  await syncSignupBranch(supabase);
   redirect("/panel");
 }
 

@@ -1,3 +1,4 @@
+import { getGuidancePlaylist } from "@/lib/guidance-playlist";
 import { Sidebar } from "@/components/Sidebar";
 import Script from "next/script";
 import { redirect } from "next/navigation";
@@ -109,6 +110,9 @@ export default async function CoursesPage() {
     redirect("/dashboard");
   }
 
+  const guidance = branchKey === "physics" ? await getGuidancePlaylist() : null;
+  // YouTube playlist is only shown *inside* the existing physics-guidance course.
+  const physicsGuidanceVideos = guidance?.videos || [];
   const branch = branchLabels[branchKey];
   const plan = String(profile?.plan || "free");
 
@@ -286,7 +290,21 @@ export default async function CoursesPage() {
 
             <section className="course-stage-grid">
               {sectionsWithLockState.map((section) => {
-                const previewVideos = section.videos.slice(0, 3);
+                const isPhysicsGuidance = section.slug === "physics-guidance";
+                const previewVideos = isPhysicsGuidance
+                  ? physicsGuidanceVideos.slice(0,3).map((video,index) => ({
+                      id:"youtube-"+video.youtubeId,
+                      slug:"youtube-"+video.youtubeId,
+                      title:video.title,
+                      description:null,
+                      youtube_id:video.youtubeId,
+                      order_index:index,
+                      duration_seconds:0,
+                      xp_reward:0,
+                      access_tier:"free" as const,
+                      is_active:true
+                    }))
+                  : section.videos.slice(0, 3);
 
                 return (
                   <article
@@ -303,7 +321,7 @@ export default async function CoursesPage() {
                       <div>
                         <span className="eyebrow">
                           {stageLabels[section.stage]} •{" "}
-                          {section.totalVideosCount} video
+                          {isPhysicsGuidance && physicsGuidanceVideos.length ? physicsGuidanceVideos.length : section.totalVideosCount} video
                         </span>
                         <h2>{section.title}</h2>
                       </div>
@@ -315,19 +333,23 @@ export default async function CoursesPage() {
 
                     <p className="course-description">{section.description}</p>
 
-                    <div className="course-progress-row">
-                      <div className="progress-track">
-                        <i
-                          style={{
-                            width: `${Math.max(section.progressPercent, 5)}%`,
-                          }}
-                        ></i>
-                      </div>
-
-                      <strong>%{section.progressPercent}</strong>
-                    </div>
+                    {isPhysicsGuidance
+                      ? <p className="course-description" style={{margin:0,fontSize:12}}>
+                          YouTube playlist'indeki videolar otomatik listelenir. Bu liste için izleme ilerlemesi henüz ayrı takip edilir.
+                        </p>
+                      : <div className="course-progress-row">
+                          <div className="progress-track">
+                            <i style={{ width: `${Math.max(section.progressPercent, 5)}%` }}></i>
+                          </div>
+                          <strong>%{section.progressPercent}</strong>
+                        </div>}
 
                     <div className="course-video-preview-list">
+                      {isPhysicsGuidance && previewVideos.length === 0 && (
+                        <div className="course-more-videos">
+                          Videoları görmek için Derse Git butonundan YouTube oynatma listesini aç.
+                        </div>
+                      )}
                       {previewVideos.map((video) => {
                         const progress = progressMap.get(video.id);
                         const videoPercent = Number(
@@ -343,18 +365,19 @@ export default async function CoursesPage() {
                             <div>
                               <strong>{video.title}</strong>
                               <small>
-                                {formatDuration(video.duration_seconds)} •{" "}
-                                {accessLabels[video.access_tier]} • %
-                                {videoPercent}
+                                {isPhysicsGuidance
+                                  ? "YouTube · Ücretsiz"
+                                  : <>{formatDuration(video.duration_seconds)} •{" "}
+                                      {accessLabels[video.access_tier]} • %{videoPercent}</>}
                               </small>
                             </div>
                           </div>
                         );
                       })}
 
-                      {section.videos.length > 3 && (
+                      {(isPhysicsGuidance ? physicsGuidanceVideos.length : section.videos.length) > 3 && (
                         <div className="course-more-videos">
-                          +{section.videos.length - 3} video daha
+                          +{(isPhysicsGuidance ? physicsGuidanceVideos.length : section.videos.length) - 3} video daha
                         </div>
                       )}
                     </div>
@@ -373,8 +396,9 @@ export default async function CoursesPage() {
                       </a>
 
                       <span>
-                        {section.completedVideosCount}/
-                        {section.totalVideosCount} tamamlandı
+                        {isPhysicsGuidance
+                          ? "YouTube oynatma listesi"
+                          : section.completedVideosCount + "/" + section.totalVideosCount + " tamamlandı"}
                       </span>
                     </div>
                   </article>

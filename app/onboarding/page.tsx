@@ -2,7 +2,8 @@ import { Sidebar } from "@/components/Sidebar";
 import { requireUser } from "@/lib/auth";
 import { saveOnboarding } from "./actions";
 
-export default async function OnboardingPage() {
+export default async function OnboardingPage({searchParams}:{searchParams:Promise<{error?:string}>}) {
+  const {error} = await searchParams;
   await requireUser();
 
   return (
@@ -11,6 +12,7 @@ export default async function OnboardingPage() {
       <main className="main">
         <span className="badge">İlk Kurulum</span>
         <h1>Rotanı oluşturalım.</h1>
+        {error && <p className="next-status-error" role="alert">{error.slice(0,180)}</p>}
         <form className="card form" action={saveOnboarding}>
           <label>Branş<select name="branch"><option value="physics">Fizik</option><option value="chemistry">Kimya</option><option value="math">Matematik</option><option value="biology">Biyoloji</option></select></label>
           <label>Seviye<select name="level"><option value="beginner">Başlangıç</option><option value="intermediate">Orta</option><option value="advanced">İleri</option></select></label>

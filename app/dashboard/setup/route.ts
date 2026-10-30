@@ -3,6 +3,10 @@ import { createClient as createSupabaseAdminClient } from "@supabase/supabase-js
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: NextRequest) {
+  const origin = request.headers.get("origin");
+  if ((origin && origin !== request.nextUrl.origin) || request.headers.get("sec-fetch-site") === "cross-site") {
+    return NextResponse.json({error:"Geçersiz istek kaynağı."},{status:403});
+  }
   const supabase = await createClient();
 
   const {
@@ -15,7 +19,10 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  const formData = await request.formData();
+  const contentLength=Number(request.headers.get("content-length")||0);
+  if (contentLength>8192) return NextResponse.json({error:"Çok büyük form isteği."},{status:413});
+  const formData = await request.formData().catch(()=>null);
+  if (!formData) return NextResponse.json({error:"Geçersiz form."},{status:400});
   const redirectToStepTwo = formData.get("next") === "/rota/adim/2";
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -23,7 +30,7 @@ export async function POST(request: NextRequest) {
   if (!supabaseUrl || !serviceRoleKey) {
     return NextResponse.redirect(
       new URL(
-        redirectToStepTwo ? "/rota/adim/1?error=Sunucu%20yap%C4%B1land%C4%B1rmas%C4%B1%20eksik." : "/dashboard?setup_error=SUPABASE_SERVICE_ROLE_KEY%20veya%20NEXT_PUBLIC_SUPABASE_URL%20eksik.",
+        redirectToStepTwo ? "/rota/adim/1?error=Sunucu%20yap%C4%B1land%C4%B1rmas%C4%B1%20eksik." : "/dashboard?setup_error=Sunucu%20yap%C4%B1land%C4%B1rmas%C4%B1%20eksik.",
         request.url
       ),
       { status: 303 }
@@ -51,8 +58,12 @@ export async function POST(request: NextRequest) {
   const allowedBranches = ["math", "physics", "chemistry", "biology"];
   const allowedLevels = ["beginner", "intermediate", "advanced"];
 
-  const safeBranch = allowedBranches.includes(branch) ? branch : "chemistry";
-  const safeLevel = allowedLevels.includes(level) ? level : "beginner";
+  if (!allowedBranches.includes(branch) || !allowedLevels.includes(level) || goal.length>160 || !goal.trim()) {
+    const destination=redirectToStepTwo?"/rota/adim/1":"/dashboard";
+    return NextResponse.redirect(new URL(destination+(redirectToStepTwo?"?error=":"?setup_error=")+encodeURIComponent("Lütfen geçerli branş, seviye ve hedef seç."),request.url),{status:303});
+  }
+  const safeBranch=branch;
+  const safeLevel=level;
 
   const fallbackName =
     user.user_metadata?.full_name ||
@@ -62,7 +73,7 @@ export async function POST(request: NextRequest) {
 
   const { data: existingProfile } = await adminSupabase
     .from("profiles")
-    .select("id,email,full_name,role,plan")
+    .select("id,email,full_name")
     .eq("id", user.id)
     .maybeSingle();
 
@@ -71,8 +82,6 @@ export async function POST(request: NextRequest) {
       id: user.id,
       email: existingProfile?.email || user.email || "",
       full_name: existingProfile?.full_name || fallbackName,
-      role: existingProfile?.role || "student",
-      plan: existingProfile?.plan || "free",
       branch: safeBranch,
       level: safeLevel,
       goal,
@@ -85,7 +94,7 @@ export async function POST(request: NextRequest) {
   if (profileError) {
     return NextResponse.redirect(
       new URL(
-        `${failureDestination}?${redirectToStepTwo ? "error" : "setup_error"}=${encodeURIComponent(profileError.message)}`,
+        `${failureDestination}?${redirectToStepTwo ? "error" : "setup_error"}=${encodeURIComponent("Profil kaydedilemedi.")}`,
         request.url
       ),
       { status: 303 }
@@ -118,7 +127,7 @@ export async function POST(request: NextRequest) {
   if (routeError) {
     return NextResponse.redirect(
       new URL(
-        `${failureDestination}?${redirectToStepTwo ? "error" : "setup_error"}=${encodeURIComponent(routeError.message)}`,
+        `${failureDestination}?${redirectToStepTwo ? "error" : "setup_error"}=${encodeURIComponent("Çalışma rotası kaydedilemedi.")}`,
         request.url
       ),
       { status: 303 }

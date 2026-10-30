@@ -4,6 +4,8 @@ import { createClient } from "@/lib/supabase/server";
 import { Sidebar } from "@/components/Sidebar";
 import { canAccess, type Plan } from "@/lib/plans";
 import styles from "./course.module.css";
+import { getGuidancePlaylist } from "@/lib/guidance-playlist";
+import { PhysicsGuidancePlaylist } from "./PhysicsGuidancePlaylist";
 
 type Video = { id:string; title:string; description:string|null; youtube_id:string|null; order_index:number; duration_seconds:number; access_tier:"free"|"plus"|"pro"; is_active:boolean };
 type Course = { id:string; slug:string; title:string; description:string|null; long_description:string|null; branch:string; stage:string; unlock_after_slug:string|null; lock_message:string|null; lesson_videos:Video[]|null };
@@ -41,6 +43,7 @@ export default async function CourseSectionPage({params,searchParams}:{params:Pr
   if(preVideos.some(v=>!completed.has(v.id)))redirect("/kurslar");
  }
  const query=await searchParams;
+ const physicsGuidance = slug==="physics-guidance" ? await getGuidancePlaylist() : null;
  const selected=videos.find(v=>v.id===query.video)||videos.find(v=>["free","plus","pro"].includes(String(v.access_tier))&&canAccess(currentPlan,v.access_tier));
  const permitted=selected&&["free","plus","pro"].includes(String(selected.access_tier))&&canAccess(currentPlan,selected.access_tier);
  const {data:progress}=await supabase.from("user_video_progress")
@@ -52,7 +55,9 @@ export default async function CourseSectionPage({params,searchParams}:{params:Pr
    <Link className={styles.back} href="/kurslar">← Derslere dön</Link>
    <div className={styles.heading}><span>OLYMPION · {section.branch==="physics"?"FİZİK":section.branch==="chemistry"?"KİMYA":"BİLİM"}</span>
    <h1>{section.title}</h1><p>{section.long_description||section.description||"Dersleri sırasıyla izle ve ilerlemeni takip et."}</p></div>
-   <div className={styles.grid}>
+   {physicsGuidance
+     ? <PhysicsGuidancePlaylist playlist={physicsGuidance} requestedVideo={query.video} />
+     : <div className={styles.grid}>
     <section className={styles.viewer}>
       {selected&&permitted&&selected.youtube_id&&/^[A-Za-z0-9_-]{11}$/.test(selected.youtube_id)?(
        <iframe src={"https://www.youtube-nocookie.com/embed/"+selected.youtube_id}
@@ -75,6 +80,6 @@ export default async function CourseSectionPage({params,searchParams}:{params:Pr
       </Link>)}</div>
       {!videos.length&&<p>Bu bölümün dersleri henüz yayınlanmadı.</p>}
     </aside>
-   </div>
+   </div>}
   </div></main></div></div></>;
 }

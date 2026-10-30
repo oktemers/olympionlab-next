@@ -41,8 +41,8 @@ export default async function CourseSectionPage({params,searchParams}:{params:Pr
   if(preVideos.some(v=>!completed.has(v.id)))redirect("/kurslar");
  }
  const query=await searchParams;
- const selected=videos.find(v=>v.id===query.video)||videos.find(v=>canAccess(currentPlan,v.access_tier));
- const permitted=selected&&canAccess(currentPlan,selected.access_tier);
+ const selected=videos.find(v=>v.id===query.video)||videos.find(v=>["free","plus","pro"].includes(String(v.access_tier))&&canAccess(currentPlan,v.access_tier));
+ const permitted=selected&&["free","plus","pro"].includes(String(selected.access_tier))&&canAccess(currentPlan,selected.access_tier);
  const {data:progress}=await supabase.from("user_video_progress")
   .select("video_id,is_completed,progress_percent").eq("user_id",user.id)
   .in("video_id",videos.length?videos.map(v=>v.id):["00000000-0000-0000-0000-000000000000"]);

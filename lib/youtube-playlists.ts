@@ -122,9 +122,8 @@ async function getPlaylistVideos(playlistId: string, branch: string, apiKey: str
 /** Returns automatic playlist videos first, then the existing published/planned fallback catalogue. */
 export async function getVideoLibrary(): Promise<VideoItem[]> {
   const key = process.env.YOUTUBE_API_KEY?.trim();
-  const configured = SOURCES.filter(
-    (source): source is { branch: typeof source.branch; id: string } => isPlaylistId(source.id)
-  );
+  const configured = SOURCES.filter(source => isPlaylistId(source.id))
+    .map(source => ({ branch: source.branch, id: source.id! }));
   if (!key || !configured.length) return VIDEOS;
 
   const results = await Promise.allSettled(

@@ -16,7 +16,7 @@ Scope: Follow-up to merged V13; current draft PR V14.
 2. New password reset UI supports Supabase PKCE callback and compatible legacy hash-based recovery session; updates password only with a valid session.
 3. Add `/courses/[slug]`: authenticated lesson-section listing and inline YouTube-nocookie player, membership labels and prerequisite checks.
 4. Add `/api/course-progress`: origin validation, signed-in user, course+active lesson membership, correct branch, tier and prerequisite checks. Saves manual completion to **user_video_progress** rather than unrelated legacy **user_progress**.
-5. Onboarding/settings input validation; show saving errors rather than silently continuing.
+5. Onboarding/settings input validation, aligned settings dropdown values with Supabase enums and retained custom study goals; show saving errors rather than silently continuing.
 6. SQL migration `supabase/migrations/0003_profile_payment_privileges.sql` revokes user UPDATE on privileged profile columns and blocks client INSERT of fake payment records. Server service-role billing remains separate.
 7. No shared homepage header/footer, pricing page or visual layout changed.
 
@@ -30,7 +30,7 @@ Scope: Follow-up to merged V13; current draft PR V14.
 ## Required browser and auth QA (not automated by this PR)
 - [ ] Mobile Safari/Chrome login, 5+ hamburger open/close repetitions; no dark overlay.
 - [ ] E-mail/password sign-in and Google sign-in, no external redirect.
-- [ ] New account: email confirmation pending → explanatory message; confirm → panel, branch retained.
+- [ ] New account: email confirmation pending → explanatory message; confirm → panel, branch retained.\n- [ ] Settings: save physics/chemistry/math/biology, level and custom goal, refresh to verify values persist.
 - [ ] Request reset email, open fresh link, update password, sign in with the new password.
 - [ ] `/kurslar` → an unlocked course section, open video; refresh and save manual completion.
 - [ ] Free user cannot mark paid-only videos completed or bypass prerequisite stages.

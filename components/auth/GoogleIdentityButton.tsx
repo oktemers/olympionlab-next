@@ -11,7 +11,7 @@ type GoogleIdentityClient = {
     nonce: string;
     callback: (response: GoogleCredentialResponse) => void;
     ux_mode: "popup";
-    use_fedcm_for_prompt: boolean;
+    use_fedcm_for_button: boolean;
     auto_select: boolean;
   }) => void;
   renderButton: (element: HTMLElement, options: {
@@ -47,6 +47,7 @@ export function GoogleIdentityButton({ clientId, next }: { clientId: string; nex
   const processing = useRef(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [helpVisible, setHelpVisible] = useState(false);
 
   const initialize = useCallback(async () => {
     if (initializing.current || !buttonContainer.current || !window.google?.accounts?.id) return;
@@ -58,7 +59,7 @@ export function GoogleIdentityButton({ clientId, next }: { clientId: string; nex
         client_id: clientId,
         nonce: hashedNonce,
         ux_mode: "popup",
-        use_fedcm_for_prompt: true,
+        use_fedcm_for_button: true,
         auto_select: false,
         callback: async response => {
           if (processing.current) return;
@@ -116,9 +117,18 @@ export function GoogleIdentityButton({ clientId, next }: { clientId: string; nex
         ref={buttonContainer}
         aria-label="Google hesabıyla oturum aç"
         style={{ width: "100%", minWidth: 0, display: "flex", justifyContent: "center" }}
+        onPointerDownCapture={() => setHelpVisible(true)}
       />
       {busy && <p role="status" style={{ fontSize: 12 }}>Google hesabın doğrulanıyor…</p>}
       {error && <p role="alert" className="next-status-error">{error}</p>}
+      {helpVisible && !busy && (
+        <p style={{ fontSize: 12, lineHeight: 1.6, color: "#b3cadc", margin: "6px 0" }}>
+          Google hesap seçimi açılmıyorsa, bulunduğun sayfanın <strong>tam adresinin
+          kökünü</strong> Google Cloud → Authorized JavaScript origins listesine ekle.
+          Önizleme (`vercel.app`) ile canlı (`olympionlab.com`) adresleri farklıdır.
+          Tarayıcının açılır pencere / üçüncü taraf oturum açma engelini de kontrol et.
+        </p>
+      )}
     </div>
   );
 }

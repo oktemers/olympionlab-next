@@ -134,35 +134,29 @@ const displayPlan =
 
                 <label>
                   Branş
-                  <select name="branch" defaultValue={branch}>
-                    <option value="">Henüz seçilmedi</option>
-                    <option value="Fizik">Fizik</option>
-                    <option value="Kimya">Kimya</option>
-                    <option value="Matematik">Matematik</option>
-                    <option value="Biyoloji">Biyoloji</option>
-                    <option value="TÜBİTAK Proje">TÜBİTAK Proje</option>
+                  <select name="branch" defaultValue={branch} required>
+                    <option value="" disabled>Branş seç</option>
+                    <option value="physics">Fizik</option>
+                    <option value="chemistry">Kimya</option>
+                    <option value="math">Matematik</option>
+                    <option value="biology">Biyoloji</option>
                   </select>
                 </label>
 
                 <label>
                   Seviye
-                  <select name="level" defaultValue={level}>
-                    <option value="">Henüz seçilmedi</option>
-                    <option value="Başlangıç">Başlangıç</option>
-                    <option value="Orta">Orta</option>
-                    <option value="İleri">İleri</option>
+                  <select name="level" defaultValue={level} required>
+                    <option value="" disabled>Seviye seç</option>
+                    <option value="beginner">Başlangıç</option>
+                    <option value="intermediate">Orta</option>
+                    <option value="advanced">İleri</option>
                   </select>
                 </label>
 
                 <label>
                   Hedef
-                  <select name="goal" defaultValue={goal}>
-                    <option value="">Henüz seçilmedi</option>
-                    <option value="TÜBİTAK 1. Aşama">TÜBİTAK 1. Aşama</option>
-                    <option value="TÜBİTAK 2. Aşama">TÜBİTAK 2. Aşama</option>
-                    <option value="Uluslararası Olimpiyat">Uluslararası Olimpiyat</option>
-                    <option value="Kavram öğrenmek">Kavram öğrenmek</option>
-                  </select>
+                  <input name="goal" defaultValue={goal} maxLength={160}
+                    placeholder="Örn. TÜBİTAK Fizik 1. aşamaya hazırlanmak" />
                 </label>
 
                 <button className="btn btn-primary compact-btn" type="submit">

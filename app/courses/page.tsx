@@ -1,5 +1,4 @@
 import { getGuidancePlaylist } from "@/lib/guidance-playlist";
-import guidanceStyles from "./guidance-spotlight.module.css";
 import { Sidebar } from "@/components/Sidebar";
 import Script from "next/script";
 import { redirect } from "next/navigation";
@@ -111,8 +110,9 @@ export default async function CoursesPage() {
     redirect("/dashboard");
   }
 
-  const guidance = await getGuidancePlaylist();
-  const firstGuidanceVideo = guidance.videos[0];
+  const guidance = branchKey === "physics" ? await getGuidancePlaylist() : null;
+  // YouTube playlist is only shown *inside* the existing physics-guidance course.
+  const physicsGuidanceVideos = guidance?.videos || [];
   const branch = branchLabels[branchKey];
   const plan = String(profile?.plan || "free");
 
@@ -288,39 +288,23 @@ export default async function CoursesPage() {
               </a>
             </div>
 
-            <section className={guidanceStyles.spotlight} aria-labelledby="guidance-playlist-heading">
-              <div className={guidanceStyles.visual}>
-                {firstGuidanceVideo ? (
-                  <img
-                    src={"https://i.ytimg.com/vi/"+firstGuidanceVideo.youtubeId+"/hqdefault.jpg"}
-                    alt=""
-                    width={420}
-                    height={235}
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className={guidanceStyles.symbol} aria-hidden="true">▶</div>
-                )}
-                <span className={guidanceStyles.playIcon} aria-hidden="true">▶</span>
-              </div>
-              <div className={guidanceStyles.copy}>
-                <span className={guidanceStyles.eyebrow}>01 · ÜCRETSİZ REHBERLİK · YOUTUBE PLAYLIST</span>
-                <h2 id="guidance-playlist-heading">Olimpiyatlara Rehberlik</h2>
-                <p>{firstGuidanceVideo
-                  ? "İlk video: "+firstGuidanceVideo.title
-                  : "Olimpiyat hazırlığına rehberlik videolarıyla başla. Videolar oynatma listesi sırasıyla açılır."}</p>
-                <div className={guidanceStyles.actions}>
-                  <a href="/courses/rehberlik" className={guidanceStyles.open}>İlk videoyu izle <span aria-hidden="true">↗</span></a>
-                  <span className={guidanceStyles.meta}>{guidance.videos.length
-                    ? guidance.videos.length+" video · Otomatik güncellenir"
-                    : "Yeni videolar oynatma listesinden gelir"}</span>
-                </div>
-              </div>
-            </section>
-
             <section className="course-stage-grid">
               {sectionsWithLockState.map((section) => {
-                const previewVideos = section.videos.slice(0, 3);
+                const isPhysicsGuidance = section.slug === "physics-guidance";
+                const previewVideos = isPhysicsGuidance
+                  ? physicsGuidanceVideos.slice(0,3).map((video,index) => ({
+                      id:"youtube-"+video.youtubeId,
+                      slug:"youtube-"+video.youtubeId,
+                      title:video.title,
+                      description:null,
+                      youtube_id:video.youtubeId,
+                      order_index:index,
+                      duration_seconds:0,
+                      xp_reward:0,
+                      access_tier:"free" as const,
+                      is_active:true
+                    }))
+                  : section.videos.slice(0, 3);
 
                 return (
                   <article
@@ -337,7 +321,7 @@ export default async function CoursesPage() {
                       <div>
                         <span className="eyebrow">
                           {stageLabels[section.stage]} •{" "}
-                          {section.totalVideosCount} video
+                          {isPhysicsGuidance && physicsGuidanceVideos.length ? physicsGuidanceVideos.length : section.totalVideosCount} video
                         </span>
                         <h2>{section.title}</h2>
                       </div>
@@ -386,9 +370,9 @@ export default async function CoursesPage() {
                         );
                       })}
 
-                      {section.videos.length > 3 && (
+                      {(isPhysicsGuidance ? physicsGuidanceVideos.length : section.videos.length) > 3 && (
                         <div className="course-more-videos">
-                          +{section.videos.length - 3} video daha
+                          +{(isPhysicsGuidance ? physicsGuidanceVideos.length : section.videos.length) - 3} video daha
                         </div>
                       )}
                     </div>
@@ -407,8 +391,9 @@ export default async function CoursesPage() {
                       </a>
 
                       <span>
-                        {section.completedVideosCount}/
-                        {section.totalVideosCount} tamamlandı
+                        {isPhysicsGuidance
+                          ? "YouTube oynatma listesi"
+                          : section.completedVideosCount + "/" + section.totalVideosCount + " tamamlandı"}
                       </span>
                     </div>
                   </article>

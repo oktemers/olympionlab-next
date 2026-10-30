@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { safeAuthDestination } from "@/app/auth/redirects";
+import { syncSignupBranch } from "@/app/auth/profile-sync";
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
@@ -30,6 +31,7 @@ export async function GET(request: Request) {
     ), 303);
   }
 
+  await syncSignupBranch(supabase);
   const destination = type === "recovery" ? "/reset-password" : target;
   return NextResponse.redirect(new URL(destination, url.origin), 303);
 }

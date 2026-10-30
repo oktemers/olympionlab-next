@@ -17,7 +17,9 @@ export default async function GuidanceCoursePage({
 }){
   const supabase=await createClient();
   const {data:{user}}=await supabase.auth.getUser();
-  if(!user)redirect("/giris?next=%2Fcourses%2Frehberlik");
+  if(!user)redirect("/giris");
+  const {data:profile}=await supabase.from("profiles").select("branch").eq("id",user.id).maybeSingle();
+  if(profile?.branch && profile.branch!=="physics")redirect("/kurslar");
   const playlist=await getGuidancePlaylist();
   const query=await searchParams;
   const selected=playlist.videos.find(v=>v.youtubeId===query.video)||playlist.videos[0];

@@ -1,3 +1,4 @@
+import { safeAuthDestination } from "@/app/auth/redirects";
 import Link from "next/link";
 import { resetPassword, signIn, signInWithGoogle, signUp } from "@/app/auth/actions";
 
@@ -5,6 +6,7 @@ type LoginSearchParams = {
   error?: string;
   message?: string;
   mode?: string;
+  next?: string;
 };
 
 export default async function LoginPage({
@@ -13,6 +15,7 @@ export default async function LoginPage({
   searchParams: Promise<LoginSearchParams>;
 }) {
   const params = await searchParams;
+  const next = safeAuthDestination(params?.next);
 
   const mode =
     params?.mode === "register" || params?.mode === "reset"
@@ -29,7 +32,7 @@ export default async function LoginPage({
       ></div>
 
       <main className="auth-layout-v2">
-        <Link href="/index.html" className="brand auth-brand">
+        <Link href="/" className="brand auth-brand">
           <span
             className="brand-badge"
             style={{
@@ -93,14 +96,14 @@ export default async function LoginPage({
               className={`auth-tab ${
                 mode === "login" || mode === "reset" ? "active" : ""
               }`}
-              href="/login"
+              href={next === "/panel" ? "/giris" : "/giris?next=" + encodeURIComponent(next)}
             >
               Giriş Yap
             </Link>
 
             <Link
               className={`auth-tab ${mode === "register" ? "active" : ""}`}
-              href="/login?mode=register"
+              href={"/giris?mode=register" + (next === "/panel" ? "" : "&next=" + encodeURIComponent(next))}
             >
               Üye Ol
             </Link>
@@ -130,6 +133,7 @@ export default async function LoginPage({
           {mode !== "reset" && (
             <>
               <form action={signInWithGoogle}>
+                <input type="hidden" name="next" value={next} />
                 <button
                   className="google-btn"
                   type="submit"
@@ -165,6 +169,7 @@ export default async function LoginPage({
 
           {mode === "login" && (
             <form id="authForm" action={signIn}>
+              <input type="hidden" name="next" value={next} />
               <label>
                 E-posta
                 <input
@@ -190,7 +195,7 @@ export default async function LoginPage({
                   <input type="checkbox" /> Beni hatırla
                 </label>
 
-                <Link href="/login?mode=reset" className="forgot-link">
+                <Link href="/giris?mode=reset" className="forgot-link">
                   Şifremi unuttum
                 </Link>
               </div>
@@ -241,12 +246,11 @@ export default async function LoginPage({
 
               <label>
                 Hedef branş
-                <select name="branch" defaultValue="Fizik Olimpiyatı">
-                  <option>Fizik Olimpiyatı</option>
-                  <option>Kimya Olimpiyatı</option>
-                  <option>Matematik Olimpiyatı</option>
-                  <option>Biyoloji Olimpiyatı</option>
-                  <option>TÜBİTAK Proje</option>
+                <select name="branch" defaultValue="physics" required>
+                  <option value="physics">Fizik Olimpiyatı</option>
+                  <option value="chemistry">Kimya Olimpiyatı</option>
+                  <option value="math">Matematik Olimpiyatı</option>
+                  <option value="biology">Biyoloji Olimpiyatı</option>
                 </select>
               </label>
 
@@ -255,7 +259,7 @@ export default async function LoginPage({
               </button>
 
               <p className="auth-note">
-                Hesabın güvenli şekilde oluşturulur ve öğrenci profilin hazırlanır.
+                E-posta doğrulaması istenirse gelen bağlantıdan hesabını etkinleştir.
               </p>
             </form>
           )}

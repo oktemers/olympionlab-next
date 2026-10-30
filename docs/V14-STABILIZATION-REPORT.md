@@ -30,7 +30,8 @@ Scope: Follow-up to merged V13; current draft PR V14.
 ## Required browser and auth QA (not automated by this PR)
 - [ ] Mobile Safari/Chrome login, 5+ hamburger open/close repetitions; no dark overlay.
 - [ ] E-mail/password sign-in and Google sign-in, no external redirect.
-- [ ] New account: email confirmation pending → explanatory message; confirm → panel, branch retained.\n- [ ] Settings: save physics/chemistry/math/biology, level and custom goal, refresh to verify values persist.
+- [ ] New account: email confirmation pending → explanatory message; confirm → panel, branch retained.
+- [ ] Settings: save physics/chemistry/math/biology, level and custom goal, refresh to verify values persist.
 - [ ] Request reset email, open fresh link, update password, sign in with the new password.
 - [ ] `/kurslar` → an unlocked course section, open video; refresh and save manual completion.
 - [ ] Free user cannot mark paid-only videos completed or bypass prerequisite stages.

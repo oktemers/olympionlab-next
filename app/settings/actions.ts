@@ -19,8 +19,8 @@ export async function updateProfile(formData: FormData) {
   const level = String(formData.get("level") || "").trim();
   const goal = String(formData.get("goal") || "").trim();
 
-  if (!fullName) {
-    redirect("/settings?error=" + encodeURIComponent("Ad Soyad boş olamaz."));
+  if (!fullName || fullName.length > 90 || !["physics","chemistry","math","biology"].includes(branch) || !["beginner","intermediate","advanced"].includes(level) || goal.length > 160) {
+    redirect("/ayarlar?error=" + encodeURIComponent("Profil bilgilerini kontrol et."));
   }
 
   const { error } = await supabase
@@ -30,16 +30,15 @@ export async function updateProfile(formData: FormData) {
       branch,
       level,
       goal,
-      updated_at: new Date().toISOString(),
     })
     .eq("id", user.id);
 
   if (error) {
     redirect(
-      "/settings?error=" +
+      "/ayarlar?error=" +
         encodeURIComponent("Profil güncellenemedi: " + error.message)
     );
   }
 
-  redirect("/settings?message=" + encodeURIComponent("Profil bilgilerin kaydedildi."));
+  redirect("/ayarlar?message=" + encodeURIComponent("Profil bilgilerin kaydedildi."));
 }

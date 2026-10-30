@@ -47,7 +47,7 @@ export default async function GuidanceCoursePage({
           </div>
           <div className={styles.detail}>
             <span className={styles.detailLabel}>{selected?"DERS "+String(selected.position+1).padStart(2,"0"):"YOUTUBE OYNATMA LİSTESİ"}</span>
-            <h2>{selected?.title||"Olimpiyatlara Giriş · Rehberlik"}</h2>
+            <h2>{selected?.title||"Rehberlik oynatma listesi"}</h2>
             <p>{selected?"Seçtiğin rehberlik dersini izliyorsun. Diğer videolara sağdaki listeden geçebilirsin.":"İlk video oynatma listesinin başından oynatılır; YouTube oynatıcısındaki liste simgesinden diğerlerine geçebilirsin."}</p>
             <a href={watchLink} rel="noopener noreferrer" target="_blank" className={styles.youtube}>YouTube'da oynatma listesini aç ↗</a>
           </div>

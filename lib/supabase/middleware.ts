@@ -4,10 +4,25 @@ import { NextResponse, type NextRequest } from "next/server";
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
 
+  const pathname = request.nextUrl.pathname.replace(/\\/$/, "") || "/";
+  const protectedStudentPages = new Set([
+    "/student-labs", "/student-labs.html",
+    "/uygulama-laboratuvarlari", "/app-labs.html",
+    "/yol-haritasi", "/roadmap.html"
+  ]);
+  const isProtected = protectedStudentPages.has(pathname);
+
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
+  // Authentication must fail closed for protected HTML routes.
   if (!url || !anon) {
+    if (isProtected) {
+      return NextResponse.json(
+        { error: "Öğrenci oturumu şu anda doğrulanamıyor." },
+        { status: 503, headers: { "Cache-Control": "no-store" } }
+      );
+    }
     return response;
   }
 
@@ -25,13 +40,7 @@ export async function updateSession(request: NextRequest) {
   });
 
   const { data: { user } } = await supabase.auth.getUser();
-  const protectedStudentPages = new Set([
-    "/student-labs", "/student-labs.html",
-    "/uygulama-laboratuvarlari", "/app-labs.html",
-    "/yol-haritasi", "/roadmap.html"
-  ]);
-  const pathname = request.nextUrl.pathname.endsWith("/") ? request.nextUrl.pathname.slice(0, -1) : request.nextUrl.pathname;
-  if (!user && protectedStudentPages.has(pathname)) {
+  if (!user && isProtected) {
     const loginUrl = new URL("/giris", request.url);
     loginUrl.searchParams.set("next", pathname);
     return NextResponse.redirect(loginUrl);

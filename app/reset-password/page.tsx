@@ -17,6 +17,13 @@ export default function ResetPasswordPage() {
     async function verifyRecovery() {
       try {
         // Compatibility with implicit-flow recovery links. PKCE links use /auth/callback.
+        const search = new URLSearchParams(window.location.search);
+        const code = search.get("code");
+        if (code) {
+          const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+          window.history.replaceState({}, "", window.location.pathname);
+          if (exchangeError) throw exchangeError;
+        }
         const params = new URLSearchParams(window.location.hash.replace(/^#/, ""));
         const access = params.get("access_token");
         const refresh = params.get("refresh_token");

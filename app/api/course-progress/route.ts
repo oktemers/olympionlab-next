@@ -29,6 +29,8 @@ export async function POST(request: Request) {
  if(profile?.branch && profile.branch!==section.branch)return NextResponse.json({error:"Yanlış branş."},{status:403});
  const video=(section.lesson_videos||[]).find(v=>v.id===videoId&&v.is_active);
  if(!video)return NextResponse.json({error:"Ders bulunamadı."},{status:404});
+ // Unknown access-tier values must never fall back to free.
+ if(!["free","plus","pro"].includes(String(video.access_tier))) return NextResponse.json({error:"Ders erişim seviyesi geçersiz."},{status:403});
  if(!canAccess(validPlan(profile?.plan),validPlan(video.access_tier))) {
   return NextResponse.json({error:"Bu ders için uygun üyelik gerekiyor."},{status:403});
  }

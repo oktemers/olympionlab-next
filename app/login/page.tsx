@@ -1,3 +1,4 @@
+import { GoogleIdentityButton } from "@/components/auth/GoogleIdentityButton";
 import { safeAuthDestination } from "@/app/auth/redirects";
 import Link from "next/link";
 import { resetPassword, signIn, signInWithGoogle, signUp } from "@/app/auth/actions";
@@ -132,6 +133,30 @@ export default async function LoginPage({
 
           {mode !== "reset" && (
             <>
+              {process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ? (
+                <>
+                  <GoogleIdentityButton
+                    clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
+                    next={next}
+                  />
+                  <details style={{ marginTop: 12, fontSize: 12, color: "#a3bdcf" }}>
+                    <summary style={{ cursor: "pointer", textAlign: "center" }}>
+                      Google hesabı seçme ekranı açılmıyor mu?
+                    </summary>
+                    <p style={{ margin: "10px 0", lineHeight: 1.6 }}>
+                      Google penceresi engelleniyorsa önce tarayıcı izinlerini ve
+                      Google Cloud JavaScript kaynak adreslerini kontrol et.
+                      Gerekirse eski giriş yöntemini kullanabilirsin.
+                    </p>
+                    <form action={signInWithGoogle}>
+                      <input type="hidden" name="next" value={next} />
+                      <button type="submit" className="google-btn" style={{ fontSize: 12, minHeight: 40 }}>
+                        Alternatif Google girişi ↗
+                      </button>
+                    </form>
+                  </details>
+                </>
+              ) : (
               <form action={signInWithGoogle}>
                 <input type="hidden" name="next" value={next} />
                 <button
@@ -160,6 +185,7 @@ export default async function LoginPage({
                   Google ile bağlan
                 </button>
               </form>
+              )}
 
               <div className="auth-separator">
                 <span>veya e-posta ile devam et</span>
@@ -286,7 +312,7 @@ export default async function LoginPage({
                 Şifre sıfırlama bağlantısı e-posta adresine gönderilecek.
               </p>
 
-              <Link href="/login" className="forgot-link">
+              <Link href="/giris" className="forgot-link">
                 Giriş ekranına dön
               </Link>
             </form>

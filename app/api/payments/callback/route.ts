@@ -1,21 +1,11 @@
 import { NextResponse } from "next/server";
-import { createAdminClient } from "@/lib/supabase/admin";
 
-export async function POST(request: Request) {
-  const formData = await request.formData();
-  const token = String(formData.get("token") || "");
-
-  // TODO: iyzico Retrieve Checkout Form Result endpoint ile token doğrulanacak.
-  // Başarılı sonuçta subscriptions tablosu güncellenecek.
-
-  const supabase = createAdminClient();
-  await supabase.from("payments").insert({
-    provider: "iyzico",
-    provider_payment_id: token,
-    status: "callback_received",
-    currency: "TRY",
-    amount_cents: 0
-  });
-
-  return NextResponse.redirect(new URL("/dashboard", request.url));
+// Do not accept an unverified token as evidence of payment.
+// Re-enable this endpoint only after a provider's signed callback verification,
+// amount/currency checks, replay protection, and subscription updates are implemented.
+export async function POST() {
+  return NextResponse.json(
+    { error: "Payment callback is not configured." },
+    { status: 503, headers: { "Cache-Control": "no-store" } }
+  );
 }

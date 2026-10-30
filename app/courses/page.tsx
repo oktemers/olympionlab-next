@@ -333,19 +333,23 @@ export default async function CoursesPage() {
 
                     <p className="course-description">{section.description}</p>
 
-                    <div className="course-progress-row">
-                      <div className="progress-track">
-                        <i
-                          style={{
-                            width: `${Math.max(section.progressPercent, 5)}%`,
-                          }}
-                        ></i>
-                      </div>
-
-                      <strong>%{section.progressPercent}</strong>
-                    </div>
+                    {isPhysicsGuidance
+                      ? <p className="course-description" style={{margin:0,fontSize:12}}>
+                          YouTube playlist'indeki videolar otomatik listelenir. Bu liste için izleme ilerlemesi henüz ayrı takip edilir.
+                        </p>
+                      : <div className="course-progress-row">
+                          <div className="progress-track">
+                            <i style={{ width: `${Math.max(section.progressPercent, 5)}%` }}></i>
+                          </div>
+                          <strong>%{section.progressPercent}</strong>
+                        </div>}
 
                     <div className="course-video-preview-list">
+                      {isPhysicsGuidance && previewVideos.length === 0 && (
+                        <div className="course-more-videos">
+                          Videoları görmek için Derse Git butonundan YouTube oynatma listesini aç.
+                        </div>
+                      )}
                       {previewVideos.map((video) => {
                         const progress = progressMap.get(video.id);
                         const videoPercent = Number(
@@ -361,9 +365,10 @@ export default async function CoursesPage() {
                             <div>
                               <strong>{video.title}</strong>
                               <small>
-                                {formatDuration(video.duration_seconds)} •{" "}
-                                {accessLabels[video.access_tier]} • %
-                                {videoPercent}
+                                {isPhysicsGuidance
+                                  ? "YouTube · Ücretsiz"
+                                  : <>{formatDuration(video.duration_seconds)} •{" "}
+                                      {accessLabels[video.access_tier]} • %{videoPercent}</>}
                               </small>
                             </div>
                           </div>

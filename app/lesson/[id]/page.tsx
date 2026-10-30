@@ -1,10 +1,13 @@
 import { requireUser, getProfile } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { canAccess } from "@/lib/plans";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Sidebar } from "@/components/Sidebar";
 
-export default async function LessonPage({ params }: { params: { id: string } }) {
+export default async function LessonPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const videoId = /^\\d+$/.test(id) ? Number(id) : NaN;
+  if (!Number.isSafeInteger(videoId) || videoId <= 0) notFound();
   const user = await requireUser();
   const profile = await getProfile(user.id);
   const supabase = await createClient();
@@ -12,13 +15,13 @@ export default async function LessonPage({ params }: { params: { id: string } })
   const { data: video } = await supabase
     .from("videos")
     .select("*")
-    .eq("id", Number(params.id))
+    .eq("id", videoId)
     .single();
 
-  if (!video) redirect("/videos");
+  if (!video) notFound();
 
   if (!canAccess(profile?.plan || "free", video.plan_required)) {
-    redirect(`/pricing?upgrade=${video.plan_required}`);
+    redirect(`/fiyatlandirma?upgrade=${encodeURIComponent(video.plan_required || "plus")}`);
   }
 
   const { data: progress } = await supabase
@@ -46,7 +49,7 @@ export default async function LessonPage({ params }: { params: { id: string } })
           <p className="muted">{video.description}</p>
           <form action={`/api/progress?videoId=${video.id}`} method="post">
             <button className="btn btn-primary" type="submit">
-              {progress?.completed ? "Tamamlandı ✓" : "Dersi tamamlandı işaretle"}
+              {progress?.completed ? "Tamamlandı ✓" : "Dersi tamamladım (kendim işaretle)"}
             </button>
           </form>
         </div>

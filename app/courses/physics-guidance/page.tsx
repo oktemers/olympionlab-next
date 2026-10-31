@@ -6,8 +6,8 @@ import { getGuidancePlaylist } from "@/lib/guidance-playlist";
 import styles from "./guidance.module.css";
 
 export const metadata={
-  title:"Fizik Rehberlik | OlympionLab",
-  description:"Fizik olimpiyatlarına giriş ve rehberlik videoları."
+  title:"Olimpiyat Rehberlik | OlympionLab",
+  description:"Tüm branşlar için ortak olimpiyat rehberlik videoları."
 };
 
 export default async function GuidanceCoursePage({
@@ -19,7 +19,7 @@ export default async function GuidanceCoursePage({
   const {data:{user}}=await supabase.auth.getUser();
   if(!user)redirect("/giris");
   const {data:profile}=await supabase.from("profiles").select("branch").eq("id",user.id).maybeSingle();
-  if(profile?.branch && profile.branch!=="physics")redirect("/kurslar");
+  
   const playlist=await getGuidancePlaylist();
   const query=await searchParams;
   const selected=playlist.videos.find(v=>v.youtubeId===query.video)||playlist.videos[0];
@@ -35,9 +35,9 @@ export default async function GuidanceCoursePage({
         <span className={styles.free}>ÜCRETSİZ · REHBERLİK</span>
       </div>
       <div className={styles.heading}>
-        <span className={styles.eyebrow}>OLYMPIONLAB / FİZİK OLİMPİYATLARI</span>
-        <h1>Fizik · Rehberlik</h1>
-        <p>Fizik olimpiyatı hazırlığındaki rehberlik videolarını burada, oynatma listesinin sırasına göre izleyebilirsin.</p>
+        <span className={styles.eyebrow}>OLYMPIONLAB / OLİMPİYAT REHBERLİĞİ</span>
+        <h1>Olimpiyatlara Giriş ve Rehberlik</h1>
+        <p>Tüm branşlar için ortak rehberlik videolarını YouTube oynatma listesindeki sırayla izleyebilirsin.</p>
       </div>
       <div className={styles.grid}>
         <section className={styles.playerPanel}>
@@ -50,7 +50,7 @@ export default async function GuidanceCoursePage({
           <div className={styles.detail}>
             <span className={styles.detailLabel}>{selected?"DERS "+String(selected.position+1).padStart(2,"0"):"YOUTUBE OYNATMA LİSTESİ"}</span>
             <h2>{selected?.title||"Rehberlik oynatma listesi"}</h2>
-            <p>{selected?"Seçtiğin rehberlik dersini izliyorsun. Diğer videolara sağdaki listeden geçebilirsin.":"İlk video Fizik rehberlik oynatma listesinin başından oynatılır. Liste simgesinden diğer videolara ulaşabilirsin."}</p>
+            <p>{selected?"Seçtiğin rehberlik dersini izliyorsun. Diğer videolara sağdaki listeden geçebilirsin.":"İlk video rehberlik oynatma listesinin başından oynatılır. Liste simgesinden diğer videolara ulaşabilirsin."}</p>
             <a href={watchLink} rel="noopener noreferrer" target="_blank" className={styles.youtube}>YouTube'da oynatma listesini aç ↗</a>
           </div>
         </section>
@@ -62,7 +62,7 @@ export default async function GuidanceCoursePage({
             <Link key={video.youtubeId} href={"/courses/physics-guidance?video="+video.youtubeId}
               className={styles.item+(selected?.youtubeId===video.youtubeId?" "+styles.current:"")}>
               <span className={styles.ordinal}>{String(index+1).padStart(2,"0")}</span>
-              <img src={"https://i.ytimg.com/vi/"+video.youtubeId+"/mqdefault.jpg"} alt="" width={92} height={58} loading="lazy"/>
+
               <span className={styles.itemCopy}><strong>{video.title}</strong><small>{video.duration||"YouTube"} · Ücretsiz</small></span>
             </Link>
           )}</div>:<div className={styles.empty}>

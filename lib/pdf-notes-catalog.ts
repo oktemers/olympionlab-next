@@ -156,3 +156,6 @@ export const NOTES: Note[] = [
 ];
 
 export const findNote = (slug: string) => NOTES.find(note => note.slug === slug);
+
+// One introductory booklet per branch is free; advanced topics require Plus.
+export const isFreeNote = (note: Note) => NOTES.find(n => n.branch === note.branch)?.slug === note.slug;

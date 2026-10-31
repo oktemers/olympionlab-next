@@ -1,4 +1,5 @@
 import { Sidebar } from "@/components/Sidebar";
+import { getGuidancePlaylist } from "@/lib/guidance-playlist";
 import Script from "next/script";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
@@ -108,6 +109,11 @@ export default async function CoursesPage() {
   if (!branchKey) {
     redirect("/dashboard");
   }
+
+  // Only the Physics/Rehberlik card is YouTube-backed. Other subjects retain
+  // their existing Supabase course/progress flow.
+  const guidancePlaylist = branchKey === "physics" ? await getGuidancePlaylist() : null;
+  const guidanceVideos = guidancePlaylist?.videos || [];
 
   const branch = branchLabels[branchKey];
   const plan = String(profile?.plan || "free");
@@ -286,12 +292,13 @@ export default async function CoursesPage() {
 
             <section className="course-stage-grid">
               {sectionsWithLockState.map((section) => {
+                const isPhysicsGuidance = branchKey === "physics" && section.slug === "physics-guidance";
                 const previewVideos = section.videos.slice(0, 3);
 
                 return (
                   <article
                     key={section.id}
-                    className={`app-panel course-stage-card ${
+                    className={`app-panel course-stage-card ${isPhysicsGuidance ? "course-guidance-card" : ""} ${
                       section.isUnlocked ? "" : "locked"
                     }`}
                   >
@@ -303,7 +310,9 @@ export default async function CoursesPage() {
                       <div>
                         <span className="eyebrow">
                           {stageLabels[section.stage]} •{" "}
-                          {section.totalVideosCount} video
+                          {isPhysicsGuidance
+                            ? (guidancePlaylist?.state === "ready" ? guidanceVideos.length + " video" : "YouTube oynatma listesi")
+                            : section.totalVideosCount + " video"}
                         </span>
                         <h2>{section.title}</h2>
                       </div>
@@ -315,47 +324,79 @@ export default async function CoursesPage() {
 
                     <p className="course-description">{section.description}</p>
 
-                    <div className="course-progress-row">
-                      <div className="progress-track">
-                        <i
-                          style={{
-                            width: `${Math.max(section.progressPercent, 5)}%`,
-                          }}
-                        ></i>
+                    {isPhysicsGuidance ? (
+                      <p className="guidance-card-note">
+                        Videoların isimleri, süreleri ve sırası YouTube oynatma listesiyle
+                        otomatik eşleşir. İzleme ilerlemesi şimdilik ayrı kaydedilmiyor.
+                      </p>
+                    ) : (
+                      <div className="course-progress-row">
+                        <div className="progress-track">
+                          <i style={{ width: `${Math.max(section.progressPercent, 5)}%` }}></i>
+                        </div>
+                        <strong>%{section.progressPercent}</strong>
                       </div>
-
-                      <strong>%{section.progressPercent}</strong>
-                    </div>
+                    )}
 
                     <div className="course-video-preview-list">
-                      {previewVideos.map((video) => {
-                        const progress = progressMap.get(video.id);
-                        const videoPercent = Number(
-                          progress?.progress_percent || 0
-                        );
-                        const isCompleted =
-                          progress?.is_completed || videoPercent >= 100;
-
-                        return (
-                          <div key={video.id} className="course-video-preview">
-                            <span>{isCompleted ? "✓" : "▶"}</span>
-
-                            <div>
-                              <strong>{video.title}</strong>
-                              <small>
-                                {formatDuration(video.duration_seconds)} •{" "}
-                                {accessLabels[video.access_tier]} • %
-                                {videoPercent}
-                              </small>
-                            </div>
+                      {isPhysicsGuidance ? (
+                        guidanceVideos.length ? (
+                          guidanceVideos.map((video, index) => (
+                            <a key={video.youtubeId}
+                              href={`/courses/physics-guidance?video=${encodeURIComponent(video.youtubeId)}`}
+                              className="course-video-preview guidance-video-link">
+                              <span>{String(index + 1).padStart(2, "0")}</span>
+                              <img
+                                src={`https://i.ytimg.com/vi/${video.youtubeId}/mqdefault.jpg`}
+                                alt=""
+                                loading="lazy"
+                                width={88}
+                                height={54}
+                              />
+                              <div>
+                                <strong>{video.title}</strong>
+                                <small>{video.duration || "Video"} · Ücretsiz · YouTube</small>
+                              </div>
+                              <b aria-hidden="true">↗</b>
+                            </a>
+                          ))
+                        ) : (
+                          <div className="guidance-sync-note" role="status">
+                            <strong>
+                              {guidancePlaylist?.state === "api_key_missing"
+                                ? "YouTube video listesi bağlantısı bekleniyor"
+                                : guidancePlaylist?.state === "unavailable"
+                                  ? "YouTube video bilgileri şu anda alınamıyor"
+                                  : guidancePlaylist?.state === "invalid_id"
+                                    ? "Oynatma listesi bağlantısını kontrol et"
+                                    : "Oynatma listesinde erişilebilir video bulunamadı"}
+                            </strong>
+                            <p>API bağlantısı tamamlandığında gerçek video isimleri ve
+                              sayısı burada görünecek. Bu sırada YouTube oynatıcısından
+                              listeyi açabilirsin; örnek ders isimleri gösterilmiyor.</p>
                           </div>
-                        );
-                      })}
-
-                      {section.videos.length > 3 && (
-                        <div className="course-more-videos">
-                          +{section.videos.length - 3} video daha
-                        </div>
+                        )
+                      ) : (
+                        <>
+                          {previewVideos.map((video) => {
+                            const progress = progressMap.get(video.id);
+                            const videoPercent = Number(progress?.progress_percent || 0);
+                            const isCompleted = progress?.is_completed || videoPercent >= 100;
+                            return (
+                              <div key={video.id} className="course-video-preview">
+                                <span>{isCompleted ? "✓" : "▶"}</span>
+                                <div>
+                                  <strong>{video.title}</strong>
+                                  <small>{formatDuration(video.duration_seconds)} •{" "}
+                                    {accessLabels[video.access_tier]} • %{videoPercent}</small>
+                                </div>
+                              </div>
+                            );
+                          })}
+                          {section.videos.length > 3 && (
+                            <div className="course-more-videos">+{section.videos.length - 3} video daha</div>
+                          )}
+                        </>
                       )}
                     </div>
 
@@ -373,8 +414,9 @@ export default async function CoursesPage() {
                       </a>
 
                       <span>
-                        {section.completedVideosCount}/
-                        {section.totalVideosCount} tamamlandı
+                        {isPhysicsGuidance
+                          ? (guidancePlaylist?.state === "ready" ? guidanceVideos.length + " YouTube videosu" : "YouTube oynatma listesi")
+                          : <>{section.completedVideosCount}/{section.totalVideosCount} tamamlandı</>}
                       </span>
                     </div>
                   </article>
@@ -442,6 +484,88 @@ export default async function CoursesPage() {
             flex-direction: column;
             gap: 18px;
             overflow: hidden;
+          }
+
+          .course-guidance-card {
+            grid-column: 1 / -1;
+            min-height: 0;
+            height: auto;
+          }
+
+          .course-guidance-card .course-video-preview-list {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            align-items: stretch;
+          }
+
+          .guidance-video-link {
+            text-decoration: none;
+            color: inherit;
+            min-width: 0;
+            align-items: center;
+            transition: border-color .18s ease, background .18s ease;
+          }
+
+          .guidance-video-link:hover,
+          .guidance-video-link:focus-visible {
+            border-color: rgba(124, 242, 255, .45);
+            background: rgba(124, 242, 255, .10);
+          }
+
+          .guidance-video-link img {
+            width: 88px;
+            height: 54px;
+            border-radius: 9px;
+            object-fit: cover;
+            flex: 0 0 auto;
+          }
+
+          .guidance-video-link > div {
+            flex: 1 1 auto;
+            min-width: 0;
+          }
+
+          .guidance-video-link strong {
+            white-space: normal !important;
+            overflow: visible !important;
+            text-overflow: clip !important;
+            overflow-wrap: anywhere;
+            word-break: normal;
+            -webkit-line-clamp: unset !important;
+            line-clamp: unset !important;
+          }
+
+          .guidance-video-link > b {
+            color: #7cf2ff;
+            font-size: 16px;
+          }
+
+          .guidance-card-note {
+            margin: 0;
+            color: rgba(235,245,255,.69);
+            font-size: 13px;
+            line-height: 1.6;
+          }
+
+          .guidance-sync-note {
+            grid-column: 1 / -1;
+            padding: 20px;
+            border: 1px dashed rgba(124,242,255,.24);
+            background: rgba(124,242,255,.035);
+            border-radius: 15px;
+            line-height: 1.6;
+          }
+
+          .guidance-sync-note strong { color: #ebfaff; }
+          .guidance-sync-note p { color: rgba(235,245,255,.65); margin: 9px 0 0; font-size: 13px; }
+
+          @media (max-width: 780px) {
+            .course-guidance-card .course-video-preview-list { grid-template-columns: 1fr; }
+            .guidance-video-link { padding: 10px; }
+            .guidance-video-link img { width: 72px; height: 46px; }
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            .guidance-video-link { transition: none; }
           }
 
           .course-stage-card.locked {

@@ -22,6 +22,7 @@ export default async function NotesPage({
   const query=await searchParams;
   const admin=profile?.role==="admin";
   const available=Object.keys(branchTitles);
+  if (!admin && !available.includes(profile?.branch || "")) redirect("/rota/adim/1");
   const branch:Branch = admin && available.includes(query?.brans || "")
     ? query.brans as Branch
     : available.includes(profile?.branch || "")

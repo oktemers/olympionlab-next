@@ -136,6 +136,10 @@ export default async function CoursesPage() {
   // selected branch in Supabase.
   const guidancePlaylist = await getGuidancePlaylist();
   const guidanceVideos = guidancePlaylist?.videos || [];
+  const { data: completedGuidance } = await supabase.from("user_guidance_video_progress")
+    .select("youtube_id").eq("user_id", user.id);
+  const completedGuidanceIds = new Set((completedGuidance || []).map(item => item.youtube_id));
+  const completedGuidanceCount = guidanceVideos.filter(video => completedGuidanceIds.has(video.youtubeId)).length;
 
   const branch = branchLabels[branchKey];
  
@@ -324,14 +328,14 @@ export default async function CoursesPage() {
                     <a key={video.youtubeId} href={"/courses/physics-guidance?video=" + encodeURIComponent(video.youtubeId)}
                       className="course-video-preview guidance-video-link">
                       <span aria-hidden="true">▶</span>
-                      <div><strong>{video.title}</strong><small>{video.duration || "Video"} · Ücretsiz</small></div>
+                      <div><strong>{video.title}</strong><small>{video.duration || "Video"} · Ücretsiz · {completedGuidanceIds.has(video.youtubeId) ? "%100" : "%0"}</small></div>
                     </a>
                   ))}
                   {guidanceVideos.length > 3 && <div className="course-more-videos">+{guidanceVideos.length-3} video daha</div>}
                   {!guidanceVideos.length && <div className="guidance-sync-note">YouTube video listesi şu anda alınamıyor. Oynatıcıdan devam edebilirsin.</div>}
                 </div>
                 <div className="course-card-actions"><a className="course-open-btn" href="/courses/physics-guidance">Derse Git</a>
-                  <span>{guidanceVideos.length} rehberlik videosu</span></div>
+                  <span>{completedGuidanceCount}/{guidanceVideos.length} tamamlandı</span></div>
               </article>
               {sectionsWithLockState.filter((section) => section.stage !== "guidance").map((section) => {
                 const previewVideos = section.videos.slice(0, 3);

@@ -63,8 +63,8 @@ export function VideoLibraryPage({ embedded = false }: { embedded?: boolean }) {
 
 const PLANS = [
  {key:"free", name:"Free", amount:"0", tag:"Başlangıç", description:"Platformu keşfet ve ücretsiz içeriklerden yararlan.", features:["Seçili ücretsiz videolar", "Açık kaynak içerik önizlemeleri", "Branşları keşfet"], href:"/giris?mode=register&plan=free", action:"Ücretsiz başla"},
- {key:"plus", name:"Plus", amount:"349", tag:"Düzenli hazırlık", description:"Daha kapsamlı video ve çözüm arşiviyle ilerle.", features:["1 günlük deneme seçeneği", "Free planındaki tüm içerikler", "Plus video çözüm arşivi", "PDF notları ve çalışma kaynakları", "Konu odaklı hazırlık"], href:"/odeme?plan=plus&trial=1", action:"Plus'ı incele"},
- {key:"pro", name:"Pro", amount:"649", tag:"Derinlemesine", description:"Tüm platform modüllerini tek planda keşfet.", features:["1 günlük deneme seçeneği", "Plus planındaki tüm içerikler", "AI Koç modülü*", "Laboratuvar modülleri*", "Genişletilmiş platform erişimi*"], href:"/odeme?plan=pro&trial=1", action:"Pro'yu incele"}
+ {key:"plus", name:"Plus", amount:"349", tag:"Düzenli hazırlık", description:"Daha kapsamlı video ve çözüm arşiviyle ilerle.", features:["1 günlük deneme seçeneği", "Free planındaki tüm içerikler", "Plus video çözüm arşivi", "AI Koç modülü*", "PDF notları ve çalışma kaynakları", "Konu odaklı hazırlık"], href:"/odeme?plan=plus&trial=1", action:"Plus'ı incele"},
+ {key:"pro", name:"Pro", amount:"649", tag:"Derinlemesine", description:"Tüm platform modüllerini tek planda keşfet.", features:["1 günlük deneme seçeneği", "Plus planındaki tüm içerikler (AI Koç dahil)", "Laboratuvar modülleri*", "Genişletilmiş platform erişimi*"], href:"/odeme?plan=pro&trial=1", action:"Pro'yu incele"}
 ] as const;
 export function PricingPage({ embedded = false }: { embedded?: boolean }) {
  const [selected, setSelected] = useState<(typeof PLANS)[number]["key"]>("plus");

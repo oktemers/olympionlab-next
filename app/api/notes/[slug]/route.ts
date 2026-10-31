@@ -27,11 +27,12 @@ export async function GET(_request: Request, { params }: { params: Promise<{ slu
   }
   try {
     const buffer = await renderTopicPdf(note);
+    const download = new URL(_request.url).searchParams.get("download") === "1";
     return new Response(new Uint8Array(buffer), {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
-        "Content-Disposition": `inline; filename="${note.slug}.pdf"`,
+        "Content-Disposition": `${download ? "attachment" : "inline"}; filename="${note.slug}.pdf"`,
         "Cache-Control": "private, no-store",
         "X-Content-Type-Options": "nosniff"
       }

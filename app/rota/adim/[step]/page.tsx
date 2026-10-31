@@ -170,7 +170,7 @@ export default async function RoadmapStepPage({
           <h3>Ek çalışma görevleri</h3><p>Bu görevleri gerçekten bitirdiğinde kendin tamamlandı olarak işaretleyebilirsin.</p>
           <RoadmapTaskList tasks={studyTasks} hasPlus={plus} returnTo="/rota/adim/2" emptyText="Henüz çalışma görevi yok." />
         </div>}
-        <div className={styles.ctas}><Link className={styles.primary} href="/kurslar">Tüm derslere git →</Link></div>
+        <div className={styles.ctas}><Link className={styles.primary} href="/kurslar">Tüm derslere git →</Link><Link href="/notlar">Branşına özel PDF notlarını aç ↗</Link></div>
       </section>}
       {index === 3 && <section className={styles.panel}>
         <div className={styles.sectionHeading}><span>03 / SORU ÇÖZ</span><h2>{branch} soru çözümü ve pratik</h2>

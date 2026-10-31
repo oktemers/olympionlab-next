@@ -83,7 +83,8 @@ export function validateShopierPaidOrder(input: unknown, expectedId: string): Ve
 
   const totals = record(order.totals);
   const cents = totals && moneyInCents(totals.total);
-  if (cents !== PRODUCT_PRICES[productId]) return null;
+  const amountCents = PRODUCT_PRICES[productId];
+  if (cents !== amountCents) return null;
 
   const email = text(record(order.shippingInfo)?.email).toLowerCase();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) return null;
@@ -96,7 +97,7 @@ export function validateShopierPaidOrder(input: unknown, expectedId: string): Ve
   if ((Array.isArray(order.refunds) && order.refunds.length > 0)
       || (Array.isArray(order.returns) && order.returns.length > 0)) return null;
 
-  return { id: expectedId, productId, email, amountCents: cents, paidAt: new Date(ms).toISOString() };
+  return { id: expectedId, productId, email, amountCents, paidAt: new Date(ms).toISOString() };
 }
 
 export async function applyVerifiedShopierOrder(order: VerifiedOrder, expectedUserId?: string): Promise<string> {

@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Sidebar } from "@/components/Sidebar";
 import { getGuidancePlaylist } from "@/lib/guidance-playlist";
 import styles from "./guidance.module.css";
+import TrackedYouTubePlayer from "@/components/TrackedYouTubePlayer";
 
 export const metadata={
   title:"Olimpiyat Rehberlik | OlympionLab",
@@ -18,14 +19,15 @@ export default async function GuidanceCoursePage({
   const supabase=await createClient();
   const {data:{user}}=await supabase.auth.getUser();
   if(!user)redirect("/giris");
-  const {data:profile}=await supabase.from("profiles").select("branch").eq("id",user.id).maybeSingle();
   
   const playlist=await getGuidancePlaylist();
   const query=await searchParams;
   const selected=playlist.videos.find(v=>v.youtubeId===query.video)||playlist.videos[0];
-  const source=selected
-    ? "https://www.youtube-nocookie.com/embed/"+selected.youtubeId+"?rel=0"
-    : "https://www.youtube-nocookie.com/embed/videoseries?list="+encodeURIComponent(playlist.id);
+  const {data:doneRows}=await supabase.from("user_guidance_video_progress")
+    .select("youtube_id").eq("user_id",user.id);
+  const done=new Set((doneRows||[]).map(v=>v.youtube_id));
+  const doneCount=playlist.videos.filter(v=>done.has(v.youtubeId)).length;
+  const source="https://www.youtube-nocookie.com/embed/videoseries?list="+encodeURIComponent(playlist.id);
   const watchLink="https://www.youtube.com/playlist?list="+encodeURIComponent(playlist.id);
   return <><link rel="stylesheet" href="/style.css"/><div className="app-page"><div className="app-shell">
     <Sidebar active="courses"/>
@@ -43,9 +45,13 @@ export default async function GuidanceCoursePage({
         <section className={styles.playerPanel}>
           <div className={styles.player}>
             {playlist.state==="invalid_id"?<div className={styles.noPlayer}>Oynatma listesi bağlantısı geçerli değil. Yönetici bağlantıyı kontrol etmeli.</div>
-              :<iframe src={source} title={selected?.title||"Olimpiyat Rehberliği oynatma listesi"}
-               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
-               allowFullScreen referrerPolicy="strict-origin-when-cross-origin" loading="lazy"/>}
+              :selected
+                ? <TrackedYouTubePlayer key={selected.youtubeId} videoId={selected.youtubeId}
+                    id={selected.youtubeId} kind="guidance" initialCompleted={done.has(selected.youtubeId)}
+                    returnTo={"/courses/physics-guidance?video="+selected.youtubeId} />
+                :<iframe src={source} title="Olimpiyat Rehberliği oynatma listesi"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen referrerPolicy="strict-origin-when-cross-origin" loading="lazy"/>}
           </div>
           <div className={styles.detail}>
             <span className={styles.detailLabel}>{selected?"DERS "+String(selected.position+1).padStart(2,"0"):"YOUTUBE OYNATMA LİSTESİ"}</span>
@@ -56,20 +62,20 @@ export default async function GuidanceCoursePage({
         </section>
         <aside className={styles.playlist}>
           <div className={styles.playlistHead}><span>İZLEME SIRASI</span><h2>Rehberlik videoları</h2>
-            <p>{playlist.videos.length?playlist.videos.length+" video · YouTube sırasına göre":"YouTube oynatma listesi"}</p>
+            <p>{playlist.videos.length?doneCount+"/"+playlist.videos.length+" tamamlandı · YouTube sırasına göre":"Oynatma listesi"}</p>
           </div>
           {playlist.videos.length ? <div className={styles.items}>{playlist.videos.map((video,index)=>
             <Link key={video.youtubeId} href={"/courses/physics-guidance?video="+video.youtubeId}
               className={styles.item+(selected?.youtubeId===video.youtubeId?" "+styles.current:"")}>
               <span className={styles.ordinal}>{String(index+1).padStart(2,"0")}</span>
 
-              <span className={styles.itemCopy}><strong>{video.title}</strong><small>{video.duration||"YouTube"} · Ücretsiz</small></span>
+              <span className={styles.itemCopy}><strong>{video.title}</strong><small>{video.duration||"Video"} · Ücretsiz · {done.has(video.youtubeId)?"%100 tamamlandı":"%0"}</small></span>
             </Link>
           )}</div>:<div className={styles.empty}>
              <p>{playlist.state==="api_key_missing"?"Video başlıklarını otomatik listelemek için YouTube API anahtarı henüz tanımlanmamış. Üstteki oynatıcı YouTube'un kendi playlist sırasını kullanır.":playlist.state==="invalid_id"?"Oynatma listesi kimliği hatalı.":playlist.state==="unavailable"?"YouTube API'den liste alınamadı. Üstteki oynatıcıyı deneyebilir veya listeyi YouTube'da açabilirsin.":"Oynatma listesinde şu anda erişilebilir video bulunmuyor."}</p>
              <a href={watchLink} target="_blank" rel="noopener noreferrer">Listeyi YouTube'da kontrol et ↗</a>
           </div>}
-          <div className={styles.notice}>Yeni videolar oynatma listesine eklendiğinde otomatik yenilenir. Liste dışı videolar bağlantısı olan kişilerce de izlenebilir.</div>
+          <div className={styles.notice}>İzlediğin her video ayrı kaydedilir. Tamamlanan videolar %100 olur; yeni videolar listeye otomatik eklenir.</div>
         </aside>
       </div>
     </div></main>

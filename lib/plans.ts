@@ -13,6 +13,10 @@ export function canAccess(userPlan: Plan | null | undefined, requiredPlan: Plan 
   return PLAN_RANK[current] >= PLAN_RANK[required];
 }
 
+export function hasPlusAccess(plan: string | null | undefined): boolean {
+  return plan === "plus" || plan === "pro" || plan === "mentor";
+}
+
 export function planLabel(plan: Plan) {
   return {
     free: "Free",

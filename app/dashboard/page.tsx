@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { signOut } from "@/app/auth/actions";
 import RouteSetupModal from "./RouteSetupModal";
 import { getGuidancePlaylist } from "@/lib/guidance-playlist";
+import { NOTES, type Branch } from "@/lib/pdf-notes-catalog";
 
 type LearningModule = {
   id: string;
@@ -332,7 +333,8 @@ export default async function DashboardPage() {
     )
     .slice(0, 4);
 
-  const pdfPreviewModules = pdfModules.slice(0, 2);
+  const branchNotes = NOTES.filter(note => note.branch === branchKey);
+  const pdfPreviewNotes = branchNotes.slice(0, 3);
 
   const heatmapDays = Array.from({ length: 28 }, (_, index) => {
     const date = new Date(twentyEightDaysAgo);
@@ -462,12 +464,10 @@ export default async function DashboardPage() {
 
               <div className="metric-card">
                 <span>PDF notları</span>
-                <strong>
-                  {completedPdfCount}/{pdfModules.length}
-                </strong>
+                <strong>{branchNotes.length} konu</strong>
                 <p>
                   {hasRouteSetup
-                    ? `${branch} rotana uygun PDF notları.`
+                    ? `${branch} branşına özel 6+ sayfalık çalışma föyleri.`
                     : "PDF notları branş seçildikten sonra kişiselleşir."}
                 </p>
               </div>
@@ -569,14 +569,14 @@ export default async function DashboardPage() {
               <section className="app-panel dashboard-v9-pdf">
                 <div className="panel-head">
                   <h2>PDF Notları</h2>
-                  <a href="/notes.html">Tüm notlar</a>
+                  <a href="/notlar">Tüm notlar</a>
                 </div>
 
-                {pdfPreviewModules.length > 0 ? (
-                  pdfPreviewModules.map((module) => (
-                    <a key={module.id} className="note-mini" href="/notes.html">
-                      <span>{moduleTypeLabels[module.type]}</span>
-                      <strong>{module.title}</strong>
+                {pdfPreviewNotes.length > 0 ? (
+                  pdfPreviewNotes.map((note, index) => (
+                    <a key={note.slug} className="note-mini" href="/notlar">
+                      <span>{index === 0 ? "Ücretsiz PDF" : "Plus PDF"} · En az 6 sayfa</span>
+                      <strong>{note.title}</strong>
                     </a>
                   ))
                 ) : (

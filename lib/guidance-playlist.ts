@@ -64,7 +64,7 @@ export async function getGuidancePlaylist(): Promise<GuidancePlaylist> {
   try {
     const items: PlaylistEntry[] = [];
     let pageToken: string | undefined;
-    for (let page=0;page<4;page++) {
+    for (let page=0;page<40;page++) { // Up to 2,000 playlist items, paginated at 50
       const response = await getYouTube<ItemResponse>("playlistItems",{
         part:"snippet,contentDetails", playlistId:id,maxResults:"50",
         ...(pageToken?{pageToken}:{})
@@ -78,23 +78,29 @@ export async function getGuidancePlaylist(): Promise<GuidancePlaylist> {
       const youtubeId=item.contentDetails?.videoId || item.snippet?.resourceId?.videoId;
       const title=item.snippet?.title?.trim();
       if (!idOK(youtubeId) || !title || /^(Private|Deleted) video$/i.test(title)) continue;
-      if (!ordered.has(youtubeId)) ordered.set(youtubeId,{title:title.slice(0,180),position:item.snippet?.position??index});
+      if (!ordered.has(youtubeId)) ordered.set(youtubeId,{title,position:item.snippet?.position??index});
     }
     const ids=[...ordered.keys()];
     const detailMap=new Map<string,VideoDetails>();
     for(let i=0;i<ids.length;i+=50){
-      const details=await getYouTube<DetailsResponse>("videos",{
-        part:"snippet,contentDetails,status",id:ids.slice(i,i+50).join(",")
-      },key);
-      for(const video of details.items||[]) if(idOK(video.id)) detailMap.set(video.id,video);
+      try {
+        const details=await getYouTube<DetailsResponse>("videos",{
+          part:"snippet,contentDetails,status",id:ids.slice(i,i+50).join(",")
+        },key);
+        for(const video of details.items||[]) if(idOK(video.id)) detailMap.set(video.id,video);
+      } catch (error) {
+        // The playlist response already provides video names and order.
+        // If videos.list cannot return unlisted details, do not hide those lessons.
+        console.warn("Guidance durations not available:", error instanceof Error ? error.message : "API error");
+      }
     }
     const videos:GuidanceVideo[]=[];
     for(const [youtubeId,listing] of ordered){
       const details=detailMap.get(youtubeId);
-      if(!details || details.status?.privacyStatus==="private" || details.status?.embeddable===false)continue;
+      if(details?.status?.privacyStatus==="private" || details?.status?.embeddable===false)continue;
       videos.push({
-        youtubeId, title:(details.snippet?.title?.trim()||listing.title).slice(0,180),
-        duration:durationLabel(details.contentDetails?.duration),position:listing.position
+        youtubeId, title:details?.snippet?.title?.trim()||listing.title,
+        duration:durationLabel(details?.contentDetails?.duration),position:listing.position
       });
     }
     videos.sort((a,b)=>a.position-b.position);

@@ -21,7 +21,7 @@ type LessonVideo = {
 type CourseSection = {
   id: string;
   slug: string;
-  branch: "physics" | "chemistry";
+  branch: "physics" | "chemistry" | "math" | "biology";
   stage: "guidance" | "stage_1" | "stage_2" | "international";
   title: string;
   short_title: string | null;
@@ -42,6 +42,8 @@ type VideoProgress = {
 const branchLabels: Record<string, string> = {
   physics: "Fizik",
   chemistry: "Kimya",
+  math: "Matematik",
+  biology: "Biyoloji",
 };
 
 const stageLabels: Record<string, string> = {
@@ -102,7 +104,7 @@ export default async function CoursesPage() {
 
   const rawBranchKey = profile?.branch ? String(profile.branch) : "";
   const branchKey =
-    rawBranchKey === "physics" || rawBranchKey === "chemistry"
+    ["physics", "chemistry", "math", "biology"].includes(rawBranchKey)
       ? rawBranchKey
       : null;
 
@@ -112,7 +114,7 @@ export default async function CoursesPage() {
 
   // Only the Physics/Rehberlik card is YouTube-backed. Other subjects retain
   // their existing Supabase course/progress flow.
-  const guidancePlaylist = branchKey === "physics" ? await getGuidancePlaylist() : null;
+  const guidancePlaylist = await getGuidancePlaylist();
   const guidanceVideos = guidancePlaylist?.videos || [];
 
   const branch = branchLabels[branchKey];
@@ -224,7 +226,7 @@ export default async function CoursesPage() {
   });
 
   const nextSection =
-    sectionsWithLockState.find(
+    sectionsWithLockState.filter(section => section.stage !== "guidance").find(
       (section) => section.isUnlocked && section.progressPercent < 100
     ) || sectionsWithLockState.find((section) => section.isUnlocked);
 
@@ -291,14 +293,35 @@ export default async function CoursesPage() {
             </div>
 
             <section className="course-stage-grid">
-              {sectionsWithLockState.map((section) => {
-                const isPhysicsGuidance = branchKey === "physics" && section.slug === "physics-guidance";
+              <article className="app-panel course-stage-card course-guidance-card">
+                <div className="course-card-top">
+                  <div className="course-stage-icon">🧭</div>
+                  <div><span className="eyebrow">ORTAK REHBERLİK • {guidanceVideos.length} video</span>
+                    <h2>Olimpiyatlara Giriş ve Rehberlik</h2></div>
+                </div>
+                <p className="course-description">Fizik, kimya, matematik ve biyoloji öğrencileri için ortak olimpiyat rehberliği.</p>
+                <div className="course-video-preview-list">
+                  {guidanceVideos.slice(0,3).map(video => (
+                    <a key={video.youtubeId} href={"/courses/physics-guidance?video=" + encodeURIComponent(video.youtubeId)}
+                      className="course-video-preview guidance-video-link">
+                      <span aria-hidden="true">▶</span>
+                      <div><strong>{video.title}</strong><small>{video.duration || "Video"} · Ücretsiz</small></div>
+                    </a>
+                  ))}
+                  {guidanceVideos.length > 3 && <div className="course-more-videos">+{guidanceVideos.length-3} video daha</div>}
+                  {!guidanceVideos.length && <div className="guidance-sync-note">YouTube video listesi şu anda alınamıyor. Oynatıcıdan devam edebilirsin.</div>}
+                </div>
+                <div className="course-card-actions"><a className="course-open-btn" href="/courses/physics-guidance">Derse Git</a>
+                  <span>{guidanceVideos.length} YouTube videosu</span></div>
+              </article>
+              {sectionsWithLockState.filter((section) => section.stage !== "guidance").map((section) => {
+                const isPhysicsGuidance = section.stage === "guidance";
                 const previewVideos = section.videos.slice(0, 3);
 
                 return (
                   <article
                     key={section.id}
-                    className={`app-panel course-stage-card ${isPhysicsGuidance ? "course-guidance-card" : ""} ${
+                    className={`app-panel course-stage-card ${
                       section.isUnlocked ? "" : "locked"
                     }`}
                   >
@@ -310,11 +333,9 @@ export default async function CoursesPage() {
                       <div>
                         <span className="eyebrow">
                           {stageLabels[section.stage]} •{" "}
-                          {isPhysicsGuidance
-                            ? (guidancePlaylist?.state === "ready" ? guidanceVideos.length + " video" : "YouTube oynatma listesi")
-                            : section.totalVideosCount + " video"}
+                          {section.totalVideosCount + " video"}
                         </span>
-                        <h2>{section.title}</h2>
+                        <h2>{section.title.toLocaleLowerCase("tr-TR").includes(branch.toLocaleLowerCase("tr-TR")) ? section.title : branch + " · " + section.title}</h2>
                       </div>
 
                       {!section.isUnlocked && (
@@ -324,60 +345,15 @@ export default async function CoursesPage() {
 
                     <p className="course-description">{section.description}</p>
 
-                    {isPhysicsGuidance ? (
-                      <p className="guidance-card-note">
-                        Videoların isimleri, süreleri ve sırası YouTube oynatma listesiyle
-                        otomatik eşleşir. İzleme ilerlemesi şimdilik ayrı kaydedilmiyor.
-                      </p>
-                    ) : (
                       <div className="course-progress-row">
                         <div className="progress-track">
                           <i style={{ width: `${Math.max(section.progressPercent, 5)}%` }}></i>
                         </div>
                         <strong>%{section.progressPercent}</strong>
                       </div>
-                    )}
+
 
                     <div className="course-video-preview-list">
-                      {isPhysicsGuidance ? (
-                        guidanceVideos.length ? (
-                          guidanceVideos.map((video, index) => (
-                            <a key={video.youtubeId}
-                              href={`/courses/physics-guidance?video=${encodeURIComponent(video.youtubeId)}`}
-                              className="course-video-preview guidance-video-link">
-                              <span>{String(index + 1).padStart(2, "0")}</span>
-                              <img
-                                src={`https://i.ytimg.com/vi/${video.youtubeId}/mqdefault.jpg`}
-                                alt=""
-                                loading="lazy"
-                                width={88}
-                                height={54}
-                              />
-                              <div>
-                                <strong>{video.title}</strong>
-                                <small>{video.duration || "Video"} · Ücretsiz · YouTube</small>
-                              </div>
-                              <b aria-hidden="true">↗</b>
-                            </a>
-                          ))
-                        ) : (
-                          <div className="guidance-sync-note" role="status">
-                            <strong>
-                              {guidancePlaylist?.state === "api_key_missing"
-                                ? "YouTube video listesi bağlantısı bekleniyor"
-                                : guidancePlaylist?.state === "unavailable"
-                                  ? "YouTube video bilgileri şu anda alınamıyor"
-                                  : guidancePlaylist?.state === "invalid_id"
-                                    ? "Oynatma listesi bağlantısını kontrol et"
-                                    : "Oynatma listesinde erişilebilir video bulunamadı"}
-                            </strong>
-                            <p>API bağlantısı tamamlandığında gerçek video isimleri ve
-                              sayısı burada görünecek. Bu sırada YouTube oynatıcısından
-                              listeyi açabilirsin; örnek ders isimleri gösterilmiyor.</p>
-                          </div>
-                        )
-                      ) : (
-                        <>
                           {previewVideos.map((video) => {
                             const progress = progressMap.get(video.id);
                             const videoPercent = Number(progress?.progress_percent || 0);
@@ -396,8 +372,6 @@ export default async function CoursesPage() {
                           {section.videos.length > 3 && (
                             <div className="course-more-videos">+{section.videos.length - 3} video daha</div>
                           )}
-                        </>
-                      )}
                     </div>
 
                     <div className="course-card-actions">
@@ -414,9 +388,7 @@ export default async function CoursesPage() {
                       </a>
 
                       <span>
-                        {isPhysicsGuidance
-                          ? (guidancePlaylist?.state === "ready" ? guidanceVideos.length + " YouTube videosu" : "YouTube oynatma listesi")
-                          : <>{section.completedVideosCount}/{section.totalVideosCount} tamamlandı</>}
+                        {section.completedVideosCount}/{section.totalVideosCount} tamamlandı
                       </span>
                     </div>
                   </article>
@@ -493,7 +465,7 @@ export default async function CoursesPage() {
           }
 
           .course-guidance-card .course-video-preview-list {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: minmax(0, 1fr);
             align-items: stretch;
           }
 

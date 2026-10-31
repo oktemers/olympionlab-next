@@ -63,25 +63,30 @@ export function VideoLibraryPage({ embedded = false }: { embedded?: boolean }) {
 
 const PLANS = [
  {key:"free", name:"Free", amount:"0", tag:"Başlangıç", description:"Platformu keşfet ve ücretsiz içeriklerden yararlan.", features:["Seçili ücretsiz videolar", "Açık kaynak içerik önizlemeleri", "Branşları keşfet"], href:"/giris?mode=register&plan=free", action:"Ücretsiz başla"},
- {key:"plus", name:"Plus", amount:"349", tag:"Düzenli hazırlık", description:"Daha kapsamlı video ve çözüm arşiviyle ilerle.", features:["1 günlük deneme seçeneği", "Free planındaki tüm içerikler", "Plus video çözüm arşivi", "AI Koç modülü*", "PDF notları ve çalışma kaynakları", "Konu odaklı hazırlık"], href:"/odeme?plan=plus&trial=1", action:"Plus'ı incele"},
- {key:"pro", name:"Pro", amount:"649", tag:"Derinlemesine", description:"Tüm platform modüllerini tek planda keşfet.", features:["1 günlük deneme seçeneği", "Plus planındaki tüm içerikler (AI Koç dahil)", "Laboratuvar modülleri*", "Genişletilmiş platform erişimi*"], href:"/odeme?plan=pro&trial=1", action:"Pro'yu incele"}
+ {key:"plus", name:"Plus", amount:"349", tag:"Lansman fiyatı", description:"30 günlük Plus erişimi; otomatik yenilenmez.", features:["Free planındaki tüm içerikler", "Plus video çözüm arşivi", "AI Koç modülü*", "PDF notları ve çalışma kaynakları", "Konu odaklı hazırlık"], href:"/odeme?plan=plus", action:"Plus'a geç"},
+ {key:"pro", name:"Pro", amount:"649", tag:"Lansman fiyatı", description:"30 günlük Pro erişimi; otomatik yenilenmez.", features:["Plus planındaki tüm içerikler (AI Koç dahil)", "Laboratuvar modülleri*", "Genişletilmiş platform erişimi*"], href:"/odeme?plan=pro", action:"Pro'ya geç"}
 ] as const;
+const SHOPIER_PRODUCTS = {
+  plus: "https://www.shopier.com/ozanoktemer/52427384",
+  pro: "https://www.shopier.com/ozanoktemer/52427721",
+} as const;
 export function PricingPage({ embedded = false }: { embedded?: boolean }) {
  const [selected, setSelected] = useState<(typeof PLANS)[number]["key"]>("plus");
  const mobilePlan = PLANS.find(p => p.key === selected) ?? PLANS[1];
- return <Shell active="/fiyatlandirma" embedded={embedded}><div className={s.container}><section className={s.centerHero}><Pill>FİYATLANDIRMA</Pill><h1>Hedefine uygun<br/><span className={s.gradientText}>planı seç.</span></h1><p>İhtiyacın kadar özellik, anlaşılır planlar. Free ile başla; Plus ve Pro planlarında 1 günlük deneme seçeneğini incele.</p></section>
+ return <Shell active="/fiyatlandirma" embedded={embedded}><div className={s.container}><section className={s.centerHero}><Pill>FİYATLANDIRMA</Pill><h1>Hedefine uygun<br/><span className={s.gradientText}>planı seç.</span></h1><p>Free ile başla; Plus ve Pro için lansmana özel 30 günlük üyelikleri keşfet. Ödemeler Shopier üzerinden alınır.</p></section>
  <section className={s.pricingGrid}>{PLANS.map(plan=><article key={plan.key} className={`${s.priceCard} ${plan.key==='plus' ? s.priceFeatured : ''}`}>
- <div className={s.priceTop}><div><span className={s.planEyebrow}>{plan.tag}</span><h2>{plan.name}</h2></div>{plan.key==='plus' && <span className={s.popularBadge}>ÖNE ÇIKAN</span>}</div><p className={s.priceDescription}>{plan.description}</p><div className={s.amount}>₺{plan.amount}<span>/ ay</span></div><Link href={plan.href} className={plan.key==='plus' ? s.primaryButton : s.priceButton}>{plan.action}<Arrow/></Link><div className={s.featureDivider}/><span className={s.featureCaption}>PLANIN İÇERDİKLERİ</span><ul className={s.featureList}>{plan.features.map(f=><li key={f}><span>✓</span>{f}</li>)}</ul>
+ <div className={s.priceTop}><div><span className={s.planEyebrow}>{plan.tag}</span><h2>{plan.name}</h2></div>{plan.key==='plus' && <span className={s.popularBadge}>ÖNE ÇIKAN</span>}</div><p className={s.priceDescription}>{plan.description}</p><div className={s.amount}>₺{plan.amount}<span>{plan.key === "free" ? "" : " / 30 gün"}</span></div><Link href={plan.href} className={plan.key==='plus' ? s.primaryButton : s.priceButton}>{plan.action}<Arrow/></Link><div className={s.featureDivider}/><span className={s.featureCaption}>PLANIN İÇERDİKLERİ</span><ul className={s.featureList}>{plan.features.map(f=><li key={f}><span>✓</span>{f}</li>)}</ul>
  </article>)}</section>
+ <p className={s.pricingDisclaimer}>Plus ve Pro 30 günlük tek seferlik erişimdir, otomatik yenilenmez. Shopier ödemesi doğrulandıktan sonra üyelik manuel tanımlanır. Lansman fiyatları 349 TL ve 649 TL'dir.</p>
  <section className={s.mobilePricing} aria-label="Mobil plan karşılaştırma">
   <div className={s.mobilePlanSelector} role="group" aria-label="Plan seçimi">{PLANS.map(p => <button type="button" key={p.key} aria-pressed={selected === p.key} className={`${s.mobilePlanTab} ${selected === p.key ? s.mobilePlanSelected : ""}`} onClick={() => setSelected(p.key)}>{p.name}</button>)}</div>
   <article className={s.mobilePlanPanel} key={mobilePlan.key}>
-   <div className={s.mobilePlanHeader}><div><small>{mobilePlan.tag}</small><h2>{mobilePlan.name}</h2></div><div className={s.mobilePlanPrice}>₺{mobilePlan.amount}<span>/ay</span></div></div>
+   <div className={s.mobilePlanHeader}><div><small>{mobilePlan.tag}</small><h2>{mobilePlan.name}</h2></div><div className={s.mobilePlanPrice}>₺{mobilePlan.amount}<span>{mobilePlan.key === "free" ? "" : " / 30 gün"}</span></div></div>
    <p className={s.mobilePlanDescription}>{mobilePlan.description}</p>
    <div className={s.mobileFeatureTitle}>PLAN ÖZELLİKLERİ</div>
    <ul className={s.mobileFeatureList}>{mobilePlan.features.map(f => <li key={f}><span>{f}</span><strong aria-label="Dahil">✓</strong></li>)}</ul>
    <Link href={mobilePlan.href} className={s.mobilePlanButton}>{mobilePlan.action}<Arrow /></Link>
-   <p className={s.mobilePayNote}>{selected === "free" ? "Ücretsiz içerikler için kayıt ekranına geçersin." : "Planını inceleyip hesap oluşturma adımına geçebilirsin."}</p>
+   <p className={s.mobilePayNote}>{selected === "free" ? "Ücretsiz içerikler için kayıt ekranına geçersin." : "Ödeme Shopier üzerinden yapılır. Üyelik, ödeme kontrolünden sonra manuel açılır."}</p>
   </article>
  </section>
  </div></Shell>
@@ -93,7 +98,7 @@ export function CheckoutPage({ plan = "plus", embedded = false }: { plan?: strin
  );
  const chosen = PLANS.find(item => item.key === selectedKey) ?? PLANS[1];
  const isFree = selectedKey === "free";
- const accessPath = isFree ? "/giris?mode=register&plan=free" : "/giris?mode=register&plan=" + selectedKey + "&trial=1";
+ const accessPath = isFree ? "/giris?mode=register&plan=free" : (selectedKey === "pro" ? SHOPIER_PRODUCTS.pro : SHOPIER_PRODUCTS.plus);
  return <Shell active="/fiyatlandirma" embedded={embedded}>
    <div className={s.checkoutV7}>
      <div className={s.checkoutV7Glow} aria-hidden="true"/>
@@ -101,7 +106,7 @@ export function CheckoutPage({ plan = "plus", embedded = false }: { plan?: strin
        <section className={s.checkoutV7Hero}>
          <div className={s.checkoutV7Eyebrow}><span className={s.checkoutV7Dot}/> OLYMPION ÜYELİK PLANLARI</div>
          <h1>Bir sonraki adımın <span>buradan başlıyor.</span></h1>
-         <p>Olimpiyat hazırlığını kendi ritmine göre şekillendir. İhtiyacın olan planı seç, içerikleri ve avantajlarını keşfet.</p>
+         <p>Planını seç ve 30 günlük Plus veya Pro üyeliğini Shopier üzerinden satın al. Ödeme sonrası erişim doğrulanarak açılır.</p>
          <div className={s.checkoutV7Artwork} aria-label="Olympion öğrenme yolculuğu görselleştirmesi">
            <svg viewBox="0 0 580 280" role="img" aria-label="Başlangıçtan hedefe uzanan bilimsel öğrenme rotası">
              <defs><linearGradient id="cv7" x1="0" y1="1" x2="1" y2="0"><stop stopColor="#76eaf4"/><stop offset="1" stopColor="#8eafff"/></linearGradient><radialGradient id="cv7glow"><stop stopColor="#76eaf4" stopOpacity=".18"/><stop offset="1" stopColor="#76eaf4" stopOpacity="0"/></radialGradient></defs>
@@ -122,14 +127,16 @@ export function CheckoutPage({ plan = "plus", embedded = false }: { plan?: strin
          <div className={s.checkoutV7PanelTop}><div><span>ÜYELİK PLANIN</span><h2>Sana uygun olanı seç.</h2></div><span className={s.checkoutV7MiniMark}>✦ OLYMPION</span></div>
          <div className={s.checkoutV7Tabs} role="group" aria-label="Planlar">{PLANS.map(p=><button type="button" key={p.key} aria-pressed={selectedKey===p.key} onClick={()=>setSelectedKey(p.key)} className={[s.checkoutV7Tab,selectedKey===p.key?s.checkoutV7TabActive:""].join(" ")}>{p.name}</button>)}</div>
          <div key={selectedKey} className={s.checkoutV7Content}>
-           <div className={s.checkoutV7PlanHead}><div><span>{chosen.tag}</span><h3>{chosen.name}</h3></div><div className={s.checkoutV7Price}>₺{chosen.amount}<small>/ay</small></div></div>
+           <div className={s.checkoutV7PlanHead}><div><span>{chosen.tag}</span><h3>{chosen.name}</h3></div><div className={s.checkoutV7Price}>₺{chosen.amount}<small>{isFree ? "" : " / 30 gün"}</small></div></div>
            <p className={s.checkoutV7Description}>{chosen.description}</p>
-           {!isFree && <div className={s.checkoutV7Trial}><span>✧</span><div><strong>1 günlük deneme seçeneği</strong><small>Planını keşfetmek için kısa bir başlangıç.</small></div></div>}
+           {!isFree && <div className={s.checkoutV7Trial}><span>✧</span><div><strong>30 günlük tek seferlik üyelik</strong><small>Otomatik yenileme veya karttan tekrar çekim yapılmaz.</small></div></div>}
            <div className={s.checkoutV7FeaturesTitle}>PLAN ÖZELLİKLERİ <span>{chosen.features.length} özellik</span></div>
            <ul className={s.checkoutV7Features}>{chosen.features.map(f=><li key={f}><span aria-hidden="true">✓</span>{f}</li>)}</ul>
          </div>
-         <Link href={accessPath} className={s.checkoutV7Action}>{isFree?"Ücretsiz hesap oluştur":"Hesap oluşturarak devam et"}<Arrow/></Link>
-         <p className={s.checkoutV7ActionNote}>Bu adımda hesap oluşturma ekranına yönlendirilirsin. Kart bilgisi istenmez.</p>
+         {isFree ? <Link href={accessPath} className={s.checkoutV7Action}>Ücretsiz hesap oluştur <Arrow/></Link> : <a href={accessPath} target="_blank" rel="noopener noreferrer" className={s.checkoutV7Action}>Shopier'de ₺{chosen.amount} öde <Arrow/></a>}
+         {isFree
+           ? <p className={s.checkoutV7ActionNote}>Free planı için kart bilgisi istenmez.</p>
+           : <p className={s.checkoutV7ActionNote}>Satın almadan önce <Link href="/giris?mode=register">Olympionlab hesabını oluştur veya giriş yap</Link>. Shopier'de mümkünse aynı e-postayı kullan. Ödeme sonrasında sipariş numaranı <a href={"mailto:oktemerozannnn@gmail.com?subject=" + encodeURIComponent("Olympionlab " + chosen.name + " üyelik aktivasyonu")}>destek ekibimize e-postayla gönder</a>. Sipariş doğrulandıktan sonra üyeliğin manuel açılır. Satın alma işlemi tek başına otomatik üyelik aktivasyonu sağlamaz.</p>}
        </section>
      </div>
      <div className={s.checkoutV7Bottom}><span>✦ Düşün. Deneyimle. İlerle.</span><Link href="/fiyatlandirma">Planları karşılaştır <Arrow/></Link></div>

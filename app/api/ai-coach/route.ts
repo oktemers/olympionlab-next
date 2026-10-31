@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import { createClient } from "@/lib/supabase/server";
+import { hasPlusAccess } from "@/lib/plans";
 const tips = (q:string) => {
  const s=q.toLocaleLowerCase("tr-TR");
  if(/momentum|enerji|mekanik/.test(s))return "Önce sistemini ve korunabilecek nicelikleri belirle. Dış kuvvetlerin impulsu küçükse momentum korunumu, sürtünme ve iş dikkate alınabiliyorsa enerji yaklaşımı işe yarar. Sorudaki etkileşim öncesi ve sonrası durumları bir tabloyla karşılaştır. Hangi kuvvetler dışarıdan etki ediyor?";
@@ -12,6 +13,15 @@ export async function POST(request:Request) {
  try{
   const supabase=await createClient();const {data:{user}}=await supabase.auth.getUser();
   if(!user)return NextResponse.json({error:"Oturumun sona ermiş. Lütfen tekrar giriş yap."},{status:401});
+  const {data:accessProfile,error:accessError}=await supabase.from("profiles")
+    .select("plan,role").eq("id",user.id).maybeSingle();
+  if(accessError)return NextResponse.json({error:"Üyelik bilgisi doğrulanamadı."},{status:503});
+  if(accessProfile?.role!=="admin"&&!hasPlusAccess(accessProfile?.plan)){
+    return NextResponse.json({
+      error:"AI Koç için Plus veya daha yüksek bir plan gereklidir.",
+      upgradeUrl:"/odeme?plan=plus"
+    },{status:403,headers:{"Cache-Control":"no-store"}});
+  }
   const origin=request.headers.get("origin");
   if ((origin && origin!==new URL(request.url).origin) || request.headers.get("sec-fetch-site")==="cross-site") {
    return NextResponse.json({error:"Geçersiz istek kaynağı."},{status:403});

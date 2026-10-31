@@ -315,7 +315,6 @@ export default async function CoursesPage() {
                   <span>{guidanceVideos.length} YouTube videosu</span></div>
               </article>
               {sectionsWithLockState.filter((section) => section.stage !== "guidance").map((section) => {
-                const isPhysicsGuidance = section.stage === "guidance";
                 const previewVideos = section.videos.slice(0, 3);
 
                 return (
@@ -335,7 +334,7 @@ export default async function CoursesPage() {
                           {stageLabels[section.stage]} •{" "}
                           {section.totalVideosCount + " video"}
                         </span>
-                        <h2>{section.title.toLocaleLowerCase("tr-TR").includes(branch.toLocaleLowerCase("tr-TR")) ? section.title : branch + " · " + section.title}</h2>
+                        <h2>{(section.title.replace(/Fizik/gi, branch).includes(branch) ? section.title.replace(/Fizik/gi, branch) : branch + " · " + section.title)}</h2>
                       </div>
 
                       {!section.isUnlocked && (
@@ -343,7 +342,7 @@ export default async function CoursesPage() {
                       )}
                     </div>
 
-                    <p className="course-description">{section.description}</p>
+                    <p className="course-description">{section.description?.replace(/Fizik/gi, branch)}</p>
 
                       <div className="course-progress-row">
                         <div className="progress-track">

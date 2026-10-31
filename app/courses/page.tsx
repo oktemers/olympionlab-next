@@ -525,6 +525,9 @@ export default async function CoursesPage() {
           }
 
           .guidance-video-link strong {
+            display: block !important;
+            height: auto !important;
+            max-height: none !important;
             white-space: normal !important;
             overflow: visible !important;
             text-overflow: clip !important;

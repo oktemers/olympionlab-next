@@ -40,7 +40,7 @@ export default async function RoadmapLesson({ params }: { params: Promise<{ id: 
         <p style={{ color: "#a9c3d5", lineHeight: 1.7 }}>{video.description || "Bu derste olimpiyat sorularının çözüm yaklaşımını incele."}</p>
         <section style={{ overflow: "hidden", padding: 18, borderRadius: 20, border: "1px solid rgba(124,242,255,.18)", background: "#0e2134", marginTop: 22 }}>
           {playable ?
-            <TrackedYouTubePlayer key={id} id={id} kind="lesson" videoId={video.youtube_id} initialCompleted={completed} returnTo={"/rota/video/" + id} />
+            <TrackedYouTubePlayer key={id} id={id} kind="lesson" videoId={video.youtube_id!} initialCompleted={completed} returnTo={"/rota/video/" + id} />
             : <div style={{ textAlign: "center", padding: 32, color: "#b5cbda" }}>
               Bu videonun YouTube bağlantısı henüz eklenmemiş. Video yüklenince burada oynatılacak; izlenmediği için tamamlandı olarak kaydedilemez.
             </div>}

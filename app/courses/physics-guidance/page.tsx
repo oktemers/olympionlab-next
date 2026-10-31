@@ -43,7 +43,7 @@ export default async function GuidanceCoursePage({
       </div>
       <div className={styles.grid}>
         <section className={styles.playerPanel}>
-          <div className={styles.player}>
+          <div className={selected ? styles.playerTracked : styles.player}>
             {playlist.state==="invalid_id"?<div className={styles.noPlayer}>Oynatma listesi bağlantısı geçerli değil. Yönetici bağlantıyı kontrol etmeli.</div>
               :selected
                 ? <TrackedYouTubePlayer key={selected.youtubeId} videoId={selected.youtubeId}

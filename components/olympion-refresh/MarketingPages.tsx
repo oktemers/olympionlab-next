@@ -136,7 +136,7 @@ export function CheckoutPage({ plan = "plus", embedded = false }: { plan?: strin
          {isFree ? <Link href={accessPath} className={s.checkoutV7Action}>Ücretsiz hesap oluştur <Arrow/></Link> : <a href={accessPath} target="_blank" rel="noopener noreferrer" className={s.checkoutV7Action}>Shopier'de ₺{chosen.amount} öde <Arrow/></a>}
          {isFree
            ? <p className={s.checkoutV7ActionNote}>Free planı için kart bilgisi istenmez.</p>
-           : <p className={s.checkoutV7ActionNote}>Satın almadan önce <Link href="/giris?mode=register">Olympionlab hesabını oluştur veya giriş yap</Link>. Shopier'de mümkünse aynı e-postayı kullan. Ödeme sonrasında sipariş numaranı <a href={"mailto:oktemerozannnn@gmail.com?subject=" + encodeURIComponent("Olympionlab " + chosen.name + " üyelik aktivasyonu")}>destek ekibimize e-postayla gönder</a>. Sipariş doğrulandıktan sonra üyeliğin manuel açılır. Satın alma işlemi tek başına otomatik üyelik aktivasyonu sağlamaz.</p>
+           : <p className={s.checkoutV7ActionNote}>Satın almadan önce <Link href="/giris?mode=register">Olympionlab hesabını oluştur veya giriş yap</Link>. Shopier'de mümkünse aynı e-postayı kullan. Ödeme sonrasında sipariş numaranı <a href={"mailto:oktemerozannnn@gmail.com?subject=" + encodeURIComponent("Olympionlab " + chosen.name + " üyelik aktivasyonu")}>destek ekibimize e-postayla gönder</a>. Sipariş doğrulandıktan sonra üyeliğin manuel açılır. Satın alma işlemi tek başına otomatik üyelik aktivasyonu sağlamaz.</p>}
        </section>
      </div>
      <div className={s.checkoutV7Bottom}><span>✦ Düşün. Deneyimle. İlerle.</span><Link href="/fiyatlandirma">Planları karşılaştır <Arrow/></Link></div>

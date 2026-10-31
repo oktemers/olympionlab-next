@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "@/app/auth/actions";
 import RouteSetupModal from "./RouteSetupModal";
+import { getGuidancePlaylist } from "@/lib/guidance-playlist";
 
 type LearningModule = {
   id: string;
@@ -216,11 +217,33 @@ export default async function DashboardPage() {
   });
 
   const totalModules = modules.length;
-
-  const routePercent =
-    totalModules > 0
-      ? Math.round((completedModules.length / totalModules) * 100)
-      : 0;
+  let lessonCount = 0;
+  let completedLessonCount = 0;
+  let guidanceCount = 0;
+  let completedGuidanceCount = 0;
+  if (branchKey) {
+    const [{ data: sectionRows }, { data: videoProgressRows }, { data: guidanceRows }, playlist] = await Promise.all([
+      supabase.from("course_sections")
+        .select("stage,lesson_videos(id,title,is_active)").eq("branch",branchKey).eq("is_active",true),
+      supabase.from("user_video_progress")
+        .select("video_id,is_completed,progress_percent").eq("user_id",user.id),
+      supabase.from("user_guidance_video_progress").select("youtube_id").eq("user_id",user.id),
+      getGuidancePlaylist()
+    ]);
+    const lessons = (sectionRows || []).filter(s => s.stage !== "guidance")
+      .flatMap(s => s.lesson_videos || [])
+      .filter(v => v.is_active && (branchKey === "physics" || !/fizik|physics/iu.test(v.title)));
+    const completeIds = new Set((videoProgressRows || [])
+      .filter(p => p.is_completed || Number(p.progress_percent || 0) >= 100).map(p => p.video_id));
+    const guidedIds = new Set((guidanceRows || []).map(p => p.youtube_id));
+    lessonCount = lessons.length;
+    completedLessonCount = lessons.filter(v => completeIds.has(v.id)).length;
+    guidanceCount = playlist.videos.length;
+    completedGuidanceCount = playlist.videos.filter(v => guidedIds.has(v.youtubeId)).length;
+  }
+  const totalTasks = totalModules + lessonCount + guidanceCount;
+  const completedTasks = completedModules.length + completedLessonCount + completedGuidanceCount;
+  const routePercent = totalTasks > 0 ? Math.round(completedTasks / totalTasks * 100) : 0;
 
   const pdfModules = modules.filter((module) => module.type === "pdf_note");
 
@@ -245,7 +268,7 @@ export default async function DashboardPage() {
     ? Number(progressMap.get(currentModule.id)?.progress_percent || 0)
     : 0;
 
-  const continueHref = hasRouteSetup ? "/courses" : "#setup-route";
+  const continueHref = hasRouteSetup ? "/rota/adim/2" : "#setup-route";
 
   const { data: xpRows } = await supabase
     .from("user_xp_events")
@@ -433,7 +456,7 @@ export default async function DashboardPage() {
                 <span>{hasRouteSetup ? `${branch} rotası` : "Rota"}</span>
                 <strong>%{routePercent}</strong>
                 <p>
-                  {completedModules.length}/{totalModules} modül tamamlandı.
+                  {completedTasks}/{totalTasks} görev tamamlandı.
                 </p>
               </div>
 
@@ -467,7 +490,7 @@ export default async function DashboardPage() {
                     </p>
                   </div>
 
-                  <a href="/roadmap.html">Rotayı aç</a>
+                  <a href="/rota/adim/4">Rotayı aç</a>
                 </div>
 
                 <div className="activity-summary">
@@ -579,7 +602,7 @@ export default async function DashboardPage() {
                     recommendedModules.map((module) => {
                       const progress = progressMap.get(module.id);
                       const percent = Number(progress?.progress_percent || 0);
-                      return <a href={module.href?.startsWith("/")&&!module.href.startsWith("//")?module.href:"/kurslar"} key={module.id} className="dashboard-v9-lesson-item">
+                      return <a href={["question_set","practice","exam"].includes(module.type) ? "/rota/adim/3" : "/rota/adim/2"} key={module.id} className="dashboard-v9-lesson-item">
                         <span className="dashboard-v9-lesson-icon" aria-hidden="true">{getModuleIcon(module.type)}</span>
                         <span className="dashboard-v9-lesson-text">
                           <small>{branch} · {moduleTypeLabels[module.type]} · {module.estimated_minutes} dk</small>

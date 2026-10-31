@@ -53,11 +53,8 @@ const stageLabels: Record<string, string> = {
   international: "Uluslararası",
 };
 
-const accessLabels: Record<string, string> = {
-  free: "Free",
-  plus: "Plus",
-  pro: "Pro",
-};
+// Rehberlik is always free; all branch lesson videos are Plus content.
+const BRANCH_LESSON_TIER = "Plus";
 
 function formatDuration(seconds: number) {
   if (!seconds || seconds <= 0) return "Süre yakında";
@@ -72,6 +69,29 @@ function formatDuration(seconds: number) {
   const minute = minutes % 60;
 
   return `${hour}s ${minute}dk`;
+}
+
+
+function stageHeading(section: CourseSection, branch: string) {
+  if (section.stage === "stage_1") return `${branch} · 1. Aşama Soru Çözümleri`;
+  if (section.stage === "stage_2") return `${branch} · 2. Aşama Soru Çözümleri`;
+  if (section.stage === "international") return `${branch} · Uluslararası Olimpiyat Soruları`;
+  return section.title;
+}
+
+function stageDescription(section: CourseSection, branch: string) {
+  const description = section.description || "";
+  // Never relabel a physics lesson as a chemistry or biology lesson.
+  if (!/fizik/i.test(description) || branch === "Fizik") return description;
+  if (section.stage === "stage_1") return `TÜBİTAK 1. Aşama düzeyinde ${branch.toLocaleLowerCase("tr-TR")} olimpiyatı soruları ve çözümleri.`;
+  if (section.stage === "stage_2") return `${branch} olimpiyatlarında ikinci aşamaya yönelik ileri soru çözümleri.`;
+  return `${branch} olimpiyatlarına yönelik ileri seviye çalışma ve problem çözme.`;
+}
+
+function isRightBranchVideo(title: string, branchKey: string) {
+  // An incorrect database branch mapping must not show a physics video
+  // under another subject. Actual lesson titles are never fabricated.
+  return branchKey === "physics" || !/\bfizik\b|\bphysics\b|tübitak ulusal fizik/iu.test(title);
 }
 
 function getSectionIcon(stage: CourseSection["stage"]) {
@@ -112,14 +132,13 @@ export default async function CoursesPage() {
     redirect("/dashboard");
   }
 
-  // Only the Physics/Rehberlik card is YouTube-backed. Other subjects retain
-  // their existing Supabase course/progress flow.
+  // Rehberlik is shared; each other lesson is loaded from the student's
+  // selected branch in Supabase.
   const guidancePlaylist = await getGuidancePlaylist();
   const guidanceVideos = guidancePlaylist?.videos || [];
 
   const branch = branchLabels[branchKey];
-  const plan = String(profile?.plan || "free");
-
+ 
   const { data: sectionsData } = await supabase
     .from("course_sections")
     .select(
@@ -157,7 +176,7 @@ export default async function CoursesPage() {
     .map((section) => ({
       ...section,
       lesson_videos: (section.lesson_videos || [])
-        .filter((video) => video.is_active)
+        .filter((video) => video.is_active && isRightBranchVideo(video.title, branchKey))
         .sort((a, b) => a.order_index - b.order_index),
     }))
     .sort((a, b) => a.order_index - b.order_index);
@@ -228,7 +247,7 @@ export default async function CoursesPage() {
   const nextSection =
     sectionsWithLockState.filter(section => section.stage !== "guidance").find(
       (section) => section.isUnlocked && section.progressPercent < 100
-    ) || sectionsWithLockState.find((section) => section.isUnlocked);
+    ) || sectionsWithLockState.find((section) => section.isUnlocked && section.stage !== "guidance");
 
   return (
     <>
@@ -281,8 +300,8 @@ export default async function CoursesPage() {
 
               <a
                 className="btn btn-primary compact-btn course-top-action"
-                href={nextSection?.href || "#"}
-                data-locked={nextSection?.isUnlocked ? "false" : "true"}
+                href={nextSection?.href || "/courses/physics-guidance"}
+                data-locked={nextSection ? (nextSection.isUnlocked ? "false" : "true") : "false"}
                 data-lock-message={
                   nextSection?.lock_message ||
                   "Önce önceki bölümü tamamlaman gerekiyor."
@@ -312,7 +331,7 @@ export default async function CoursesPage() {
                   {!guidanceVideos.length && <div className="guidance-sync-note">YouTube video listesi şu anda alınamıyor. Oynatıcıdan devam edebilirsin.</div>}
                 </div>
                 <div className="course-card-actions"><a className="course-open-btn" href="/courses/physics-guidance">Derse Git</a>
-                  <span>{guidanceVideos.length} YouTube videosu</span></div>
+                  <span>{guidanceVideos.length} rehberlik videosu</span></div>
               </article>
               {sectionsWithLockState.filter((section) => section.stage !== "guidance").map((section) => {
                 const previewVideos = section.videos.slice(0, 3);
@@ -334,7 +353,7 @@ export default async function CoursesPage() {
                           {stageLabels[section.stage]} •{" "}
                           {section.totalVideosCount + " video"}
                         </span>
-                        <h2>{(section.title.replace(/Fizik/gi, branch).includes(branch) ? section.title.replace(/Fizik/gi, branch) : branch + " · " + section.title)}</h2>
+                        <h2>{stageHeading(section, branch)}</h2>
                       </div>
 
                       {!section.isUnlocked && (
@@ -342,7 +361,7 @@ export default async function CoursesPage() {
                       )}
                     </div>
 
-                    <p className="course-description">{section.description?.replace(/Fizik/gi, branch)}</p>
+                    <p className="course-description">{stageDescription(section, branch)}</p>
 
                       <div className="course-progress-row">
                         <div className="progress-track">
@@ -362,14 +381,16 @@ export default async function CoursesPage() {
                                 <span>{isCompleted ? "✓" : "▶"}</span>
                                 <div>
                                   <strong>{video.title}</strong>
-                                  <small>{formatDuration(video.duration_seconds)} •{" "}
-                                    {accessLabels[video.access_tier]} • %{videoPercent}</small>
+                                  <small>{formatDuration(video.duration_seconds)} • {BRANCH_LESSON_TIER} • %{videoPercent}</small>
                                 </div>
                               </div>
                             );
                           })}
                           {section.videos.length > 3 && (
                             <div className="course-more-videos">+{section.videos.length - 3} video daha</div>
+                          )}
+                          {section.videos.length === 0 && (
+                            <p className="course-more-videos">Bu branşa ait ders videoları henüz eklenmedi.</p>
                           )}
                     </div>
 

@@ -39,7 +39,11 @@ export async function POST(request: Request) {
   if (kind === "guidance") {
     if (!validVideo(id)) return respond(400, "Geçersiz video.");
     const playlist = await getGuidancePlaylist();
-    if (!playlist.videos.some(video => video.youtubeId === id)) return respond(404, "Video oynatma listesinde bulunamadı.");
+    const guidanceVideo = playlist.videos.find(video => video.youtubeId === id);
+    if (!guidanceVideo) return respond(404, "Video oynatma listesinde bulunamadı.");
+    const { data: oldGuidance, error: oldError } = await supabase.from("user_guidance_video_progress")
+      .select("youtube_id").eq("user_id", user.id).eq("youtube_id", id).maybeSingle();
+    if (oldError) return respond(503, "Rehberlik ilerleme tablosu henüz etkin değil.");
     const { error } = await supabase.from("user_guidance_video_progress").upsert(
       { user_id: user.id, youtube_id: id, completed_at: new Date().toISOString() },
       { onConflict: "user_id,youtube_id" }
@@ -47,6 +51,22 @@ export async function POST(request: Request) {
     if (error) {
       console.error("Guidance progress save failed", error.message);
       return respond(503, "Rehberlik ilerlemesi kaydedilemedi. Supabase ilerleme tablosunu kontrol et.");
+    }
+    if (!oldGuidance) {
+      // Use the published video duration as an estimate, not measured watch time.
+      const duration = (guidanceVideo.duration || "0:00").split(":").map(Number);
+      const estimate = duration.length === 3
+        ? duration[0] * 60 + duration[1] + Math.ceil(duration[2] / 60)
+        : (duration[0] || 0) + Math.ceil((duration[1] || 0) / 60);
+      const studyDate = new Date().toISOString().slice(0, 10);
+      const { data: today } = await supabase.from("user_study_days")
+        .select("minutes,completed_modules").eq("user_id", user.id).eq("study_date", studyDate).maybeSingle();
+      const { error: dayError } = await supabase.from("user_study_days").upsert({
+        user_id: user.id, study_date: studyDate,
+        minutes: Number(today?.minutes || 0) + Math.max(1, Math.min(120, estimate)),
+        completed_modules: Number(today?.completed_modules || 0) + 1
+      }, { onConflict: "user_id,study_date" });
+      if (dayError) console.warn("Guidance study calendar update unavailable", dayError.message);
     }
     return respond(200, "");
   }
@@ -72,7 +92,7 @@ export async function POST(request: Request) {
     minutes = Number(module.estimated_minutes) || 0;
   } else {
     const { data: sections, error } = await supabase.from("course_sections")
-      .select("id,branch,stage,lesson_videos(id,is_active)")
+      .select("id,branch,stage,lesson_videos(id,is_active,duration_seconds)")
       .eq("branch", profile.branch).eq("is_active", true);
     if (error) return respond(503, "Ders listesi alınamadı.");
     const lesson = (sections || []).filter(s => s.stage !== "guidance")
@@ -87,7 +107,7 @@ export async function POST(request: Request) {
       { onConflict: "user_id,video_id" }
     );
     if (saveError) { console.error("Lesson completion failed", saveError.message); return respond(503, "Ders kaydedilemedi."); }
-    minutes = 10;
+    minutes = Math.ceil(Number(lesson.duration_seconds || 0) / 60);
   }
 
   // Only count first completion. Marking is self-reported, not proof of watch time or correct solutions.
